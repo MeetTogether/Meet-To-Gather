@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+/* ===== forum.jsp ===== */
+input[type=text], textarea, select {
+	width: 80%;
+	padding: 8px 8px;
+	margin: 8px 5px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+input[type=file] {
+	width: 50%;
+	padding: 8px 8px;
+	margin: 0px 0;
+	display: inline-block;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+#Postbutton, #ViewAllPost, #ViewAllUser, #ViewMyPost, #SearchPost {
+	width: 10%;
+	background-color: #4E96CC;
+	color: white;
+	padding: 8px 8px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#Postbutton:hover, #ViewAllPost:hover, #ViewAllUser:hover, #ViewMyPost:hover, #SearchPost:hover
+	{
+	background-color: #2894ff;
+}
+
+#post, #cancel {
+	width: 10%;
+	background-color: #2894ff;
+	color: white;
+	padding: 8px 8px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#post:hover, #cancel:hover, .showAllText:hover, .modifyPost:hover {
+	background-color: #84c1ff;
+}
+
+.showAllText {
+	width: 60px;
+	background-color: #2894ff;
+	color: white;
+	padding: 8px 8px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.accPhoto {
+	text-align: center;
+	vertical-align: top;
+	padding-top: 20px;
+}
+
+.modifyPost {
+	background-color: #2894ff;
+	color: white;
+	padding: 8px 8px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	display: inline-block;
+	margin: 8px 0;
+}
+
+.aPost {
+	border-collapse: collapse;
+	width: 100%;
+	
+}
+
+.aPost tr td {
+	border-top: 1px solid #8e8e8e;
+}
+
+
+
+.aPost tr:hover {
+	background-color: #F9EC9E;
+}
+
+.aPost {
+	line-height: 40px;
+}
+
+.aPost th {
+	background-color: #f0f0f0;
+}
+
+#Postbox {
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid #5F828C;
+	margin-bottom: 8px;
+	background-color: white;
+}
+
+#ViewPost {
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid #5F828C;
+	background-color: white;
+}

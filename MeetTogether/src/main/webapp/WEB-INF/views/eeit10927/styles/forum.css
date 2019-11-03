@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+/* ===== forum.jsp ===== */
+input[type=text], textarea, select {
+	width: 80%;
+	padding: 8px 8px;
+	margin: 8px 5px;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+input[type=file] {
+	width: 50%;
+	padding: 8px 8px;
+	margin: 0px 0;
+	display: inline-block;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+#Postbutton, #ViewAllPost, #ViewMyPost, #SearchPost {
+	width: 10%;
+	background-color: #4E96CC;
+	color: white;
+	padding: 8px 8px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#Postbutton:hover, #ViewAllPost:hover, #ViewMyPost:hover, #SearchPost:hover
+	{
+	background-color: #2894ff;
+}
+
+#post, #cancel {
+	width: 10%;
+	background-color: #2894ff;
+	color: white;
+	padding: 8px 8px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+#post:hover, #cancel:hover, .showAllText:hover, .modifyPost:hover {
+	background-color: #84c1ff;
+}
+
+.showAllText {
+	width: 60px;
+	background-color: #2894ff;
+	color: white;
+	padding: 8px 8px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.accPhoto {
+	text-align: center;
+	vertical-align: top;
+	padding-top: 20px;
+}
+
+.modifyPost {
+	background-color: #2894ff;
+	color: white;
+	padding: 8px 8px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	display: inline-block;
+	margin: 8px 0;
+}
+
+tr {
+	border-top: 1px dotted #8e8e8e;
+	margin: 8px 8px;
+}
+
+.aPost {
+	width: 100%;
+	border-collapse: collapse;
+	border-radius: 15px;
+	margin-bottom: 5px;
+	
+}
+
+#ViewPost {
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid #5F828C;
+	background-color: white;
+}
+
+#Postbox {
+	padding: 8px;
+	border-radius: 4px;
+	border: 1px solid #5F828C;
+	margin-bottom: 8px;
+	background-color: white;
+}
+
+.MemberPic {
+	border-radius: 50%;
+	height: 30px;
+	margin: 8px 5px;
+	display: inline-flex;
+	align-items: center;
+	float: left;
+}
+
+.MemberPic img {
+	border-radius: 50%;
+	height: 95%;
+	margin: 0;
+}
+
+.likeBtn, .dislikeBtn, .replyBtn {
+	height: 20px;
+	cursor: pointer;
+}
