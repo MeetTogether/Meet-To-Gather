@@ -14,8 +14,8 @@
 		});
 	});
 </script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/top.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/styles/admin.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/eeit10927/styles/top.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/eeit10927/styles/admin.css">
 <style>
 .aPost {
 	text-align: center;
