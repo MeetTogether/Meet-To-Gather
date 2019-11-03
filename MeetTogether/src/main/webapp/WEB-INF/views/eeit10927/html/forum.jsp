@@ -103,7 +103,7 @@ input[type=submit]:hover {
 						<h4>共有${count}筆資料</h4>
 					</div>
 				</c:if>
-				<c:forEach items="${msgBeans}" var="msgBean">
+				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 					<table class="aPost">
 						<c:set var="mId" value="${msgBean.member.memberId}" />
 						<tr>
@@ -131,7 +131,7 @@ input[type=submit]:hover {
 								<img src="${pageContext.request.contextPath}/eeit10927/images/pencil.png" class="replyBtn">REPLY(${msgBean.replyCount})</a>
 								<c:set var="done" value="false" />
 								<c:forEach items="${mlBeans}" var="mlBean">
-									<c:if test="${mlBean.msgId eq msgBean.msgId}">
+									<c:if test="${mlBean.message.msgId eq msgBean.msgId}">
 										<c:set var="done" value="true" />
 									</c:if>
 								</c:forEach>
@@ -191,9 +191,8 @@ input[type=submit]:hover {
 						$.ajax({
 							url : "LikeMsgServlet",
 							type : "POST",
-							data : {
-								msgId : msgIdVal
-							},
+							dataType : "JSON",
+							data : {msgId : msgIdVal, userId : ${userId}},
 							success : function(data) {
 								let txt = 'LIKE(' + data + ')';
 								let txt2 = 'span[id=' + spanId + ']';
@@ -206,9 +205,8 @@ input[type=submit]:hover {
 						$.ajax({
 							url : "DislikeMsgServlet",
 							type : "POST",
-							data : {
-								msgId : msgIdVal
-							},
+							dataType : "JSON",
+							data : {msgId : msgIdVal, userId : ${userId}},
 							success : function(data) {
 								let txt = 'LIKE(' + data + ')';
 								let txt2 = 'span[id=' + spanId + ']';

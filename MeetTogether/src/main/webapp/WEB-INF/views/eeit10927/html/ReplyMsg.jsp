@@ -59,7 +59,7 @@
 								<input type="button" value="返回" name="nverity" id="nverify" class="modifyPost">
 							</form:form> REPLY(${msgBean.replyCount})
 							<c:choose>
-								<c:when test="${result eq '0'}">
+								<c:when test="${likeOrNot eq '0'}">
 									<img src="${pageContext.request.contextPath}/eeit10927/images/like.png"
 										id="dislikeBtn" class="likeBtn">
 								</c:when>
@@ -98,9 +98,8 @@
 					$.ajax({
 						url : "LikeMsgServlet",
 						type : "POST",
-						data : {
-							msgId : msgIdVal
-						},
+						dataType : "JSON",
+						data : {msgId : msgIdVal, userId : ${userId}},
 						success : function(data) {
 							let txt = 'LIKE(' + data + ')';
 							$("span[id='likeCnt']").html(txt);
@@ -112,9 +111,8 @@
 					$.ajax({
 						url : "DislikeMsgServlet",
 						type : "POST",
-						data : {
-							msgId : msgIdVal
-						},
+						dataType : "JSON",
+						data : {msgId : msgIdVal, userId : ${userId}},
 						success : function(data) {
 							let txt = 'LIKE(' + data + ')';
 							$("span[id='likeCnt']").html(txt);

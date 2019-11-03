@@ -39,26 +39,31 @@ public class MsgreplyServiceImpl implements IMsgreplyService {
 		return mrDao.getAllMsgreply(msgId);
 	}
 
+	@Transactional
 	@Override
 	public void addMsglike(Msglike mlike) {
 		mlDao.addMsglike(mlike);
 	}
 
+	@Transactional
 	@Override
 	public List<Msglike> getAllMsgLike(Msglike mlike) {
 		return mlDao.getAllMsgLike(mlike);
 	}
-
+	
+	@Transactional
 	@Override
 	public void deleteMsglike(Msglike mlike) {
 		mlDao.deleteMsglike(mlike);
 	}
 
+	@Transactional
 	@Override
 	public List<Msglike> findMsglikeByMember(Integer memberId) {
 		return mlDao.findMsglikeByMember(memberId);
 	}
 
+	@Transactional
 	@Override
 	public String findMsglikeByMsgAndMember(Msglike mlike) {
 		return mlDao.findMsglikeByMsgAndMember(mlike);
