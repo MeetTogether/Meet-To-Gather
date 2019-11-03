@@ -180,6 +180,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		result.setReplyCount(msg.getReplyCount());
 	}
 	
+	// ok 已確認需使用
 	@Override
 	public void updatelikeCnt(Message msg) {
 		String hql = "from Message WHERE msgId = ?0";

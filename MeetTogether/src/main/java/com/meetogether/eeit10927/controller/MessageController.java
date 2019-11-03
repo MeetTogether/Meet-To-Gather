@@ -23,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
+import com.meetogether.eeit10927.model.Msglike;
 import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10927.service.IMsgTypeService;
+import com.meetogether.eeit10927.service.IMsgreplyService;
 
 @Controller
 public class MessageController {
@@ -43,8 +45,14 @@ public class MessageController {
 	
 	IMsgTypeService mtService;
 	@Autowired
-	public void setMtDao(IMsgTypeService mtService) {
+	public void setMTDao(IMsgTypeService mtService) {
 		this.mtService = mtService;
+	}
+	
+	IMsgreplyService mlService;
+	@Autowired
+	public void setMlService(IMsgreplyService mlService) {
+		this.mlService = mlService;
 	}
 
 	@RequestMapping(value = "/GetAllPostServlet", method = RequestMethod.GET)
@@ -52,9 +60,14 @@ public class MessageController {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 
-		request.getSession().getAttribute("admin");
 		List<Message> msgBeans = msgService.getAllMessageActive();
 		model.addAttribute("msgBeans", msgBeans);
+		
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
+		model.addAttribute("mlBeans", mlBeans);
+		Msglike msgLike = new Msglike();
+		model.addAttribute("msgLike", msgLike);
 		return "eeit10927/html/forum";
 	}
 	
@@ -102,12 +115,18 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/GetUserPostServlet/{memberId}", method = RequestMethod.GET)
-	public String getUserMessage(@PathVariable("memberId") Integer memberId, Model model) {
+	public String getUserMessage(@PathVariable("memberId") Integer memberId, Model model, HttpServletRequest request) {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 
 		List<Message> msgBeans = msgService.getUserMessage(memberId);
 		model.addAttribute("msgBeans", msgBeans);
+		
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
+		model.addAttribute("mlBeans", mlBeans);
+		Msglike msgLike = new Msglike();
+		model.addAttribute("msgLike", msgLike);
 		return "eeit10927/html/forum";
 	}
 	
