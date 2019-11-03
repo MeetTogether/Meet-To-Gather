@@ -19,7 +19,7 @@
 			}); /* 返回到頁面頂端 */
 		});
 		$("#ViewMyPost").click(function() {
-			top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet/${userId}";
+			top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
 		});
 		$("#ViewAllPost").click(function() {
 			top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
@@ -108,8 +108,8 @@ input[type=submit]:hover {
 						<c:set var="mId" value="${msgBean.member.memberId}" />
 						<tr>
 							<td rowspan="5" width="15%" class="accPhoto"><font color="#4E96CC">
-								<a href="${pageContext.request.contextPath}/GetUserPostServlet/${msgBean.member.memberId}">${msgBean.member.memberName}</a></font><br>
-								<a href="${pageContext.request.contextPath}/GetUserPostServlet/${msgBean.member.memberId}"><img height='60' src='${pageContext.request.contextPath}/getImage?type=member&id=${msgBean.member.memberId}'></a>
+								<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${msgBean.member.memberId}">${msgBean.member.memberName}</a></font><br>
+								<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${msgBean.member.memberId}"><img height='60' src='${pageContext.request.contextPath}/getImage?type=member&id=${msgBean.member.memberId}'></a>
 								<br>
 								<c:if test="${userId eq mId}">
 									<form:form method="GET" action="${pageContext.request.contextPath}/ViewPostServlet" style='display: inline;' modelAttribute="messageBean">
@@ -184,13 +184,13 @@ input[type=submit]:hover {
 				$(imgs[i]).click(function() {
 					let msgIdVal = $(this).next().val();
 					let spanId = 'likeCnt' + (i + 1);
-					console.log('msgIdVal:' + msgIdVal + ', spanId:' + spanId);
+					console.log('msgIdVal:' + msgIdVal + ', spanId:' + spanId + ', userId:' + ${userId});
 					let info = $(this).attr("id");
 					console.log(info);
 					if (info == 'likeBtn') {
 						$.ajax({
 							url : "LikeMsgServlet",
-							type : "POST",
+							type : "GET",
 							dataType : "JSON",
 							data : {msgId : msgIdVal, userId : ${userId}},
 							success : function(data) {
@@ -204,7 +204,7 @@ input[type=submit]:hover {
 					} else {
 						$.ajax({
 							url : "DislikeMsgServlet",
-							type : "POST",
+							type : "GET",
 							dataType : "JSON",
 							data : {msgId : msgIdVal, userId : ${userId}},
 							success : function(data) {

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,8 +113,8 @@ public class MessageController {
 		return "redirect:/GetAllPostServlet";
 	}
 	
-	@RequestMapping(value = "/GetUserPostServlet/{memberId}", method = RequestMethod.GET)
-	public String getUserMessage(@PathVariable("memberId") Integer memberId, Model model, HttpServletRequest request) {
+	@RequestMapping(value = "/GetUserPostServlet", method = RequestMethod.GET)
+	public String getUserMessage(@RequestParam(value = "memberId") Integer memberId, Model model, HttpServletRequest request) {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 
