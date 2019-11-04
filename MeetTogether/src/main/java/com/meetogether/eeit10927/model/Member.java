@@ -17,7 +17,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.web.multipart.MultipartFile;
 
-@Entity
+//@Entity
 @Table(name="member")
 @DynamicInsert
 public class Member implements Serializable {
