@@ -19,4 +19,8 @@ public interface MemberDao {
 
 	void add(MemberBean member);
 
+	public boolean verifyAccount(MemberBean member);
+
+	public MemberBean findByEmail(MemberBean member);
+
 }

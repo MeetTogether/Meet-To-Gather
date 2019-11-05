@@ -30,12 +30,12 @@ body {
 	<div id="regispage">
 		<header>
 			<nav>
-				<jsp:include page="../eeit10901/top.jsp" />
+<%-- 				<jsp:include page="../eeit10901/top.jsp" /> --%>
 			</nav>
 		</header>
 		<div id="registerbox" align="center">
 			<h2>請輸入會員資料</h2>
-			<font size="-1" color="#FF0000">${errorMsg.errTitle}</font>
+			<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
 			<form:form enctype="multipart/form-data" method="POST"
 				modelAttribute="memberBean" id='registerForm'>
 				<table>
@@ -100,9 +100,10 @@ body {
 								id="memberImage" path="memberImage" />
 						<td><span id="msg_mPhoto"></span>
 				</table>
-				<input type="submit" value="會員註冊" id="regis">
+				<input type="submit" value="會員註冊" id="regis" >
 				<input type="reset" value="重新填寫">
 				<input type="button" value="返回登入頁" id="backToLogin">
+				 
 			</form:form>
 		</div>
 	</div>
