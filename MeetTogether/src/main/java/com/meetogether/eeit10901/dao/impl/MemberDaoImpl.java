@@ -66,6 +66,7 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 
 	}
+	//註解
 
 	@SuppressWarnings("unchecked")
 	@Override
