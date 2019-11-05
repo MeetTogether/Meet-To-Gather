@@ -44,12 +44,13 @@ public class MemberController {
 		model.addAttribute("memberBean", member);
 		return "index";
 	}
+	 
 	
 	@RequestMapping("/members")
 	public String list(Model model) {
 		List<MemberBean> list = service.selectALL();
 		model.addAttribute("members", list);
-		return "members";
+		return "eeit10901/getMember";
 	}
 	@RequestMapping("/update")
 	public String updateStock(Model model) {
@@ -104,7 +105,11 @@ public class MemberController {
 			e.printStackTrace();
 			throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 		}
-		return "redirect:/register";
+		return "redirect:/";
+	}
+	@RequestMapping("/registerSuccess")
+	public String registerSuccess() {
+		return "eeit10901/registerSuccess";
 	}
  
 }

@@ -19,5 +19,10 @@ public interface MemberService {
 	public List<MemberBean> selectALL();
 
 	public boolean mEmailExist(MemberBean member);
+	
+	public boolean verifyAccount(MemberBean member);
+
+	public MemberBean findByEmail(MemberBean member);
+
 
 }

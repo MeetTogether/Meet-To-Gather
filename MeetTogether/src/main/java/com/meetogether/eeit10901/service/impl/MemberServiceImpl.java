@@ -64,5 +64,17 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Transactional
+	@Override
+	public boolean verifyAccount(MemberBean member) {
+		// TODO Auto-generated method stub
+		return dao.verifyAccount(member);
+	}
+	@Transactional
+	@Override
+	public MemberBean findByEmail(MemberBean member) {
+		// TODO Auto-generated method stub
+		return dao.findByEmail(member);
+	}
 
 }
