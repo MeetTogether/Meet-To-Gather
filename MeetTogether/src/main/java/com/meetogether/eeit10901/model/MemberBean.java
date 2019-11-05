@@ -43,6 +43,10 @@ public class MemberBean implements Serializable {
 	public MultipartFile getMemberImage() {
 		return memberImage;
 	}
+	
+	public void test() {
+		System.out.println("test");
+	}
 
 
 	public void setMemberImage(MultipartFile memberImage) {

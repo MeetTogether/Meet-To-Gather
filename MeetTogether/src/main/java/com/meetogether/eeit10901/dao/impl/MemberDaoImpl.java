@@ -22,6 +22,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	@Override
 	public MemberBean findByEmail(MemberBean member) {
+		System.out.println("test");
 		String hql = "from MemberBean m WHERE m.memberEmail = ?0";
 		return (MemberBean) factory.getCurrentSession().createQuery(hql)
 				.setParameter(0, member.getMemberEmail()).uniqueResult();
