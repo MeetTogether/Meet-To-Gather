@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 import javassist.bytecode.analysis.MultiArrayType;
-//@Entity
+@Entity
 @Table(name="member")
 public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
