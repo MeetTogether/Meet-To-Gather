@@ -65,8 +65,8 @@ public class RootAppConfig {
 		LocalSessionFactoryBean factory = new LocalSessionFactoryBean();
 		factory.setDataSource(dataSource());
 		factory.setPackagesToScan(new String[] {
-//				"com.meetogether.eeit10927.model",
-				//"com.meetogether.eeit10901.model" ,
+				"com.meetogether.eeit10927.model",
+				"com.meetogether.eeit10901.model" ,
 				"com.meetogether.eeit10936.model"});
 		factory.setHibernateProperties(additionalProperties());
 		return factory;
@@ -76,7 +76,7 @@ public class RootAppConfig {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", org.hibernate.dialect.SQLServer2012Dialect.class);
 		properties.put("hibernate.show_sql", Boolean.TRUE);
-//        properties.put("hibernate.format_sql", Boolean.TRUE);
+//      properties.put("hibernate.format_sql", Boolean.TRUE);
 		properties.put("default_batch_fetch_size", 10);
 //		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;

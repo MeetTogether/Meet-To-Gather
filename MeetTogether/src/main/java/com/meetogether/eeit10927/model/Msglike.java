@@ -19,6 +19,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.meetogether.eeit10901.model.MemberBean;
+
 @Entity
 @Table(name = "msglike")
 @DynamicInsert
@@ -34,7 +36,7 @@ public class Msglike implements Serializable {
 	private String deleteTag;
 	private Message message;
 	private Integer messageId;
-	private Member member;
+	private MemberBean member;
 	private Integer memberId;
 	
 	public Msglike() {
@@ -87,11 +89,11 @@ public class Msglike implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "mId")
-	public Member getMember() {
+	public MemberBean getMember() {
 		return member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(MemberBean member) {
 		this.member = member;
 	}
 	

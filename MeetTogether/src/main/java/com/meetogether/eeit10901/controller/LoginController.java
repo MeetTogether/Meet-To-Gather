@@ -43,7 +43,7 @@ public class LoginController {
 		if (verifyAccount) {
 			errorMsg.put("loginError", "");
 			mBean = mService.findByEmail(member);
-
+			
 			session.setAttribute("userId", mBean.getMemberId());
 			session.setAttribute("userName", mBean.getMemberName());
 			session.setAttribute("admin", String.valueOf(mBean.getAdminTag()));

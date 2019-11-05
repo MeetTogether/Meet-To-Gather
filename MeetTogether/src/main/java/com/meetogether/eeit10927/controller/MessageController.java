@@ -73,8 +73,8 @@ public class MessageController {
 	@RequestMapping(value = "/PostServlet", method = RequestMethod.POST)
 	public String processMessagePostForm(@ModelAttribute("messageBean") Message message, 
 			BindingResult result, Model model, HttpServletRequest request) {
+//		String rootDirectory = "C:/temp/images/";
 		MultipartFile msgImage = message.getMsgImage();
-		String rootDirectory = "C:/temp/images/";
 		String originalFilename = msgImage.getOriginalFilename();
 		String ext = "";
 		String savedFilename = "";
@@ -98,18 +98,18 @@ public class MessageController {
 			msgService.updateMsgImageFilename(message.getMsgId(), savedFilename);
 		}
 		// 將留言上傳照片存入指定資料夾
-		if (imageUpdate) {
-			try {
-				File imageFolder = new File(rootDirectory, "message");
-				if (!imageFolder.exists())
-					imageFolder.mkdirs();
-				File file = new File(imageFolder, savedFilename);
-				msgImage.transferTo(file);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}
+//		if (imageUpdate) {
+//			try {
+//				File imageFolder = new File(rootDirectory, "message");
+//				if (!imageFolder.exists())
+//					imageFolder.mkdirs();
+//				File file = new File(imageFolder, savedFilename);
+//				msgImage.transferTo(file);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//			}
+//		}
 		return "redirect:/GetAllPostServlet";
 	}
 	

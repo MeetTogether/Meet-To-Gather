@@ -8,7 +8,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.meetogether.eeit10927.dao.IMemberDao;
+import com.meetogether.eeit10901.dao.MemberDao;
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsgTypeDao;
 import com.meetogether.eeit10927.model.Member;
@@ -25,9 +26,9 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		this.factory = factory;
 	}
 	
-	private IMemberDao mDao;
+	private MemberDao mDao;
 	@Autowired
-	public void setMDao(IMemberDao mDao) {
+	public void setMDao(MemberDao mDao) {
 		this.mDao = mDao;
 	}
 	
@@ -97,12 +98,19 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	public int add(Message msg) {
 		Session session = factory.getCurrentSession();
 		MsgType mt = mtDao.getMsgTypeById(msg.getMtId());
-		Member mb = mDao.getMemberById(msg.getMbId());
+		MemberBean mb = getMemberById(msg.getMbId());
 		msg.setMsgType(mt);
 		msg.setMember(mb);
 		session.save(msg);
 		int msgId = msg.getMsgId();
 		return msgId;
+	}
+	
+	@Override
+	public MemberBean getMemberById(int memberId) {
+		Session session = factory.getCurrentSession();
+		MemberBean result = session.get(MemberBean.class, memberId);
+		return result;
 	}
 	
 	// ok 已確認需使用

@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -29,32 +32,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.meetogether.eeit10927.model.Member;
+import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10927.model.Message;
-import com.meetogether.eeit10927.service.IMemberService;
 import com.meetogether.eeit10927.service.IMessageService;
 
 @Controller
 public class UtilController {
 
 	ServletContext context;
-
 	@Autowired
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
 
 	IMessageService msgService;
-
 	@Autowired
 	public void setMsgService(IMessageService msgService) {
 		this.msgService = msgService;
 	}
 
-	IMemberService mService;
-
+	MemberService mService;
 	@Autowired
-	public void setMService(IMemberService mService) {
+	public void setMService(MemberService mService) {
 		this.mService = mService;
 	}
 
@@ -86,23 +86,37 @@ public class UtilController {
 	public ResponseEntity<byte[]> getImage(Model model, HttpServletRequest request,
 			@RequestParam(value = "id") Integer id, 
 			@RequestParam(value = "type") String type) {
-		String filePath = "C:/temp/images/NoImage.png";
-		String fileName = "";
+		String filePath = "/resources/images/NoImage.png";
 		byte[] media = null;
 		HttpHeaders headers = new HttpHeaders();
+		String fileName = "";
+		int len = 0;
+		Blob blob = null;
 
 		if (type.equals("member")) {
-			Member member = mService.getMemberById(id);
+			MemberBean member = msgService.getMemberById(id);
 			fileName = member.getFileName();
-			filePath = "C:/temp/images/member/" + fileName;
+			System.out.println("member filename: " + fileName);
+			blob = member.getPhoto();
+//			filePath = "C:/temp/images/member/" + fileName;
 		} else if (type.equals("message")) {
 			Message message = msgService.getMsgByMsgId(id);
 			fileName = message.getMsgFilename();
-			filePath = "C:/temp/images/message/" + fileName;
+			blob = message.getMsgPhoto();
+//			filePath = "C:/temp/images/message/" + fileName;
 		}
-
-		media = toByteArray(filePath);
-
+		if (blob != null) {
+			try {
+				len = (int) blob.length();
+				media = blob.getBytes(1, len);
+			} catch (SQLException e) {
+				throw new RuntimeException("getImage()發生Exception" + e.getStackTrace());
+			}
+		} else {
+			media = toByteArray(filePath);
+			fileName = filePath;
+		}
+		
 		headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 		String mimeType = context.getMimeType(fileName);
 		MediaType mediaType = MediaType.valueOf(mimeType);
@@ -111,24 +125,39 @@ public class UtilController {
 		ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
 		return responseEntity;
 	}
-
+	
 	private byte[] toByteArray(String filepath) {
 		byte[] b = null;
-		File file = new File(filepath);
-		try (
-			FileInputStream fis = new FileInputStream(file);
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		) {
-			b = new byte[8192];
-			int len = 0;
-			while ((len = fis.read(b)) != -1) {
-				baos.write(b, 0, len);
-			}
-			b = baos.toByteArray();
-		} catch (Exception e) {
+		String realPath = context.getRealPath(filepath);
+		try {
+			File file = new File(realPath);
+			long size = file.length();
+			b = new byte[(int)size];
+			InputStream fis = context.getResourceAsStream(filepath);
+			fis.read(b);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return b;
 	}
+
+//	private byte[] toByteArray(String filepath) {
+//		byte[] b = null;
+//		File file = new File(filepath);
+//		try (
+//			FileInputStream fis = new FileInputStream(file);
+//			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//		) {
+//			b = new byte[8192];
+//			int len = 0;
+//			while ((len = fis.read(b)) != -1) {
+//				baos.write(b, 0, len);
+//			}
+//			b = baos.toByteArray();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return b;
+//	}
 
 }

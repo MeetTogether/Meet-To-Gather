@@ -2,9 +2,7 @@
 
 import java.io.Serializable;
 import java.sql.Blob;
-import java.sql.Clob;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
-
-import javassist.bytecode.analysis.MultiArrayType;
 @Entity
 @Table(name="member")
 public class MemberBean implements Serializable {
@@ -38,7 +34,9 @@ public class MemberBean implements Serializable {
 	String memberDist;
 //    @Transient
     String fileName;
-    @Transient
+    Blob photo;
+    
+	@Transient
     MultipartFile memberImage;
 	public MultipartFile getMemberImage() {
 		return memberImage;
@@ -208,11 +206,17 @@ public class MemberBean implements Serializable {
 		return mChecksum;
 	}
 
-
 	public void setmChecksum(String mChecksum) {
 		this.mChecksum = mChecksum;
 	}
+	
+	public Blob getPhoto() {
+		return photo;
+	}
 
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

@@ -7,10 +7,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.meetogether.eeit10927.dao.IMemberDao;
+import com.meetogether.eeit10901.dao.MemberDao;
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsglikeDao;
-import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.Msglike;
 
@@ -29,9 +29,9 @@ public class MsglikeDaoHibernateImpl implements IMsglikeDao {
 		this.msgDao = msgDao;
 	}
 
-	private IMemberDao mDao;
+	private MemberDao mDao;
 	@Autowired
-	public void setMDao(IMemberDao mDao) {
+	public void setMDao(MemberDao mDao) {
 		this.mDao = mDao;
 	}
 
@@ -43,7 +43,7 @@ public class MsglikeDaoHibernateImpl implements IMsglikeDao {
 	public void addMsglike(Msglike mlike) {
 		Session session = factory.getCurrentSession();
 		Message msg = msgDao.getMsgByMsgId(mlike.getMessageId());
-		Member member = mDao.getMemberById(mlike.getMemberId());
+		MemberBean member = msgDao.getMemberById(mlike.getMemberId());
 
 		String hql = "from Msglike WHERE msgId = ?0 AND mId = ?1";
 		Msglike result = (Msglike) factory.getCurrentSession().createQuery(hql).setParameter(0, mlike.getMessageId())

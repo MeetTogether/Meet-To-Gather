@@ -2,6 +2,7 @@ package com.meetogether.eeit10927.dao;
 
 import java.util.List;
 
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10927.model.Message;
 
 
@@ -38,4 +39,7 @@ public interface IMessageDao {
 	public List<Message> getMsgType();
 	
 	public void updateMsgImageFilename(Integer msgId, String filename);
+	
+	public MemberBean getMemberById(int memberId);
+	
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.service.IMessageService;
@@ -118,6 +119,12 @@ public class MessageServiceImpl implements IMessageService {
 	@Override
 	public void updateMsgImageFilename(Integer msgId, String filename) {
 		dao.updateMsgImageFilename(msgId, filename);
+	}
+
+	@Transactional
+	@Override
+	public MemberBean getMemberById(int memberId) {
+		return dao.getMemberById(memberId);
 	}
 
 }

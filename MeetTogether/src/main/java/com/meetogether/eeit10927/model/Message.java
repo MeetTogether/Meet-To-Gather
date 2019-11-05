@@ -25,6 +25,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.meetogether.eeit10901.model.MemberBean;
+
 @Entity
 @Table(name="message")
 @DynamicInsert
@@ -51,7 +53,7 @@ public class Message implements Serializable {
 	private String deleteTag;
 	private Integer likeCount;
 	private Integer replyCount;
-	private Member member;
+	private MemberBean member;
 	private Integer mbId;
 	private MsgType msgType;
 	private Integer mtId;
@@ -155,11 +157,11 @@ public class Message implements Serializable {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "memberId")
-	public Member getMember() {
+	public MemberBean getMember() {
 		return member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(MemberBean member) {
 		this.member = member;
 	}
 	
