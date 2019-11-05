@@ -12,7 +12,7 @@ import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10927.service.IMemberService;
 
 
-@Service
+//@Service
 public class MemberServiceImpl implements IMemberService {
 	
 	IMemberDao dao;

@@ -13,7 +13,13 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.meetogether._00.config", "com.meetogether.eeit10927"})
+@ComponentScan(basePackages = {
+		"com.meetogether._00.config", 
+		"com.meetogether.eeit10927.controller",
+		"com.meetogether.eeit10927.service",
+		"com.meetogether.eeit10927.dao",
+		"com.meetogether.eeit10901",
+		"com.meetogether.eeit10936",})
 public class WebAppConfig implements WebMvcConfigurer {
 
 //	配置視圖解析器

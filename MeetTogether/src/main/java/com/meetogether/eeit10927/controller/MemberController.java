@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10927.service.IMemberService;
 
-@Controller
+//@Controller
 public class MemberController {
 	IMemberService mService;
 	@Autowired 
@@ -72,14 +72,14 @@ public class MemberController {
 		return "redirect:/GetAllPostServlet";
 	}
 	
-	@RequestMapping(value = "register", method = RequestMethod.GET)
+//	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String getMemberRegisterForm(Model model) {
 		Member member = new Member();
 		model.addAttribute("memberBean", member);
 		return "eeit10927/html/register";
 	}
 	
-	@RequestMapping(value = "register", method = RequestMethod.POST)
+//	@RequestMapping(value = "register", method = RequestMethod.POST)
 	public String processMemberRegisterForm(@ModelAttribute("memberBean") Member member, 
 			BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, String> errorMsg = new HashMap<String, String>();

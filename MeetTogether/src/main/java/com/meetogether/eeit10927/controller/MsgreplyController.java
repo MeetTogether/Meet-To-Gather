@@ -61,24 +61,27 @@ public class MsgreplyController {
 		return "redirect:/GetAllReMsgServlet";
 	}
 	
-	@RequestMapping(value = "/LikeMsgServlet", method = RequestMethod.POST)
+	@RequestMapping(value = "/LikeMsgServlet", method = RequestMethod.GET)
 	public @ResponseBody String likeMsg(@ModelAttribute("msgLike") Msglike msgLike, 
-			Model model, HttpServletRequest request) {
-		Integer uesrId = Integer.parseInt(request.getParameter("userId"));
-		Integer msgId = Integer.parseInt(request.getParameter("msgId"));
-		msgLike.setMemberId(uesrId);
+			Model model, HttpServletRequest request, 
+			@RequestParam(value = "userId") Integer userId,
+			@RequestParam(value = "msgId") Integer msgId
+			) {
+		System.out.println("****userId: " + userId + ", type: " + userId.getClass().getName() + "; msgId: " + msgId + ", type: " + msgId.getClass().getName());
+		msgLike.setMemberId(userId);
 		msgLike.setMessageId(msgId);
 		mrService.addMsglike(msgLike);
 		Message msg = msgService.getMsgByMsgId(msgId);
 		return msg.getLikeCount().toString();
 	}
 	
-	@RequestMapping(value = "/DislikeMsgServlet", method = RequestMethod.POST)
+	@RequestMapping(value = "/DislikeMsgServlet", method = RequestMethod.GET)
 	public @ResponseBody String disLikeMsg(@ModelAttribute("msgLike") Msglike msgLike, 
-			Model model, HttpServletRequest request) {
-		Integer uesrId = Integer.parseInt(request.getParameter("userId"));
-		Integer msgId = Integer.parseInt(request.getParameter("msgId"));
-		msgLike.setMemberId(uesrId);
+			Model model, HttpServletRequest request, 
+			@RequestParam(value = "userId") Integer userId,
+			@RequestParam(value = "msgId") Integer msgId
+			) {
+		msgLike.setMemberId(userId);
 		msgLike.setMessageId(msgId);
 		mrService.deleteMsglike(msgLike);
 		Message msg = msgService.getMsgByMsgId(msgId);

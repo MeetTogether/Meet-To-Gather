@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,8 +73,8 @@ public class MessageController {
 	@RequestMapping(value = "/PostServlet", method = RequestMethod.POST)
 	public String processMessagePostForm(@ModelAttribute("messageBean") Message message, 
 			BindingResult result, Model model, HttpServletRequest request) {
+//		String rootDirectory = "C:/temp/images/";
 		MultipartFile msgImage = message.getMsgImage();
-		String rootDirectory = "C:/temp/images/";
 		String originalFilename = msgImage.getOriginalFilename();
 		String ext = "";
 		String savedFilename = "";
@@ -99,23 +98,23 @@ public class MessageController {
 			msgService.updateMsgImageFilename(message.getMsgId(), savedFilename);
 		}
 		// 將留言上傳照片存入指定資料夾
-		if (imageUpdate) {
-			try {
-				File imageFolder = new File(rootDirectory, "message");
-				if (!imageFolder.exists())
-					imageFolder.mkdirs();
-				File file = new File(imageFolder, savedFilename);
-				msgImage.transferTo(file);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
-			}
-		}
+//		if (imageUpdate) {
+//			try {
+//				File imageFolder = new File(rootDirectory, "message");
+//				if (!imageFolder.exists())
+//					imageFolder.mkdirs();
+//				File file = new File(imageFolder, savedFilename);
+//				msgImage.transferTo(file);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+//			}
+//		}
 		return "redirect:/GetAllPostServlet";
 	}
 	
-	@RequestMapping(value = "/GetUserPostServlet/{memberId}", method = RequestMethod.GET)
-	public String getUserMessage(@PathVariable("memberId") Integer memberId, Model model, HttpServletRequest request) {
+	@RequestMapping(value = "/GetUserPostServlet", method = RequestMethod.GET)
+	public String getUserMessage(@RequestParam(value = "memberId") Integer memberId, Model model, HttpServletRequest request) {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 

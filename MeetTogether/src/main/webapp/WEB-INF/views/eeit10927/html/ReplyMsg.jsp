@@ -97,7 +97,7 @@
 				if (info == 'likeBtn') {
 					$.ajax({
 						url : "LikeMsgServlet",
-						type : "POST",
+						type : "GET",
 						dataType : "JSON",
 						data : {msgId : msgIdVal, userId : ${userId}},
 						success : function(data) {
@@ -110,7 +110,7 @@
 				} else {
 					$.ajax({
 						url : "DislikeMsgServlet",
-						type : "POST",
+						type : "GET",
 						dataType : "JSON",
 						data : {msgId : msgIdVal, userId : ${userId}},
 						success : function(data) {

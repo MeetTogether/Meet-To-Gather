@@ -2,6 +2,7 @@ package com.meetogether.eeit10927.service;
 
 import java.util.List;
 
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10927.model.Message;
 
 public interface IMessageService {
@@ -37,5 +38,7 @@ public interface IMessageService {
 	public List<Message> getMsgType();
 	
 	public void updateMsgImageFilename(Integer msgId, String filename);
+	
+	public MemberBean getMemberById(int memberId);
 
 }
