@@ -21,4 +21,9 @@ public class IFriendServiceImpl implements IFriendService {
 		return dao.findFriendsById(id);
 	}
 
+	@Override
+	public void addFriendList(Integer id, Integer f2) {
+		dao.addFriendList(id, f2);
+	}
+
 }

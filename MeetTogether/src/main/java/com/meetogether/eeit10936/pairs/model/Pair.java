@@ -21,18 +21,22 @@ public class Pair implements Serializable {
 	@EmbeddedId
 	@AttributeOverrides({ @AttributeOverride(name = "memberId", column = @Column(name = "memberid")),
 			@AttributeOverride(name = "pairMemberId", column = @Column(name = "pairmemberid")) })
-	private PairPK pairPK;
-	@Column(name = "pairstatus")
-	private Integer pairStatus;
+	private PairPK pairPk;
+	
+	@Column(name = "status")
+	private Integer status;
 	@Column(name = "pairtime", insertable = false, updatable = false)
 	private Timestamp pairTime;
 
-	public Integer getPairStatus() {
-		return pairStatus;
+	
+	
+
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setPairStatus(Integer pairStatus) {
-		this.pairStatus = pairStatus;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public Timestamp getPairTime() {
@@ -40,11 +44,11 @@ public class Pair implements Serializable {
 	}
 
 	public PairPK getPairPK() {
-		return pairPK;
+		return pairPk;
 	}
 
-	public void setPairPK(PairPK pairPK) {
-		this.pairPK = pairPK;
+	public void setPairPK(PairPK pairPk) {
+		this.pairPk = pairPk;
 	}
 
 }

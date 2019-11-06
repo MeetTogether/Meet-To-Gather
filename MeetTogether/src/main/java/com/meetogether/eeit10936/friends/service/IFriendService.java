@@ -7,4 +7,6 @@ import com.meetogether.eeit10936.friends.model.FriendList;
 public interface IFriendService {
 
 	List<FriendList> findFriendsById(Integer id);
+
+	void addFriendList(Integer id, Integer f2);
 }

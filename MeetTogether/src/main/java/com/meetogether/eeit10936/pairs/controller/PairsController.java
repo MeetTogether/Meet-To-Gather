@@ -1,12 +1,8 @@
 package com.meetogether.eeit10936.pairs.controller;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.meetogether.eeit10936.friends.service.IFriendService;
 import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.service.IPairsService;
 
@@ -30,12 +27,14 @@ import com.meetogether.eeit10936.pairs.service.IPairsService;
 public class PairsController {
 
 	@Autowired
-	private IPairsService service;
+	private IPairsService pService;
+	@Autowired
+	private IFriendService fService;
 
 	@ModelAttribute("currentUser")
 	public IMember currentUser(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
-			return service.getMemberById((Integer) session.getAttribute("userId"));
+			return pService.getMemberById((Integer) session.getAttribute("userId"));
 		}
 		return null;
 	}
@@ -51,16 +50,17 @@ public class PairsController {
 	@GetMapping("/insertPairList")
 	public void insertPairList(@ModelAttribute("currentUser") IMember currentUser,
 			@RequestParam("pairid") Integer daterId, @RequestParam("status") Integer status) {
-		service.likeOrDont(currentUser.getMemberBasic().getMemberId(), daterId, status);
+		pService.likeOrDont(currentUser.getMemberBasic().getMemberId(), daterId, status);
+		fService.addFriendList(currentUser.getMemberBasic().getMemberId(), daterId);
 	}
 
 	@GetMapping(value = "/showPairMember", produces = "application/json;charset=utf-8")
 	public @ResponseBody List<IMember> showPairMember(@ModelAttribute("currentUser") IMember currentUser) {
 		List<IMember> memberlist = new ArrayList<IMember>();
 
-		service.sortByDESValue(service.finalscoreMap(currentUser.getMemberBasic().getMemberCity(),
+		pService.sortByDESValue(pService.finalscoreMap(currentUser.getMemberBasic().getMemberCity(),
 				currentUser.getMemberBasic().getMemberId())).forEach((i) -> {
-					memberlist.add(service.getMemberById(i));
+					memberlist.add(pService.getMemberById(i));
 				});
 		return memberlist;
 	}

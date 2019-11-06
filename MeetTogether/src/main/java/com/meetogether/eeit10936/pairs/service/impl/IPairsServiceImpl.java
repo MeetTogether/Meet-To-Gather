@@ -1,6 +1,5 @@
 package com.meetogether.eeit10936.pairs.service.impl;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meetogether.eeit10936.friends.dao.IFriendDao;
 import com.meetogether.eeit10936.pairs.dao.IMemberDao;
 import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.model.Pair;
@@ -24,34 +24,36 @@ import com.meetogether.eeit10936.pairs.service.IPairsService;
 public class IPairsServiceImpl implements IPairsService {
 	@Autowired
 	@Qualifier("dao")
-	private IMemberDao dao;
+	private IMemberDao pdao;
+	
+	private IFriendDao fdao;
 
 	@Transactional
 	@Override
 	public IMember getMemberById(int id) {
-		return dao.findByMemberId(id);
+		return pdao.findByMemberId(id);
 	}
 
 	@Transactional
 	@Override
 	public List<IMember> getAllMember() {
-		return dao.findAllMember();
+		return pdao.findAllMember();
 	}
 
 	@Transactional
 	@Override
 	public void likeOrDont(Integer currentUserId, Integer daterId, Integer status) {
-		dao.insertPairList(currentUserId, daterId, status);
+		pdao.insertPairList(currentUserId, daterId, status);
 	}
 
 	@Transactional
 	@Override
 	public IMember back(Integer currentUserId) {
-		IMember member = dao.lastDontLike(currentUserId);
+		IMember member = pdao.lastDontLike(currentUserId);
 		PairPK pairPk = new PairPK(currentUserId, member.getMemberBasic().getMemberId());
 		Pair pair = new Pair();
 		pair.setPairPK(pairPk);
-		dao.deletePairList(pair);
+		pdao.deletePairList(pair);
 		return member;
 	}
 
@@ -60,7 +62,7 @@ public class IPairsServiceImpl implements IPairsService {
 	public Map<Integer, Integer> cityScore(String currentUserCity) {
 		int score = 3;
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
-		dao.findByCity(currentUserCity).forEach((i) -> {
+		pdao.findByCity(currentUserCity).forEach((i) -> {
 			scoreMap.put(i, score);
 		});
 		return scoreMap;
@@ -71,8 +73,8 @@ public class IPairsServiceImpl implements IPairsService {
 	public Map<Integer, Integer> interestScore(Integer currentUserId) {
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
 		int score = 3;
-		dao.findInterestByMemberId(currentUserId).forEach((interestid) -> {
-			dao.findMemberByInterestId(interestid).forEach((memberid) -> {
+		pdao.findInterestByMemberId(currentUserId).forEach((interestid) -> {
+			pdao.findMemberByInterestId(interestid).forEach((memberid) -> {
 				scoreMap.compute(memberid, (k, v) -> (v == null) ? score : scoreMap.get(k) + score);
 			});
 		});
@@ -83,8 +85,8 @@ public class IPairsServiceImpl implements IPairsService {
 	@Override
 	public Map<Integer, Integer> memberHopeScore(Integer currentUserId) {
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
-		IMember currentMember = dao.findByMemberId(currentUserId);
-		dao.findAllMember().forEach((member) -> {
+		IMember currentMember = pdao.findByMemberId(currentUserId);
+		pdao.findAllMember().forEach((member) -> {
 			int score = 0;
 			Math.abs(member.getMemberInfo().getBodyType().equals(currentMember.getMemberHope().getBodyType()) ? score++
 					: score);

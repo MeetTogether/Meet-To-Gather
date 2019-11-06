@@ -20,7 +20,6 @@ import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10936.pairs.dao.IMemberDao;
 import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.model.Interest;
-import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 import com.meetogether.eeit10936.pairs.model.MemberHope;
 import com.meetogether.eeit10936.pairs.model.MemberInfo;
 import com.meetogether.eeit10936.pairs.model.MemberModel;
@@ -48,9 +47,10 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 
 	@Override
 	public List<IMember> findAllMember() {
-		TypedQuery<IMember> query = factory.getCurrentSession().createQuery("SELECT NEW com.eeit109.pairs.model.MemberModel(mb,mh,mi) "
-				+ "From MemberBasic mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
-				+ "JOIN MemberInfo mi ON mb.memberId = mi.memberId", IMember.class);
+		TypedQuery<IMember> query = factory.getCurrentSession()
+				.createQuery("SELECT NEW com.eeit109.pairs.model.MemberModel(mb,mh,mi) "
+						+ "From MemberBasic mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
+						+ "JOIN MemberInfo mi ON mb.memberId = mi.memberId", IMember.class);
 		List<IMember> list = query.getResultList();
 		return list;
 	}
@@ -71,8 +71,7 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		PairPK ppk = new PairPK(currentUserId, daterId);
 		Pair pair = new Pair();
 		pair.setPairPK(ppk);
-		pair.setPairStatus(status);
-
+		pair.setStatus(status);
 		factory.getCurrentSession().persist(pair);
 
 	}

@@ -1,6 +1,5 @@
 package com.meetogether.eeit10936.pairs.service;
 
-import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 

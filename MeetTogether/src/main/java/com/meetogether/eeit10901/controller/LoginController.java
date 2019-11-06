@@ -8,19 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
-import com.meetogether.eeit10927.model.Member;
-import com.meetogether.eeit10927.service.IMemberService;
 
 @Controller
 public class LoginController {
@@ -32,8 +29,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/LoginServlet", method = RequestMethod.POST)
-	public String processMemberLoginForm(@ModelAttribute("memberBean") MemberBean member, BindingResult result, Model model,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String processMemberLoginForm(@ModelAttribute("memberBean") MemberBean member, BindingResult result,
+			Model model, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		model.addAttribute("errorMsg", errorMsg);
 		boolean verifyAccount = mService.verifyAccount(member);
@@ -43,7 +40,7 @@ public class LoginController {
 		if (verifyAccount) {
 			errorMsg.put("loginError", "");
 			mBean = mService.findByEmail(member);
-			
+
 			session.setAttribute("userId", mBean.getMemberId());
 			session.setAttribute("userName", mBean.getMemberName());
 			session.setAttribute("admin", String.valueOf(mBean.getAdminTag()));
@@ -59,9 +56,12 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/LogoutServlet")
-	public String processMemberLogout(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String processMemberLogout(Model model, HttpServletRequest request, HttpServletResponse response,
+			SessionStatus sessionStatus) {
 		HttpSession session = request.getSession();
+		session.removeAttribute("currentUser");
 		session.invalidate();
+		sessionStatus.setComplete();
 		return "redirect:/";
 	}
 

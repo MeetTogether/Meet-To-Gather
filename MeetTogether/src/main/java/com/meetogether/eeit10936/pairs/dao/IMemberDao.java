@@ -1,6 +1,5 @@
 package com.meetogether.eeit10936.pairs.dao;
 
-import java.sql.Blob;
 import java.util.List;
 
 import com.meetogether.eeit10936.pairs.model.IMember;
@@ -13,7 +12,7 @@ public interface IMemberDao {
 
 	public List<Integer> findByCity(String city);
 
-	public void insertPairList(Integer currentUserId, Integer daterId, Integer status);
+	public void insertPairList(Integer currentUserId, Integer daterId,Integer status);
 
 	public IMember lastDontLike(Integer currentUserId);
 
