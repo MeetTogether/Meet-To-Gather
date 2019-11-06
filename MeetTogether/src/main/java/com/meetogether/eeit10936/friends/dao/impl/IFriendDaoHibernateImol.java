@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,29 +27,18 @@ public class IFriendDaoHibernateImol implements IFriendDao {
 		return result.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void addFriendList(Integer id, Integer f2) {
 
-		String hql = "SELECT p.pairPk.pairMemberId FROM Pair p WHERE p.pairPk.memberId = ?0 AND p.status = '1'";
-		TypedQuery<Integer> result = factory.getCurrentSession().createQuery(hql).setParameter(0, id).setParameter(1,
-				id);
-		List<Integer> f1Likes = result.getResultList();
-		TypedQuery<Integer> result2 = factory.getCurrentSession().createQuery(hql).setParameter(0, f2).setParameter(1,
-				f2);
-		List<Integer> f2Likes = result2.getResultList();
-
-		f1Likes.forEach((i) -> {
-			f2Likes.forEach((j) -> {
-				if (i == j) {
-					FriendList fl = new FriendList();
-					fl.setMemberId(id);
-					fl.setFriendId(f2);
-					fl.setFriendStatus(1);
-					factory.getCurrentSession().persist(fl);
-				}
-			});
-		});
+		String hql = "FROM Pair p WHERE p.pairPk.memberId = ?0 AND p.pairPk.pairMemberId = ?1 AND p.status = '1'";
+		Pair result = (Pair) factory.getCurrentSession().createQuery(hql).setParameter(0, f2).setParameter(1, id).uniqueResult();
+		if (result != null) {
+			FriendList fl = new FriendList();
+			fl.setMemberId(id);
+			fl.setFriendId(f2);
+			fl.setFriendStatus(1);
+			factory.getCurrentSession().persist(fl);
+		}
 	}
 
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.meetogether.eeit10936.friends.service.IFriendService;
 import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.service.IPairsService;
@@ -38,6 +40,10 @@ public class PairsController {
 		}
 		return null;
 	}
+	@RequestMapping("noMore")
+	public String noMore() {
+		return "eeit10936/noMore";
+	}
 
 	@RequestMapping("/")
 	public String pair(Model model) {
@@ -55,14 +61,15 @@ public class PairsController {
 	}
 
 	@GetMapping(value = "/showPairMember", produces = "application/json;charset=utf-8")
-	public @ResponseBody List<IMember> showPairMember(@ModelAttribute("currentUser") IMember currentUser) {
+	public @ResponseBody String showPairMember(@ModelAttribute("currentUser") IMember currentUser) {
 		List<IMember> memberlist = new ArrayList<IMember>();
 
 		pService.sortByDESValue(pService.finalscoreMap(currentUser.getMemberBasic().getMemberCity(),
 				currentUser.getMemberBasic().getMemberId())).forEach((i) -> {
 					memberlist.add(pService.getMemberById(i));
 				});
-		return memberlist;
+		Gson gson = new GsonBuilder().setDateFormat("yyy-MM-dd").create();
+		return gson.toJson(memberlist);
 	}
 
 //	@GetMapping(value = "/memberPhoto", produces = "image/png")

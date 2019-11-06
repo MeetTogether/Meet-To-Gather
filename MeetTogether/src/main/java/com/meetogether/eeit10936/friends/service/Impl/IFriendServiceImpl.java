@@ -20,7 +20,7 @@ public class IFriendServiceImpl implements IFriendService {
 	public List<FriendList> findFriendsById(Integer id) {
 		return dao.findFriendsById(id);
 	}
-
+	@Transactional
 	@Override
 	public void addFriendList(Integer id, Integer f2) {
 		dao.addFriendList(id, f2);

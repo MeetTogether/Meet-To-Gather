@@ -14,36 +14,36 @@
 		let age = new Date(dateNow - birthTime);
 		return age.getFullYear() - 1970;
 	}
+	
 	function myInnerText() {
 		if (members[num]) {
-			document.getElementById("name").innerText = members[num].memberBasic.memberName;
-			document.getElementById("age").innerText = getage(members[num].memberBasic.memberBirth);
-			document.getElementById("education").innerText = members[num].memberInfo.education;
-			document.getElementById("drink").innerText = members[num].memberInfo.drink;
-			members[num].memberInfo.smoking == 1 ? text = "是" : text = "否";
+			document.getElementById("name").innerText = members[num].mb.memberName;
+			document.getElementById("age").innerText = getage(members[num].mb.memberBirth);
+			document.getElementById("education").innerText = members[num].mi.education;
+			document.getElementById("drink").innerText = members[num].mi.drink;
+			members[num].mi.smoking == 1 ? text = "是" : text = "否";
 			document.getElementById("smoking").innerText = text;
-			members[num].memberInfo.marriage == 1 ? text = "是" : text = "否";
+			members[num].mi.marriage == 1 ? text = "是" : text = "否";
 			document.getElementById("marriage").innerText = text;
-			document.getElementById("religion").innerText = members[num].memberInfo.religion;
-			document.getElementById("salary").innerText = members[num].memberInfo.salary;
-			document.getElementById("bodyType").innerText = members[num].memberInfo.bodyType;
-			document.getElementById("memberCity").innerText = members[num].memberBasic.memberCity
+			document.getElementById("religion").innerText = members[num].mi.religion;
+			document.getElementById("salary").innerText = members[num].mi.salary;
+			document.getElementById("bodyType").innerText = members[num].mi.bodyType;
+			document.getElementById("memberCity").innerText = members[num].mb.memberCity
 					.trim();
-			document.getElementById("interest").innerText = members[num].memberInterestList;
-			document.getElementById("photo").src = "memberPhoto?mid= "+ members[num].memberBasic.memberId;
+			document.getElementById("interest").innerText = members[num].mil;
+			document.getElementById("photo").src = "memberPhoto?mid= "+ members[num].mb.memberId;
 		} else {
-			window.location.href = "/noMore.jsp";
+			window.location.href = "./noMore";
 		}
 	}
 	function binding() {
 		let inputs = document.getElementsByTagName("input");
 		for (let a = 0; a < inputs.length; a++) {
 			inputs[a].addEventListener("click", function() {
-				console.log(typeof jsonArray[num].mb.memberId);
 				a == 0 ? url = "insertPairList?pairid="
-						+ jsonArray[num].mb.memberId + "&status=0"
+						+ members[num].mb.memberId + "&status=0"
 						: url = "insertPairList?pairid="
-								+ jsonArray[num].mb.memberId + "&status=1";
+								+ members[num].mb.memberId + "&status=1";
 				console.log(url);
 				let xhttp = new XMLHttpRequest();
 				xhttp.open("Get", url, true);

@@ -110,7 +110,7 @@ public class IPairsServiceImpl implements IPairsService {
 		});
 		return scoreMap;
 	}
-
+	@Transactional
 	@Override
 	public Map<Integer, Integer> finalscoreMap(String currentUserCity, Integer currentUserId) {
 		Map<Integer, Integer> cityMap = cityScore(currentUserCity);

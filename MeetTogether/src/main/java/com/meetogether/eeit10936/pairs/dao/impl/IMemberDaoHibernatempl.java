@@ -48,8 +48,8 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 	@Override
 	public List<IMember> findAllMember() {
 		TypedQuery<IMember> query = factory.getCurrentSession()
-				.createQuery("SELECT NEW com.eeit109.pairs.model.MemberModel(mb,mh,mi) "
-						+ "From MemberBasic mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
+				.createQuery("SELECT NEW com.meetogether.eeit10936.pairs.model.MemberModel(mb,mh,mi) "
+						+ "From MemberBean mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
 						+ "JOIN MemberInfo mi ON mb.memberId = mi.memberId", IMember.class);
 		List<IMember> list = query.getResultList();
 		return list;
