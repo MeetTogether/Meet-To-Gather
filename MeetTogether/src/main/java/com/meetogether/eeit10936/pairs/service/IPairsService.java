@@ -1,10 +1,10 @@
-package com.meetogether.eeit10936.service;
+package com.meetogether.eeit10936.pairs.service;
 
 import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 
-import com.meetogether.eeit10936.model.IMember;
+import com.meetogether.eeit10936.pairs.model.IMember;
 
 public interface IPairsService {
 
@@ -26,6 +26,6 @@ public interface IPairsService {
 
 	public List<Integer> sortByDESValue(Map<Integer, Integer> unsorted);
 	
-	public List<Blob> getPhotosById(IMember member);
+//	public List<Blob> getPhotosById(IMember member);
 
 }

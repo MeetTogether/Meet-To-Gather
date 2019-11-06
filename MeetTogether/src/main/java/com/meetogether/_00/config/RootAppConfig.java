@@ -67,7 +67,8 @@ public class RootAppConfig {
 		factory.setPackagesToScan(new String[] {
 				"com.meetogether.eeit10927.model",
 				"com.meetogether.eeit10901.model" ,
-				"com.meetogether.eeit10936.model"});
+				"com.meetogether.eeit10936.pairs.model",
+				"com.meetogether.eeit10936.friends.model"});
 		factory.setHibernateProperties(additionalProperties());
 		return factory;
 	}

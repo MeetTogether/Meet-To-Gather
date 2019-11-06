@@ -1,15 +1,17 @@
-package com.meetogether.eeit10936.model;
+package com.meetogether.eeit10936.pairs.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
 import java.util.List;
+
+import com.meetogether.eeit10901.model.MemberBean;
 
 public class MemberModel implements IMember, Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private MemberBasic mb;
+	private MemberBean mb;
 	private MemberHope mh;
 	private MemberInfo mi;
 	private List<String> mil;
@@ -19,7 +21,7 @@ public class MemberModel implements IMember, Serializable {
 
 	}
 
-	public MemberModel(MemberBasic mb, MemberHope mh, MemberInfo mi) {
+	public MemberModel(MemberBean mb, MemberHope mh, MemberInfo mi) {
 		this.mb = mb;
 		this.mh = mh;
 		this.mi = mi;
@@ -52,13 +54,13 @@ public class MemberModel implements IMember, Serializable {
 	}
 
 	@Override
-	public MemberBasic getMemberBasic() {
+	public MemberBean getMemberBasic() {
 		// TODO Auto-generated method stub
 		return mb;
 	}
 
 	@Override
-	public void setMemberBasic(MemberBasic mb) {
+	public void setMemberBasic(MemberBean mb) {
 		// TODO Auto-generated method stub
 		this.mb = mb;
 

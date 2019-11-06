@@ -1,4 +1,4 @@
-package com.meetogether.eeit10936.dao.impl;
+package com.meetogether.eeit10936.pairs.dao.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.sql.rowset.serial.SerialBlob;
@@ -18,16 +16,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.meetogether.eeit10936.dao.IMemberDao;
-import com.meetogether.eeit10936.model.IMember;
-import com.meetogether.eeit10936.model.Interest;
-import com.meetogether.eeit10936.model.MemberAlbum;
-import com.meetogether.eeit10936.model.MemberBasic;
-import com.meetogether.eeit10936.model.MemberHope;
-import com.meetogether.eeit10936.model.MemberInfo;
-import com.meetogether.eeit10936.model.MemberModel;
-import com.meetogether.eeit10936.model.Pair;
-import com.meetogether.eeit10936.model.PairPK;
+import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10936.pairs.dao.IMemberDao;
+import com.meetogether.eeit10936.pairs.model.IMember;
+import com.meetogether.eeit10936.pairs.model.Interest;
+import com.meetogether.eeit10936.pairs.model.MemberAlbum;
+import com.meetogether.eeit10936.pairs.model.MemberHope;
+import com.meetogether.eeit10936.pairs.model.MemberInfo;
+import com.meetogether.eeit10936.pairs.model.MemberModel;
+import com.meetogether.eeit10936.pairs.model.Pair;
+import com.meetogether.eeit10936.pairs.model.PairPK;
 
 @Repository("dao")
 public class IMemberDaoHibernatempl implements IMemberDao {
@@ -38,7 +36,7 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 	public IMember findByMemberId(Integer id) {
 		IMember member = new MemberModel();
 		List<String> al = new ArrayList<String>();
-		member.setMemberBasic(factory.getCurrentSession().find(MemberBasic.class, id));
+		member.setMemberBasic(factory.getCurrentSession().find(MemberBean.class, id));
 		member.setMemberInfo(factory.getCurrentSession().find(MemberInfo.class, id));
 		member.setMemberHope(factory.getCurrentSession().find(MemberHope.class, id));
 		findInterestByMemberId(id).forEach((i) -> {
@@ -121,37 +119,36 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		return factory.getCurrentSession().find(Interest.class, interestId).getInterest();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Blob> getPhotosById(IMember member) {
-		List<Blob> pal = new ArrayList<>();
-		Integer userId = member.getMemberBasic().getMemberId();
-		TypedQuery<MemberAlbum> query = (TypedQuery<MemberAlbum>) factory.getCurrentSession()
-				.createQuery("SELECT ma FROM MemberAlbum ma WHERE ma.pk.memberId = ?1 AND ma.deleteTag =?2");
-		query.setParameter(1, userId);
-		query.setParameter(2, 0);
-		List<MemberAlbum> filenames = query.getResultList();
-		System.out.println(member.getMemberBasic().getVipStatus());
-		if (member.getMemberBasic().getVipStatus() == 1) {
-			filenames.forEach((file) -> {
-				for (int i = 1; i < 6; i++) {
-					if (file.getStatus() == i) {
-						pal.add(imgToBlob(userId, file.getPk().getFileName()));
-					}
-				}
-			});
-		} else {
-			filenames.forEach((file) -> {
-				for (int i = 1; i < 4; i++) {
-					if (file.getStatus() == i) {
-						pal.add(imgToBlob(userId, file.getPk().getFileName()));
-					}
-				}
-			});
-		}
-
-		return pal;
-	}
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<Blob> getPhotosById(IMember member) {
+//		List<Blob> pal = new ArrayList<>();
+//		Integer userId = member.getMemberBasic().getMemberId();
+//		TypedQuery<MemberAlbum> query = (TypedQuery<MemberAlbum>) factory.getCurrentSession()
+//				.createQuery("SELECT ma FROM MemberAlbum ma WHERE ma.pk.memberId = ?1 AND ma.deleteTag =?2");
+//		query.setParameter(1, userId);
+//		query.setParameter(2, 0);
+//		List<MemberAlbum> filenames = query.getResultList();
+//		if (member.getMemberBasic().getVipStatus() == 1) {
+//			filenames.forEach((file) -> {
+//				for (int i = 1; i < 6; i++) {
+//					if (file.getStatus() == i) {
+//						pal.add(imgToBlob(userId, file.getPk().getFileName()));
+//					}
+//				}
+//			});
+//		} else {
+//			filenames.forEach((file) -> {
+//				for (int i = 1; i < 4; i++) {
+//					if (file.getStatus() == i) {
+//						pal.add(imgToBlob(userId, file.getPk().getFileName()));
+//					}
+//				}
+//			});
+//		}
+//
+//		return pal;
+//	}
 
 	private Blob imgToBlob(int userId, String imgName) {
 		File imgFile = new File("src/main/webapp/data/imgs/" + userId + imgName + ".png");

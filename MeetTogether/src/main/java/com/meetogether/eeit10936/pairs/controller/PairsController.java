@@ -1,4 +1,4 @@
-package com.meetogether.eeit10936.controller;
+package com.meetogether.eeit10936.pairs.controller;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.meetogether.eeit10936.model.IMember;
-import com.meetogether.eeit10936.service.IPairsService;
+import com.meetogether.eeit10936.pairs.model.IMember;
+import com.meetogether.eeit10936.pairs.service.IPairsService;
 
 @Controller
 @RequestMapping("/pairs")
@@ -65,25 +65,25 @@ public class PairsController {
 		return memberlist;
 	}
 
-	@GetMapping(value = "/memberPhoto", produces = "image/png")
-	public void showPhotos(@RequestParam("mid") Integer userId, HttpServletResponse response) {
-		IMember member = service.getMemberById(userId);
-		System.out.println(member.getMemberBasic().getMemberName());
-		service.getPhotosById(member).forEach((i) -> {
-			InputStream is;
-			try {
-				is = i.getBinaryStream();
-				ServletOutputStream os = response.getOutputStream();
-				int length;
-				byte[] buf = new byte[1024];
-				while ((length = is.read(buf)) != -1) {
-					os.write(buf, 0, length);
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-
-	}
+//	@GetMapping(value = "/memberPhoto", produces = "image/png")
+//	public void showPhotos(@RequestParam("mid") Integer userId, HttpServletResponse response) {
+//		IMember member = service.getMemberById(userId);
+//		System.out.println(member.getMemberBasic().getMemberName());
+//		service.getPhotosById(member).forEach((i) -> {
+//			InputStream is;
+//			try {
+//				is = i.getBinaryStream();
+//				ServletOutputStream os = response.getOutputStream();
+//				int length;
+//				byte[] buf = new byte[1024];
+//				while ((length = is.read(buf)) != -1) {
+//					os.write(buf, 0, length);
+//				}
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		});
+//
+//	}
 }

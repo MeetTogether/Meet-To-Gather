@@ -1,10 +1,10 @@
-package com.meetogether.eeit10936.dao;
+package com.meetogether.eeit10936.pairs.dao;
 
 import java.sql.Blob;
 import java.util.List;
 
-import com.meetogether.eeit10936.model.IMember;
-import com.meetogether.eeit10936.model.Pair;
+import com.meetogether.eeit10936.pairs.model.IMember;
+import com.meetogether.eeit10936.pairs.model.Pair;
 
 public interface IMemberDao {
 	public IMember findByMemberId(Integer id);
@@ -25,6 +25,6 @@ public interface IMemberDao {
 	
 	public String findInteretByInterestId(Integer interestId);
 
-	public List<Blob> getPhotosById(IMember member);
+//	public List<Blob> getPhotosById(IMember member);
 
 }

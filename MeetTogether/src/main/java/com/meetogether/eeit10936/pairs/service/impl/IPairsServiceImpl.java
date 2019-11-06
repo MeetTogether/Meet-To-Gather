@@ -1,4 +1,4 @@
-package com.meetogether.eeit10936.service.impl;
+package com.meetogether.eeit10936.pairs.service.impl;
 
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.meetogether.eeit10936.dao.IMemberDao;
-import com.meetogether.eeit10936.model.IMember;
-import com.meetogether.eeit10936.model.Pair;
-import com.meetogether.eeit10936.model.PairPK;
-import com.meetogether.eeit10936.service.IPairsService;
+import com.meetogether.eeit10936.pairs.dao.IMemberDao;
+import com.meetogether.eeit10936.pairs.model.IMember;
+import com.meetogether.eeit10936.pairs.model.Pair;
+import com.meetogether.eeit10936.pairs.model.PairPK;
+import com.meetogether.eeit10936.pairs.service.IPairsService;
 
 @Service
 //@Scope("session")
@@ -134,9 +134,9 @@ public class IPairsServiceImpl implements IPairsService {
 		return new ArrayList<>(sortedMap.keySet());
 	}
 
-	@Transactional
-	@Override
-	public List<Blob> getPhotosById(IMember member) {
-		return dao.getPhotosById(member);
-	}
+//	@Transactional
+//	@Override
+//	public List<Blob> getPhotosById(IMember member) {
+//		return dao.getPhotosById(member);
+//	}
 }

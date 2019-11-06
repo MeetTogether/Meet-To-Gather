@@ -1,4 +1,4 @@
-package com.meetogether.eeit10936.model;
+package com.meetogether.eeit10936.pairs.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

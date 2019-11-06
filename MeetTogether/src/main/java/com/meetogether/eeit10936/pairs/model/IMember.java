@@ -1,7 +1,9 @@
-package com.meetogether.eeit10936.model;
+package com.meetogether.eeit10936.pairs.model;
 
 import java.sql.Blob;
 import java.util.List;
+
+import com.meetogether.eeit10901.model.MemberBean;
 
 public interface IMember {
 
@@ -13,9 +15,9 @@ public interface IMember {
 
 	public void setMemberHope(MemberHope mh);
 
-	public MemberBasic getMemberBasic();
+	public MemberBean getMemberBasic();
 
-	public void setMemberBasic(MemberBasic mb);
+	public void setMemberBasic(MemberBean mb);
 
 	public List<String> getMemberInterestList();
 
