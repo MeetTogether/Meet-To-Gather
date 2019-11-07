@@ -12,12 +12,15 @@
 				<form:select path="mtId" style="width: 300px">
 					<form:options items="${msgType}" />
 				</form:select>
+				
 			<tr>
 				<td>文章標題
 				<td><form:input type="text" name="msgTitle" id="msgTitle" path="msgTitle" size="110em" autocomplete="off" />
+				<br><form:errors path="msgTitle" class="errors"></form:errors>
 			<tr>
 				<td>文章內容
 				<td><form:textarea rows="7em" cols="100em" name="msgText" id="msgText" path="msgText" />
+				<br><form:errors path="msgText" class="errors"></form:errors>
 			<tr>
 				<td>上傳照片
 				<td><form:input type="file" name="msgImage" id="msgImage" path="msgImage" />

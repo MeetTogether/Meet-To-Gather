@@ -126,3 +126,7 @@ tr {
 	height: 20px;
 	cursor: pointer;
 }
+
+.errors {
+	color: red;
+}

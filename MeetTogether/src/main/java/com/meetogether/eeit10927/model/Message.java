@@ -38,6 +38,7 @@ public class Message implements Serializable {
 	private Integer msgId;
 	private String msgTitle;
 	private String msgText;
+	private String msgTextShort;
 	private String msgFilename;
 	private Blob msgPhoto;
 	private MultipartFile msgImage;
@@ -88,6 +89,14 @@ public class Message implements Serializable {
 
 	public void setMsgText(String msgText) {
 		this.msgText = msgText;
+	}
+	@Transient
+	public String getMsgTextShort() {
+		return msgTextShort;
+	}
+
+	public void setMsgTextShort(String msgTextShort) {
+		this.msgTextShort = msgTextShort;
 	}
 	
 	public String getMsgFilename() {
