@@ -1,6 +1,7 @@
 package com.meetogether.eeit10936.pairs.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -11,9 +12,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "album")
-public class MemberAlbum implements Serializable{
-	
-	
+public class MemberAlbum implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -26,24 +26,39 @@ public class MemberAlbum implements Serializable{
 	private Integer status;
 	@Column(name = "deleteTag")
 	private Integer deleteTag;
-	
+	@Column(name = "img")
+	private Blob img;
+
+	public Blob getImg() {
+		return img;
+	}
+
+	public void setImg(Blob img) {
+		this.img = img;
+	}
+
 	public MemberAlbumPk getPk() {
 		return pk;
 	}
+
 	public void setPk(MemberAlbumPk pk) {
 		this.pk = pk;
 	}
+
 	public Integer getStatus() {
 		return status;
 	}
+
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
 	public Integer getDeleteTag() {
 		return deleteTag;
 	}
+
 	public void setDeleteTag(Integer deleteTag) {
 		this.deleteTag = deleteTag;
 	}
-	
+
 }

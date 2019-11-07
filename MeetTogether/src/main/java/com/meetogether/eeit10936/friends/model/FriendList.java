@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "friendList")
@@ -17,10 +16,6 @@ public class FriendList implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Transient
-	public static final String allow = "Y";
-	@Transient
-	public static final String disAllow = "N";
 	
 	@Id
 	@Column(name="friendListId")

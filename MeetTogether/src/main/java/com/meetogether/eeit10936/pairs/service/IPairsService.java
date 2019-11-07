@@ -1,5 +1,6 @@
 package com.meetogether.eeit10936.pairs.service;
 
+import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,9 @@ public interface IPairsService {
 	public Map<Integer, Integer> finalscoreMap(String currentUserCity, Integer currentUserId);
 
 	public List<Integer> sortByDESValue(Map<Integer, Integer> unsorted);
-	
-//	public List<Blob> getPhotosById(IMember member);
+
+	public Blob getPhotosById(Integer id, int status);
+
+	public boolean checkVip(Integer id);
 
 }

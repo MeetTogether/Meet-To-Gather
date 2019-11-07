@@ -31,5 +31,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 		HiddenHttpMethodFilter  hiddenHttpMethodFilter = new HiddenHttpMethodFilter();
 		return new Filter[] {characterEncodingFilter, hiddenHttpMethodFilter};
 	}
-
 }

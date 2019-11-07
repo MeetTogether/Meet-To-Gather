@@ -1,5 +1,6 @@
 package com.meetogether.eeit10901.dao.impl;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	@Override
 	public MemberBean findByEmail(MemberBean member) {
-		System.out.println("test");
+	
 		String hql = "from MemberBean m WHERE m.memberEmail = ?0";
 		return (MemberBean) factory.getCurrentSession().createQuery(hql)
 				.setParameter(0, member.getMemberEmail()).uniqueResult();
@@ -50,8 +51,10 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("member Birth: " + member.getMemberBirth());
 		member.setAdminTag(0);
 		member.setDeleteTag(0);
+	 
 		factory.getCurrentSession().save(member);
 		int memberId = member.getMemberId();
+	
 	}
 
 	@Override
