@@ -42,9 +42,7 @@ public class MemberBean implements Serializable {
 		return memberImage;
 	}
 	
-	public void test() {
-		System.out.println("test");
-	}
+
 
 
 	public void setMemberImage(MultipartFile memberImage) {
@@ -59,7 +57,7 @@ public class MemberBean implements Serializable {
 
 	public MemberBean( Integer memberId, String memberEmail, String memberPassword, String memberName, Date memberBirth,
 			Integer memberSex, String memberCity, String memberDist, String fileName, Integer adminTag,
-			Integer deleteTag ,String mChecksum,String memberPassword2) {
+			Integer deleteTag ,String mChecksum,String memberPassword2, Blob photo) {
 		
 		this.memberId = memberId;
 		this.memberEmail = memberEmail;
@@ -75,6 +73,7 @@ public class MemberBean implements Serializable {
 		this.deleteTag = deleteTag;
 		this.memberPassword2 = memberPassword2;
 		this.mChecksum = mChecksum;
+		this.photo = photo;
 		
 		
 	}

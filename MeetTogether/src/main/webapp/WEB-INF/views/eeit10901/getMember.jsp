@@ -27,11 +27,6 @@
 						<p>${member.memberCity}</p>
 						<p>${member.memberDist}</p>
 						<p>${member.fileName}</p>
-
-
-
-
-
 					</c:forEach>
 		</table>
 </body>

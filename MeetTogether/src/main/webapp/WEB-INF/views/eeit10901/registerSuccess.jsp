@@ -12,5 +12,7 @@
 </head>
 <body>
 <h2>恭喜註冊成功!</h2>
+
+<a href="http://localhost:8080/MeetTogether/">回登入畫面</a>
 </body>
 </html>
