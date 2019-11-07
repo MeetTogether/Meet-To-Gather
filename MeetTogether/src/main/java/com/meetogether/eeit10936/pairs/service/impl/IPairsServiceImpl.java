@@ -1,5 +1,6 @@
 package com.meetogether.eeit10936.pairs.service.impl;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.meetogether.eeit10936.friends.dao.IFriendDao;
 import com.meetogether.eeit10936.pairs.dao.IMemberDao;
 import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.model.Pair;
@@ -26,7 +26,6 @@ public class IPairsServiceImpl implements IPairsService {
 	@Qualifier("dao")
 	private IMemberDao pdao;
 	
-	private IFriendDao fdao;
 
 	@Transactional
 	@Override
@@ -136,9 +135,15 @@ public class IPairsServiceImpl implements IPairsService {
 		return new ArrayList<>(sortedMap.keySet());
 	}
 
-//	@Transactional
-//	@Override
-//	public List<Blob> getPhotosById(IMember member) {
-//		return dao.getPhotosById(member);
-//	}
+	@Transactional
+	@Override
+	public Blob getPhotosById(Integer id,int status) {
+		return pdao.getPhotosById(id, status);
+	}
+	@Transactional
+	@Override
+	public boolean checkVip(Integer id) {
+		// TODO Auto-generated method stub
+		return pdao.checkVip(id);
+	}
 }
