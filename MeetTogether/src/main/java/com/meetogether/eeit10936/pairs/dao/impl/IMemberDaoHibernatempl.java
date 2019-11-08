@@ -34,8 +34,6 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		IMember member = new MemberModel();
 		List<String> al = new ArrayList<String>();
 		MemberBean mb = factory.getCurrentSession().find(MemberBean.class, id);
-		mb.setMemberPassword(null);
-		mb.setMemberPassword2(null);
 		member.setMemberBasic(mb);
 		member.setMemberInfo(factory.getCurrentSession().find(MemberInfo.class, id));
 		member.setMemberHope(factory.getCurrentSession().find(MemberHope.class, id));
