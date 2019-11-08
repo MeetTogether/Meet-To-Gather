@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.meetogether.eeit10901.model.MemberBean;
+
 @Entity
 @Table(name = "eventReview")
 public class ReviewBean implements Serializable {
@@ -26,13 +28,13 @@ public class ReviewBean implements Serializable {
 	String eventComment;
 	Integer eventStars;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_MemberBean_memberId")
-	private MemberBean memberBean;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_ActBean_eventId")
-	private ActBean actBean;
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "FK_MemberBean_memberId")
+//	private MemberBean memberBean;
+//
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "FK_ActBean_eventId")
+//	private ActBean actBean;
 
 	public Integer getReviewId() {
 		return reviewId;
@@ -73,22 +75,22 @@ public class ReviewBean implements Serializable {
 	public void setEventStars(Integer eventStars) {
 		this.eventStars = eventStars;
 	}
-
-	public MemberBean getMemberBean() {
-		return memberBean;
-	}
-
-	public void setMemberBean(MemberBean memberBean) {
-		this.memberBean = memberBean;
-	}
-
-	public ActBean getEventBean() {
-		return actBean;
-	}
-
-	public void setEventBean(ActBean eventBean) {
-		this.actBean = eventBean;
-	}
+//
+//	public MemberBean getMemberBean() {
+//		return memberBean;
+//	}
+//
+//	public void setMemberBean(MemberBean memberBean) {
+//		this.memberBean = memberBean;
+//	}
+//
+//	public ActBean getEventBean() {
+//		return actBean;
+//	}
+//
+//	public void setEventBean(ActBean eventBean) {
+//		this.actBean = eventBean;
+//	}
 
 	public ReviewBean(Integer reviewId, Integer eventId, Integer memberId, String eventComment, Integer eventStars,
 			MemberBean memberBean, ActBean actBean) {
@@ -98,8 +100,13 @@ public class ReviewBean implements Serializable {
 		this.memberId = memberId;
 		this.eventComment = eventComment;
 		this.eventStars = eventStars;
-		this.memberBean = memberBean;
-		this.actBean = actBean;
+//		this.memberBean = memberBean;
+//		this.actBean = actBean;
+	}
+
+
+	public ReviewBean() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -115,8 +122,8 @@ public class ReviewBean implements Serializable {
 		builder.append(eventComment);
 		builder.append(", eventStars=");
 		builder.append(eventStars);
-		builder.append(", memberBean=");
-		builder.append(memberBean);
+//		builder.append(", memberBean=");
+//		builder.append(memberBean);
 		builder.append("]");
 		return builder.toString();
 	}

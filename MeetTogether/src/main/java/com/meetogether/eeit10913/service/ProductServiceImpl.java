@@ -3,11 +3,12 @@ package com.meetogether.eeit10913.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
-
+@Service
 public class ProductServiceImpl implements ProductService {
 	ProductDao dao;
 	
