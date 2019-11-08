@@ -1,5 +1,6 @@
 package com.meetogether.eeit10927.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,10 @@ import com.meetogether.eeit10927.model.MsgType;
 
 @Repository
 public class MessageDaoHibernateImpl implements IMessageDao {
+	
+	private int pageNo = 0;			// 存放目前顯示頁面的編號
+	private int recordsPerPage = 3;	// 每頁3筆
+	private int totalPages = -1;	// 總頁數
 	
 	private SessionFactory factory;
 	
@@ -197,6 +202,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		result.setLikeCount(msg.getLikeCount());
 	}
 	
+	// ok 已確認需使用
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> getMsgType() {
@@ -204,7 +210,43 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		List<Message> result = factory.getCurrentSession().createQuery(hql).getResultList();
 		return result;
 	}
-
+	
+	// ok 已確認需使用
+	@Override
+	public int getTotalPages() {
+		totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
+		return totalPages;
+	}
+	
+	// ok 已確認需使用
+	@SuppressWarnings("unchecked")
+	@Override
+	public long getRecordCounts() {
+		long count = 0;
+		String hql = "SELECT count(*) FROM Message";
+		Session session = factory.getCurrentSession();
+		List<Long> list = session.createQuery(hql).list();
+		if (list.size() > 0) {
+			count = list.get(0);
+		}
+		return count;
+	}
+	
+	// ok 已確認需使用
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> getPageMessages() {
+		List<Message> list = new ArrayList<Message>();
+		String hql = "FROM Message";
+		Session session = factory.getCurrentSession();
+		int startRecordNo = (pageNo - 1) * recordsPerPage;
+		
+		list = session.createQuery(hql)
+				.setFirstResult(startRecordNo)
+				.setMaxResults(recordsPerPage)
+                .list();
+		return list;
+	}
 	
 	
 }

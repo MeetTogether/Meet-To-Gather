@@ -40,5 +40,9 @@ public interface IMessageService {
 	public void updateMsgImageFilename(Integer msgId, String filename);
 	
 	public MemberBean getMemberById(int memberId);
+	
+	public int getTotalPages();
+	public long getRecordCounts();
+	public List<Message> getPageMessages();
 
 }

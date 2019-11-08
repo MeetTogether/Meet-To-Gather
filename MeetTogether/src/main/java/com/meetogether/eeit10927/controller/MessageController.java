@@ -2,6 +2,7 @@ package com.meetogether.eeit10927.controller;
 
 import java.io.File;
 import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.meetogether.eeit10927.model.Msglike;
 import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10927.service.IMsgTypeService;
 import com.meetogether.eeit10927.service.IMsgreplyService;
+import com.meetogether.eeit10927.validate.MessageValidator;
 
 @Controller
 public class MessageController {
@@ -60,6 +62,12 @@ public class MessageController {
 		model.addAttribute("messageBean", msg);
 
 		List<Message> msgBeans = msgService.getAllMessageActive();
+		int cnt = msgBeans.size();
+		int cntPerPage = 5;
+		List pages = new ArrayList<>();
+		
+		
+		System.out.println("****筆數：" + msgBeans.size());
 		model.addAttribute("msgBeans", msgBeans);
 		
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
@@ -73,6 +81,11 @@ public class MessageController {
 	@RequestMapping(value = "/PostServlet", method = RequestMethod.POST)
 	public String processMessagePostForm(@ModelAttribute("messageBean") Message message, 
 			BindingResult result, Model model, HttpServletRequest request) {
+//		new MessageValidator().validate(message, result);
+//		System.out.println("*****errors: " + result);
+//		if (result.hasErrors()) {
+//			return "eeit10927/html/forum";
+//		}
 //		String rootDirectory = "C:/temp/images/";
 		MultipartFile msgImage = message.getMsgImage();
 		String originalFilename = msgImage.getOriginalFilename();
@@ -138,7 +151,13 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/UpdatePostServlet", method = RequestMethod.POST)
-	public String updateMessage(@ModelAttribute("msgBean") Message message, Model model) {
+	public String updateMessage(@ModelAttribute("msgBean") Message message, Model model, 
+			BindingResult result) {
+		new MessageValidator().validate(message, result);
+		System.out.println("**update post errors: " + result);
+		if (result.hasErrors()) {
+			return "eeit10927/html/forumView";
+		}
 		MultipartFile msgImage = message.getMsgImage();
 		String rootDirectory = "C:/temp/images/";
 		String originalFilename = msgImage.getOriginalFilename();
@@ -201,8 +220,23 @@ public class MessageController {
 		return "eeit10927/html/forum";
 	}
 	
+	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	public String goCategory() {
+		return "eeit10927/html/category";
+	}
+	
+	@ModelAttribute("msgPage")
+	public List<Integer> getMsgPage() {
+		int totalPages = msgService.getTotalPages();
+		List<Integer> list = new ArrayList<>();
+		for (int i = 1; i <= totalPages; i++) {
+			list.add(i);
+		}
+		return list;
+	}
+	
 	@ModelAttribute("msgType")
-	public Map<Integer, String> getCompanyList() {
+	public Map<Integer, String> getMsgTypeList() {
 		Map<Integer, String> msgTypeMap = new HashMap<>();
 		List<MsgType> list = mtService.getMsgTypeList();
 		for (MsgType mType : list) {

@@ -103,6 +103,10 @@ input[type=submit]:hover {
 						<h4>共有${count}筆資料</h4>
 					</div>
 				</c:if>
+				<c:forEach items="${msgPage}" var="page">
+					<p>${page}<p>
+				</c:forEach>
+				<a href="${pageContext.request.contextPath}/category">查詢</a>
 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 					<table class="aPost">
 						<c:set var="mId" value="${msgBean.member.memberId}" />

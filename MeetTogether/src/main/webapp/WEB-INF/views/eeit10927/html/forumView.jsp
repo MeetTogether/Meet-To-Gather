@@ -57,11 +57,13 @@
 							<td>文章標題
 							<td><form:input type="text" name="msgTitle" id="msgTitle" path="msgTitle"
 								size="110em" value="${msgBean.msgTitle}" autocomplete="off" />
+								<br><form:errors path="msgTitle" class="errors"></form:errors>
 						<tr>
 							<td>文章內容
 							<td><c:set var="msgText" value="${msgBean.msgText}"/>
 								<form:textarea rows="7em" cols="100em" name="msgText"
 									id="msgText" path="msgText" value="${msgText}" />
+								<br><form:errors path="msgText" class="errors"></form:errors>
 						<tr>
 							<td>上傳照片
 							<td><c:if test="${msgBean.msgPhoto ne null}">

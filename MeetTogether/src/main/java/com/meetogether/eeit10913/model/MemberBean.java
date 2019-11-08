@@ -1,8 +1,10 @@
-﻿package com.meetogether.eeit10901.model;
+﻿package com.meetogether.eeit10913.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.sql.Clob;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
-@Entity
+
+import javassist.bytecode.analysis.MultiArrayType;
+//@Entity
 @Table(name="member")
 public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,15 +38,11 @@ public class MemberBean implements Serializable {
 	String memberDist;
 //    @Transient
     String fileName;
-    Blob photo;
-    
-	@Transient
+    @Transient
     MultipartFile memberImage;
 	public MultipartFile getMemberImage() {
 		return memberImage;
 	}
-	
-
 
 
 	public void setMemberImage(MultipartFile memberImage) {
@@ -57,7 +57,7 @@ public class MemberBean implements Serializable {
 
 	public MemberBean( Integer memberId, String memberEmail, String memberPassword, String memberName, Date memberBirth,
 			Integer memberSex, String memberCity, String memberDist, String fileName, Integer adminTag,
-			Integer deleteTag ,String mChecksum,String memberPassword2, Blob photo) {
+			Integer deleteTag ,String mChecksum,String memberPassword2) {
 		
 		this.memberId = memberId;
 		this.memberEmail = memberEmail;
@@ -73,7 +73,6 @@ public class MemberBean implements Serializable {
 		this.deleteTag = deleteTag;
 		this.memberPassword2 = memberPassword2;
 		this.mChecksum = mChecksum;
-		this.photo = photo;
 		
 		
 	}
@@ -205,17 +204,11 @@ public class MemberBean implements Serializable {
 		return mChecksum;
 	}
 
+
 	public void setmChecksum(String mChecksum) {
 		this.mChecksum = mChecksum;
 	}
-	
-	public Blob getPhoto() {
-		return photo;
-	}
 
-	public void setPhoto(Blob photo) {
-		this.photo = photo;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
