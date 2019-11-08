@@ -115,7 +115,7 @@ public class MemberController {
 		service.add(member);
 		
 		final String Email = "wgnhus@gmail.com";// your Gmail
-		final String EmailPwd = "aliceva726";// your password
+		final String EmailPwd = "";// your password
 		String host = "smtp.gmail.com";
 		int port = 587;
 
@@ -136,7 +136,7 @@ public class MemberController {
 			message.setFrom(new InternetAddress(Email));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(member.getMemberEmail()));
 			message.setSubject("MeetTogether驗證信");//主旨
-			message.setText("請點選連結以開通帳號");//訊息
+			message.setText("雷小心是大白癡請點選連結以開通帳號");//訊息
 
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, Email, EmailPwd);
