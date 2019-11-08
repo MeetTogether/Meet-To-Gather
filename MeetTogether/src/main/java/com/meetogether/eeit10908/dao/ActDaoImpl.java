@@ -1,0 +1,98 @@
+package com.meetogether.eeit10908.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.model.CatBean;
+
+
+
+@Repository
+public class ActDaoImpl implements ActDao {
+
+	SessionFactory factory;
+	
+	@Autowired
+	public void setFactory(SessionFactory factory) {
+		this.factory = factory;
+	}
+
+	public ActDaoImpl() { 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ActBean> getAllAct() {
+		Session session = factory.getCurrentSession();
+		String hql ="FROM ActBean";
+		List<ActBean> list = new ArrayList<>();
+		list = session.createQuery(hql).getResultList();
+		
+		return list;
+	}
+
+	@Override
+	public void addActivity(ActBean activity) {
+		System.out.println(activity.getEventCat());
+		System.out.println(activity.getEventPlace());
+		System.out.println(activity.getMemberId());
+		Session session = factory.getCurrentSession();
+		CatBean cb =getCatById(activity.getEventCat());
+		activity.setCatbean(cb);
+		session.save(activity);
+	}
+
+	@Override
+	public CatBean getCatById(int catId) {
+		CatBean cb = null;
+		Session session = factory.getCurrentSession();
+		cb = session.get(CatBean.class, catId);
+		
+		return cb;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CatBean> getCatList() {
+		String hql = "FROM eventCat";
+		Session session = factory.getCurrentSession();
+		List<CatBean> list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
+	@Override
+	public void deleteActivityByPrimaryKey(int key) {
+		Session session = factory.getCurrentSession();
+		ActBean activ = new ActBean();
+		activ.setEventId(key);
+		session.delete(activ);
+		
+	}
+
+	@Override
+	public void updateActivity(ActBean act) {
+		Session session = factory.getCurrentSession();
+		CatBean cb=getCatById(act.getEventCat());
+		act.setCatbean(cb);
+		session.update(act);
+		
+	}
+
+	@Override
+	public ActBean getActivityById(int actId) {
+		Session session = factory.getCurrentSession();
+		ActBean aa = session.get(ActBean.class, actId);	
+		return aa;
+	}
+	
+	
+	
+	
+	
+}

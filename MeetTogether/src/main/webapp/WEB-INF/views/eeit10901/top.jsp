@@ -16,6 +16,9 @@
 			<a href="<c:url value='/GetAllPostServlet' />">留言板</a>
 		</c:if></li>
 	
+	<li class="toplink"><c:if test="${!empty userId}">
+			<a href="<c:url value='/members' />">個人資訊</a>
+		</c:if></li>
 	<li class="toplink"><c:if test="${admin eq '1'}">
 			<a href="<c:url value='/GetAllPostServlet' />">管理者權限</a>
 		</c:if></li>

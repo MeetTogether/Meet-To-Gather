@@ -1,16 +1,22 @@
 package com.meetogether.eeit10901.controller;
 
-import java.io.File;
 import java.sql.Blob;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -53,6 +59,13 @@ public class MemberController {
 		List<MemberBean> list = service.selectALL();
 		model.addAttribute("members", list);
 		return "eeit10901/getMember";
+	}
+	
+	@RequestMapping("/getmembers")
+	public String getMemberById(@PathVariable("member") Integer memberId, Model model)	{
+		MemberBean mm = service.getMemberById(memberId);
+		model.addAttribute("members", mm);
+		return "members";
 	}
 
 	@RequestMapping("/update")
@@ -100,6 +113,43 @@ public class MemberController {
 
 		}
 		service.add(member);
+		
+		final String Email = "wgnhus@gmail.com";// your Gmail
+		final String EmailPwd = "aliceva726";// your password
+		String host = "smtp.gmail.com";
+		int port = 587;
+
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.port", port);
+		Session session = Session.getInstance(props, new Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(Email, EmailPwd);
+			}
+		});
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(Email));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(member.getMemberEmail()));
+			message.setSubject("MeetTogether驗證信");//主旨
+			message.setText("請點選連結以開通帳號");//訊息
+
+			Transport transport = session.getTransport("smtp");
+			transport.connect(host, port, Email, EmailPwd);
+
+			Transport.send(message);
+//			transport.close();
+			System.out.println("寄送email結束.");
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+		
+		 
+		
 		return "redirect:registerSuccess";
 	}
 

@@ -14,7 +14,7 @@ public interface MemberService {
 
 	public MemberBean loging(MemberBean m);
 
-	public MemberBean getMemberById(Integer memberId);
+	
 
 	public List<MemberBean> selectALL();
 
@@ -23,6 +23,8 @@ public interface MemberService {
 	public boolean verifyAccount(MemberBean member);
 
 	public MemberBean findByEmail(MemberBean member);
+
+	public MemberBean getMemberById(Integer memberId);
 
 
 }
