@@ -28,7 +28,7 @@ import com.meetogether.eeit10936.pairs.service.IPairsService;
 
 @Controller
 @RequestMapping("/pairs")
-@SessionAttributes("currentUser")
+@SessionAttributes({"currentUser","vipstatus"})
 @Scope(value = "session")
 public class PairsController {
 
@@ -68,12 +68,14 @@ public class PairsController {
 	}
 
 	@GetMapping(value = "/showPairMember", produces = "application/json;charset=utf-8")
-	public @ResponseBody String showPairMember(@ModelAttribute("currentUser") IMember currentUser) {
+	public @ResponseBody String showPairMember(@ModelAttribute("currentUser") IMember currentUser,Model model) {
 		List<IMember> memberlist = new ArrayList<IMember>();
 
 		pService.sortByDESValue(pService.finalscoreMap(currentUser.getMemberBasic().getMemberCity(),
 				currentUser.getMemberBasic().getMemberId())).forEach((i) -> {
-					memberlist.add(pService.getMemberById(i));
+					IMember member = pService.getMemberById(i);
+					member.getMemberBasic().setMemberPassword(null);
+					memberlist.add(member);
 				});
 		Gson gson = new GsonBuilder().setDateFormat("yyy-MM-dd").create();
 		return gson.toJson(memberlist);

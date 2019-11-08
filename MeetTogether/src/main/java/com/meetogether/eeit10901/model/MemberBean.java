@@ -38,22 +38,20 @@ public class MemberBean implements Serializable {
     
 	@Transient
     MultipartFile memberImage;
-	public MultipartFile getMemberImage() {
-		return memberImage;
-	}
 	
-
-
-
-	public void setMemberImage(MultipartFile memberImage) {
-		this.memberImage = memberImage;
-	}
-
 	@Transient
 	String mChecksum;
 	Integer adminTag;
 	Integer deleteTag;
-	 
+	
+	public MultipartFile getMemberImage() {
+		return memberImage;
+	}
+	
+	public void setMemberImage(MultipartFile memberImage) {
+		this.memberImage = memberImage;
+	}
+
 
 	public MemberBean( Integer memberId, String memberEmail, String memberPassword, String memberName, Date memberBirth,
 			Integer memberSex, String memberCity, String memberDist, String fileName, Integer adminTag,

@@ -7,10 +7,8 @@
 <title>Category</title>
 </head>
 <body>
-<select>
 <c:forEach items="${msgType}" var="type">
-	<option>${type}</option>
+	<a href="${pageContext.request.contextPath}/SearchPostByType?categoryId=${type.key}">${type.value}</a><br>
 </c:forEach>
-</select>
 </body>
 </html>

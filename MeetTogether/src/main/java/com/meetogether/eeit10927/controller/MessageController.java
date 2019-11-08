@@ -32,6 +32,9 @@ import com.meetogether.eeit10927.validate.MessageValidator;
 @Controller
 public class MessageController {
 	
+	int recordsPerPage = 2;
+	List<Message> list = null;
+	
 	ServletContext context;
 	@Autowired
 	public void setContext(ServletContext context) {
@@ -58,24 +61,19 @@ public class MessageController {
 
 	@RequestMapping(value = "/GetAllPostServlet", method = RequestMethod.GET)
 	public String getAllMessage(Model model, HttpServletRequest request) {
+		
+		// 空messageBean給postMsg.jsp
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
-
-		List<Message> msgBeans = msgService.getAllMessageActive();
-		int cnt = msgBeans.size();
-		int cntPerPage = 5;
-		List pages = new ArrayList<>();
 		
-		
-		System.out.println("****筆數：" + msgBeans.size());
-		model.addAttribute("msgBeans", msgBeans);
-		
+		// 查到的msgLike和空的msgLikeBean給forum.jsp
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
 		model.addAttribute("mlBeans", mlBeans);
 		Msglike msgLike = new Msglike();
 		model.addAttribute("msgLike", msgLike);
-		return "eeit10927/html/forum";
+		
+		return "forward:/DisplayPageMessage";
 	}
 	
 	@RequestMapping(value = "/PostServlet", method = RequestMethod.POST)
@@ -131,8 +129,8 @@ public class MessageController {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 
-		List<Message> msgBeans = msgService.getUserMessage(memberId);
-		model.addAttribute("msgBeans", msgBeans);
+		list = msgService.getUserMessage(memberId);
+		model.addAttribute("msgBeans", list);
 		
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
@@ -215,24 +213,54 @@ public class MessageController {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 		
-		List<Message> list = msgService.SearchPost(queryString);
+		list = msgService.SearchPostActive(queryString);
 		model.addAttribute("msgBeans", list);
+		return "eeit10927/html/forum";
+	}
+	
+	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.GET)
+	public String searchMessageByType(@RequestParam(value="categoryId") Integer categoryId, Model model) {
+		Message msg = new Message();
+		model.addAttribute("messageBean", msg);
+		
+		list = msgService.SearchPostByTypeActive(categoryId);
+		model.addAttribute("msgBeans", list);
+		return "eeit10927/html/forum";
+	}
+	
+	@RequestMapping("/DisplayPageMessage")
+	public String displayPage(Model model, HttpServletRequest request) {
+		String pageNoStr = request.getParameter("pageNo");
+		int pageNo = 1;
+		if (pageNoStr == null) {
+			pageNo = 1;
+		} else {
+			try {
+				pageNo = Integer.parseInt(pageNoStr.trim());
+			} catch (NumberFormatException e) {
+				pageNo = 1;
+			}
+		}
+		msgService.setPageNo(pageNo);
+		msgService.setRecordsPerPage(recordsPerPage);
+		list = msgService.getPageMessages();
+		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("totalPages", msgService.getTotalPages());
+		// 查到的messageBean給forum.jsp
+		model.addAttribute("msgBeans", list);
+		// 空messageBean給postMsg.jsp
+		model.addAttribute("messageBean", new Message());
+		// 把總筆數、頁數傳給forum.jsp
+		List<Message> allMsg = msgService.getAllMessageActive();
+		int totalCounts = allMsg.size();
+		model.addAttribute("totalCnt", totalCounts);
+				
 		return "eeit10927/html/forum";
 	}
 	
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String goCategory() {
 		return "eeit10927/html/category";
-	}
-	
-	@ModelAttribute("msgPage")
-	public List<Integer> getMsgPage() {
-		int totalPages = msgService.getTotalPages();
-		List<Integer> list = new ArrayList<>();
-		for (int i = 1; i <= totalPages; i++) {
-			list.add(i);
-		}
-		return list;
 	}
 	
 	@ModelAttribute("msgType")

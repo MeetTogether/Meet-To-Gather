@@ -89,6 +89,12 @@ public class MessageServiceImpl implements IMessageService {
 	public List<Message> SearchPostActive(String qStr) {
 		return dao.SearchPostActive(qStr);
 	}
+	
+	@Transactional
+	@Override
+	public List<Message> SearchPostByTypeActive(Integer categoryId) {
+		return dao.SearchPostByTypeActive(categoryId);
+	}
 
 	@Transactional
 	@Override
@@ -144,5 +150,32 @@ public class MessageServiceImpl implements IMessageService {
 	public List<Message> getPageMessages() {
 		return dao.getPageMessages();
 	}
+
+	@Override
+	public int getPageNo() {
+		return dao.getPageNo();
+	}
+
+	@Override
+	public void setPageNo(int pageNo) {
+		dao.setPageNo(pageNo);
+	}
+
+	@Override
+	public int getRecordsPerPage() {
+		return dao.getRecordsPerPage();
+	}
+
+	@Override
+	public void setRecordsPerPage(int recordsPerPage) {
+		dao.setRecordsPerPage(recordsPerPage);
+	}
+
+	@Override
+	public void setTotalPages(int totalPages) {
+		dao.setTotalPages(totalPages);
+	}
+
+	
 
 }

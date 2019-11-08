@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -8,13 +9,25 @@
 <title>pair</title>
 <script></script>
 <script>
+	function addElement(mid, checkVip){
+		checkVip?status=6:status=4;
+
+		for(var i = 1; i<status ;i++){
+			var srcUrl = `/memberPhoto/${mid}/${i}}`;
+ 			var newImg = document.createElement("img");
+			newImg.setAttribute("src",srcUrl)
+			document.getElementById("imgContainer").appendChild(newImg);
+		}
+		
+	}
+
 	function getage(birth) {
 		let dateNow = new Date().getTime();
 		let birthTime = new Date(birth).getTime();
 		let age = new Date(dateNow - birthTime);
 		return age.getFullYear() - 1970;
 	}
-	
+
 	function myInnerText() {
 		if (members[num]) {
 			document.getElementById("name").innerText = members[num].mb.memberName;
@@ -31,7 +44,8 @@
 			document.getElementById("memberCity").innerText = members[num].mb.memberCity
 					.trim();
 			document.getElementById("interest").innerText = members[num].mil;
-			document.getElementById("photo").src = "memberPhoto?mid= "+ members[num].mb.memberId;
+			console.log('${vipstatus}');
+			//addElement(members[num].mb.memberId,);
 		} else {
 			window.location.href = "./noMore";
 		}
@@ -74,6 +88,7 @@
 
 	document.addEventListener("DOMContentLoaded", function() {
 		pairAjax();
+
 	});
 </script>
 </head>
@@ -81,9 +96,13 @@
 <body>
 	<h2>${currentUser.memberBasic.memberId }</h2>
 	<h2>${currentUser.memberBasic.memberName }</h2>
+	<h2>Vip:${vipstatus}</h2>
 	<div id="container">
+		<div id="imgContainer">
+
+		</div>
 		<h2>配對</h2>
-		<img src="" alt="" id="photo">
+		
 		<table>
 			<tr>
 				<td>姓名:</td>

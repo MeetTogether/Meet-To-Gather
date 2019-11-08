@@ -25,6 +25,8 @@ public interface IMessageService {
 	
 	public List<Message> SearchPostActive(String qStr);
 	
+	public List<Message> SearchPostByTypeActive(Integer categoryId);
+	
 	public int replyCount(Message msg);
 	
 	public void renew(Message msg);
@@ -44,5 +46,11 @@ public interface IMessageService {
 	public int getTotalPages();
 	public long getRecordCounts();
 	public List<Message> getPageMessages();
+	
+	public int getPageNo();
+	public void setPageNo(int pageNo);
+	public int getRecordsPerPage();
+	public void setRecordsPerPage(int recordsPerPage);
+	public void setTotalPages(int totalPages);
 
 }

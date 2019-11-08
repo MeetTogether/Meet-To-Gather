@@ -21,11 +21,10 @@ import com.meetogether.eeit10927.model.MsgType;
 public class MessageDaoHibernateImpl implements IMessageDao {
 	
 	private int pageNo = 0;			// 存放目前顯示頁面的編號
-	private int recordsPerPage = 3;	// 每頁3筆
+	private int recordsPerPage = 2;	// 每頁3筆
 	private int totalPages = -1;	// 總頁數
 	
 	private SessionFactory factory;
-	
 	@Autowired
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
@@ -89,12 +88,22 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		return result;
 	}
 	
+	// ok 已確認需使用
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> SearchPostActive(String qStr) {
 		String qStr2 = "%" + qStr + "%";
 		String hql = "from Message WHERE (msgTitle Like ?0 or msgText Like ?1) AND (deleteTag = 'False' OR deleteTag IS NULL)";
 		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, qStr2).setParameter(1, qStr2).getResultList();
+		return result;
+	}
+	
+	// ok 已確認需使用
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> SearchPostByTypeActive(Integer categoryId) {
+		String hql = "from Message WHERE (msgTypeId = ?0) AND (deleteTag = 'False' OR deleteTag IS NULL)";
+		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, categoryId).getResultList();
 		return result;
 	}
 
@@ -111,6 +120,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		return msgId;
 	}
 	
+	// ok 已確認需使用
 	@Override
 	public MemberBean getMemberById(int memberId) {
 		Session session = factory.getCurrentSession();
@@ -237,15 +247,40 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public List<Message> getPageMessages() {
 		List<Message> list = new ArrayList<Message>();
-		String hql = "FROM Message";
+		String hql = "FROM Message ORDER BY createTime DESC";
 		Session session = factory.getCurrentSession();
-		int startRecordNo = (pageNo - 1) * recordsPerPage;
+		int startRecordNo = 1;
+		if (pageNo < 1) {
+			startRecordNo = pageNo * recordsPerPage;
+		} else {
+			startRecordNo = (pageNo - 1) * recordsPerPage;
+		}
 		
 		list = session.createQuery(hql)
 				.setFirstResult(startRecordNo)
 				.setMaxResults(recordsPerPage)
                 .list();
 		return list;
+	}
+	@Override
+	public int getPageNo() {
+		return pageNo;
+	}
+	@Override
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
+	@Override
+	public int getRecordsPerPage() {
+		return recordsPerPage;
+	}
+	@Override
+	public void setRecordsPerPage(int recordsPerPage) {
+		this.recordsPerPage = recordsPerPage;
+	}
+	@Override
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
 	}
 	
 	

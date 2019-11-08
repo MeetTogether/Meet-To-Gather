@@ -23,7 +23,6 @@ public class ProductDaoImpl implements ProductDao {
  	
 	@Override
 	public void add(ReviewBean review) {
-
 		factory.getCurrentSession().save(review);
 	}
 	
@@ -32,16 +31,6 @@ public class ProductDaoImpl implements ProductDao {
 	public ReviewBean getReviewById(Integer reviewId) {
 		return null;
 	}
-
-
-//	@Override
-//	public void update(ReviewBean review, ReviewBean reviewId) {
-//		String hql = "UPDATE ReviewBean SET review = :newQuantity where reviewId = :id";
-//		Session session = factory.getCurrentSession();
-//		
-//		int n = session.createQuery(hql).setParameter("newQuantity", newQuantity).setParameter("id",reviewId).excuteUpdate();
-//	}
-
 
 	@Override
 	public void delete(ReviewBean review) {

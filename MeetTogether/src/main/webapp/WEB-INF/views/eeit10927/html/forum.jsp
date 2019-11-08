@@ -93,20 +93,38 @@ input[type=submit]:hover {
 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 					<c:set var="count" value="${cnt.count}" scope="request" />
 				</c:forEach>
-				<c:if test="${empty count}">
+				<c:if test="${empty totalCnt}">
 					<div align="center">
 						<h4>查無資料</h4>
 					</div>
 				</c:if>
-				<c:if test="${!empty count}">
+				<c:if test="${!empty totalCnt}">
 					<div align="right">
-						<h4>共有${count}筆資料</h4>
+						<h4>共有${totalCnt}筆資料</h4>
 					</div>
 				</c:if>
-				<c:forEach items="${msgPage}" var="page">
-					<p>${page}<p>
-				</c:forEach>
-				<a href="${pageContext.request.contextPath}/category">查詢</a>
+				<c:if test="${pageNo > 1 }">
+					<span>
+						<a href="<c:url value='/DisplayPageMessage?pageNo=1' />">第一頁&nbsp</a>
+					</span>
+					<span>
+						<a href="<c:url value='/DisplayPageMessage?pageNo=${pageNo-1}' />">上一頁&nbsp</a>
+					</span>
+				</c:if>
+				<c:if test="${pageNo != totalPages }">
+					<span>
+						<a href="<c:url value='/DisplayPageMessage?pageNo=${pageNo+1}' />">下一頁&nbsp</a>
+					</span>
+					<span>
+						<a href="<c:url value='/DisplayPageMessage?pageNo=${totalPages}' />">最末頁&nbsp</a>
+					</span>
+				</c:if>
+				<c:if test="${param.pageNo eq null }">
+					<c:set var="pageNo" value="1" />
+				</c:if>
+				<span>第${pageNo}頁/ 共${totalPages }頁
+				</span>
+				<a href="${pageContext.request.contextPath}/category">以分類查詢</a>
 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 					<table class="aPost">
 						<c:set var="mId" value="${msgBean.member.memberId}" />
