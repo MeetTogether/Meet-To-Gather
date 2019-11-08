@@ -48,7 +48,7 @@ public class LoginController {
 					+ "\tadminTag: " + mBean.getAdminTag());
 
 		} else {
-			errorMsg.put("loginError", "帳密錯誤");
+			errorMsg.put("loginError", "帳號或密碼錯誤");
 			return "index";
 		}
 
