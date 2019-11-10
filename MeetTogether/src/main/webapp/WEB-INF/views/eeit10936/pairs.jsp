@@ -10,10 +10,12 @@
 <script></script>
 <script>
 	function addElement(mid, checkVip){
+		console.log(checkVip);
+		console.log(mid);
 		checkVip?status=6:status=4;
-
+		console.log(status);
 		for(var i = 1; i<status ;i++){
-			var srcUrl = `/memberPhoto/${mid}/${i}}`;
+			var srcUrl = "/memberPhoto/" + mid + "/" + i;
  			var newImg = document.createElement("img");
 			newImg.setAttribute("src",srcUrl)
 			document.getElementById("imgContainer").appendChild(newImg);
@@ -44,8 +46,11 @@
 			document.getElementById("memberCity").innerText = members[num].mb.memberCity
 					.trim();
 			document.getElementById("interest").innerText = members[num].mil;
-			console.log('${vipstatus}');
-			//addElement(members[num].mb.memberId,);
+			var vipStatus = ${vipstatus} 
+			console.log(vipStatus);
+			var mid = members[num].mb.memberId;
+			console.log(mid);
+			addElement(mid, vipStatus);
 		} else {
 			window.location.href = "./noMore";
 		}

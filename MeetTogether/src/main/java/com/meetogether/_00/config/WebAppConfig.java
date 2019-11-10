@@ -37,6 +37,9 @@ public class WebAppConfig implements WebMvcConfigurer {
 	     registry.addResourceHandler("/eeit10927/styles/**").addResourceLocations("/WEB-INF/views/eeit10927/styles/");
 	     registry.addResourceHandler("/eeit10927/js/**").addResourceLocations("/WEB-INF/views/eeit10927/js/");
 	     registry.addResourceHandler("/eeit10927/images/**").addResourceLocations("/WEB-INF/views/eeit10927/images/");
+	     registry.addResourceHandler("/eeit10936/css/**").addResourceLocations("/WEB-INF/views/eeit10936/css/");
+	     registry.addResourceHandler("/eeit10936/js/**").addResourceLocations("/WEB-INF/views/eeit10936/js/");
+
 	}
 	
 //	配置靜態資源處理
