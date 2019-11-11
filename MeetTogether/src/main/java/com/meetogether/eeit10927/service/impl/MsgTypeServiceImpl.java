@@ -15,7 +15,6 @@ import com.meetogether.eeit10927.service.IMsgTypeService;
 public class MsgTypeServiceImpl implements IMsgTypeService {
 	
 	IMsgTypeDao dao;
-	
 	@Autowired
 	public void setDao(IMsgTypeDao dao) {
 		this.dao = dao;

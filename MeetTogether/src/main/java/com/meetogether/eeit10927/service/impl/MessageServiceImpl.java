@@ -176,6 +176,5 @@ public class MessageServiceImpl implements IMessageService {
 		dao.setTotalPages(totalPages);
 	}
 
-	
 
 }

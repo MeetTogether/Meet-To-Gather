@@ -124,7 +124,7 @@ input[type=submit]:hover {
 				</c:if>
 				<span>第${pageNo}頁/ 共${totalPages }頁
 				</span>
-				<a href="${pageContext.request.contextPath}/category">以分類查詢</a>
+				<a href="${pageContext.request.contextPath}/SearchPostByTypeForm">以分類查詢</a>
 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 					<table class="aPost">
 						<c:set var="mId" value="${msgBean.member.memberId}" />

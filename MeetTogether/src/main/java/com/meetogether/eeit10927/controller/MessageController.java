@@ -218,12 +218,20 @@ public class MessageController {
 		return "eeit10927/html/forum";
 	}
 	
-	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.GET)
-	public String searchMessageByType(@RequestParam(value="categoryId") Integer categoryId, Model model) {
+	@RequestMapping(value = "/SearchPostByTypeForm", method = RequestMethod.GET)
+	public String searchMessageByTypeForm(Model model) {
+		model.addAttribute("msgTypeBean", new MsgType());
+		return "eeit10927/html/category";
+	}
+	
+	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.POST)
+	public String searchMessageByType(Model model, 
+			@ModelAttribute("msgTypeBean") MsgType msgTypeBean, 
+			@RequestParam Integer typeId) {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 		
-		list = msgService.SearchPostByTypeActive(categoryId);
+		list = msgService.SearchPostByTypeActive(typeId);
 		model.addAttribute("msgBeans", list);
 		return "eeit10927/html/forum";
 	}
