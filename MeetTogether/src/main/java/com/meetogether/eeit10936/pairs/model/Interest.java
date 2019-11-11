@@ -17,7 +17,7 @@ public class Interest implements Serializable {
 	@Id
 	@Column(name = "interestid")
 	private Integer interestId;
-	@Column(name = "interest")
+	@Column(name = "interestName")
 	private String interest;
 
 	public String getInterest() {

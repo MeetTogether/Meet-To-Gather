@@ -162,7 +162,7 @@ public class MemberController {
 		service.updeatVerifyMail(memberId);
 		return "eeit10901/verifyMailSuccess";
 	}
-
+	
 	
 	 
 	
