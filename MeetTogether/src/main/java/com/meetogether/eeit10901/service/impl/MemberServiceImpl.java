@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
@@ -76,5 +77,15 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return dao.findByEmail(member);
 	}
+	@Transactional
+	@Override
+	public Integer updeatVerifyMail(Integer memberId) {
+		return dao.updeatVerifyMail(memberId);
+	}
+	
+
+ 
+ 
+	
 
 }

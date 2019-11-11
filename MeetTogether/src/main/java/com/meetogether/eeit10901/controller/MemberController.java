@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.meetogether.eeit10901.model.MemberBean;
@@ -68,11 +69,7 @@ public class MemberController {
 		return "members";
 	}
 
-	@RequestMapping("/update")
-	public String updateStock(Model model) {
-		service.update(null);
-		return "redirect:/members";
-	}
+	
 
 //	@RequestMapping(value="/register",method=RequestMethod.POST)
 //	public String addRegister (@ModelAttribute("memberBean") MemberBean mm) {
@@ -114,8 +111,8 @@ public class MemberController {
 		}
 		service.add(member);
 		
-		final String Email = "wgnhus@gmail.com";// your Gmail
-		final String EmailPwd = "";// your password
+		final String Email = "109meettogether@gmail.com";// your Gmail
+		final String EmailPwd = "eeit109*";// your password
 		String host = "smtp.gmail.com";
 		int port = 587;
 
@@ -136,7 +133,8 @@ public class MemberController {
 			message.setFrom(new InternetAddress(Email));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(member.getMemberEmail()));
 			message.setSubject("MeetTogether驗證信");//主旨
-			message.setText("雷小心是大白癡請點選連結以開通帳號");//訊息
+			message.setText("請點選連結以開通帳號:"
+					+ "http://localhost:8080/MeetTogether/updateVerifyMailSucess?id="+member.getMemberId());//訊息
 
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, Email, EmailPwd);
@@ -158,4 +156,14 @@ public class MemberController {
 		return "eeit10901/registerSuccess";
 	}
 
+	
+	@RequestMapping(value ="/updateVerifyMailSucess" ,method=RequestMethod.GET)
+	public String updateVerifyMailSucess(@RequestParam(value="id") Integer memberId) {
+		service.updeatVerifyMail(memberId);
+		return "eeit10901/verifyMailSuccess";
+	}
+
+	
+	 
+	
 }

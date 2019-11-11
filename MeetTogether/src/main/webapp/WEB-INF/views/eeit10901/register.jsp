@@ -34,7 +34,7 @@ body {
 			</nav>
 		</header>
 		<div id="registerbox" align="center">
-			<h2>請輸入會員資料</h2>
+			<h2>個人資料</h2>
 			<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
 			<form:form enctype="multipart/form-data" method="POST"
 				modelAttribute="memberBean" id='registerForm'>

@@ -92,8 +92,22 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberBean getMemberById(Integer memberId) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = factory.getCurrentSession();
+		MemberBean result = session.get(MemberBean.class, memberId);
+		return result;
+	
+	}
+	
+	public Integer updeatVerifyMail(Integer memberId) {
+		String hql = "update MemberBean set verifyMail= 1 where memberId =?0";
+		Integer result = factory.getCurrentSession().createQuery(hql)
+		.setParameter(0, memberId)
+		.executeUpdate();
+		return result;
+	}
+	 
+		 
 	}
 
-}
+	
+ 

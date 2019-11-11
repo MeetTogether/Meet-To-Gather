@@ -22,5 +22,8 @@ public interface MemberDao {
 	public boolean verifyAccount(MemberBean member);
 
 	public MemberBean findByEmail(MemberBean member);
+	
+
+Integer updeatVerifyMail(Integer memberId);
 
 }

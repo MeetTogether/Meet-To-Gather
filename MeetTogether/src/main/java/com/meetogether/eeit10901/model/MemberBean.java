@@ -43,6 +43,7 @@ public class MemberBean implements Serializable {
 	String mChecksum;
 	Integer adminTag;
 	Integer deleteTag;
+	Integer verifyMail;
 	
 	public MultipartFile getMemberImage() {
 		return memberImage;

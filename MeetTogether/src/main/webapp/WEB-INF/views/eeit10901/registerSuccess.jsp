@@ -13,6 +13,6 @@
 <body>
 <h2>歡迎加入MeetTogether會員，請確認Gmail驗證信。</h2>
 
-<a href="http://localhost:8080/MeetTogether/">回登入畫面</a>
+<a href="http://localhost:8080/MeetTogether/register">回註冊畫面</a>
 </body>
 </html>
