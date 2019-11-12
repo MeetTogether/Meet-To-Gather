@@ -12,6 +12,7 @@
 <body>
 	<form:form method="POST" modelAttribute="msgTypeBean" action="./SearchPostByType">
 		<form:select path="typeId" onchange="this.form.submit();">
+			<form:option value="-1" label="請選擇" />
 			<form:options items="${msgType}" />
 		</form:select>
 	</form:form>

@@ -20,8 +20,14 @@ public class VipStatusServiceImpl implements IVipStatusService {
 
 	@Transactional
 	@Override
-	public void add(VipStatus vip) {
-		vipDao.add(vip);
+	public String add(VipStatus vip) {
+		return vipDao.add(vip);
+	}
+
+	@Transactional
+	@Override
+	public void vipUpgradeSuccess(String tradeNo) {
+		vipDao.vipUpgradeSuccess(tradeNo);
 	}
 
 }

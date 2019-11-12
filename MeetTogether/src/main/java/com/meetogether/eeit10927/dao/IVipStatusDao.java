@@ -4,6 +4,8 @@ import com.meetogether.eeit10936.pairs.model.VipStatus;
 
 public interface IVipStatusDao {
 
-	void add(VipStatus vip);
+	String add(VipStatus vip);
+	
+	void vipUpgradeSuccess(String tradeNo);
 
 }

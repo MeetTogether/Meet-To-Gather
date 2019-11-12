@@ -38,8 +38,12 @@ public class VipStatus implements Serializable {
 //	@Column(name = "endTime")
 	private Timestamp endTime;
 	
-//	@Column(name = "expired")
+//	@Column(name = "orderNumber")
+	private String orderNumber;
+	
 	private Integer expired;
+
+	
 	private MemberBean member;
 	private Integer mbId;
 
@@ -83,8 +87,16 @@ public class VipStatus implements Serializable {
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
-	}	
+	}
+	
+	public String getOrderNumber() {
+		return orderNumber;
+	}
 
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	
 	public Integer getExpired() {
 		return expired;
 	}

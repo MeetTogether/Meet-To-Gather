@@ -65,6 +65,8 @@ public class MessageController {
 		// 空messageBean給postMsg.jsp
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
+		// 空messageBean給分類查詢
+		model.addAttribute("msgTypeBean", new MsgType());
 		
 		// 查到的msgLike和空的msgLikeBean給forum.jsp
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
@@ -128,6 +130,9 @@ public class MessageController {
 	public String getUserMessage(@RequestParam(value = "memberId") Integer memberId, Model model, HttpServletRequest request) {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
+		
+		// 空messageBean給分類查詢
+		model.addAttribute("msgTypeBean", new MsgType());
 
 		list = msgService.getUserMessage(memberId);
 		model.addAttribute("msgBeans", list);
@@ -208,17 +213,20 @@ public class MessageController {
 		return "redirect:/GetAllPostServlet";
 	}
 	
-	@RequestMapping(value = "/SearchPostServlet", method = RequestMethod.POST)
+	@RequestMapping(value = "/SearchPostServlet", method = RequestMethod.GET)
 	public String searchMessage(@RequestParam(value="queryString") String queryString, Model model) {
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
+		
+		// 空messageBean給分類查詢
+		model.addAttribute("msgTypeBean", new MsgType());
 		
 		list = msgService.SearchPostActive(queryString);
 		model.addAttribute("msgBeans", list);
 		return "eeit10927/html/forum";
 	}
 	
-	@RequestMapping(value = "/SearchPostByTypeForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.GET)
 	public String searchMessageByTypeForm(Model model) {
 		model.addAttribute("msgTypeBean", new MsgType());
 		return "eeit10927/html/category";
