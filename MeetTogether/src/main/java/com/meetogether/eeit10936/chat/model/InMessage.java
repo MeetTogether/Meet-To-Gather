@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class InMessage {
 
-	private String from;
+	private Integer from;
 
-	private String to;
+	private Integer to;
 
 	private String content;
 
@@ -21,19 +21,19 @@ public class InMessage {
 
 	}
 
-	public String getFrom() {
+	public Integer getFrom() {
 		return from;
 	}
 
-	public void setFrom(String from) {
+	public void setFrom(Integer from) {
 		this.from = from;
 	}
 
-	public String getTo() {
+	public Integer getTo() {
 		return to;
 	}
 
-	public void setTo(String to) {
+	public void setTo(Integer to) {
 		this.to = to;
 	}
 

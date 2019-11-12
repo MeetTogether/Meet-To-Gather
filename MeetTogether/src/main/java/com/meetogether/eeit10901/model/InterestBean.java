@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 import org.springframework.web.multipart.MultipartFile;
 
-@Entity
+//@Entity
 @Table(name = "interest")
 public class InterestBean implements Serializable {
 	private static final long serialVersionUID = 1L;

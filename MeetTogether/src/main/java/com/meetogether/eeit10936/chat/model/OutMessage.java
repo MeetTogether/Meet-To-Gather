@@ -4,23 +4,23 @@ import java.util.Date;
 
 public class OutMessage {
 
-	private String from;
+	private Integer from;
 
 	private String content;
 
 	private Date time = new Date();
 
-	public OutMessage(String from, String content, Date time) {
+	public OutMessage(Integer from, String content, Date time) {
 		this.from = from;
 		this.content = content;
 		this.time = time;
 	}
 
-	public String getFrom() {
+	public Integer getFrom() {
 		return from;
 	}
 
-	public void setFrom(String from) {
+	public void setFrom(Integer from) {
 		this.from = from;
 	}
 

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10936.friends.model.FriendList;
@@ -22,7 +21,6 @@ import com.meetogether.eeit10936.friends.service.IFriendService;
 
 @Controller
 @RequestMapping("/friend")
-@SessionAttributes("currentUser")
 public class FriendController {
 	@Autowired
 	private IFriendService fService;
