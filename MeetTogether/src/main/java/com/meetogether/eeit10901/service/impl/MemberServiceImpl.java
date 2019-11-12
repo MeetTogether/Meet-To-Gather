@@ -39,12 +39,7 @@ public class MemberServiceImpl implements MemberService {
 		dao.update(m, m);
 	}
 
-	@Transactional
-	@Override
-	public MemberBean loging(MemberBean m) {
-		// TODO Auto-generated method stub
-		return dao.loging(m);
-	}
+
 
 	@Transactional
 	@Override

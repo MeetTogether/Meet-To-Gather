@@ -163,6 +163,12 @@ public class MemberController {
 		return "eeit10901/verifyMailSuccess";
 	}
 	
+	@RequestMapping("/interestPersonalInfo")
+	public String InsertInterestPersonalInfo() {
+		return "redirect:interestPersonalInfo";
+
+	}
+	
 	
 	 
 	

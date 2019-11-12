@@ -19,7 +19,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 		"com.meetogether.eeit10927.service",
 		"com.meetogether.eeit10927.dao",
 		"com.meetogether.eeit10901", 
-//		"com.meetogether.eeit10913",
+		"com.meetogether.eeit10913",
 		"com.meetogether.eeit10936",})
 public class WebAppConfig implements WebMvcConfigurer {
 
@@ -43,6 +43,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 	     registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/views/fonts/");
 	     registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/js/");
 	     registry.addResourceHandler("/scss/**").addResourceLocations("/WEB-INF/views/scss/");
+	     registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/views/images/");
 	}
 	
 //	配置靜態資源處理

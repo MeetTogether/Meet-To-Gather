@@ -84,11 +84,7 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
-	@Override
-	public MemberBean loging(MemberBean m) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 
 
 	@Override
 	public MemberBean getMemberById(Integer memberId) {

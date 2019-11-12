@@ -14,14 +14,10 @@ public interface MemberService {
 
 	public void delete(MemberBean m);
 
-	public MemberBean loging(MemberBean m);
-
-	
-
 	public List<MemberBean> selectALL();
 
 	public boolean mEmailExist(MemberBean member);
-	
+
 	public boolean verifyAccount(MemberBean member);
 
 	public MemberBean findByEmail(MemberBean member);
@@ -29,8 +25,5 @@ public interface MemberService {
 	public MemberBean getMemberById(Integer memberId);
 
 	Integer updeatVerifyMail(Integer memberId);
-
- 
-
 
 }

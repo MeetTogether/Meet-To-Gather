@@ -9,7 +9,7 @@ public interface MemberDao {
 
 	public void delete(MemberBean m);
 
-	public MemberBean loging(MemberBean m);
+ 
 
 	public MemberBean getMemberById(Integer memberId);
 
