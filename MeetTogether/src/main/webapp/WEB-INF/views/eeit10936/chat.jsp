@@ -55,6 +55,7 @@
 			xhttp.onreadystatechange = function () {
 				if (xhttp.readyState == 4 && xhttp.status == 200) {
 					var records = JSON.parse(xhttp.responseText);
+					console.log(records);
 					for(let record of records){
 						insertText(record);
 					}
@@ -67,6 +68,7 @@
 			connect();
 			document.getElementById("send").addEventListener("click", function () {
 				sendPersonMsg();
+				document.getElementById("text").value="";
 			});
 		});
 	</script>
@@ -77,7 +79,7 @@
 <body>
 	<h2>${userId}</h2>
 	<input type="hidden" id="me" value="${userId}">
-	<div id="txt"></div>
+	<div id="txtContainer"></div>
 	<div style="background: whitesmoke !important" class="container">
 		<input class="container" placeholder="Type a message" id="text" />
 		<input type="button" id="send" value="send" />

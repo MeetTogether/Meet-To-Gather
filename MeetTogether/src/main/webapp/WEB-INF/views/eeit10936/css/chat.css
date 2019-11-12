@@ -17,6 +17,11 @@ body {
   background-color: #ddd;
 }
 
+.default {
+  border-color: #BBFFEE;
+  background-color: #BBFFEE;
+}
+
 .container::after {
   content: "";
   clear: both;

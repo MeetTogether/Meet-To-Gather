@@ -21,6 +21,8 @@ import com.meetogether.eeit10936.chat.service.ChatService;
 import com.meetogether.eeit10936.friends.model.FriendList;
 import com.meetogether.eeit10936.friends.service.IFriendService;
 
+import net.bytebuddy.dynamic.scaffold.TypeWriter.FieldPool.Record;
+
 @Controller
 @RequestMapping("/friend")
 public class FriendController {
@@ -34,7 +36,6 @@ public class FriendController {
 	@GetMapping(value = "/showFriendList", produces = "application/json;charset=utf-8")
 	public @ResponseBody Map<Integer, String> showFriendList(HttpSession session) {
 		Integer currentUserId = (Integer) session.getAttribute("userId");
-		System.out.println(currentUserId);
 		List<FriendList> fList = fService.findFriendsById(currentUserId);
 		Map<Integer, String> mMap = new HashMap<>();
 		fList.forEach((i) -> {
@@ -55,13 +56,18 @@ public class FriendController {
 	}
 
 	@RequestMapping(value = "/chat/{friendId}", method = RequestMethod.GET)
-	public String chat(Model model, @PathVariable("friendId") Integer fid) {
+	public String chat(Model model, @PathVariable("friendId") Integer fid,HttpSession session) {
 		model.addAttribute("friendId", fid);
+		if (session.getAttribute("userId") == null ){
+			return "redirect:/";
+		}
 		return "eeit10936/chat";
 	}
-	
-	@GetMapping(value = "/chat/record/{userId}/{friendId}",produces = "application/json;charset=utf-8")
-	public @ResponseBody List<InMessage> getRecord(@PathVariable("userId")Integer uid,@PathVariable("friendId")Integer fid){
+
+	@GetMapping(value = "/chat/record/{userId}/{friendId}", produces = "application/json;charset=utf-8")
+	public @ResponseBody List<InMessage> getRecord(@PathVariable("userId") Integer uid,
+			@PathVariable("friendId") Integer fid) {
+		
 		return cService.getRecord(uid, fid);
 	}
 

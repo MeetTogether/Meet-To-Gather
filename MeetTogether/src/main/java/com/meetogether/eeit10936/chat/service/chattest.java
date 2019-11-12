@@ -19,7 +19,7 @@ public class chattest {
 	@RequestMapping(value = "/test",produces = "application/json;charset=utf-8")
 	public @ResponseBody List<String> test(){
 		Jedis j = jPool.getResource();
-//		j.flushAll();
+		j.flushAll();
 		return j.lrange("3940", 0, 1);
 	}
 

@@ -1,9 +1,14 @@
 package com.meetogether.eeit10936.chat.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
@@ -14,7 +19,11 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 @Repository
+@PropertySource(value = { "classpath:db.properties" })
 public class ChatMsgRedisDao {
+	
+	@Autowired
+	Environment env;
 
 	@Autowired
 	private JedisPool jedisPool;
@@ -47,12 +56,20 @@ public class ChatMsgRedisDao {
 		String key = getKey(from, to);
 		try {
 			jedis = jedisPool.getResource();
-			List<String> recordListFromRedis = jedis.lrange(key, 0, 1);
+			List<String> recordListFromRedis = jedis.lrange(key, 0, 5);
 			List<InMessage> recordList = new ArrayList<InMessage>();
+			System.out.println("對話紀錄長度 : " + recordListFromRedis.size());
+			if(recordListFromRedis.size() == 0) {
+				InMessage msg = new InMessage(0,env.getProperty("msgDefault"),new Date(System.currentTimeMillis())); 
+				Gson gson = new GsonBuilder().create();
+				jedis.lpush(key, gson.toJson(msg));
+				recordListFromRedis = jedis.lrange(key, 0, 5);
+			}
 			Gson gson =new Gson();
 			recordListFromRedis.forEach((i)->{
 				recordList.add(gson.fromJson(i, InMessage.class));
 			});
+			Collections.reverse(recordList);
 			return recordList;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,6 +77,10 @@ public class ChatMsgRedisDao {
 		} finally {
 			jedis.close();
 		}
+	}
+	
+	public void saveDefaultRecord() {
+		
 	}
 
 }

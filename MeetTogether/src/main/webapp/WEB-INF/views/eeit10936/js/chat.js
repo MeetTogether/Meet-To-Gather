@@ -16,18 +16,23 @@ function insertChat(who, text, time){
     }
     var control ;
     var date = formatAMPM(new Date());
-    console.log(who);
     var me = document.getElementById("me").value;
-    console.log(me);
-    if (who == me){
-        
+    if (who == 0){
         control = 
-        	"<div class='container darker'>" +
-        		"<img src='/MeetTogether/getImage?type=member&id="+ who +"' alt='Avatar' class='right'>" +
-        		"<p>" + text +"</p>" +
+            "<div class='container default'>" +
+                "<p Align='Center'>公告</p>" +
+        		"<p Align='Center'>" + text +"</p>" +
         		"<span class='time-right'>"+ time +"</span>" + 
 			"</div>";             
-    }else{
+    }else if(who == me){
+        control = 
+            "<div class='container darker'>" +
+                "<img src='/MeetTogether/getImage?type=member&id="+ who +"' alt='Avatar' class='right'>" +
+                "<p>" + text +"</p>" +
+                "<span class='time-right'>"+ time +"</span>" + 
+            "</div>";             
+    }
+    else{
         control = 
         	"<div class='container'>" +
     		"<img src='/MeetTogether/getImage?type=member&id="+ who +"' alt='Avatar'>" +
@@ -36,6 +41,6 @@ function insertChat(who, text, time){
 			"</div>";         
     }
     
-    document.getElementById("txt").innerHTML += control;
+    document.getElementById("txtContainer").innerHTML += control;
     
 }

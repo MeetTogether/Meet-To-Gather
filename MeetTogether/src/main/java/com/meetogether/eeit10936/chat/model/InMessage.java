@@ -12,7 +12,14 @@ public class InMessage {
 
 	private Date time;
 
-	InMessage() {
+	public InMessage() {
+
+	}
+
+	public InMessage(Integer from, String content, Date time) {
+		this.from = from;
+		this.content = content;
+		this.time = time;
 
 	}
 
