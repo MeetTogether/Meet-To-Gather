@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meetogether.eeit10927.service.IMessageService;
+import com.meetogether.eeit10936.chat.model.InMessage;
+import com.meetogether.eeit10936.chat.service.ChatService;
 import com.meetogether.eeit10936.friends.model.FriendList;
 import com.meetogether.eeit10936.friends.service.IFriendService;
 
@@ -26,6 +28,8 @@ public class FriendController {
 	private IFriendService fService;
 	@Autowired
 	private IMessageService mService;
+	@Autowired
+	private ChatService cService;
 
 	@GetMapping(value = "/showFriendList", produces = "application/json;charset=utf-8")
 	public @ResponseBody Map<Integer, String> showFriendList(HttpSession session) {
@@ -54,6 +58,11 @@ public class FriendController {
 	public String chat(Model model, @PathVariable("friendId") Integer fid) {
 		model.addAttribute("friendId", fid);
 		return "eeit10936/chat";
+	}
+	
+	@GetMapping(value = "/chat/record/{userId}/{friendId}",produces = "application/json;charset=utf-8")
+	public @ResponseBody List<InMessage> getRecord(@PathVariable("userId")Integer uid,@PathVariable("friendId")Integer fid){
+		return cService.getRecord(uid, fid);
 	}
 
 }

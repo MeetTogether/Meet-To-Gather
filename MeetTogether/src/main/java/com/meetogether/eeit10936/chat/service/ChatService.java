@@ -1,5 +1,7 @@
 package com.meetogether.eeit10936.chat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -31,5 +33,9 @@ public class ChatService {
 		dao.saveRecord(message);
 		template.convertAndSend(subscribeUrlString,
 				new OutMessage(message.getFrom(), message.getContent(), message.getTime()));
+	}
+	
+	public List<InMessage> getRecord(Integer from , Integer to){
+		return dao.getRecord(from, to);
 	}
 }

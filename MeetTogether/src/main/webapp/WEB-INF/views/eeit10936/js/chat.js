@@ -1,9 +1,3 @@
-var me = {};
-myAvatar = "";
-
-var you = {};
-yourAvatar = "";
-
 function formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -15,7 +9,7 @@ function formatAMPM(date) {
     return strTime;
 }            
 
-//-- No use time. It is a javaScript effect.
+
 function insertChat(who, text, time){
     if (time === undefined){
         time = 0;
