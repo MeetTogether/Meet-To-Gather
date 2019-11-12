@@ -41,7 +41,7 @@
 <%-- 							<p>${product.companyBean.name}</p> --%>
 							<p>
 								<!-- 	product前+一個/才能找到詳細資料						 -->
-								<a href="<spring:url value='/product?id=${product.bookId}' />"
+								<a href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />"
 									class="btn btn-primary"> 
 									<span class="glyphicon-info-sigh glyphicon"></span>詳細資料
 								</a> 

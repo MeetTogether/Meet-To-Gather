@@ -11,9 +11,9 @@ public interface ProductDao {
 
 	public List<ReviewBean> selectALL();
 
-	void update(ReviewBean review, ReviewBean reviewId);
-
 	void add(ReviewBean review);
 	
-	void delete(ReviewBean review);
+	void delete(Integer review);
+
+	void update(ReviewBean rev);
 } 

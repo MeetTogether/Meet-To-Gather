@@ -26,13 +26,13 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Transactional
 	@Override
-	public void update(ReviewBean m) {
-		dao.update(m, m);	
+	public void update(ReviewBean rev) {
+		dao.update(rev);	
 	}
 	@Transactional
 	@Override
-	public void delete(ReviewBean m) {
-		dao.update(m, m);
+	public void delete(Integer review) {
+		dao.delete(review);
 	}
 	
 	@Transactional

@@ -7,9 +7,9 @@ import com.meetogether.eeit10913.model.ReviewBean;
 public interface ProductService {
 	public void add(ReviewBean review);
 
-	public void update(ReviewBean m);
+	void update(ReviewBean rev);
 
-	public void delete(ReviewBean m);
+	public void delete(Integer review);
 	
 	public List<ReviewBean> selectALL();
 	

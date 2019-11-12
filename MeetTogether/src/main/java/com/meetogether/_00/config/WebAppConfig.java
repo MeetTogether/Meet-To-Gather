@@ -19,7 +19,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 		"com.meetogether.eeit10927.service",
 		"com.meetogether.eeit10927.dao",
 		"com.meetogether.eeit10901", 
+<<<<<<< HEAD
 		"com.meetogether.eeit10913",
+=======
+		"com.meetogether.eeit10913",
+		"com.meetogether.eeit10908",
+>>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 		"com.meetogether.eeit10936",})
 public class WebAppConfig implements WebMvcConfigurer {
 
