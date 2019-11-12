@@ -20,30 +20,28 @@ function insertChat(who, text, time){
     if (time === undefined){
         time = 0;
     }
-    var control = "";
+    var control ;
     var date = formatAMPM(new Date());
-    
-    if (who == "me"){
+    console.log(who);
+    var me = document.getElementById("me").value;
+    console.log(me);
+    if (who == me){
         
-        control = '<li style="width:100%">' +
-                        '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ myAvatar +'" /></div>' +
-                            '<div class="text text-r">' +
-                                '<p>'+ text +'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '</div>' +
-                    '</li>';                    
+        control = 
+        	"<div class='container darker'>" +
+        		"<img src='/MeetTogether/getImage?type=member&id="+ who +"' alt='Avatar' class='right'>" +
+        		"<p>" + text +"</p>" +
+        		"<span class='time-right'>"+ time +"</span>" + 
+			"</div>";             
     }else{
-        control = '<li style="width:100%;">' +
-                        '<div class="msj-rta macro">' +
-                            '<div class="text text-l">' +
-                                '<p>'+text+'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+yourAvatar+'" /></div>' +                                
-                  '</li>';
+        control = 
+        	"<div class='container'>" +
+    		"<img src='/MeetTogether/getImage?type=member&id="+ who +"' alt='Avatar'>" +
+				"<p>" + text +"</p>" +
+				"<span class='time-left'>" + time + "</span>" + 
+			"</div>";         
     }
-    document.getElementById("container").innerHTML=control;
+    
+    document.getElementById("txt").innerHTML += control;
     
 }
