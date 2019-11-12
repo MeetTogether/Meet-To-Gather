@@ -3,26 +3,22 @@ package com.meetogether._00.config;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 @EnableTransactionManagement
@@ -40,6 +36,20 @@ public class RootAppConfig {
 	@Autowired
 	public void setEnv(Environment env) {
 		this.env = env;
+	}
+	
+	@Bean
+	public JedisPool jedisPool() {
+		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+		jedisPoolConfig.setMaxIdle(Integer.parseInt(env.getProperty("spring.jedisPoolConfig.maxIdle")));
+		jedisPoolConfig.setMaxTotal(Integer.parseInt(env.getProperty("spring.jedisPoolConfig.maxTotal")));
+		jedisPoolConfig.setTestOnBorrow(Boolean.parseBoolean(env.getProperty("spring.jedisPoolConfig.testOnBorrow")));
+		String host = env.getProperty("spring.jedisPool.host");
+		int port = Integer.parseInt(env.getProperty("spring.jedisPool.port"));
+		int timeout = Integer.parseInt(env.getProperty("spring.jedisPool.timeout"));
+		String pwd = env.getProperty("spring.jedisPool.password");
+		return new JedisPool(jedisPoolConfig, host, port, timeout, pwd);
+
 	}
 
 	@Bean
@@ -67,7 +77,7 @@ public class RootAppConfig {
 		factory.setPackagesToScan(new String[] {
 				"com.meetogether.eeit10927.model",
 				"com.meetogether.eeit10901.model",
-//				"com.meetogether.eeit10913.model",
+				"com.meetogether.eeit10913.model",
 				"com.meetogether.eeit10936.pairs.model",
 				"com.meetogether.eeit10936.friends.model"});
 		factory.setHibernateProperties(additionalProperties());
