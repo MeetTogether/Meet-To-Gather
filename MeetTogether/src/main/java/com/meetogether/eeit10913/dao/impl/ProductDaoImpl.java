@@ -8,11 +8,15 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.model.CatBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
+import com.meetogether.eeit10927.model.Member;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
+	
 	SessionFactory factory;
 
 	@Autowired
@@ -29,12 +33,17 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public ReviewBean getReviewById(Integer reviewId) {
-		return null;
+		Session session = factory.getCurrentSession();
+		ReviewBean rr = session.get(ReviewBean.class, reviewId);
+		return rr;
 	}
 
 	@Override
-	public void delete(ReviewBean review) {
-		
+	public void delete(Integer review) {
+		Session session = factory.getCurrentSession();
+		ReviewBean review1 = new ReviewBean();
+		review1.setReviewId(review);
+		session.delete(review);
 	}
 
 
@@ -51,10 +60,19 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	@Override
-	public void update(ReviewBean review, ReviewBean reviewId) {
-		// TODO Auto-generated method stub
+	public void update(ReviewBean rev) {
+//		String hql = "from eventReview WHERE reviewId = ?";
+//		ReviewBean result = (ReviewBean) factory.getCurrentSession().createQuery(hql)
+//				.setParameter(0, rev.getReviewId()).uniqueResult();
+//
+//		result.setEventComment(rev.getEventComment());
+//		result.setEventStars(rev.getEventStars());
+		Session session=factory.getCurrentSession();
+		session.update(rev);
 		
 	}
+
+
 
 
 }
