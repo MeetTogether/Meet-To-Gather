@@ -8,7 +8,7 @@ import com.meetogether.eeit10927.model.Message;
 
 public interface IMessageDao {
 
-	public int add(Message msg);
+public int add(Message msg);
 	
 	public void delete(Message msg);
 
@@ -25,6 +25,7 @@ public interface IMessageDao {
 	public List<Message> SearchPost(String qStr);
 	
 	public List<Message> SearchPostActive(String qStr);
+	public int getMsgCntByType(Integer typeId);
 	
 	public List<Message> SearchPostByTypeActive(Integer categoryId);
 	
@@ -43,6 +44,9 @@ public interface IMessageDao {
 	public void updateMsgImageFilename(Integer msgId, String filename);
 	
 	public MemberBean getMemberById(int memberId);
+	
+	public List<Message> getPopularMsg();
+	public List<Message> getRecentMsg();
 	
 	public int getTotalPages();
 	public long getRecordCounts();

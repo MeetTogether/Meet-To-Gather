@@ -38,7 +38,7 @@ public class RootAppConfig {
 		this.env = env;
 	}
 	
-	@Bean
+//	@Bean
 	public JedisPool jedisPool() {
 		JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 		jedisPoolConfig.setMaxIdle(Integer.parseInt(env.getProperty("spring.jedisPoolConfig.maxIdle")));

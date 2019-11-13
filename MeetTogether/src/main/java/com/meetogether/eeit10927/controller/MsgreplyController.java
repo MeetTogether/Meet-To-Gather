@@ -88,4 +88,9 @@ public class MsgreplyController {
 		return msg.getLikeCount().toString();
 	}
 	
+	@RequestMapping(value = "/getMsgTypeCnt", method = RequestMethod.GET)
+	public @ResponseBody Integer getMsgTypeCnt(@RequestParam(value="typeId") Integer typeId) {
+		return msgService.getMsgCntByType(typeId);
+	}
+	
 }

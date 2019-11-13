@@ -7,7 +7,7 @@ import com.meetogether.eeit10927.model.Msgreply;
 
 public interface IMsgreplyService {
 	
-	void addMsgreply(Msgreply re);
+void addMsgreply(Msgreply re);
 	
 	List<Msgreply> getAllMsgreply(Integer msgId);
 	

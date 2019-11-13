@@ -23,7 +23,7 @@ import com.meetogether.eeit10936.friends.service.IFriendService;
 
 import net.bytebuddy.dynamic.scaffold.TypeWriter.FieldPool.Record;
 
-@Controller
+//@Controller
 @RequestMapping("/friend")
 public class FriendController {
 	@Autowired

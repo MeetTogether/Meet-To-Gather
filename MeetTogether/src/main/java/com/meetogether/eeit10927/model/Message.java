@@ -2,6 +2,7 @@ package com.meetogether.eeit10927.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -34,6 +35,7 @@ import com.meetogether.eeit10901.model.MemberBean;
 public class Message implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
 	
 	private Integer msgId;
 	private String msgTitle;
@@ -46,10 +48,12 @@ public class Message implements Serializable {
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
+	private String createTimeFormat;
 	
 	@UpdateTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
+	private String updateTimeFormat;
 	
 	private String deleteTag;
 	private Integer likeCount;
@@ -227,6 +231,24 @@ public class Message implements Serializable {
 
 	public void setMsgreply(Set<Msgreply> msgreply) {
 		this.msgreply = msgreply;
+	}
+
+	@Transient
+	public String getCreateTimeFormat() {
+		return sdf1.format(createTime);
+	}
+
+	public void setCreateTimeFormat(String createTimeFormat) {
+		this.createTimeFormat = createTimeFormat;
+	}
+
+	@Transient
+	public String getUpdateTimeFormat() {
+		return sdf1.format(updateTime);
+	}
+
+	public void setUpdateTimeFormat(String updateTimeFormat) {
+		this.updateTimeFormat = updateTimeFormat;
 	}
 
 }

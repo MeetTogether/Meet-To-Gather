@@ -23,17 +23,12 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	private int pageNo = 0;			// 存放目前顯示頁面的編號
 	private int recordsPerPage = 2;	// 每頁3筆
 	private int totalPages = -1;	// 總頁數
+	private int textLength = 50;	// 顯示部份文章的字數
 	
 	private SessionFactory factory;
 	@Autowired
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
-	}
-	
-	private MemberDao mDao;
-	@Autowired
-	public void setMDao(MemberDao mDao) {
-		this.mDao = mDao;
 	}
 	
 	private IMsgTypeDao mtDao;
@@ -50,6 +45,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	public Message getMsgByMsgId(Integer msgId) {
 		String hql = "from Message WHERE msgId = ?0";
 		Message result = (Message) factory.getCurrentSession().createQuery(hql).setParameter(0, msgId).uniqueResult();
+		result.setMsgText(result.getMsgText().replace("\n", "<br>"));
 		return result;
 	}
 
@@ -57,8 +53,16 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public List<Message> getAllMessage() {
 		String hql = "from Message ORDER BY createTime DESC";
-		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).getResultList();
-		return result;
+		List<Message> list = (List<Message>) factory.getCurrentSession().createQuery(hql).getResultList();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
 	}
 	
 	// ok 已確認需使用
@@ -66,8 +70,16 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public List<Message> getAllMessageActive() {
 		String hql = "from Message WHERE deleteTag = 'False' OR deleteTag IS NULL ORDER BY createTime DESC";
-		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).getResultList();
-		return result;
+		List<Message> list = (List<Message>) factory.getCurrentSession().createQuery(hql).getResultList();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
 	}
 	
 	// ok 已確認需使用
@@ -75,8 +87,16 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public List<Message> getUserMessage(Integer memberId) {
 		String hql = "from Message WHERE memberId = ?0 AND (deleteTag = 'False' OR deleteTag IS NULL) ORDER BY createTime DESC";
-		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, memberId).getResultList();
-		return result;
+		List<Message> list = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, memberId).getResultList();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -84,8 +104,16 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	public List<Message> SearchPost(String qStr) {
 		String qStr2 = "%" + qStr + "%";
 		String hql = "from Message WHERE msgTitle Like ?0 or msgText Like ?1";
-		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, qStr2).setParameter(1, qStr2).getResultList();
-		return result;
+		List<Message> list = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, qStr2).setParameter(1, qStr2).getResultList();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
 	}
 	
 	// ok 已確認需使用
@@ -94,18 +122,55 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	public List<Message> SearchPostActive(String qStr) {
 		String qStr2 = "%" + qStr + "%";
 		String hql = "from Message WHERE (msgTitle Like ?0 or msgText Like ?1) AND (deleteTag = 'False' OR deleteTag IS NULL)";
-		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, qStr2).setParameter(1, qStr2).getResultList();
-		return result;
+		List<Message> list = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, qStr2).setParameter(1, qStr2).getResultList();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
 	}
 	
 	// ok 已確認需使用
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Message> SearchPostByTypeActive(Integer categoryId) {
+	public List<Message> SearchPostByTypeActive(Integer typeId) {
 		String hql = "from Message WHERE (msgTypeId = ?0) AND (deleteTag = 'False' OR deleteTag IS NULL)";
-		List<Message> result = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, categoryId).getResultList();
-		return result;
+		List<Message> list = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, typeId).getResultList();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public int getMsgCntByType(Integer typeId) {
+		String hql = "from Message WHERE (msgTypeId = ?0) AND (deleteTag = 'False' OR deleteTag IS NULL)";
+		List<Message> list = (List<Message>) factory.getCurrentSession().createQuery(hql).setParameter(0, typeId).getResultList();
+		if (list.size() > 0) {
+			return list.size();
+		} else {
+			return 0;
+		}
+	}
+	
+//	同上	
+//	public int getMsgTypeCount(Integer typeId) {
+//		Map<Integer, Integer> msgTypeMap = new HashMap<>();
+//		String hql = "SELECT DISTINCT COUNT(*) AS Count, msgTypeId AS [Type] "
+//				+ "FROM message WHERE deleteTag = 0 and msgTypeId = ?0 GROUP by msgTypeId";
+//		int cnt = (int) factory.getCurrentSession().createQuery(hql).setParameter(0, typeId).uniqueResult();
+//		return cnt;
+//	}
 
 	// ok 已確認需使用
 	@Override
@@ -217,8 +282,8 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public List<Message> getMsgType() {
 		String hql = "FROM Message";
-		List<Message> result = factory.getCurrentSession().createQuery(hql).getResultList();
-		return result;
+		List<Message> list = factory.getCurrentSession().createQuery(hql).getResultList();
+		return list;
 	}
 	
 	// ok 已確認需使用
@@ -247,7 +312,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public List<Message> getPageMessages() {
 		List<Message> list = new ArrayList<Message>();
-		String hql = "FROM Message ORDER BY createTime DESC";
+		String hql = "FROM Message WHERE deleteTag = 'False' OR deleteTag IS NULL ORDER BY createTime DESC";
 		Session session = factory.getCurrentSession();
 		int startRecordNo = 1;
 		if (pageNo < 1) {
@@ -260,6 +325,14 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 				.setFirstResult(startRecordNo)
 				.setMaxResults(recordsPerPage)
                 .list();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
 		return list;
 	}
 	@Override
@@ -281,6 +354,46 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> getRecentMsg() {
+		List<Message> list = new ArrayList<Message>();
+		String hql = "FROM Message WHERE deleteTag = 'False' OR deleteTag IS NULL ORDER BY createTime DESC";
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql)
+				.setMaxResults(3)
+                .list();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Message> getPopularMsg() {
+		List<Message> list = new ArrayList<Message>();
+		String hql = "FROM Message WHERE deleteTag = 'False' OR deleteTag IS NULL ORDER BY replyCount DESC, createTime DESC";
+		Session session = factory.getCurrentSession();
+		list = session.createQuery(hql)
+				.setMaxResults(3)
+                .list();
+		for (Message msg : list) {
+			msg.setMsgText(msg.getMsgText().replace("\n", "<br>"));
+			if (msg.getMsgText().length() > textLength) {
+				msg.setMsgTextShort(msg.getMsgText().substring(0, textLength));
+			} else {
+				msg.setMsgTextShort(msg.getMsgText());
+			}
+		}
+		return list;
 	}
 	
 	

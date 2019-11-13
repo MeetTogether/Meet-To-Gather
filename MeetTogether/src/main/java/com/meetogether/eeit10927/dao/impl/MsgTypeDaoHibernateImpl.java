@@ -27,8 +27,8 @@ private SessionFactory factory;
 	@SuppressWarnings("unchecked")
 	public List<MsgType> getMsgTypeList() {
 		String hql = "FROM MsgType";
-		List<MsgType> result = factory.getCurrentSession().createQuery(hql).getResultList();
-		return result;
+		List<MsgType> list = factory.getCurrentSession().createQuery(hql).getResultList();
+		return list;
 	}
 	
 	@Override

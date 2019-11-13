@@ -148,6 +148,7 @@ public class MessageController {
 	@RequestMapping(value = "/ViewPostServlet", method = RequestMethod.GET)
 	public String viewMessage(@RequestParam(value="msgId") Integer msgId, Model model) {
 		Message msgBean = msgService.getMsgByMsgId(msgId);
+		msgBean.setMsgText(msgBean.getMsgText().replace("<br>", "\n"));
 		System.out.println("messge filename: " + msgBean.getMsgFilename());
 		model.addAttribute("msgBean", msgBean);
 		return "eeit10927/html/forumView";
@@ -226,13 +227,13 @@ public class MessageController {
 		return "eeit10927/html/forum";
 	}
 	
-	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.GET)
+//	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.GET)
 	public String searchMessageByTypeForm(Model model) {
 		model.addAttribute("msgTypeBean", new MsgType());
 		return "eeit10927/html/category";
 	}
 	
-	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.POST)
+	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.GET)
 	public String searchMessageByType(Model model, 
 			@ModelAttribute("msgTypeBean") MsgType msgTypeBean, 
 			@RequestParam Integer typeId) {
@@ -259,7 +260,8 @@ public class MessageController {
 		}
 		msgService.setPageNo(pageNo);
 		msgService.setRecordsPerPage(recordsPerPage);
-		list = msgService.getPageMessages();
+//		list = msgService.getPageMessages();
+		list = msgService.getAllMessageActive();
 		model.addAttribute("pageNo", pageNo);
 		model.addAttribute("totalPages", msgService.getTotalPages());
 		// 查到的messageBean給forum.jsp
@@ -287,6 +289,18 @@ public class MessageController {
 			msgTypeMap.put(mType.getTypeId(), mType.getTypeName());
 		}
 		return msgTypeMap;
+	}
+	
+	@ModelAttribute("popularMsgBeans")
+	public List<Message> getPopularMsgList() {
+		list = msgService.getPopularMsg();
+		return list;
+	}
+	
+	@ModelAttribute("recentMsgBeans")
+	public List<Message> getRecentMsgList() {
+		list = msgService.getRecentMsg();
+		return list;
 	}
 	
 }

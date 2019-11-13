@@ -39,4 +39,5 @@ public class MsgType implements Serializable {
 //	public void setMessage(Set<Message> message) {
 //		this.message = message;
 //	}
+	
 }

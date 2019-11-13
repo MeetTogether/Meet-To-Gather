@@ -23,7 +23,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 		"com.meetogether.eeit10913",
 		"com.meetogether.eeit10908",
 
-		"com.meetogether.eeit10936",})
+//		"com.meetogether.eeit10936"
+		})
 public class WebAppConfig implements WebMvcConfigurer {
 
 //	配置視圖解析器
