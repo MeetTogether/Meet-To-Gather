@@ -21,8 +21,6 @@ import com.meetogether.eeit10936.chat.service.ChatService;
 import com.meetogether.eeit10936.friends.model.FriendList;
 import com.meetogether.eeit10936.friends.service.IFriendService;
 
-import net.bytebuddy.dynamic.scaffold.TypeWriter.FieldPool.Record;
-
 //@Controller
 @RequestMapping("/friend")
 public class FriendController {
