@@ -187,16 +187,15 @@ p {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Our Car</a></li>
+<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
 					<li class="nav-item active"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Member
-							Center</a></li>
+						class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-link">登出</a></li>
 				</ul>
 			</div>
 		</div>
