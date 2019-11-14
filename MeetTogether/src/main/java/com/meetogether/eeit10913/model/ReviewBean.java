@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.meetogether.eeit10901.model.MemberBean;
 
@@ -18,24 +19,17 @@ import com.meetogether.eeit10901.model.MemberBean;
 @Table(name = "eventReview")
 public class ReviewBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private Integer reviewId;
+	private Integer eventId;
+	private MemberBean member;
+	private String eventComment;
+	private Integer eventStars;
+	private Integer mbId;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "reviewId")
-
-	Integer reviewId;
-	Integer eventId;
-	Integer memberId;
-	String eventComment;
-	Integer eventStars;
-
-//	@ManyToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "FK_MemberBean_memberId")
-//	private MemberBean memberBean;
-//
-//	@ManyToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "FK_ActBean_eventId")
-//	private ActBean actBean;
-
 	public Integer getReviewId() {
 		return reviewId;
 	}
@@ -52,13 +46,6 @@ public class ReviewBean implements Serializable {
 		this.eventId = eventId;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
 
 	public String getEventComment() {
 		return eventComment;
@@ -75,33 +62,35 @@ public class ReviewBean implements Serializable {
 	public void setEventStars(Integer eventStars) {
 		this.eventStars = eventStars;
 	}
-//
-//	public MemberBean getMemberBean() {
-//		return memberBean;
-//	}
-//
-//	public void setMemberBean(MemberBean memberBean) {
-//		this.memberBean = memberBean;
-//	}
-//
-//	public ActBean getEventBean() {
-//		return actBean;
-//	}
-//
-//	public void setEventBean(ActBean eventBean) {
-//		this.actBean = eventBean;
-//	}
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "memberId")
+	public MemberBean getMember() {
+		return member;
+	}
 
-	public ReviewBean(Integer reviewId, Integer eventId, Integer memberId, String eventComment, Integer eventStars,
-			MemberBean memberBean, ActBean actBean) {
+	public void setMember(MemberBean member) {
+		this.member = member;
+	}
+	@Transient
+	public Integer getMbId() {
+		return mbId;
+	}
+	
+	public void setMbId(Integer mbId) {
+		this.mbId = mbId;
+	}
+
+	public ReviewBean(Integer reviewId, Integer eventId, Integer mbId, String eventComment, Integer eventStars,
+			MemberBean memberBean) {
 		super();
 		this.reviewId = reviewId;
 		this.eventId = eventId;
-		this.memberId = memberId;
+		this.mbId = mbId;
 		this.eventComment = eventComment;
 		this.eventStars = eventStars;
 //		this.memberBean = memberBean;
-//		this.actBean = actBean;
+
 	}
 
 
@@ -112,12 +101,12 @@ public class ReviewBean implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("BookBean [reviewId=");
+		builder.append("ReviewBean [reviewId=");
 		builder.append(reviewId);
 		builder.append(", eventId=");
 		builder.append(eventId);
-		builder.append(", memberId=");
-		builder.append(memberId);
+		builder.append(", mbId=");
+		builder.append(mbId);
 		builder.append(", eventComment=");
 		builder.append(eventComment);
 		builder.append(", eventStars=");
@@ -127,5 +116,9 @@ public class ReviewBean implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+
+	
+	
 
 }

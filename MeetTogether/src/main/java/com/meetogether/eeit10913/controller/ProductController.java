@@ -3,6 +3,7 @@ package com.meetogether.eeit10913.controller;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10913.model.ReviewBean;
 import com.meetogether.eeit10913.service.ProductService;
 
@@ -40,7 +41,8 @@ public class ProductController {
 	
 //新增方法
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
-	public String getaddReview(Model model) {
+	public String getaddReview(Model model, HttpServletRequest request) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		ReviewBean rb = new ReviewBean();
 		model.addAttribute("reviewBean", rb);
 		return "eeit10913/addProduct";
@@ -50,6 +52,7 @@ public class ProductController {
 	public String abc(@ModelAttribute("reviewBean") ReviewBean rb) {
 		System.out.println(rb.getEventComment());
 		System.out.println(rb.getEventStars());
+		System.out.println("rb1111111:::::::"+rb);
 		service.add(rb);
 		return "redirect:/allreview";
 	}
@@ -71,7 +74,8 @@ public class ProductController {
 	public String list(Model model) {
 		List<ReviewBean> list = service.selectALL();
 		model.addAttribute("review", list);
-		return "eeit10913/products";
+//		return "eeit10913/products";
+		return "eeit10913/products2";
 	}
 
 }

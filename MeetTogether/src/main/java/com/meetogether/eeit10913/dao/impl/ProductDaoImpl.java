@@ -8,11 +8,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.meetogether.eeit10908.model.ActBean;
-import com.meetogether.eeit10908.model.CatBean;
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
-import com.meetogether.eeit10927.model.Member;
+import com.meetogether.eeit10927.model.MsgType;
+import com.meetogether.eeit10927.service.IMessageService;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -23,11 +23,21 @@ public class ProductDaoImpl implements ProductDao {
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
+	
+	@Autowired
+	IMessageService msgService;
  	
  	
 	@Override
 	public void add(ReviewBean review) {
-		factory.getCurrentSession().save(review);
+//		factory.getCurrentSession().save(review);
+		Session session = factory.getCurrentSession();
+		System.out.println("review=============================="+review);
+		MemberBean mb = msgService.getMemberById(review.getMbId());
+//		MemberBean mb = getMemberById(review.getMember().getMemberId());
+//		System.out.println("=============================="+review.getMember().getMemberId());
+		review.setMember(mb);
+		session.save(review);
 	}
 	
 
@@ -61,15 +71,16 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public void update(ReviewBean rev) {
-//		String hql = "from eventReview WHERE reviewId = ?";
-//		ReviewBean result = (ReviewBean) factory.getCurrentSession().createQuery(hql)
-//				.setParameter(0, rev.getReviewId()).uniqueResult();
-//
-//		result.setEventComment(rev.getEventComment());
-//		result.setEventStars(rev.getEventStars());
 		Session session=factory.getCurrentSession();
 		session.update(rev);
 		
+	}
+	
+	@Override
+	public MemberBean getMemberById(int memberId) {
+		Session session = factory.getCurrentSession();
+		MemberBean result = session.get(MemberBean.class, memberId);
+		return result;
 	}
 
 
