@@ -124,7 +124,7 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 				.createQuery("FROM MemberAlbum ma WHERE ma.pk.memberId = ?1 AND ma.deleteTag =?2 AND ma.status = ?3", MemberAlbum.class)
 				.setParameter(1, id).setParameter(2, 0).setParameter(3, status).uniqueResult();
 		
-		return result.getImg();
+		return result.getPhoto();
 	}
 
 	@Override

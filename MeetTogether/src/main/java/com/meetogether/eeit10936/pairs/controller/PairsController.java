@@ -92,7 +92,6 @@ public class PairsController {
 				os.write(buf, 0, length);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

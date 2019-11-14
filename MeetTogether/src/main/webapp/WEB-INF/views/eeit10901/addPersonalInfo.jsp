@@ -7,16 +7,120 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Enter your personal information</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/eeit10901/styles/top.css"
+	type="text/css">
+<title>輸入個人喜好</title>
+<script type="text/javascript">
+	$(document).ready(function() {
 
+		$("#add").click(check);
+	});
+	function check() {
+		checkEmptyE();
+		checkEmptyP();
+		if (flag == 0) {
+			$("#addInfoForm").submit();
+		} else {
+			;
+		}
+	}
+</script>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/eeit10927/js/login.js"></script>
+
+
+ <title>Autoroad - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+<style type="text/css">
+td {
+ color:black;
+}
+
+table{
+border: 2px solid black; 
+border-collapse: collapse;
+background-color:#FF7744;
+width: 300px; 	
+   	/*自動斷行*/
+   	word-wrap: break-word;
+   	table-layout: fixed;
+}
+</style>
 </head>
-<body>
-<h2>請輸入個人資訊</h2>
+<body >
+<nav
+		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+		id="ftco-navbar">
+<%-- 		<jsp:include page="eeit10927/fragment/top.jsp" /> --%>
+		<div class="container">
+			<a class="navbar-brand"
+				href="http://localhost:8080/MeetTogether/register">註冊<span></span></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					
+				       <li class="nav-item"><a href="index.jsp" class="nav-link">首頁</a></li>
+	          <li class="nav-item"><a href="about.html" class="nav-link">我的資料</a></li>
+	          <li class="nav-item active"><a href="album.jsp" class="nav-link">相簿</a></li>
+	          <li class="nav-item"><a href="pricing.html" class="nav-link">交友</a></li>
+	          <li class="nav-item"><a href="blog.html" class="nav-link">文章</a></li>
+	          <li class="nav-item"><a href="contact.html" class="nav-link">與我們聯繫</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+		<div class="hero-wrap"
+		style="background-image: url('images/friend.jpg');"
+		data-stellar-background-ratio="0.5">
+	
+		 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+          <div class="col-md-9 ftco-animate pb-5">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html"> <i class="ion-ios-arrow-forward"></i></a></span> <span>About us <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-3 bread">請輸入個人資訊</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+
+	 
 	<form method="post" action=""></form>
 	<div align="center">
 
 
-		<form method="post" action="">
+		<form id="aaa" method="post" id="addInfoForm">
 			<table>
 				<tr>
 				<tr>
@@ -98,8 +202,8 @@
 							<option value="種植">種植</option>
 							<option value="寫程式">寫程式</option>
 					</select>
-					<tr>
-			<td>興趣2</td>
+				<tr>
+					<td>興趣2</td>
 					<td><select name="interest2">
 							<option value="運動">運動</option>
 							<option value="音樂">音樂</option>
@@ -110,8 +214,8 @@
 							<option value="種植">種植</option>
 							<option value="寫程式">寫程式</option>
 					</select>
-					<tr>
-				<td>興趣3</td>
+				<tr>
+					<td>興趣3</td>
 					<td><select name="interest3">
 							<option value="運動">運動</option>
 							<option value="音樂">音樂</option>
@@ -121,11 +225,14 @@
 							<option value="攝影">攝影</option>
 							<option value="種植">種植</option>
 							<option value="寫程式">寫程式</option>
-					</select></table>
-			<input type="submit" value="送出" /> <input type="reset" value="清除">
+					</select>
+			</table>
+		
+				<input type ="submit"  value="下一頁" id="add"></input> 
+				<input type="reset" value="清除"/>
 		</form>
 
 	</div>
-
+</div>
 </body>
 </html>

@@ -2,7 +2,7 @@ package com.meetogether.eeit10913.dao;
 
 import java.util.List;
 
-
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10913.model.ReviewBean;
 
 public interface ProductDao {
@@ -16,4 +16,6 @@ public interface ProductDao {
 	void delete(Integer review);
 
 	void update(ReviewBean rev);
+
+	MemberBean getMemberById(int memberId);
 } 

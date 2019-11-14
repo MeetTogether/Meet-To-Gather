@@ -10,7 +10,7 @@
 <body>
 <!-- <h1 >恭喜驗證成功!!</h1> -->
 <table width="1024" height="80">
-　<tr><td align="center" ><h1>恭喜驗證成功!!</h1></td></tr>
+　<tr><td align="center"  ><h1 ><font color="blue">恭喜驗證成功!!</font></h1></td></tr>
 </table>
 </body>
 </html>

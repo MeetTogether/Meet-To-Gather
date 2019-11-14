@@ -28,6 +28,7 @@ import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10927.service.IMsgTypeService;
 import com.meetogether.eeit10927.service.IMsgreplyService;
 import com.meetogether.eeit10927.validate.MessageValidator;
+import com.meetogether.eeit10936.pairs.model.VipStatus;
 
 @Controller
 public class MessageController {
@@ -67,6 +68,8 @@ public class MessageController {
 		model.addAttribute("messageBean", msg);
 		// 空messageBean給分類查詢
 		model.addAttribute("msgTypeBean", new MsgType());
+		// 空vipBean給VIP購買
+		model.addAttribute("vipBean", new VipStatus());
 		
 		// 查到的msgLike和空的msgLikeBean給forum.jsp
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
@@ -133,6 +136,8 @@ public class MessageController {
 		
 		// 空messageBean給分類查詢
 		model.addAttribute("msgTypeBean", new MsgType());
+		// 空vipBean給VIP購買
+		model.addAttribute("vipBean", new VipStatus());
 
 		list = msgService.getUserMessage(memberId);
 		model.addAttribute("msgBeans", list);

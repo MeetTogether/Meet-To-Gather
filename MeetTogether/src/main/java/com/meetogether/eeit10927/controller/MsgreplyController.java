@@ -1,6 +1,8 @@
 package com.meetogether.eeit10927.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,13 +16,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meetogether.eeit10927.model.Message;
+import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.model.Msglike;
 import com.meetogether.eeit10927.model.Msgreply;
 import com.meetogether.eeit10927.service.IMessageService;
+import com.meetogether.eeit10927.service.IMsgTypeService;
 import com.meetogether.eeit10927.service.IMsgreplyService;
 
 @Controller
 public class MsgreplyController {
+	
+	List<Message> list = null;
 	
 	IMsgreplyService mrService;
 	@Autowired
@@ -32,6 +38,12 @@ public class MsgreplyController {
 	@Autowired
 	public void setMsgService(IMessageService msgService) {
 		this.msgService = msgService;
+	}
+	
+	IMsgTypeService mtService;
+	@Autowired
+	public void setMTDao(IMsgTypeService mtService) {
+		this.mtService = mtService;
 	}
 
 	@RequestMapping(value = "/GetAllReMsgServlet", method = RequestMethod.GET)
@@ -93,6 +105,28 @@ public class MsgreplyController {
 	@RequestMapping(value = "/getMsgTypeCnt", method = RequestMethod.GET)
 	public @ResponseBody Integer getMsgTypeCnt(@RequestParam(value="typeId") Integer typeId) {
 		return msgService.getMsgCntByType(typeId);
+	}
+	
+	@ModelAttribute("msgType")
+	public Map<Integer, String> getMsgTypeList() {
+		Map<Integer, String> msgTypeMap = new HashMap<>();
+		List<MsgType> list = mtService.getMsgTypeList();
+		for (MsgType mType : list) {
+			msgTypeMap.put(mType.getTypeId(), mType.getTypeName());
+		}
+		return msgTypeMap;
+	}
+	
+	@ModelAttribute("popularMsgBeans")
+	public List<Message> getPopularMsgList() {
+		list = msgService.getPopularMsg();
+		return list;
+	}
+	
+	@ModelAttribute("recentMsgBeans")
+	public List<Message> getRecentMsgList() {
+		list = msgService.getRecentMsg();
+		return list;
 	}
 	
 }

@@ -6,38 +6,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>MeetTogether</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/animate.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/aos.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/flaticon.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/icomoon.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/aos.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <style type="text/css">
 body {
 	background-color: #e7eef1;
@@ -144,35 +131,60 @@ p {
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(
+	var jQuery_1_12_4 = $.noConflict();
+	
+	jQuery_1_12_4(document).ready(
 		function() {
-			$("#Postbox").hide();
-			$("#Postbutton").click(function() {
-				$("#Postbox").toggle("blind"); /* 展開發文表單 */
+			jQuery_1_12_4("#Postbox").hide();
+			jQuery_1_12_4("#Postbutton").click(function() {
+				jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
 				/* $('html,body').animate({
 					scrollTop : 0
 				}); 返回到頁面頂端 */
 			});
-			$("#ViewMyPost").click(
+			jQuery_1_12_4("#ViewMyPost").click(
 				function() {
 					top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
 				});
-			$("#ViewAllPost").click(
+			jQuery_1_12_4("#ViewAllPost").click(
 				function() {
 					top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
 				});
-			$("input#deletePost").click(function() {
+			jQuery_1_12_4("input#deletePost").click(function() {
 				var c = confirm('是否確認刪除');
 				console.log(c);
 				if (c) {
-					$(this).parent("form#deletePostForm").submit();
+					jQuery_1_12_4(this).parent("form#deletePostForm").submit();
 				} else {
 				}
 			});
+			
+			jQuery_1_12_4("#dialog-confirm").hide();
+			jQuery_1_12_4("#vipBuyButton").click(function() {
+				jQuery_1_12_4("#dialog-confirm").dialog({
+					resizable : false,
+					height : "auto",
+					width : 420,
+					modal : true,
+				});
+		    });
 		});
 </script>
+
 </head>
 <body>
+<div id="dialog-confirm" title="升級為VIP會員">
+	<span style="float: left; margin: 12px 12px 20px 0;">
+		<img src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" style="width:370px; margin:auto;">
+	</span>
+	<br>
+	Upgrade 1: 每日新增好友數20名！<br>
+	Upgrade 2: 新增討論區文章匯出功能！<br><br>
+	<form:form modelAttribute="vipBean" method="POST" action="./VipBuy">
+		<form:input type="hidden" path="mbId" value="${userId}" />
+		<input type="submit" value="前往付款" class="reply">
+	</form:form>
+</div>
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -230,8 +242,9 @@ p {
 				<div class="col-md-4 sidebar ftco-animate">
 					<div class="sidebar-box ftco-animate">
 						<h3 id="Postbutton" class="point">+ 發表文章</h3>
-						<h3 id="ViewMyPost" class="point">+ 看自己的文章</h3>
+						<h3 id="ViewMyPost" class="point">+ 看自己的文章&ensp;</h3>
 						<h3 id="ViewAllPost" class="point">+ 看所有文章</h3>
+						<input id="vipBuyButton" type="submit" value="升級VIP GO!" class="reply">
 					</div>
 					<div class="sidebar-box ftco-animate">
 						<div class="categories">
@@ -432,85 +445,48 @@ p {
 	<!-- .section -->
 
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
-		<div class="container">
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About Autoroad</h2>
-						<p>Far far away, behind the word mountains, far from the
-							countries Vokalia and Consonantia, there live the blind texts.</p>
-						<ul
-							class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-instagram"></span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Information</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">About</a></li>
-							<li><a href="#" class="py-2 d-block">Services</a></li>
-							<li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-							<li><a href="#" class="py-2 d-block">Best Price
-									Guarantee</a></li>
-							<li><a href="#" class="py-2 d-block">Privacy &amp;
-									Cookies Policy</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Customer Support</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">FAQ</a></li>
-							<li><a href="#" class="py-2 d-block">Payment Option</a></li>
-							<li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-							<li><a href="#" class="py-2 d-block">How it works</a></li>
-							<li><a href="#" class="py-2 d-block">Contact Us</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Have a Questions?</h2>
-						<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span
-									class="text">203 Fake St. Mountain View, San Francisco,
-										California, USA</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span
-										class="text">+2 392 3929 210</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span
-										class="text">info@yourdomain.com</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-
-					<p>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-						All rights reserved | This template is made with <i
-							class="icon-heart color-danger" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">About MeetTogether</h2>
+              <p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <h2 class="ftco-heading-2">Information</h2>
+              <ul class="list-unstyled">
+                <li><a href="#" class="py-2 d-block">首頁</a></li>
+                <li><a href="#" class="py-2 d-block">交友</a></li>
+                <li><a href="#" class="py-2 d-block">活動</a></li>
+                <li><a href="#" class="py-2 d-block">討論區</a></li>
+                <li><a href="#" class="py-2 d-block">會員資料</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+            	<h2 class="ftco-heading-2">Have a Questions?</h2>
+            	<div class="block-23 mb-3">
+	              <ul>
+	                <li><span class="icon icon-map-marker"></span><span class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
+	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">02 6631 6666</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@iiiedu.org.tw</span></a></li>
+	              </ul>
+	            </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </footer>
 
 
 

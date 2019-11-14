@@ -12,9 +12,9 @@
 </head>
 <body>
 	<h2>請輸入希望對象的條件</h2>
-	<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
+	<font size="1" color="#FF0000"></font>
 	<form:form enctype="multipart/form-data" method="POST"
-		modelAttribute="personalinfobean" action="/addPersonalInfo.jsp">
+		modelAttribute="personalinfobean" action="eeit10901/addPersonalInfo">
 
 		<div align="center">
 

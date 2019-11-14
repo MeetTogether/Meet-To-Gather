@@ -24,10 +24,13 @@ body {
 	background-color: #f5f5f5;
 	margin-top: 3%;
 }
+.msgWrong {
+	color: red;
+}
 </style>
 </head>
 <body>
-	<div id="regispage">
+	<div id="">
 		<header>
 			<nav>
 <%-- 				<jsp:include page="../eeit10901/top.jsp" /> --%>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
 @Service
@@ -29,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
 	public void update(ReviewBean rev) {
 		dao.update(rev);	
 	}
+	
 	@Transactional
 	@Override
 	public void delete(Integer review) {
@@ -40,10 +42,16 @@ public class ProductServiceImpl implements ProductService {
 	public ReviewBean getReviewById(Integer reviewId) {
 		return dao.getReviewById(reviewId);
 	}
+	
 	@Transactional
 	@Override
 	public List<ReviewBean> selectALL() {
 		return dao.selectALL();
 	}
 
+	@Transactional
+	@Override
+	public MemberBean getMemberById(int memberId) {
+		return dao.getMemberById(memberId);
+	}
 }

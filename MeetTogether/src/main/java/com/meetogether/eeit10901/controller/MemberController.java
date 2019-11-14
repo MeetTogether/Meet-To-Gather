@@ -1,7 +1,9 @@
 package com.meetogether.eeit10901.controller;
 
 import java.sql.Blob;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -14,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,13 +88,29 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String addRegister(@ModelAttribute("memberBean") MemberBean member, BindingResult result,
-			HttpServletRequest request) {
+	public String addRegister(@ModelAttribute("memberBean") MemberBean member, 
+			BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, String> errorMsg = new HashMap<String, String>();
+		model.addAttribute("errorMsg", errorMsg);
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
-
+		String captcha = (String) request.getSession().getAttribute("captcha");
+		boolean captCheck = false;
+		boolean accCheck = service.mEmailExist(member);
+		if(accCheck) {
+			errorMsg.put("accError", "此帳號已存在");
+		}
+		if (captCheck == false) {
+			errorMsg.put("captError", "驗證碼錯誤");
+		}
+		int memberId = 0;
+		if (accCheck == false && captCheck == true) {
+			memberId = service.add(member);
+			request.getSession().setAttribute("userEmail", member.getMemberEmail());
+			request.getSession().setAttribute("userPwd", member.getMemberPassword());
+		}
 		MultipartFile picture = member.getMemberImage();
 		String originalFilename = picture.getOriginalFilename();
 		member.setFileName(originalFilename);
