@@ -146,38 +146,40 @@ p {
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(
+	var jQuery_1_12_4 = $.noConflict();
+	
+	jQuery_1_12_4(document).ready(
 		function() {
-			$("#Postbox").hide();
-			$("#Postbutton").click(function() {
-				$("#Postbox").toggle("blind"); /* 展開發文表單 */
+			jQuery_1_12_4("#Postbox").hide();
+			jQuery_1_12_4("#Postbutton").click(function() {
+				jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
 				/* $('html,body').animate({
 					scrollTop : 0
 				}); 返回到頁面頂端 */
 			});
-			$("#ViewMyPost").click(
+			jQuery_1_12_4("#ViewMyPost").click(
 				function() {
 					top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
 				});
-			$("#ViewAllPost").click(
+			jQuery_1_12_4("#ViewAllPost").click(
 				function() {
 					top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
 				});
-			$("input#deletePost").click(function() {
+			jQuery_1_12_4("input#deletePost").click(function() {
 				var c = confirm('是否確認刪除');
 				console.log(c);
 				if (c) {
-					$(this).parent("form#deletePostForm").submit();
+					jQuery_1_12_4(this).parent("form#deletePostForm").submit();
 				} else {
 				}
 			});
 			
-			$("#dialog-confirm").hide();
-			$("#vipBuyButton").click(function() {
-				$("#dialog-confirm").dialog({
+			jQuery_1_12_4("#dialog-confirm").hide();
+			jQuery_1_12_4("#vipBuyButton").click(function() {
+				jQuery_1_12_4("#dialog-confirm").dialog({
 					resizable : false,
 					height : "auto",
-					width : 400,
+					width : 420,
 					modal : true,
 				});
 		    });
