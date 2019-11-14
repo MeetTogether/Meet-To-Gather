@@ -1,4 +1,4 @@
-package com.meetogether.eeit10908.dao;
+package com.meetogether.eeit10908.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +89,23 @@ public class ActDaoImpl implements ActDao {
 		Session session = factory.getCurrentSession();
 		ActBean aa = session.get(ActBean.class, actId);	
 		return aa;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ActBean> getActivityByCat(int catId) {
+		String hql = "FROM ActBean A WHERE A.eventCat ="+catId;
+		Session session = factory.getCurrentSession();
+		List<ActBean> list = session.createQuery(hql).getResultList();
+		return list;
+	}
+
+	@Override
+	public void updateActImageFilename(Integer actId, String filename) {
+		String hql = "from ActBean WHERE eventId = ?0";
+		ActBean result = (ActBean) factory.getCurrentSession().createQuery(hql).setParameter(0, actId).uniqueResult();
+		result.setActFilename(filename);
+		
 	}
 	
 	

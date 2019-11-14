@@ -1,4 +1,4 @@
-package com.meetogether.eeit10908.service;
+package com.meetogether.eeit10908.service.impl;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.meetogether.eeit10908.dao.ActDao;
+import com.meetogether.eeit10908.dao.impl.ActDao;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10908.model.CatBean;
 
@@ -66,6 +66,19 @@ public class ActServiceImpl implements ActService {
 	@Override
 	public ActBean getActivityById(int actId) {
 		return custDao.getActivityById(actId);
+		
+	}
+
+
+	@Override
+	public List<ActBean> getActivityByCat(int catId) {
+		return custDao.getActivityByCat(catId);
+	}
+
+
+	@Override
+	public void updateActImageFilename(Integer actId, String filename) {
+		custDao.updateActImageFilename(actId, filename);
 		
 	}
 

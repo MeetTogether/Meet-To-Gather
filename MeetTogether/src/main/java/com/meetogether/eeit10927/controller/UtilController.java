@@ -34,6 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
+import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.service.impl.ActService;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.service.IMessageService;
 
@@ -56,6 +58,13 @@ public class UtilController {
 	@Autowired
 	public void setMService(MemberService mService) {
 		this.mService = mService;
+	}
+	
+	ActService aService;
+	
+	@Autowired
+	public void setaService(ActService aService) {
+		this.aService = aService;
 	}
 
 	@RequestMapping(value = "eeit10927/Captcha", method = RequestMethod.GET)
@@ -103,6 +112,11 @@ public class UtilController {
 			Message message = msgService.getMsgByMsgId(id);
 			fileName = message.getMsgFilename();
 			blob = message.getMsgPhoto();
+//			filePath = "C:/temp/images/message/" + fileName;
+		} else if (type.equals("act")) {
+			ActBean message = aService.getActivityById(id);
+			fileName = message.getActFilename();
+			blob = message.getActPhoto();
 //			filePath = "C:/temp/images/message/" + fileName;
 		}
 		if (blob != null) {

@@ -1,6 +1,5 @@
 package com.meetogether.eeit10936.pairs.model;
 
-
 import java.io.Serializable;
 import java.sql.Blob;
 
@@ -30,21 +29,8 @@ public class MemberAlbum implements Serializable {
 	private Integer status;
 	@Column(name = "deleteTag")
 	private Integer deleteTag;
-	@Column(name = "photo")
-	private Blob photo;
-	
-	@Transient
-   private MultipartFile albumImage;
-	
-
-
-	public MultipartFile getAlbumImage() {
-		return albumImage;
-	}
-
-	public void setAlbumImage(MultipartFile albumImage) {
-		this.albumImage = albumImage;
-	}
+	@Column(name = "img")
+	private Blob img;
 	
 	@Transient
     MultipartFile memberImage;
@@ -64,12 +50,12 @@ public class MemberAlbum implements Serializable {
 		this.pk=pk;
 	}
 
-	public Blob getPhoto() {
-		return photo;
+	public Blob getImg() {
+		return img;
 	}
 
-	public void setPhoto(Blob photo) {
-		this.photo = photo;
+	public void setImg(Blob img) {
+		this.img = img;
 	}
 
 	public MemberAlbumPk getPk() {
@@ -96,5 +82,5 @@ public class MemberAlbum implements Serializable {
 		this.deleteTag = deleteTag;
 	}
 
-
 }
+

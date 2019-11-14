@@ -1,10 +1,9 @@
-package com.meetogether.eeit10908.dao;
+package com.meetogether.eeit10908.dao.impl;
 
 import java.util.List;
 
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10908.model.CatBean;
-
 
 
 public interface ActDao {
@@ -23,4 +22,8 @@ public interface ActDao {
 	void updateActivity(ActBean act);
 	
 	public ActBean getActivityById(int actId);
+	
+	public List<ActBean> getActivityByCat(int catId);
+	
+	public void updateActImageFilename(Integer actId, String filename);
 }

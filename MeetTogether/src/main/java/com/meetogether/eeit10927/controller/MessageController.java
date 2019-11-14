@@ -147,6 +147,8 @@ public class MessageController {
 	
 	@RequestMapping(value = "/ViewPostServlet", method = RequestMethod.GET)
 	public String viewMessage(@RequestParam(value="msgId") Integer msgId, Model model) {
+		model.addAttribute("messageBean", new Message());
+		
 		Message msgBean = msgService.getMsgByMsgId(msgId);
 		msgBean.setMsgText(msgBean.getMsgText().replace("<br>", "\n"));
 		System.out.println("messge filename: " + msgBean.getMsgFilename());

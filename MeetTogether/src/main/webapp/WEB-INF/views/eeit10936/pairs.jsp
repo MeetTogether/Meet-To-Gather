@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>pair</title>
-<script></script>
 <script>
 	function addElement(mid, checkVip){
 		console.log(checkVip);
