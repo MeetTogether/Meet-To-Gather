@@ -35,13 +35,13 @@ public class AlbumController {
 	public void setService(AlbumService service) {
 		this.service = service;
 	}
-	
-	@RequestMapping(value = "/addAlbum", method = RequestMethod.GET)
-	public String getaddAlbum(Model model) {
-		MemberAlbum mm = new MemberAlbum();
-		model.addAttribute("albumbean", mm);
-		return "eeit10901/album";
-	}
+//	
+//	@RequestMapping(value = "/addAlbum", method = RequestMethod.GET)
+//	public String getaddAlbum(Model model) {
+//		MemberAlbum mm = new MemberAlbum();
+//		model.addAttribute("albumbean", mm);
+//		return "eeit10901/album";
+//	}
 	
 	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
 	public String addAlbum(@ModelAttribute("albumbean") MemberAlbum album, BindingResult result,
