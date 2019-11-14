@@ -41,6 +41,7 @@ public class MsgreplyController {
 		
 		Message msg = msgService.getMsgByMsgId(msgId);
 		model.addAttribute("msgBean", msg);
+		model.addAttribute("messageBean", new Message());
 		
 		List<Msgreply> list = mrService.getAllMsgreply(msgId);
 		model.addAttribute("reBeans", list);
@@ -58,6 +59,7 @@ public class MsgreplyController {
 	public String replyMsg(@ModelAttribute("msgReBean") Msgreply msgRe, Model model) {
 		mrService.addMsgreply(msgRe);
 		model.addAttribute("msgId", msgRe.getMessageId());
+//		model.addAttribute("messageBean", new Message());
 		return "redirect:/GetAllReMsgServlet";
 	}
 	

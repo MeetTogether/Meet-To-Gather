@@ -173,12 +173,12 @@ p {
 			$("#nverify").click(function() {
 				top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
 			});
-			$(".reupload").hide();
+			$("#reupload").hide();
 			$("#renewPhoto").click(function() {
 				if ($(this).prop("checked") == false) {
-					$(".reupload").hide();
+					$("#reupload").hide();
 				} else if ($(this).prop("checked") == true){
-					$(".reupload").show();
+					$("#reupload").show();
 				}
 			});
 		});
@@ -354,75 +354,51 @@ p {
 <%-- 						<c:set var="mId" value="${msgBean.member.memberId}" /> --%>
 						<div class="col-md-8 order-md-last ftco-animate">
 							<div class="about-author d-flex p-4 bg-light">
-								<div class="bio mr-5">
-									<a
-										href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${msgBean.member.memberId}"><img
-										height='60'
-										src='${pageContext.request.contextPath}/getImage?type=member&id=${msgBean.member.memberId}'></a>
-								</div>
 								<div>
-									<a
-										href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${msgBean.member.memberId}">${msgBean.member.memberName}<span>&emsp;&emsp;</span></a>
-									<c:if test="${userId eq mId}">
-										<form:form method="GET"
-											action="${pageContext.request.contextPath}/ViewPostServlet"
-											style='display: inline;' modelAttribute="messageBean">
-											<form:input type="hidden" value="${msgBean.msgId}"
-												path="msgId" />
-											<input type="submit" value="編輯文章內容" class="reply" />
-										</form:form>
-										<form:form id="deletePostForm" method="post"
-											action="${pageContext.request.contextPath}/DeletePostServlet"
-											style="display: inline;" modelAttribute="messageBean">
-											<form:input type="hidden" value="${msgBean.msgId}"
-												path="msgId" />
-											<input type="button" value="刪除此篇文章" class="reply"
-												id="deletePost">
-										</form:form>
-									</c:if>
-									<p>發文：<fmt:formatDate value="${msgBean.createTime}" pattern="yyyy-MM-dd HH:mm" />
-									<c:if test="${msgBean.updateTime ne null}">
-									&ensp;更新：<fmt:formatDate value="${msgBean.updateTime}" pattern="yyyy-MM-dd HH:mm" />
-									</c:if></p>
-									<a href='${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${msgBean.msgId}'>
-									<img src="${pageContext.request.contextPath}/eeit10927/images/pencil.png" class="replyBtn">REPLY(${msgBean.replyCount})</a>
-									<c:set var="done" value="false" />
-									<c:forEach items="${mlBeans}" var="mlBean">
-										<c:if test="${mlBean.message.msgId eq msgBean.msgId}">
-											<c:set var="done" value="true" />
-										</c:if>
-									</c:forEach>
-									<c:choose>
-										<c:when test="${!done}">
-											<img
-												src="${pageContext.request.contextPath}/eeit10927/images/dislike.png"
-												id="likeBtn" class="likeBtn">
-										</c:when>
-										<c:otherwise>
-											<img
-												src="${pageContext.request.contextPath}/eeit10927/images/like.png"
-												id="dislikeBtn" class="likeBtn">
-										</c:otherwise>
-									</c:choose>
-									<input type="hidden" id="msgId" value="${msgBean.msgId}">
-									<span id="likeCnt${cnt.count}">LIKE(${msgBean.likeCount})</span>
+									<form:form method="POST" action="${pageContext.request.contextPath}/UpdatePostServlet" enctype="multipart/form-data" id="postModify" modelAttribute="msgBean">
+										<table>
+											<tr>
+												<td>文章分類
+												<td><form:select path="mtName" style="width: 100%" class="form-control">
+													<c:forEach var="mt" items="${msgType}">
+														<c:choose>
+														<c:when test="${msgBean.msgType.typeName eq mt.value}">
+															<form:option value="${mt.value}" selected="true" />
+														</c:when>
+														<c:otherwise>
+															<form:option value="${mt.value}" />
+														</c:otherwise>
+														</c:choose>
+													</c:forEach>
+													</form:select>
+											<tr>
+												<td>文章標題
+												<td><form:input type="text" name="msgTitle" id="msgTitle" path="msgTitle" class="form-control" 
+													size="65%" value="${msgBean.msgTitle}" autocomplete="off" />
+													<br><form:errors path="msgTitle" class="errors"></form:errors>
+											<tr>
+												<td>文章內容
+												<td><c:set var="msgText" value="${msgBean.msgText}"/>
+													<form:textarea rows="7em" cols="65%" name="msgText"  class="form-control"
+														id="msgText" path="msgText" value="${msgText}" />
+													<br><form:errors path="msgText" class="errors"></form:errors>
+											<tr>
+												<td>上傳照片
+												<td><c:if test="${msgBean.msgPhoto ne null}">
+													 <img
+														height='120px' class="photoshow" 
+														src='${pageContext.request.contextPath}/getImage?id=${msgBean.msgId}&type=message'>
+													</c:if>
+													<label><input type="checkbox" name="renewPhoto" value="renew" id="renewPhoto">重新上傳照片</label>
+													<form:input type="file" name="msgImage" id="reupload" path="msgImage" class="form-control" />
+													<span id="msg_mPhoto"></span>
+													
+										</table><br>
+										<input type="hidden" value="${msgBean.msgId}" name="msgId">
+										<input type="submit" value="修改" name="verify" id="verify" class="reply" >
+										<input type="button" value="返回" name="nverity" id="nverify" class="reply" >
+									</form:form>
 								</div>
-							</div>
-							<h2 class="mb-3 mt-5" >
-								<a href="${pageContext.request.contextPath}/SearchPostByType?typeId=${msgBean.msgType.typeId}">[${msgBean.msgType.typeName}]</a>
-								&ensp;${msgBean.msgTitle}
-							</h2>
-							<div style="width:50%; float:left;">
-							<p>${msgBean.msgTextShort}</p>
-							<p>
-								<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${msgBean.msgId}" class="btn-custom">
-								閱讀更多 <span class="icon-long-arrow-right"></span></a>
-							</div>
-							<div>
-							<c:if test="${msgBean.msgPhoto ne null}">
-								<img height="200px"
-									src='${pageContext.request.contextPath}/getImage?type=message&id=${msgBean.msgId}'>
-							</c:if>
 							</div>
 							<div class="tag-widget post-tag-container mb-5 mt-5">
 								<div class="tagcloud">

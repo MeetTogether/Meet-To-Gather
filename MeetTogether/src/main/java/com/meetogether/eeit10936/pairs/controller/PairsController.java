@@ -27,7 +27,6 @@ import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.service.IPairsService;
 
 @Controller
-@RequestMapping("/pairs")
 @SessionAttributes({"currentUser","vipstatus"})
 @Scope(value = "session")
 public class PairsController {
@@ -52,12 +51,12 @@ public class PairsController {
 		return "eeit10936/noMore";
 	}
 
-	@RequestMapping("/")
+	@RequestMapping("/pairs")
 	public String pair(Model model) {
 		if (model.getAttribute("currentUser") == null) {
 			return "redirect:/";
 		}
-		return "eeit10936/pairs";
+		return "pairsUpdate";
 	}
 
 	@GetMapping("/insertPairList")
