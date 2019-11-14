@@ -571,6 +571,24 @@ $(document).ready(function() {
 			});
 		}
 	});
+	let types = document.getElementsByClassName("msgTypeCnt");
+	for (let j = 0; j < types.length; j++) {
+		let typeIdVal = $(types[j]).prev().val();
+		let typeSpanId = 'msgTypeCnt' + (j + 1);
+		console.log('typeIdVal:' + typeIdVal + ', typeSpanId:' + typeSpanId);
+		$.ajax({
+			url : "getMsgTypeCnt",
+			type : "GET",
+			dataType : "JSON",
+			data : {typeId : typeIdVal},
+			success : function(data) {
+				let txt = '(' + data + ')';
+				let txt2 = 'span[id=' + typeSpanId + ']';
+				$(txt2).html(txt);
+				console.log("data: " + data);
+			}
+		});
+	}
 });
 	
 </script>

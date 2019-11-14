@@ -6,7 +6,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>MeetTogether</title>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -169,10 +171,33 @@ p {
 				} else {
 				}
 			});
+			
+			$("#dialog-confirm").hide();
+			$("#vipBuyButton").click(function() {
+				$("#dialog-confirm").dialog({
+					resizable : false,
+					height : "auto",
+					width : 400,
+					modal : true,
+				});
+		    });
 		});
 </script>
+
 </head>
 <body>
+<div id="dialog-confirm" title="升級為VIP會員">
+	<span style="float: left; margin: 12px 12px 20px 0;">
+		<img src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" style="width:370px; margin:auto;">
+	</span>
+	<br>
+	Upgrade 1: 每日新增好友數20名！<br>
+	Upgrade 2: 新增討論區文章匯出功能！<br><br>
+	<form:form modelAttribute="vipBean" method="POST" action="./VipBuy">
+		<form:input type="hidden" path="mbId" value="${userId}" />
+		<input type="submit" value="前往付款" class="reply">
+	</form:form>
+</div>
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -230,8 +255,9 @@ p {
 				<div class="col-md-4 sidebar ftco-animate">
 					<div class="sidebar-box ftco-animate">
 						<h3 id="Postbutton" class="point">+ 發表文章</h3>
-						<h3 id="ViewMyPost" class="point">+ 看自己的文章</h3>
+						<h3 id="ViewMyPost" class="point">+ 看自己的文章&ensp;</h3>
 						<h3 id="ViewAllPost" class="point">+ 看所有文章</h3>
+						<input id="vipBuyButton" type="submit" value="升級VIP GO!" class="reply">
 					</div>
 					<div class="sidebar-box ftco-animate">
 						<div class="categories">
