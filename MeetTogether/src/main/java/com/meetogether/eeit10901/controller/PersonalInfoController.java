@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.meetogether.eeit10901.model.PersonalInfoBean;
 
 import com.meetogether.eeit10901.service.PersonalInfoService;
+import com.meetogether.eeit10936.pairs.model.MemberInfo;
 
 
 @Controller
@@ -25,14 +26,14 @@ public class PersonalInfoController {
 
 	@RequestMapping(value="/personal", method=RequestMethod.GET)
 	public String getAddNewProductForm(Model model) {
-		PersonalInfoBean pp = new PersonalInfoBean();
+		MemberInfo pp = new MemberInfo();
 		model.addAttribute("personalinfobean", pp);
 		return "addPersonalInfo";
 	}
 	
 	@RequestMapping(value="/personal", method=RequestMethod.POST)
 	public String processAddNewProductForm
-		(@ModelAttribute("personalinfobean") PersonalInfoBean pp) {
+		(@ModelAttribute("personalinfobean") MemberInfo pp) {
 		service.addPersonalInfo(pp);
 		return "redirect:addPersonalHope";
 	}

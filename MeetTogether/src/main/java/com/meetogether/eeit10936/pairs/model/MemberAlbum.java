@@ -9,6 +9,9 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "album")
@@ -28,6 +31,24 @@ public class MemberAlbum implements Serializable {
 	private Integer deleteTag;
 	@Column(name = "img")
 	private Blob img;
+	
+	@Transient
+    MultipartFile memberImage;
+	
+	public MultipartFile getMemberImage() {
+		return memberImage;
+	}
+	
+	public void setMemberImage(MultipartFile memberImage) {
+		this.memberImage = memberImage;
+	}
+	
+	MemberAlbum(){
+		
+	}
+	public MemberAlbum(MemberAlbumPk pk){
+		this.pk=pk;
+	}
 
 	public Blob getImg() {
 		return img;
@@ -62,3 +83,4 @@ public class MemberAlbum implements Serializable {
 	}
 
 }
+

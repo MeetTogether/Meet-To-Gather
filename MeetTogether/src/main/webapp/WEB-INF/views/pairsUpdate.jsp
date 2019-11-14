@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Autoroad - Free Bootstrap 4 Template by Colorlib</title>
+<title>配對</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,20 +29,6 @@
 <link rel="stylesheet" href="../css/icomoon.css">
 <link rel="stylesheet" href="../css/style.css">
 <script>
-	function addElement(mid, checkVip) {
-		console.log(checkVip);
-		console.log(mid);
-		checkVip ? status = 6 : status = 4;
-		console.log(status);
-		for (var i = 1; i < status; i++) {
-			var srcUrl = "/memberPhoto/" + mid + "/" + i;
-			var newImg = document.createElement("img");
-			newImg.setAttribute("src", srcUrl);
-			document.getElementById("imgContainer").appendChild(newImg);
-		}
-
-	}
-
 	function getage(birth) {
 		let dateNow = new Date().getTime();
 		let birthTime = new Date(birth).getTime();
@@ -57,14 +43,16 @@
 			document.getElementById("memberCity").innerText = members[num].mb.memberCity
 					.trim();
 			document.getElementById("interest").innerText = members[num].mil;
-			var vipStatus = $
-			{
-				vipstatus
-			}
-			console.log(vipStatus);
-			var mid = members[num].mb.memberId;
-			console.log(mid);
-			addElement(mid, vipStatus);
+			var i = 1;
+			var srcUrl="../memberPhoto/" + members[num].mb.memberId + "/" + i;
+			document.getElementById("pairImg").setAttribute("src", srcUrl);
+			document.getElementById("pairImg").addEventListener("click",function(){
+				var vip =${vipstatus};
+				i++;
+				vip?i>5?i=1:i=i:i>3?i=1:i=i;
+				srcUrl="../memberPhoto/" + members[num].mb.memberId + "/" + i;
+				document.getElementById("pairImg").setAttribute("src", srcUrl);
+			});
 		} else {
 			window.location.href = "./noMore";
 		}
@@ -104,7 +92,11 @@
 	}
 
 	function chat(id) {
-		window.open("../chat/" + id,"_blank","toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+		window
+				.open(
+						"../chat/" + id,
+						"_blank",
+						"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 	}
 
 	function friendAjax() {
@@ -116,22 +108,32 @@
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				friends = JSON.parse(xhttp.responseText);
 				console.log(friends);
-				Object.keys(friends).forEach(
-						function(k) {
-							console.log(k + ' - ' + friends[k]);
-							var newLi = document.createElement("li");
-							newLi.setAttribute("id", k);
-							var newContent = document
-									.createTextNode(friends[k]);
-							newLi.appendChild(newContent);
-							document.getElementById("friends").appendChild(
-									newLi);
-							document.getElementById(k).addEventListener(
-									"click", function() {
-										var id = this.id;
-										chat(id);
-									});
-						});
+				Object
+						.keys(friends)
+						.forEach(
+								function(k) {
+									console.log(k + ' - ' + friends[k]);
+									var newLi = document.createElement("li");
+									newLi.setAttribute("id", k);
+									var newContent = document
+											.createTextNode(friends[k]);
+									newLi.appendChild(newContent);
+									var imgsrc = "/MeetTogether/getImage?type=member&id="
+											+ k;
+									var friendimg = document
+											.createElement("img");
+									friendimg.setAttribute("src", imgsrc);
+									friendimg.setAttribute("class", "fimg");
+									document.getElementById("friends")
+											.appendChild(newLi);
+									newLi.appendChild(friendimg);
+									document.getElementById(k)
+											.addEventListener("click",
+													function() {
+														var id = this.id;
+														chat(id);
+													});
+								});
 
 			}
 		}
@@ -151,6 +153,20 @@
 	});
 </script>
 <style>
+.fimg {
+	float: right;
+	max-width: 40px;
+	max-height: 100%;
+	width: 100%;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+.pairImg {
+	height: 100%;
+	width: 100%;
+}
+
 .pairs {
 	width: 30%;
 	margin: auto;
@@ -162,6 +178,9 @@
 
 .bd {
 	border: 2px solid black;
+}
+.tab{
+	width: 100%;
 }
 
 #sidebar {
@@ -198,6 +217,7 @@
 	background: #151719;
 	margin: 5px 0px;
 }
+
 </style>
 </head>
 <body>
@@ -230,24 +250,22 @@
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
 		style="background-image: url('../images/friend.jpg');"
 		data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
+	
 		<div id="sidebar">
 			<ul id="friends">
 				<li>好友列表</li>
 			</ul>
 		</div>
-
-
 		<h2>${currentUser.memberBasic.memberId }</h2>
 		<h2>${currentUser.memberBasic.memberName }</h2>
 		<h2>Vip:${vipstatus}</h2>
 
 
-		<div class="container">
-			<div class="pairs">
+		<div class="container" >
+			<div class="pairs" >
 				<div id="container" class="bd" style="width: 100%;">
-					<div id="imgContainer" class="bd"></div>
-					<table class="bd">
+					<div id="imgContainer" class="bd"><img id="pairImg" class="pairImg"/></div>
+					<table class="tab">
 						<tr>
 							<td>姓名:</td>
 							<td id="name"></td>
@@ -261,7 +279,7 @@
 							<td id="interest"></td>
 						</tr>
 						<tr>
-							<td><input type="button" value="不喜歡" id="dontlike"></td>
+							<td><input type="button" value="不喜歡" id="dontlike" ></td>
 							<td></td>
 							<td><input type="button" value="喜歡" id="like"></td>
 							<td></td>

@@ -52,7 +52,7 @@ public class LoginController {
 			return "index";
 		}
 
-		return "redirect:/";
+		return "indexLoging";
 	}
 
 	@RequestMapping(value = "/LogoutServlet")

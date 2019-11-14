@@ -11,7 +11,7 @@ public interface IPersonalInfoDao {
  
 	  MemberBean getMemberById(Integer memberId) ;
 
-	void addPersonalInfo(PersonalInfoBean personalinfo);
+	void addPersonalInfo(MemberInfo personalinfo);
 
  
 }
