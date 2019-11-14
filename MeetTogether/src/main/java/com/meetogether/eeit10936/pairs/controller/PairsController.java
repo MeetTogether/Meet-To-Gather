@@ -8,6 +8,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.core.config.plugins.util.ResolverUtil.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,10 @@ public class PairsController {
 	private IPairsService pService;
 	@Autowired
 	private IFriendService fService;
+	@RequestMapping("/pair/test")
+	public String test() {
+		return "eeit10936/test";
+	}
 
 	@ModelAttribute("currentUser")
 	public IMember currentUser(Model model, HttpSession session) {
@@ -56,7 +61,7 @@ public class PairsController {
 		if (model.getAttribute("currentUser") == null) {
 			return "redirect:/";
 		}
-		return "pairsUpdate";
+		return "pairsUpdate2";
 	}
 
 	@GetMapping("/insertPairList")

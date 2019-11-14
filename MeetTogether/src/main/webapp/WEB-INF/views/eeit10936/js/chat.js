@@ -41,6 +41,6 @@ function insertChat(who, text, time){
 			"</div>";         
     }
     
-    document.getElementById("txtContainer").innerHTML += control;
-    
+    document.getElementById("msgContainer").innerHTML += control;
 }
+
