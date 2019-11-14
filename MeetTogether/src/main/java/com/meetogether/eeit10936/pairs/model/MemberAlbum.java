@@ -1,5 +1,6 @@
 package com.meetogether.eeit10936.pairs.model;
 
+
 import java.io.Serializable;
 import java.sql.Blob;
 
@@ -9,6 +10,9 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "album")
@@ -26,15 +30,46 @@ public class MemberAlbum implements Serializable {
 	private Integer status;
 	@Column(name = "deleteTag")
 	private Integer deleteTag;
-	@Column(name = "img")
-	private Blob img;
+	@Column(name = "photo")
+	private Blob photo;
+	
+	@Transient
+   private MultipartFile albumImage;
+	
 
-	public Blob getImg() {
-		return img;
+
+	public MultipartFile getAlbumImage() {
+		return albumImage;
 	}
 
-	public void setImg(Blob img) {
-		this.img = img;
+	public void setAlbumImage(MultipartFile albumImage) {
+		this.albumImage = albumImage;
+	}
+	
+	@Transient
+    MultipartFile memberImage;
+	
+	public MultipartFile getMemberImage() {
+		return memberImage;
+	}
+	
+	public void setMemberImage(MultipartFile memberImage) {
+		this.memberImage = memberImage;
+	}
+	
+	MemberAlbum(){
+		
+	}
+	public MemberAlbum(MemberAlbumPk pk){
+		this.pk=pk;
+	}
+
+	public Blob getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
 	}
 
 	public MemberAlbumPk getPk() {
@@ -60,5 +95,6 @@ public class MemberAlbum implements Serializable {
 	public void setDeleteTag(Integer deleteTag) {
 		this.deleteTag = deleteTag;
 	}
+
 
 }

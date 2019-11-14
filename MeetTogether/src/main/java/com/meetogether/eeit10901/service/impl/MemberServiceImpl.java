@@ -22,8 +22,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Transactional
 	@Override
-	public void add(MemberBean member) {
+	public int add(MemberBean member) {
 		dao.add(member);
+		return 0;
 	}
 
 	@Transactional

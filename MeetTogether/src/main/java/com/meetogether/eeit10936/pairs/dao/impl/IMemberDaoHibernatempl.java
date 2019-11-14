@@ -124,13 +124,13 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 				.createQuery("FROM MemberAlbum ma WHERE ma.pk.memberId = ?1 AND ma.deleteTag =?2 AND ma.status = ?3", MemberAlbum.class)
 				.setParameter(1, id).setParameter(2, 0).setParameter(3, status).uniqueResult();
 		
-		return result.getImg();
+		return result.getPhoto();
 	}
 
 	@Override
 	public boolean checkVip(Integer id) {
 //		String hql = "From VipStatus v WHERE v.memberId = ?0 AND v.startTime >= ?1 AND v.endTime <= ?1";
-		String hql = "From VipStatus v WHERE v.memberId = ?0 AND v.startTime >= ?1 AND v.endTime >= ?1 AND v.vipStatus = 1";
+		String hql = "From VipStatus v WHERE v.member.memberId = ?0 AND v.startTime >= ?1 AND v.endTime >= ?1 AND v.vipStatus = 1";
 		VipStatus result = factory.getCurrentSession().createQuery(hql, VipStatus.class).setParameter(0, id)
 				.setParameter(1, new Timestamp(System.currentTimeMillis())).uniqueResult();
 		if (result != null) {

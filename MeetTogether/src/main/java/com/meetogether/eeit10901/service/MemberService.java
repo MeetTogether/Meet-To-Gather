@@ -8,7 +8,7 @@ import com.meetogether.eeit10901.model.MemberBean;
 
 public interface MemberService {
 
-	public void add(MemberBean member);
+	public int add(MemberBean member);
 
 	public void update(MemberBean m);
 

@@ -5,8 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "memberinfo")
+//@Entity
+//@Table(name = "memberinfo")
 public class PersonalInfoBean {
 	private static final long serialVersionUID = 1L;
 
