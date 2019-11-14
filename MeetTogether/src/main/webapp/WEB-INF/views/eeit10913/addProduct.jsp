@@ -115,17 +115,11 @@ body {
 			<div class="row">
 				<div class="col-lg-2 col"></div>
 				<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
-					<!-- 		<fieldset> -->
-					<%-- 			<form action="#" class="request-form ftco-animate "> --%>
-					<!-- 						style="width:600px;height:120px;" -->
-
-					<!-- 				<h6>123456789</h6> -->
-					<%-- 			</form> --%>
+			
 
 					<form:form method='POST' modelAttribute="reviewBean"
 						class='bg-light p-5 contact-form  '>
-<!-- 						request-form ftco-animatel -->
-<!-- 						<fieldset> -->
+					
 							<h2>評論此活動</h2>
 							<div class="form-group" style="font-size: 16px; color: black;">
 								<label >會員ID</label>
@@ -139,10 +133,9 @@ body {
 
 							<div class="form-group">
 								<label for="exampleFormControlSelect1">請選擇您的評分</label>
-								<!-- 								class='control-label col-lg-2 col-lg-2' -->
+								
 								<form:select  path="eventStars" id="exampleFormControlSelect1" name="rate">
-									<!-- style="width:101px"	class="col-lg-10" -->
-<%-- 									<form:option value="-1">請選擇</form:option> --%>
+							
 									<form:option value="1">1</form:option>
 									<form:option value="2">2</form:option>
 									<form:option value="3">3</form:option>
@@ -161,14 +154,13 @@ body {
 							</div>
 							<div class="form-group">
 								<input class="form-group" type="submit" value="送出評論" class="btn btn-primary py-3 px-5" />
-								<!--     class="btn btn-primary py-3 px-4" -->
+								
 							</div>
-							
-<!-- 						</fieldset> -->
+						
 					</form:form>
 
 
-					<!-- 		</fieldset> -->
+					
 				</div>
 
 			</div>
@@ -182,63 +174,7 @@ body {
 
 	<hr
 		style="height: 1px; border: none; color: #333; background-color: #333;">
-	<!-- 	<section class="container"> -->
-	<!--       三個地方要完全一樣  -->
-	-->
 
-	<%-- 		<form:form method='POST' modelAttribute="reviewBean" --%>
-	<%-- 			class='form-horizontal'> --%>
-	<!-- 			<fieldset> -->
-	<!-- 				<div class="form-group"> -->
-	<!-- 					<label class='control-label col-lg-2 col-lg-2' for="eventImage"> -->
-	<!-- 						活動照片 </label> -->
-	<!-- 					<div class='col-lg-10'> -->
-	<%-- 						<form:input id="productImage" path="productImage" type='file' --%>
-	<%-- 							class='form:input-large' /> --%>
-	<!-- 					</div> -->
-	<!-- 				</div> -->
-	<!-- 				<div class="form-group"> -->
-	<!-- 					<label class='control-label col-lg-2 col-lg-2' for="comments"> -->
-	<!-- 						會員名 </label> -->
-	<%-- 					<p>${userId} --%>
-	<%-- 						<form:input path="mbId" value="${userId}" type='hidden' --%>
-	<%-- 							class='form:input-large' /> --%>
-	<!-- 				</div> -->
-
-	<!-- 				<div class="form-group"> -->
-	<!-- 					<label class='control-label col-lg-2 col-lg-2' for="comments"> -->
-	<!-- 						分享你的活動評論 </label> -->
-	<!-- 					<div class='form-control'> -->
-	<%-- 						<form:textarea path="eventComment" id="eventComment" cols="50" --%>
-	<%-- 							rows="5" style="border: 1px black solid;"></form:textarea> --%>
-	<!-- 						<td><span id="msg_eventComment" class='msgWrong'></span> -->
-	<!-- 					</div> -->
-
-	<!-- 				</div> -->
-
-	<!-- 				<div class="form-group"> -->
-	<!-- 					<label for="exampleFormControlSelect1" -->
-	<!-- 						class='control-label col-lg-2 col-lg-2'>請選擇</label> -->
-	<%-- 					<form:select width="101px" style="width:101px" path="eventStars" --%>
-	<%-- 						class="col-lg-10" id="exampleFormControlSelect1" name="rate"> --%>
-	<%-- 						<form:option value="-1" label="請選擇"></form:option> --%>
-	<%-- 						<form:option value="1">1</form:option> --%>
-	<%-- 						<form:option value="2">2</form:option> --%>
-	<%-- 						<form:option value="3">3</form:option> --%>
-	<%-- 						<form:option value="4">4</form:option> --%>
-	<%-- 						<form:option value="5">5</form:option> --%>
-	<%-- 					</form:select> --%>
-	<!-- 				</div> -->
-
-	<!-- 				<div class="form-group"> -->
-	<!-- 					<div class='col-lg-offset-2 col-lg-10'> -->
-	<!-- 						<input id="btnAdd" type='submit' class='btn btn-primary' -->
-	<!-- 							value="送出" /> -->
-	<!-- 					</div> -->
-	<!-- 				</div> -->
-	<!-- 			</fieldset> -->
-	<%-- 		</form:form> --%>
-	<!-- 	</section> -->
 
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
 		<div class="container">
