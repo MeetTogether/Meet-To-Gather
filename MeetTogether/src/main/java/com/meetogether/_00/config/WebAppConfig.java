@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 		"com.meetogether.eeit10913",
 		"com.meetogether.eeit10908",
 
-//		"com.meetogether.eeit10936"
+		"com.meetogether.eeit10936"
 		})
 public class WebAppConfig implements WebMvcConfigurer {
 
@@ -43,6 +43,11 @@ public class WebAppConfig implements WebMvcConfigurer {
 	     registry.addResourceHandler("/eeit10927/images/**").addResourceLocations("/WEB-INF/views/eeit10927/images/");
 	     registry.addResourceHandler("/eeit10936/css/**").addResourceLocations("/WEB-INF/views/eeit10936/css/");
 	     registry.addResourceHandler("/eeit10936/js/**").addResourceLocations("/WEB-INF/views/eeit10936/js/");
+	     registry.addResourceHandler("/eeit10908/js/**").addResourceLocations("/WEB-INF/views/eeit10908/js/");
+	     registry.addResourceHandler("/eeit10908/assets/**").addResourceLocations("/WEB-INF/views/eeit10908/assets/");
+	     registry.addResourceHandler("/eeit10908/css/**").addResourceLocations("/WEB-INF/views/eeit10908/css/");
+	     registry.addResourceHandler("/eeit10908/fonts/**").addResourceLocations("/WEB-INF/views/eeit10908/fonts/");
+	     registry.addResourceHandler("/eeit10908/images/**").addResourceLocations("/WEB-INF/views/eeit10908/images/");
 	     registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/views/css/");
 	     registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/views/fonts/");
 	     registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/views/js/");

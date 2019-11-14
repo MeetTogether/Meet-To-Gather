@@ -27,7 +27,7 @@ body {
 
 </head>
 <body>
-	<a href='/'><input type="button" value="返回"></a>
+	<a href='/MeetTogether/eeit10908'><input type="button" value="返回"></a>
 	<div align="center">
 		<h2>活 動 資 訊</h2>
 		<form:form method="post" modelAttribute="actdata">

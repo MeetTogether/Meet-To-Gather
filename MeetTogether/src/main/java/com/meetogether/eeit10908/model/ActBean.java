@@ -1,6 +1,7 @@
 package com.meetogether.eeit10908.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="eventList")
@@ -26,7 +30,29 @@ public class ActBean implements Serializable {
 	Integer budget;
 	String eventPlace;
 	String createTime;
-
+	private String actFilename;
+	private Blob actPhoto;
+	@Transient
+	private MultipartFile actImage;
+	
+	public MultipartFile getActImage() {
+		return actImage;
+	}
+	public void setActImage(MultipartFile actImage) {
+		this.actImage = actImage;
+	}
+	public Blob getActPhoto() {
+		return actPhoto;
+	}
+	public void setActPhoto(Blob actPhoto) {
+		this.actPhoto = actPhoto;
+	}
+	public String getActFilename() {
+		return actFilename;
+	}
+	public void setActFilename(String actFilename) {
+		this.actFilename = actFilename;
+	}
 	//	@JsonIgnoreProperties("acts")
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="FK_CatBean_Id") 	
@@ -93,6 +119,7 @@ public class ActBean implements Serializable {
 	public ActBean() {
 		
 	}
+	
 	public ActBean(Integer eventId, Integer memberId, String eventName, Integer eventCat, String eventTime,
 			String groupNum, Integer budget, String eventPlace, String createTime, CatBean catbean) {
 		super();

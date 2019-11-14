@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity(name="eventCat")
+@Entity(name = "eventCat")
 @Table(name = "eventCat")
 public class CatBean {
 	@Id

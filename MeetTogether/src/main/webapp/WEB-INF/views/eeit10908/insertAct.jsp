@@ -12,10 +12,10 @@
 <!--   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
 <link
-	href='${pageContext.request.contextPath}/assets/css/bootstrap.min.css'
+	href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap.min.css'
 	rel='stylesheet' media="screen">
 <link
-	href='${pageContext.request.contextPath}/assets/css/bootstrap-datetimepicker.min.css'
+	href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'
 	rel='stylesheet' media="screen">
 
 
@@ -50,11 +50,11 @@ body {
 
 </head>
 <body onload="getTodayDate()">
-	<a href='/'><input type="button" value="返回"></a>
+	<a href='/MeetTogether/eeit10908'><input type="button" value="返回"></a>
 	<div align="center">
 		<h2>活動發起</h2>
 		<form:form method="post" 
-			modelAttribute="actBean">
+			modelAttribute="actBean" enctype="multipart/form-data">
 			<table border="1">
 				<tr>
 					<td>主辦人編號:
@@ -98,23 +98,26 @@ body {
 					<p>
 				<tr>
 					<td>活動建立時間:
-					<td><form:input type="text" path="createTime" id="create"
-						/>
+					<td><form:input type="text" path="createTime" id="create" />
+				<tr>
+					<td>活動圖片:
+					<td><form:input type="file" path="actImage" value="新增圖片" />
+				
 			</table>
 			<input type="submit" value="送出" />
 		</form:form>
 
 	</div>
 
-	<script	src="${pageContext.request.contextPath}/assets/jquery/jquery-1.8.3.min.js"></script>
+	<script	src="${pageContext.request.contextPath}/eeit10908/assets/jquery/jquery-1.8.3.min.js"></script>
 	
 	<script
-		src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/eeit10908/assets/js/bootstrap.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/assets/css/bootstrap-datetimepicker.js"
+		src="${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.js"
 		charset="UTF-8"></script>
 	<script
-		src="${pageContext.request.contextPath}/assets/locales/bootstrap-datetimepicker.fr.js"
+		src="${pageContext.request.contextPath}/eeit10908/assets/locales/bootstrap-datetimepicker.fr.js"
 		charset="UTF-8"></script>
 	<script type="text/javascript">
 		$('.form_datetime').datetimepicker({
