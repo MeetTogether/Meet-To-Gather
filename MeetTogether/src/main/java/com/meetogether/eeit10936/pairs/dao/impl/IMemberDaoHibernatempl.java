@@ -130,7 +130,7 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 	@Override
 	public boolean checkVip(Integer id) {
 //		String hql = "From VipStatus v WHERE v.memberId = ?0 AND v.startTime >= ?1 AND v.endTime <= ?1";
-		String hql = "From VipStatus v WHERE v.memberId = ?0 AND v.startTime >= ?1 AND v.endTime >= ?1 AND v.vipStatus = 1";
+		String hql = "From VipStatus v WHERE v.member.memberId = ?0 AND v.startTime >= ?1 AND v.endTime >= ?1 AND v.vipStatus = 1";
 		VipStatus result = factory.getCurrentSession().createQuery(hql, VipStatus.class).setParameter(0, id)
 				.setParameter(1, new Timestamp(System.currentTimeMillis())).uniqueResult();
 		if (result != null) {
