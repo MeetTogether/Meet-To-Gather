@@ -5,8 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
+
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
+    
+
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
@@ -24,21 +29,85 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
 
     
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-<title>活動總表</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    
+<%-- 	<link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap.min.css'> --%>
+	<link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'>
+<%-- 	<link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap.min.css'> --%>
+	
+	
 <meta name="viewport"
 	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title> 活 動 總 表 </title>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="UTF-8">
+<script>
+ 	function getTodayDate() {
+ 		var fullDate = new Date();
+ 		var yyyy = fullDate.getFullYear();
+ 		var MM = (fullDate.getMonth() + 1) >= 10 ? (fullDate.getMonth() + 1)
+ 				: ("0" + (fullDate.getMonth() + 1));
+ 		var dd = fullDate.getDate() < 10 ? ("0" + fullDate.getDate())
+ 				: fullDate.getDate();
+ 		var hh = fullDate.getHours() < 10 ? ("0" + fullDate.getHours())
+ 				: fullDate.getHours();
+ 		var mm = fullDate.getMinutes() < 10 ? ("0" + fullDate.getMinutes())
+ 				: fullDate.getMinutes();
+ 		var today = yyyy + "/" + MM + "/" + dd + "," + hh + ":" + mm;
+ 		var elem = document.getElementById("create");
+ 		elem.value = today;
+ 		return today;
+ 	}
+ 	
+ 	var VisibleMenu = ''; // 記錄目前顯示的子選單的 ID
+
+ // 顯示或隱藏子選單
+ function switchMenu( theMainMenu, theSubMenu, theEvent ){
+     var SubMenu = document.getElementById( theSubMenu );
+     if( SubMenu.style.display == 'none' ){ // 顯示子選單
+         SubMenu.style.minWidth = theMainMenu.clientWidth; // 讓子選單的最小寬度與主選單相同 (僅為了美觀)
+         SubMenu.style.display = 'block';
+         hideMenu(); // 隱藏子選單
+         VisibleMenu = theSubMenu;
+     }
+     else{ // 隱藏子選單
+         if( theEvent != 'MouseOver' || VisibleMenu != theSubMenu ){
+             SubMenu.style.display = 'none';
+             VisibleMenu = '';
+         }
+     }
+ }
+
+ // 隱藏子選單
+ function hideMenu(){
+     if( VisibleMenu != '' ){
+         document.getElementById( VisibleMenu ).style.display = 'none';
+     }
+     VisibleMenu = '';
+ }
+ $(document).ready(function() {
+	 $('.mdb-select').materialSelect();
+	 });
+ 
+ function clickact(){
+	 alert("活動報名成功");
+	 
+ }
+ </script>
 <style>
 body {
-	background: -webkit-radial-gradient(ellipse, white, aqua);
-	background: -o-radial-gradient(ellipse, white, aqua);
-	background: -moz-radial-gradient(ellipse, white, aqua);
-	background: radial-gradient(ellipse, white, aqua);
+/* 	background: -webkit-radial-gradient(ellipse, white, aqua); */
+/* 	background: -o-radial-gradient(ellipse, white, aqua); */
+/* 	background: -moz-radial-gradient(ellipse, white, aqua); */
+/* 	background: radial-gradient(ellipse, white, aqua); */
+	background-color: #e7eef1;
+    font-family: 微軟正黑體;
 }
 
 .btn-link {
@@ -52,6 +121,7 @@ body {
 	font-family: inherit;
 	font-size: inherit;
 }
+
 
 .btn-link:active {
 	color: #FF0000;
@@ -87,13 +157,17 @@ select {
 option {
 	text-align: center;
 }
+
 </style>
+
+
+
 </head>
 <body>
 	
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Auto<span>road</span></a>
+	      <a class="navbar-brand" href="/MeetTogether/eeit10908">Auto<span>road</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -140,11 +214,19 @@ option {
 
 	<div align="center">
 		<h2>活 動 總 表</h2>
-		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?getcatId=${catList.key}">	
-			<form:select path="eventCat" onchange="submit();">
-							<form:option value="-1" label="請選擇" />							
-							<form:options items="${catList}" />
-			</form:select>
+		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?eventCat=${catList.key}">
+		<div class="dropdown" >
+		
+		<form:select path="eventCat" onchange="submit();" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="width:170px; align:center;">
+		<span class="caret"></span>
+			 <ul class="dropdown-menu" >
+				<li><form:option value="-1" label="請選擇" /></li>
+				<li><form:options items="${catList}" /></li>
+			  </ul>	
+		
+		</form:select>
+			
+		</div>
 		</form:form>
 		<p>
 <!-- 		<table border="1"> -->
@@ -168,9 +250,6 @@ option {
 				
 
 		<c:forEach var='acts' items="${actBeanList}">
-
-		
-
 				<div class="col-md-4">
     				<div class="car-wrap ftco-animate">
     					<div class="img d-flex align-items-end" style="background-image: url(${pageContext.request.contextPath}/getImage?id=${acts.eventId}&type=act)">
@@ -179,7 +258,7 @@ option {
     					<div class="text p-4 text-center">
     						<h2 class="mb-0"><a href="car-single.html">${acts.eventName}</a></h2>
     						<span>scheduled start tine:${acts.eventTime}</span>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-black btn-outline-black mr-1">參加活動</a> <a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a></p>
+    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-black btn-outline-black mr-1" onclick="clickact()">參加活動</a> <a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a></p>
     					</div>
     				</div>
     			</div>
@@ -222,18 +301,85 @@ option {
 							
 
 				</c:forEach>
-</div>
+			</div>
     	</div>
     </section>
 		
 <!-- 		</table> -->
-		<br> <a href='addActis'><input type="button" value="新增資料"></a>
+<!-- 		<br> <a href='addActis'><input type="button" value="新增活動"></a> -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="getTodayDate()">
+  			新增活動
+		</button>
+		<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+ 		<h5 class="modal-title" id="exampleModalLongTitle" align="center">新  增  活  動</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+			   
+		      <div class="modal-body" style="background-color: #e7eef1;">
+		     <form:form method="post" 
+ 			modelAttribute="actBean" enctype="multipart/form-data">
+				主辦人編號:<p>
+					<form:input type="text" path="memberId" /><p>
+		     	活動名稱:<p>
+					<form:input type="text" path="eventName"/><p>
+		     	活動類型:<p>
+					<form:select path="eventCat">
+							<form:option value="-1" label="請選擇" />
+							<form:options items="${catList}" />
+						</form:select><p>
+				活動開始時間:<p>
+
+						<div class="input-group date form_datetime col-md-8"
+							data-date="2019-11-04T15:25:07Z"
+							data-date-format="yyyy-mm-dd - HH:ii p"
+							data-link-field="dtp_input1">
+							<form:input class="form-control" type="text" path="eventTime" />
+							<span class="input-group-addon"><span
+								class="glyphicon glyphicon-remove"></span></span> <span
+								class="input-group-addon"><span
+								class="glyphicon glyphicon-th"></span></span>
+						</div><p> 
+			           活動內容:<p>
+					<form:input type="textarea" path="actContent"  style="width:300px;height:100px;"/><p>
+		     	
+						
+		     	活動參與人數:<p>
+					<form:input type="text" path="groupNum" value="" /><p>
+		     	
+		     	預算:<p>
+					<form:input type="text" path="budget"  /><p>
+		     	活動地點:<p>
+					<form:input type="text" path="eventPlace" /><p>
+				活動建立時間:<p>
+					<form:input type="text" path="createTime" id="create" /><p>
+				活動圖片:<p>&emsp;&emsp;&emsp;&emsp;
+					<form:input type="file" path="actImage" value="新增圖片" align="right"/><p>	
+		     	
+		     	
+		     	
+		    
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">取 消</button>
+        		<button type="submit" class="btn btn-primary">新 增</button>
+		    	</form:form>
+		      </div>
+		      
+<!-- 		       <div class="modal-footer"> -->
+        
+<!--       </div> -->
+    </div>
+  </div>
+</div>
+		
+	
+	
+	
+	
 	</div>
-	
-	
-	
-	
-	
 	
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
@@ -300,8 +446,29 @@ option {
   
 
   <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
+<%--   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> --%>
+	<script src="${pageContext.request.contextPath}/eeit10908/assets/jquery/jquery-1.8.3.min.js"></script>
+	
+	<script
+		src="${pageContext.request.contextPath}/eeit10908/assets/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.js"
+		charset="UTF-8"></script>
+	<script
+		src="${pageContext.request.contextPath}/eeit10908/assets/locales/bootstrap-datetimepicker.fr.js"
+		charset="UTF-8"></script>
+	<script type="text/javascript">
+		$('.form_datetime').datetimepicker({
+			//language:  'fr',
+			weekStart : 1,
+			todayBtn : 1,
+			autoclose : 1,
+			todayHighlight : 1,
+			startView : 2,
+			forceParse : 0,
+			showMeridian : 1
+		});
+ 	</script> 
 
   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>
@@ -320,6 +487,6 @@ option {
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${pageContext.request.contextPath}/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath}/js/main.js"></script>
-    
+   
 </body>
 </html>

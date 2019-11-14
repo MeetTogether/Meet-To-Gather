@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
@@ -24,9 +24,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
 
     
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <title>活動細節</title>
 <meta name="viewport"
 	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -38,10 +38,12 @@
 
 <style>
 body {
-	background: -webkit-radial-gradient(circle, white, burlywood);
-	background: -o-radial-gradient(circle, white, burlywood);
-	background: -moz-radial-gradient(circle, white, burlywood);
-	background: radial-gradient(circle, white, burlywood);
+/* 	background: -webkit-radial-gradient(circle, white, burlywood); */
+/* 	background: -o-radial-gradient(circle, white, burlywood); */
+/* 	background: -moz-radial-gradient(circle, white, burlywood); */
+/* 	background: radial-gradient(circle, white, burlywood); */
+	background-color: #e7eef1;
+    font-family: 微軟正黑體;
 }
 </style>
 
@@ -50,7 +52,7 @@ body {
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Auto<span>road</span></a>
+	      <a class="navbar-brand" href="/MeetTogether/eeit10908">Auto<span>road</span></a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -99,8 +101,6 @@ body {
 <!-- 	<div align="center"> -->
 <!-- 		<h2>活 動 資 訊</h2> -->
 		<form:form method="post" modelAttribute="actdata">
-		
-		
 		
 
 				
@@ -194,6 +194,15 @@ body {
             </div>      
           </div>
       	</div>
+      	
+      	<h3>活動內容</h3>
+		    <div>${actdata.actContent}</div><p>
+		    
+		 
+		<h3>google地點</h3>    
+		<iframe width="1000" height="500" style="border: 0" 
+ 								src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA3sRUmvTTrsDvCJWhqAVC142ehRvCXiTc&q=${actdata.eventPlace}"> --%>
+		</iframe>
 		<div class="row">
       		<div class="col-md-12 pills">
 						<div class="bd-example bd-example-tabs">

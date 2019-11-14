@@ -71,6 +71,10 @@ body {
 							<form:options items="${catList}" />
 						</form:select>
 				<tr>
+					<td>活動內容:
+					<td><form:input type="textarea" path="actContent"  style="width:300px;height:100px;"/>
+					<p>
+				<tr>
 					<td>活動開始時間:
 					<td width="100%">
 

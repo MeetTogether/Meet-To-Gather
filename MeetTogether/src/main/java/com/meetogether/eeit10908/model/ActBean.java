@@ -30,6 +30,8 @@ public class ActBean implements Serializable {
 	Integer budget;
 	String eventPlace;
 	String createTime;
+	String actContent;
+
 	private String actFilename;
 	private Blob actPhoto;
 	@Transient
@@ -37,6 +39,12 @@ public class ActBean implements Serializable {
 	
 	public MultipartFile getActImage() {
 		return actImage;
+	}
+	public String getActContent() {
+		return actContent;
+	}
+	public void setActContent(String actContent) {
+		this.actContent = actContent;
 	}
 	public void setActImage(MultipartFile actImage) {
 		this.actImage = actImage;

@@ -73,18 +73,33 @@ public class ActController {
 		return "/eeit10908/QueryCatIndex";
 	}
 	
+	@RequestMapping(value = "/MeetTogether/index/ChangeIndexCat")
+	public String selectIndexCats(@RequestParam("eventCat") int catId,Model model) {
+
+		
+		List<ActBean> aaa = service.getActivityByCat(catId);
+		Map<Integer, String> bbb= getCompanyList(); 
+		System.out.println(catId);
+		String Catclass = (String)bbb.get(catId);
+		model.addAttribute("catclass",Catclass);
+		model.addAttribute("actBeanCat",aaa);
+		return "/eeit10908/QueryCatIndex";
+	}
 	
-	
-	@RequestMapping(value = "/addActis", method = RequestMethod.GET)
+	@RequestMapping(value = "/eeit10908", method = RequestMethod.GET)
 	public String getAddNewProductForm(Model model) {
 		System.out.println("--------------+++------------");
+		List<ActBean> beans = service.getAllAct();	
 	    ActBean aa = new ActBean();
-	    aa.setGroupNum("9");
+	    CatBean cc = new CatBean();
+		model.addAttribute("actBeanCat",cc);
+	    //aa.setGroupNum("9");
+		model.addAttribute("actBeanList",beans);
 	    model.addAttribute("actBean", aa); 
-	    return "/eeit10908/insertAct";
+	    return "/eeit10908/index";
 	}
 	 
-	@RequestMapping(value = "/addActis", method = RequestMethod.POST)
+	@RequestMapping(value = "/eeit10908", method = RequestMethod.POST)
 	public String processAddNewProductForm(@ModelAttribute("actBean") ActBean aa
 			) {
 
@@ -177,7 +192,7 @@ public class ActController {
 	    ActBean aa = new ActBean();
 	    aa.setGroupNum("9");
 	    model.addAttribute("actBean", aa); 
-	    return "insertAct";
+	    return "/eeit10908/";
 	}
 	 
 	@RequestMapping(value = "/index/addActis", method = RequestMethod.POST)
