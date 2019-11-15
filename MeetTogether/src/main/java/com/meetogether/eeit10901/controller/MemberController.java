@@ -106,7 +106,9 @@ public class MemberController {
 		}
 		String captcha = (String) request.getSession().getAttribute("captcha");
 		System.out.println("captcha register: " + captcha);
+		System.out.println("captcha add: " + member.getmChecksum());
 		boolean captCheck = false;
+		captCheck = member.getmChecksum().equals(captcha);
 		boolean accCheck = service.mEmailExist(member);
 		if(accCheck) {
 			errorMsg.put("accError", "此帳號已存在");
