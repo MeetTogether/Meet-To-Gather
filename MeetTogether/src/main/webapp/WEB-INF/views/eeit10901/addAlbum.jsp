@@ -121,7 +121,7 @@ background-color:#FF8800;
 						<td><form:input type="text" path="deleteTag" />
 					<tr>
 						<td>上傳照片
-						<td><form:input type="file" path="memberImage" />
+						<td><form:input type="file" path="albumImage" />
 				</table>
 				<input type="submit" value="submit">
 			</form:form>

@@ -17,6 +17,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,10 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getMemberLoginForm(Model model) {
+	public String getMemberLoginForm(Model model,HttpSession session) {
+		if(session.getAttribute("userId") != null) {
+			return "indexLoging";
+		}
 		Member member = new Member();
 		model.addAttribute("memberBean", member);
 		return "index";

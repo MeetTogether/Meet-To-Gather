@@ -256,5 +256,10 @@ p {
 				
 		</table>
 	</div>
+	
+	<a href="personal" class="nav-link">輸入個人喜好</a>
+	<a href="personalH" class="nav-link">輸入個人希望條件</a>
+	<a href="addAlbum" class="nav-link">相簿</a>
+	
 </body>
 </html>
