@@ -73,7 +73,7 @@ li {
 					<li class="nav-item active"><a href="index.html"
 						class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="about.html" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="pricing.html" class="nav-link">活動</a></li>
+					<li class="nav-item"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
 					<li class="nav-item">
 							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
 						</li>
