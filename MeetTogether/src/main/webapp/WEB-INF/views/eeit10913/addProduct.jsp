@@ -1,39 +1,156 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<title>MeetTogether</title>
+<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
-
-<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="css/animate.css">
-
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-
-<link rel="stylesheet" href="css/aos.css">
-
-<link rel="stylesheet" href="css/ionicons.min.css">
-
-<link rel="stylesheet" href="css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/aos.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/ionicons.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/flaticon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 <style type="text/css">
+body {
+	background-color: #e7eef1;
+	font-family: 微軟正黑體;
+}
+
+.point {
+	cursor: pointer;
+}
+
+.hero-wrap {
+	width: 100%;
+	height: 300px;
+	position: inherit;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: top center;
+}
+
+.hero-wrap .overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	content: '';
+	opacity: .4;
+	background: #000000;
+	height: 300px;
+}
+
+@media ( max-width : 991.98px) {
+	.hero-wrap {
+		height: 450px;
+	}
+	.hero-wrap .overlay {
+		height: 450px;
+	}
+}
+
+.hero-wrap.hero-wrap-2 {
+	height: 300px !important;
+	position: relative;
+}
+
+.hero-wrap.hero-wrap-2 .overlay {
+	width: 100%;
+	opacity: .05;
+	height: 300px;
+}
+
+.hero-wrap.hero-wrap-2 .slider-text {
+	height: 300px !important;
+}
+
+.ftco-section {
+	padding: 2em 0;
+	position: relative;
+}
+
+@media ( max-width : 767.98px) {
+	.ftco-section {
+		padding: 2em 0;
+	}
+} /* 留言左側section與上方距離，原為6em */
+.mt-5, .my-5 {
+	margin-top: 1em !important;
+} /* 發文單篇與上方距離，原為3rem */
+.reply {
+	padding: 5px 10px;
+	background: #e6e6e6;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 11px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+}
+
+.reply:hover {
+	color: #fff;
+	background: black;
+}
+
+.col-md-8 {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 95%;
+	flex: 0 0 95%;
+	max-width: 95%;
+}
+
+.MemberPic {
+	border-radius: 50%;
+	height: 30px;
+	margin: 8px 5px;
+	display: inline-flex;
+	align-items: center;
+	float: left;
+}
+
+.likeBtn, .dislikeBtn, .replyBtn {
+	height: 20px;
+	cursor: pointer;
+}
+
+p {
+	margin-bottom: 0;
+}
+
 fieldset {
 	border: 1px solid rgb(255, 232, 57);
 	width: 600px;
@@ -58,7 +175,55 @@ body {
 	color: red;
 }
 </style>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+	var jQuery_1_12_4 = $.noConflict();
+
+	jQuery_1_12_4(document)
+			.ready(
+					function() {
+						jQuery_1_12_4("#Postbox").hide();
+						jQuery_1_12_4("#Postbutton").click(function() {
+							jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
+							/* $('html,body').animate({
+								scrollTop : 0
+							}); 返回到頁面頂端 */
+						});
+						jQuery_1_12_4("#ViewMyPost")
+								.click(
+										function() {
+											top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
+										});
+						jQuery_1_12_4("#ViewAllPost")
+								.click(
+										function() {
+											top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
+										});
+						jQuery_1_12_4("input#deletePost")
+								.click(
+										function() {
+											var c = confirm('是否確認刪除');
+											console.log(c);
+											if (c) {
+												jQuery_1_12_4(this).parent(
+														"form#deletePostForm")
+														.submit();
+											} else {
+											}
+										});
+
+						jQuery_1_12_4("#dialog-confirm").hide();
+						jQuery_1_12_4("#vipBuyButton").click(function() {
+							jQuery_1_12_4("#dialog-confirm").dialog({
+								resizable : false,
+								height : "auto",
+								width : 420,
+								modal : true,
+							});
+						});
+					});
+
+	<script src="http://code.jquery.com/jquery-1.12.4.min.js">
+</script>
 <script>
 	$(document).ready(function() {
 		$("#eventComment").blur(checkEmptyE);
@@ -75,14 +240,26 @@ body {
 		}
 	}
 </script>
-<title>Products</title>
+
 </head>
 <body>
+<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
+<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
+<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
+<!-- 			style="width: 370px; margin: auto;"> -->
+<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
+<!-- 		<br> -->
+<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
+<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
+<!-- 			<input type="submit" value="前往付款" class="reply"> -->
+<%-- 		</form:form> --%>
+<!-- 	</div> -->
+
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">Auto<span>road</span></a>
+			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -91,17 +268,43 @@ body {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
-					<li class="nav-item active"><a href="car.html"
-						class="nav-link">Our Car</a></li>
-					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+					<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
+					<li class="nav-item active"><a
+						href="${pageContext.request.contextPath}/GetAllPostServlet"
+						class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/LogoutServlet"
+						class="nav-link">登出</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+	<!-- END nav -->
+
+	<section class="hero-wrap hero-wrap-2 js-fullheight"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動 <i
+							class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-3 bread">留下您對此活動的評論</h1>
+				</div>
+			</div>
+		</div>
+	</section>
 
 	<section>
 		<div class="container">
@@ -115,52 +318,54 @@ body {
 			<div class="row">
 				<div class="col-lg-2 col"></div>
 				<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
-			
+
 
 					<form:form method='POST' modelAttribute="reviewBean"
 						class='bg-light p-5 contact-form  '>
-					
-							<h2>評論此活動</h2>
-							<div class="form-group" style="font-size: 16px; color: black;">
-								<label >會員ID</label>
-							</div>
-							<div class="form-group">
-								 <input type="text"
-									class="form-control" value=${userId } readonly="readonly">
-									<form:input path="mbId" value="${userId}" type='hidden'
+
+						<h2>評論此活動</h2>
+						<div class="form-group" style="font-size: 16px; color: black;">
+							<label>會員ID</label>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" value=${userId }
+								readonly="readonly">
+							<form:input path="mbId" value="${userId}" type='hidden'
 								class='form:input-large' />
-							</div>
+						</div>
 
-							<div class="form-group">
-								<label for="exampleFormControlSelect1">請選擇您的評分</label>
-								
-								<form:select  path="eventStars" id="exampleFormControlSelect1" name="rate">
-							
-									<form:option value="1">1</form:option>
-									<form:option value="2">2</form:option>
-									<form:option value="3">3</form:option>
-									<form:option value="4">4</form:option>
-									<form:option value="5">5</form:option>
-								</form:select>
-							</div>
+						<div class="form-group">
+							<label for="exampleFormControlSelect1">請選擇您的評分</label>
 
-							<div class="form-group">
-								<label >分享你的活動評論</label>
-							</div>
-							<div class="form-group">
-								<form:textarea path="eventComment" id="eventComment" cols="50"
-										rows="5" style="border: 1px black solid;"></form:textarea>
-									<td><span id="msg_eventComment" class='msgWrong'></span>
-							</div>
-							<div class="form-group">
-								<input class="form-group" type="submit" value="送出評論" class="btn btn-primary py-3 px-5" />
-								
-							</div>
-						
+							<form:select path="eventStars" id="exampleFormControlSelect1"
+								name="rate">
+
+								<form:option value="1">1</form:option>
+								<form:option value="2">2</form:option>
+								<form:option value="3">3</form:option>
+								<form:option value="4">4</form:option>
+								<form:option value="5">5</form:option>
+							</form:select>
+						</div>
+
+						<div class="form-group">
+							<label>分享你的活動評論</label>
+						</div>
+						<div class="form-group">
+							<form:textarea path="eventComment" id="eventComment" cols="50"
+								rows="5" style="border: 1px black solid;"></form:textarea>
+							<td><span id="msg_eventComment" class='msgWrong'></span>
+						</div>
+						<div class="form-group">
+							<input class="form-group" type="submit" value="送出評論"
+								class="btn btn-primary py-3 px-5" />
+
+						</div>
+
 					</form:form>
 
 
-					
+
 				</div>
 
 			</div>
@@ -181,9 +386,8 @@ body {
 			<div class="row mb-5">
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About Autoroad</h2>
-						<p>Far far away, behind the word mountains, far from the
-							countries Vokalia and Consonantia, there live the blind texts.</p>
+						<h2 class="ftco-heading-2">About MeetTogether</h2>
+						<p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
 						<ul
 							class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
 							<li class="ftco-animate"><a href="#"><span
@@ -199,63 +403,35 @@ body {
 					<div class="ftco-footer-widget mb-4 ml-md-5">
 						<h2 class="ftco-heading-2">Information</h2>
 						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">About</a></li>
-							<li><a href="#" class="py-2 d-block">Services</a></li>
-							<li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-							<li><a href="#" class="py-2 d-block">Best Price
-									Guarantee</a></li>
-							<li><a href="#" class="py-2 d-block">Privacy &amp;
-									Cookies Policy</a></li>
+							<li><a href="#" class="py-2 d-block">首頁</a></li>
+							<li><a href="#" class="py-2 d-block">交友</a></li>
+							<li><a href="#" class="py-2 d-block">活動</a></li>
+							<li><a href="#" class="py-2 d-block">討論區</a></li>
+							<li><a href="#" class="py-2 d-block">會員資料</a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Customer Support</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">FAQ</a></li>
-							<li><a href="#" class="py-2 d-block">Payment Option</a></li>
-							<li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-							<li><a href="#" class="py-2 d-block">How it works</a></li>
-							<li><a href="#" class="py-2 d-block">Contact Us</a></li>
-						</ul>
-					</div>
-				</div>
+
 				<div class="col-md">
 					<div class="ftco-footer-widget mb-4">
 						<h2 class="ftco-heading-2">Have a Questions?</h2>
 						<div class="block-23 mb-3">
 							<ul>
 								<li><span class="icon icon-map-marker"></span><span
-									class="text">203 Fake St. Mountain View, San Francisco,
-										California, USA</span></li>
+									class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
 								<li><a href="#"><span class="icon icon-phone"></span><span
-										class="text">+2 392 3929 210</span></a></li>
+										class="text">02 6631 6666</span></a></li>
 								<li><a href="#"><span class="icon icon-envelope"></span><span
-										class="text">info@yourdomain.com</span></a></li>
+										class="text">info@iiiedu.org.tw</span></a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
 
-					<p>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-						All rights reserved | This template is made with <i
-							class="icon-heart color-danger" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
-				</div>
-			</div>
 		</div>
 	</footer>
+
 
 	<div id="ftco-loader" class="show fullscreen">
 		<svg class="circular" width="48px" height="48px">

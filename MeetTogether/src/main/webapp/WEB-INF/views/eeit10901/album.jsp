@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
-
+<title>相簿</title>
 </head>
 <body>
  <nav

@@ -70,7 +70,7 @@ function checksum() {
 	    flag += 1;
     } else {
 		document.getElementById("msg_mChecksum").innerHTML = "";
-    	flag == 0;
+		flag == 0;
     }
 }
 

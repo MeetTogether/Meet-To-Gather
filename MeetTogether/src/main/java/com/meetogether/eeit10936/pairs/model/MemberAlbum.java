@@ -27,8 +27,6 @@ public class MemberAlbum implements Serializable {
 	private MemberAlbumPk pk;
 	@Column(name = "status")
 	private Integer status;
-	
-//	@Transient
 	@Column(name = "deleteTag")
 	private Integer deleteTag;
 	@Column(name = "photo")
@@ -54,6 +52,7 @@ public class MemberAlbum implements Serializable {
 	}
 
 	
+<<<<<<< HEAD
 
 	public Blob getPhoto() {
 		return photo;
@@ -63,6 +62,8 @@ public class MemberAlbum implements Serializable {
 		this.photo = photo;
 	}
  
+=======
+>>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 
 	public MemberAlbumPk getPk() {
 		return pk;

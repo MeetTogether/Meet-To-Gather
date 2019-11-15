@@ -41,7 +41,7 @@
 <link rel="stylesheet" href="css/icomoon.css">
 <link rel="stylesheet" href="css/style.css">
 <style>
-#thumb {
+/* #thumb {
 	height: 40px;
 }
 li {
@@ -49,7 +49,7 @@ li {
 	width: 7em;
 	color: #FFAA33;
 	font-family:monospace;
-}
+} */
 
 </style>
 </head>
@@ -59,9 +59,7 @@ li {
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-		
-			<a class="navbar-brand"
-				href="http://localhost:8080/MeetTogether/register">Meet <span>Together</span></a>
+			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -72,23 +70,20 @@ li {
 				<ul class="navbar-nav ml-auto" id="menu">
 					<li class="nav-item active"><a href="index.html"
 						class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="about.html" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="./pairs" class="nav-link">交友</a></li>
 					<li class="nav-item"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
 					<li class="nav-item">
 							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
 						</li>
-
 					<li class="nav-item"><a href="blog.html" class="nav-link">會員資料</a></li>
 
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
-
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img id="thumb"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -147,7 +142,7 @@ li {
 
 
 
-
+							<br>
 							<div class="form-group">
 								<input type="button" value="登入" id="login"
 									class="btn btn-primary py-3 px-4" /> 尚未成為會員? <a
