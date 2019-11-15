@@ -36,12 +36,12 @@
 #thumb {
 	height: 40px;
 }
-li {
-	float: left;
-	width: 7em;
-	color: #FFAA33;
-	font-family:monospace;
-}
+/* li { */
+/* 	float: left; */
+/* 	width: 7em; */
+/* 	color: #FFAA33; */
+/* 	font-family:monospace; */
+/* } */
 
 </style>
 </head>
@@ -69,7 +69,7 @@ li {
 							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
 						</li>
 
-					<li class="nav-item"><a href="blog.html" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
 
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>

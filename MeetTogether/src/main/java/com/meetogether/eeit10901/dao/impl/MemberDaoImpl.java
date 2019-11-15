@@ -47,14 +47,14 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void add(MemberBean member) {
+	public int add(MemberBean member) {
 		System.out.println("member Birth: " + member.getMemberBirth());
 		member.setAdminTag(0);
 		member.setDeleteTag(0);
 	 
 		factory.getCurrentSession().save(member);
 		int memberId = member.getMemberId();
-	
+		return memberId;
 	}
 
 	@Override
@@ -84,7 +84,18 @@ public class MemberDaoImpl implements MemberDao {
 		return list;
 	}
 
-	 
+	@Override
+	public boolean mEmailExist(MemberBean member) {
+		String hql = "from MemberBean m WHERE m.memberEmail = ?0";
+		boolean exist = false;
+		MemberBean result = (MemberBean) factory.getCurrentSession().createQuery(hql)
+				.setParameter(0, member.getMemberEmail()).uniqueResult();
+		if (result != null) {
+			exist = true;
+		}
+		return exist;
+	}
+
 
 	@Override
 	public MemberBean getMemberById(Integer memberId) {

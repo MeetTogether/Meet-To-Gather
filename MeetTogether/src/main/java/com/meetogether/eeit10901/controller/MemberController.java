@@ -29,13 +29,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10927.model.Member;
+import com.meetogether.eeit10936.pairs.model.VipStatus;
 
 @Controller
+
 public class MemberController {
 	ServletContext context;
 
@@ -65,11 +68,12 @@ public class MemberController {
 		return "eeit10901/getMember";
 	}
 	
-	@RequestMapping("/getmembers")
-	public String getMemberById(@PathVariable("member") Integer memberId, Model model)	{
-		MemberBean mm = service.getMemberById(memberId);
-		model.addAttribute("members", mm);
-		return "members";
+	@RequestMapping("/getmember")
+	public String getMemberById(Model model, HttpServletRequest req)	{
+		Integer userId = (Integer) req.getSession().getAttribute("userId");
+		model.addAttribute("member", service.getMemberById(userId));
+		model.addAttribute("vipBean", new VipStatus());
+		return "eeit10901/getMember";
 	}
 
 	
@@ -97,7 +101,10 @@ public class MemberController {
 			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
 		String captcha = (String) request.getSession().getAttribute("captcha");
+		System.out.println("captcha register: " + captcha);
+		System.out.println("captcha add: " + member.getmChecksum());
 		boolean captCheck = false;
+		captCheck = member.getmChecksum().equals(captcha);
 		boolean accCheck = service.mEmailExist(member);
 		if(accCheck) {
 			errorMsg.put("accError", "此帳號已存在");
@@ -110,12 +117,12 @@ public class MemberController {
 			memberId = service.add(member);
 			request.getSession().setAttribute("userEmail", member.getMemberEmail());
 			request.getSession().setAttribute("userPwd", member.getMemberPassword());
-		}
+		} 
 		MultipartFile picture = member.getMemberImage();
 		String originalFilename = picture.getOriginalFilename();
 		member.setFileName(originalFilename);
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		String rootDirectory = context.getRealPath("/");
+//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+//		String rootDirectory = context.getRealPath("/");
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
 		if (picture != null && !picture.isEmpty()) {
 			try {
@@ -126,9 +133,11 @@ public class MemberController {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
-
 		}
-		service.add(member);
+		
+		if (!errorMsg.isEmpty()) {
+			return "/eeit10901/register";
+		}
 		
 		final String Email = "109meettogether@gmail.com";// your Gmail
 		final String EmailPwd = "eeit109*";// your password
@@ -165,25 +174,26 @@ public class MemberController {
 			throw new RuntimeException(e);
 		}
 		
-		 
-		
 		return "redirect:registerSuccess";
 	}
 
 	@RequestMapping("/registerSuccess")
-	public String registerSuccess() {
+	public String registerSuccess(Model model) {
+		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/registerSuccess";
 	}
 
 	
 	@RequestMapping(value ="/updateVerifyMailSucess" ,method=RequestMethod.GET)
-	public String updateVerifyMailSucess(@RequestParam(value="id") Integer memberId) {
+	public String updateVerifyMailSucess(@RequestParam(value="id") Integer memberId, Model model) {
 		service.updeatVerifyMail(memberId);
+		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/verifyMailSuccess";
 	}
 	
 	@RequestMapping("/interestPersonalInfo")
-	public String InsertInterestPersonalInfo() {
+	public String InsertInterestPersonalInfo(Model model) {
+		model.addAttribute("vipBean", new VipStatus());
 		return "redirect:interestPersonalInfo";
 
 	}

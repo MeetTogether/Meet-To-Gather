@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.ui.Model;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10927.model.Member;
 
 public interface MemberService {
 
@@ -25,5 +26,5 @@ public interface MemberService {
 	public MemberBean getMemberById(Integer memberId);
 
 	Integer updeatVerifyMail(Integer memberId);
-
+	
 }
