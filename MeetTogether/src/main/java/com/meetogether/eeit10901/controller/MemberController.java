@@ -102,10 +102,7 @@ public class MemberController {
 		}
 		String captcha = (String) request.getSession().getAttribute("captcha");
 		System.out.println("captcha register: " + captcha);
-<<<<<<< HEAD
 		System.out.println("captcha add: " + member.getmChecksum());
-=======
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 		boolean captCheck = false;
 		captCheck = member.getmChecksum().equals(captcha);
 		boolean accCheck = service.mEmailExist(member);
