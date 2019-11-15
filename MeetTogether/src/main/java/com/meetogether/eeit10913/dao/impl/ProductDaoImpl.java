@@ -1,5 +1,6 @@
 package com.meetogether.eeit10913.dao.impl;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
-import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.service.IMessageService;
 
 @Repository
@@ -45,6 +45,10 @@ public class ProductDaoImpl implements ProductDao {
 	public ReviewBean getReviewById(Integer reviewId) {
 		Session session = factory.getCurrentSession();
 		ReviewBean rr = session.get(ReviewBean.class, reviewId);
+		
+		System.out.println("memberID 是誰 :" + rr.getMbId());
+		System.out.println("member物件ID 是誰 :" + rr.getMember().getMemberId());
+
 		return rr;
 	}
 
@@ -83,6 +87,14 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		MemberBean result = session.get(MemberBean.class, memberId);
 		return result;
+	}
+	
+	@Override
+	public Blob getphotoById(Integer id) {
+	Session session = factory.getCurrentSession();
+	Blob b=(Blob) session.createQuery("SELECT mb.photo FROM MemberBean mb WHERE mb.memberId = ?1")
+	.setParameter(1, id).uniqueResult();
+	return b;
 	}
 
 
