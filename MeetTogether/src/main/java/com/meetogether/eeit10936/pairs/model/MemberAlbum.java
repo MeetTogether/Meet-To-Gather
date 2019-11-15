@@ -27,8 +27,6 @@ public class MemberAlbum implements Serializable {
 	private MemberAlbumPk pk;
 	@Column(name = "status")
 	private Integer status;
-	
-//	@Transient
 	@Column(name = "deleteTag")
 	private Integer deleteTag;
 	@Column(name = "photo")

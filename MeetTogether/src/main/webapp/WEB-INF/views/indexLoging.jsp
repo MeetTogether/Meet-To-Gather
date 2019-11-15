@@ -36,12 +36,12 @@
 #thumb {
 	height: 40px;
 }
-li {
-	float: left;
-	width: 7em;
-	color: #FFAA33;
-	font-family:monospace;
-}
+/* li { */
+/* 	float: left; */
+/* 	width: 7em; */
+/* 	color: #FFAA33; */
+/* 	font-family:monospace; */
+/* } */
 
 </style>
 </head>

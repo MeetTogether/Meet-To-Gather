@@ -11,7 +11,7 @@
 <title>Personal-Info</title>
 </head>
 <body>
-	<a href='mem'>會員資料</a> &nbsp;&nbsp;&nbsp;
+	<a href='mem'>新增會員資料</a> &nbsp;&nbsp;&nbsp;
 	<a href="<c:url value='/'/> ">回前頁</a>
 	<H2>
 		<c:if test="${not empty userId}"></c:if>
@@ -29,19 +29,20 @@
 					<th width='130'>生日</th>
 					<th width='64'>性別</th>
 					<th width='56'>縣市</th>
-				
+					<th width='56'>區域</th>
 					<th>照片</th>
 					<th colspan='2' width='72'>資料維護</th>
 				</tr>
 				<c:forEach var='member' items='${members}'>
 					<tr>
-						<td style="text-align: center">${member.memberId}</td>
-						<td>${member.memberName}</td>
-						<td>${member.memberMmail}</td>
-						<td style="text-align: center">${member.memberBirth}</td>
-						<td style="text-align: right">${member.memberSex}</td>
-						<td style="text-align: center">${member.memberCity}</td>
-					
+						<td style="text-align: center">${member.id}</td>
+						<td>${member.name}</td>
+						<td>${member.email}</td>
+						<td style="text-align: center">${member.birthday}</td>
+						<td style="text-align: right">${member.weight}</td>
+						<td style="text-align: center">${member.hobby.name}</td>
+						<td style="text-align: center">${member.category.name}</td>
+						<td style="text-align: center">${member.gender == 'F' ? "女" : "男" }</td>
 						<td><img width='60' height='72'
 							src='crm/picture/${member.id}' /></td>
 						<td><a
@@ -54,7 +55,7 @@
 		</c:otherwise>
 	</c:choose>
 	<hr>
-
+	</div>
 	<script type='text/javascript'>
 		$(document).ready(function() {
 			$('.deletelink').click(function() {

@@ -1,5 +1,6 @@
 package com.meetogether.eeit10913.service;
 
+import java.sql.Blob;
 import java.util.List;
 
 import com.meetogether.eeit10901.model.MemberBean;
@@ -17,5 +18,7 @@ public interface ProductService {
 	public ReviewBean getReviewById(Integer reviewId);
 
 	MemberBean getMemberById(int memberId);
+
+	Blob getphotoById(Integer id);
 
 }

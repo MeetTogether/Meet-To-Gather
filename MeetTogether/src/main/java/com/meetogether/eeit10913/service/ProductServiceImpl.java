@@ -1,5 +1,6 @@
 package com.meetogether.eeit10913.service;
 
+import java.sql.Blob;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public MemberBean getMemberById(int memberId) {
 		return dao.getMemberById(memberId);
+	}
+	
+	@Transactional
+	@Override
+	public Blob getphotoById(Integer id) {
+	return dao.getphotoById(id);
 	}
 }
