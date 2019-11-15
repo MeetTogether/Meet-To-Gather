@@ -63,8 +63,10 @@ public class ProductDaoImpl implements ProductDao {
 		String hql = "FROM ReviewBean";
 		Session session = null;
 		List<ReviewBean> list = new ArrayList<>();
+
 		session = factory.getCurrentSession();
 		list = session.createQuery(hql).getResultList();
+		
 		return list;
 	}
 

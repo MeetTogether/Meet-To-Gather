@@ -259,6 +259,7 @@
 								<div class="row">
 									<div class="col-md-7">
 										<h3 class="head">所有評論</h3>
+										<b style="font-size:25px">目前平均分數: ${avgEventStar}</b>
 										<c:forEach var='reviewBean' items='${review}'>
 											<div class="review d-flex" style="border: 3px #cccccc solid;">
 												<div class="user-img"

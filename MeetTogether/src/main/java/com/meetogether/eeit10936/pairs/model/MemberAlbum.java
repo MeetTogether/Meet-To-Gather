@@ -35,16 +35,22 @@ public class MemberAlbum implements Serializable {
 	private Blob photo;
 	
 	@Transient
-    MultipartFile memberImage;
+    MultipartFile albumImage;
 	
-	public MultipartFile getMemberImage() {
-		return memberImage;
+	
+	
+	public Blob getPhoto() {
+		return photo;
 	}
-	
-	public void setMemberImage(MultipartFile memberImage) {
-		this.memberImage = memberImage;
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
 	}
-	
+	public MultipartFile getAlbumImage() {
+		return albumImage;
+	}
+	public void setAlbumImage(MultipartFile albumImage) {
+		this.albumImage = albumImage;
+	}
 	MemberAlbum(){
 		
 	}
@@ -53,6 +59,7 @@ public class MemberAlbum implements Serializable {
 	}
 
 	
+<<<<<<< HEAD
 	public Blob getPhoto() {
 		return photo;
 	}
@@ -60,6 +67,8 @@ public class MemberAlbum implements Serializable {
 	public void setPhoto(Blob photo) {
 		this.photo = photo;
 	}
+=======
+>>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 
 	public MemberAlbumPk getPk() {
 		return pk;
