@@ -29,20 +29,26 @@ public class MemberAlbum implements Serializable {
 	private Integer status;
 	@Column(name = "deleteTag")
 	private Integer deleteTag;
-	@Column(name = "img")
-	private Blob img;
+	@Column(name = "photo")
+	private Blob photo;
 	
 	@Transient
-    MultipartFile memberImage;
+    MultipartFile albumImage;
 	
-	public MultipartFile getMemberImage() {
-		return memberImage;
+	
+	
+	public Blob getPhoto() {
+		return photo;
 	}
-	
-	public void setMemberImage(MultipartFile memberImage) {
-		this.memberImage = memberImage;
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
 	}
-	
+	public MultipartFile getAlbumImage() {
+		return albumImage;
+	}
+	public void setAlbumImage(MultipartFile albumImage) {
+		this.albumImage = albumImage;
+	}
 	MemberAlbum(){
 		
 	}
@@ -50,13 +56,7 @@ public class MemberAlbum implements Serializable {
 		this.pk=pk;
 	}
 
-	public Blob getImg() {
-		return img;
-	}
-
-	public void setImg(Blob img) {
-		this.img = img;
-	}
+	
 
 	public MemberAlbumPk getPk() {
 		return pk;

@@ -71,11 +71,42 @@ public class ProductController {
 	}
 //查詢所有
 	@RequestMapping("/allreview")
-	public String list(Model model) {
+	public String list(Model model,@ModelAttribute("ReviewBean") ReviewBean reviewBean,Integer avgEventStar) {
+		System.out.println("@RequestMapping(\"/eeit10913/products2/avgEventStar\") =========== ");
 		List<ReviewBean> list = service.selectALL();
+		Integer reviewSize = list.size();
+		Integer totalEventStar = 0;
+			avgEventStar = 0;
+		for(ReviewBean rb: list) {
+//			totalEventStar = totalEventStar + reviewBean.getEventStars();
+			totalEventStar+=rb.getEventStars();
+		}
+		System.out.println("=========="+totalEventStar);
+		avgEventStar=totalEventStar/reviewSize;
+		System.out.println("totalEventStar/reviewSize=avgEventStar =========== "+ avgEventStar);
 		model.addAttribute("review", list);
+		model.addAttribute("avgEventStar", avgEventStar);
 //		return "eeit10913/products";
 		return "eeit10913/products2";
 	}
+	
+//	@RequestMapping("/eeit10913/products2/avgEventStar")
+//	public String avgEventStar(Model model,@ModelAttribute("ReviewBean") ReviewBean reviewBean,Integer avgEventStar) {
+//		System.out.println("@RequestMapping(\"/eeit10913/products2/avgEventStar\") =========== ");
+//		List<ReviewBean> list = service.selectALL();
+//		Integer reviewSize = list.size();
+//		Integer totalEventStar = 0;
+//			avgEventStar = 0;
+//		for(ReviewBean rb: list) {
+////			totalEventStar = totalEventStar + reviewBean.getEventStars();
+//			totalEventStar+=rb.getEventStars();
+//		}
+//		System.out.println("=========="+totalEventStar);
+//		avgEventStar=totalEventStar/reviewSize;
+//		System.out.println("totalEventStar/reviewSize=avgEventStar =========== "+ avgEventStar);
+//		model.addAttribute("review", list);
+////		return "eeit10913/products";
+//		return "eeit10913/products2";
+//	}
 
 }

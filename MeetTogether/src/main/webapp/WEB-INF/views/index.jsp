@@ -95,6 +95,8 @@ li {
 		</div>
 	</nav>
 	<!-- END nav -->
+	
+
 
 	<div class="hero-wrap"
 		style="background-image: url('images/friend.jpg');"

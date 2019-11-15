@@ -44,15 +44,19 @@
 					.trim();
 			document.getElementById("interest").innerText = members[num].mil;
 			var i = 1;
-			var srcUrl="../memberPhoto/" + members[num].mb.memberId + "/" + i;
+			var srcUrl = "../memberPhoto/" + members[num].mb.memberId + "/" + i;
 			document.getElementById("pairImg").setAttribute("src", srcUrl);
-			document.getElementById("pairImg").addEventListener("click",function(){
-				var vip =${vipstatus};
-				i++;
-				vip?i>5?i=1:i=i:i>3?i=1:i=i;
-				srcUrl="../memberPhoto/" + members[num].mb.memberId + "/" + i;
-				document.getElementById("pairImg").setAttribute("src", srcUrl);
-			});
+			document.getElementById("pairImg").addEventListener(
+					"click",
+					function() {
+						var vip = ${vipstatus};
+						i++;
+						vip ? i > 5 ? i = 1 : i = i : i > 3 ? i = 1 : i = i;
+						srcUrl = "../memberPhoto/" + members[num].mb.memberId
+								+ "/" + i;
+						document.getElementById("pairImg").setAttribute("src",
+								srcUrl);
+					});
 		} else {
 			window.location.href = "./noMore";
 		}
@@ -179,7 +183,8 @@
 .bd {
 	border: 2px solid black;
 }
-.tab{
+
+.tab {
 	width: 100%;
 }
 
@@ -217,7 +222,6 @@
 	background: #151719;
 	margin: 5px 0px;
 }
-
 </style>
 </head>
 <body>
@@ -247,24 +251,27 @@
 		</div>
 	</nav>
 	<!-- END nav -->
-	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('../images/friend.jpg');"
+	<section 
+		style="background-image: url('../eeit10927/images/galaxy.jpg');
+				border: 1px solid black;"
 		data-stellar-background-ratio="0.5">
-	
+		<h2>${currentUser.memberBasic.memberId }</h2>
+		<h2>${currentUser.memberBasic.memberName }</h2>
+		<h2>Vip:${vipstatus}</h2>
+	</section>
+	<section class="contact-section" style="border: 1px solid black;">
 		<div id="sidebar">
 			<ul id="friends">
 				<li>好友列表</li>
 			</ul>
 		</div>
-		<h2>${currentUser.memberBasic.memberId }</h2>
-		<h2>${currentUser.memberBasic.memberName }</h2>
-		<h2>Vip:${vipstatus}</h2>
-
-
-		<div class="container" >
-			<div class="pairs" >
+		<div class="container">
+			<h2 class="text-center">配對</h2>
+			<div class="pairs">
 				<div id="container" class="bd" style="width: 100%;">
-					<div id="imgContainer" class="bd"><img id="pairImg" class="pairImg"/></div>
+					<div id="imgContainer" class="bd">
+						<img id="pairImg" class="pairImg" />
+					</div>
 					<table class="tab">
 						<tr>
 							<td>姓名:</td>
@@ -279,7 +286,7 @@
 							<td id="interest"></td>
 						</tr>
 						<tr>
-							<td><input type="button" value="不喜歡" id="dontlike" ></td>
+							<td><input type="button" value="不喜歡" id="dontlike"></td>
 							<td></td>
 							<td><input type="button" value="喜歡" id="like"></td>
 							<td></td>
@@ -289,8 +296,7 @@
 			</div>
 		</div>
 	</section>
-
-	<footer class="ftco-footer ftco-bg-dark ftco-section">
+	<footer class="ftco-footer ftco-bg-dark" style="margin-top:50px;">
 		<div class="container">
 			<div class="row mb-5">
 				<div class="col-md">
@@ -369,6 +375,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</footer>
 
 
