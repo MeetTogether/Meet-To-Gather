@@ -51,7 +51,7 @@ public class AlbumController {
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
-		MultipartFile picture = ma.getMemberImage();
+		MultipartFile picture = ma.getAlbumImage();
 		String originalFilename = picture.getOriginalFilename();
 		ma.getPk().setFileName(originalFilename);
 //		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
