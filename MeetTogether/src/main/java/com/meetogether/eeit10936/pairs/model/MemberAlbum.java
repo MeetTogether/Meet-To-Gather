@@ -27,10 +27,12 @@ public class MemberAlbum implements Serializable {
 	private MemberAlbumPk pk;
 	@Column(name = "status")
 	private Integer status;
+	
+//	@Transient
 	@Column(name = "deleteTag")
 	private Integer deleteTag;
-	@Column(name = "img")
-	private Blob img;
+	@Column(name = "photo")
+	private Blob photo;
 	
 	@Transient
     MultipartFile memberImage;
@@ -50,12 +52,13 @@ public class MemberAlbum implements Serializable {
 		this.pk=pk;
 	}
 
-	public Blob getImg() {
-		return img;
+	
+	public Blob getPhoto() {
+		return photo;
 	}
 
-	public void setImg(Blob img) {
-		this.img = img;
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
 	}
 
 	public MemberAlbumPk getPk() {

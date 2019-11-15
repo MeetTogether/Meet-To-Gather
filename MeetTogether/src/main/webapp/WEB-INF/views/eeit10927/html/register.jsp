@@ -15,7 +15,7 @@
 	type="text/css">
 <c:set var="time" value="<%=new Date().getTime()%>" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/eeit10927/styles/register.css?t=${time}">
+	href="${pageContext.request.contextPath}/eeit10927/styles/register.css">
 <style type="text/css">
 body {
 	font-family: 微軟正黑體;
@@ -65,7 +65,7 @@ body {
 						<td><span id="msg_mChecksum" class='msgWrong'>${errorMsg.captError}</span>
 					<tr>
 						<td>上傳照片
-						<td><form:input type="file" name="uploadphoto" id="uploadphoto" path="uploadphoto" />
+						<td><form:input type="file" name="uploadphoto" id="uploadphoto" path="memberImage" />
 						<td><span id="msg_mPhoto"></span>
 				</table>
 				<input type="button" value="會員註冊" id="regis">

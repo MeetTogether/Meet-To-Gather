@@ -17,7 +17,7 @@ public interface MemberDao {
 
 	void update(MemberBean m, MemberBean memberId);
 
-	void add(MemberBean member);
+	int add(MemberBean member);
 
 	public boolean verifyAccount(MemberBean member);
 
@@ -25,5 +25,9 @@ public interface MemberDao {
 	
 
 Integer updeatVerifyMail(Integer memberId);
+
+
+
+boolean mEmailExist(MemberBean member);
 
 }

@@ -5,12 +5,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.meetogether.eeit10901.dao.IAlbumDao;
 import com.meetogether.eeit10901.model.PersonalInfoBean;
 import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 
-
+@Repository
 public class AlbumImpl implements IAlbumDao {
 	@Autowired
 	SessionFactory factory;
@@ -32,10 +34,10 @@ public class AlbumImpl implements IAlbumDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	@Transactional
 	@Override
-	public void addAlbum(MemberAlbum product) {
-	
+	public void addAlbum(MemberAlbum album) {
+		factory.getCurrentSession().save(album);
 	}
 
 	@Override

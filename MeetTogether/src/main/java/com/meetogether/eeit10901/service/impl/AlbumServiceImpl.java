@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.meetogether.eeit10901.dao.IAlbumDao;
+import com.meetogether.eeit10901.dao.impl.AlbumImpl;
 import com.meetogether.eeit10901.service.AlbumService;
 
 import com.meetogether.eeit10936.pairs.model.MemberAlbum;
@@ -12,7 +14,7 @@ import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 @Service
 public class AlbumServiceImpl implements AlbumService {
 	@Autowired
-	private AlbumService album;
+	private IAlbumDao albumDao;
 	
 	
 	@Override
@@ -34,9 +36,9 @@ public class AlbumServiceImpl implements AlbumService {
 	}
 
 	@Override
-	public void addAlbum(MemberAlbum product) {
+	public void addAlbum(MemberAlbum album) {
 		// TODO Auto-generated method stub
-
+		albumDao.addAlbum(album);
 	}
 
 	@Override

@@ -36,7 +36,6 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public void delete(MemberBean m) {
-		// TODO Auto-generated method stub
 		dao.update(m, m);
 	}
 
@@ -45,7 +44,6 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public MemberBean getMemberById(Integer memberId) {
-		// TODO Auto-generated method stub
 		return dao.getMemberById(memberId);
 	}
 
@@ -55,22 +53,19 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectALL();
 
 	}
-
+	@Transactional
 	@Override
 	public boolean mEmailExist(MemberBean member) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.mEmailExist(member);
 	}
 	@Transactional
 	@Override
 	public boolean verifyAccount(MemberBean member) {
-		// TODO Auto-generated method stub
 		return dao.verifyAccount(member);
 	}
 	@Transactional
 	@Override
 	public MemberBean findByEmail(MemberBean member) {
-		// TODO Auto-generated method stub
 		return dao.findByEmail(member);
 	}
 	@Transactional

@@ -8,15 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="3;url=http://localhost:8080/MeetTogether/">
-<title>RegisterSuccess</title>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<title>新增照片</title>
+  <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/eeit10927/js/login.js"></script>
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/eeit10901/styles/top.css" --%>
-<!-- 	type="text/css"> -->
-
-
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
@@ -49,12 +43,14 @@ li {
 	color: #FFAA33;
 	font-family:monospace;
 }
+body{
+background-color:#FF8800;
+}
 
 </style>
 </head>
-<body>
-<h2>歡迎加入MeetTogether會員，請確認Gmail驗證信。</h2>
-	<nav
+<body >
+<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
@@ -93,53 +89,43 @@ li {
 			</div>
 		</div>
 	</nav>
-
-
-
-<a href="http://localhost:8080/MeetTogether/register">將自動轉回登入畫面</a>
-
-<footer class="ftco-footer ftco-bg-dark ftco-section">
+    <!-- END nav -->
+     <section class="top111 js-fullheight" style="background-image: url('images/111.jpg');height: 250px;width:2044px;" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
       <div class="container">
-        <div class="row mb-5">
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">About MeetTogether</h2>
-              <p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Information</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">首頁</a></li>
-                <li><a href="#" class="py-2 d-block">交友</a></li>
-                <li><a href="#" class="py-2 d-block">活動</a></li>
-                <li><a href="#" class="py-2 d-block">討論區</a></li>
-                <li><a href="#" class="py-2 d-block">會員資料</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">02 6631 6666</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@iiiedu.org.tw</span></a></li>
-	              </ul>
-	            </div>
-            </div>
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+          <div class="col-md-9 ftco-animate pb-5">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>About us <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-3 bread">選擇一張照片上傳</h1>
           </div>
         </div>
-        
       </div>
-    </footer>
+    </section>
+    
+    
+	<div id="regispage">
+		<div id="registerbox" align="center">
+			<h2>新增照片</h2>
+			<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
+			<form:form enctype="multipart/form-data" method="POST"
+				modelAttribute="ma" id='registerForm'>
+				<table>
+					<tr>
+						<td>id
+						<td><form:input type="text" path="pk.memberId" />
+					<tr>
+						<td>status
+						<td><form:input type="text" path="status" />
+					<tr>
+						<td>deleteTag
+						<td><form:input type="text" path="deleteTag" />
+					<tr>
+						<td>上傳照片
+						<td><form:input type="file" path="memberImage" />
+				</table>
+				<input type="submit" value="submit">
+			</form:form>
+		</div>
+	</div>
 </body>
 </html>

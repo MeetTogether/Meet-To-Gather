@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.dao.IPersonalInfoDao;
 import com.meetogether.eeit10901.model.MemberBean;
-import com.meetogether.eeit10901.model.PersonalInfoBean;
+
 import com.meetogether.eeit10936.pairs.model.MemberInfo;
+
 
 
 
@@ -24,8 +25,10 @@ public class PersonalInfoImpl implements IPersonalInfoDao {
 	public void addPersonalInfo(MemberInfo personalinfo) {
 		Session session = factory.getCurrentSession();
 		MemberBean mb = getMemberById(personalinfo.getMemberId());
-		
+		 		
 		session.save(personalinfo);
+		
+		 
 	}
 
 
