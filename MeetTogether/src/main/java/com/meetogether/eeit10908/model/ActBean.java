@@ -15,6 +15,9 @@ import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10927.model.Member;
+
 @Entity
 @Table(name="eventList")
 public class ActBean implements Serializable {
@@ -22,7 +25,12 @@ public class ActBean implements Serializable {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	Integer eventId;
-	Integer memberId;
+	
+	
+
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "memberId")
+	private MemberBean memberId;
 	String eventName;
 	Integer eventCat;
 	String eventTime;
@@ -31,6 +39,19 @@ public class ActBean implements Serializable {
 	String eventPlace;
 	String createTime;
 	String actContent;
+//	private MemberBean memberId;
+	
+	
+
+//	
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "memberId")
+//	public MemberBean getMember() {
+//		return memberId;
+//	}
+//	public void setMember(MemberBean member) {
+//		this.memberId = member;
+//	}
 
 	private String actFilename;
 	private Blob actPhoto;
@@ -79,10 +100,10 @@ public class ActBean implements Serializable {
 	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
-	public Integer getMemberId() {
+	public MemberBean getMemberId() {
 		return memberId;
 	}
-	public void setMemberId(Integer memberId) {
+	public void setMemberId(MemberBean memberId) {
 		this.memberId = memberId;
 	}
 	public String getEventName() {
@@ -128,7 +149,7 @@ public class ActBean implements Serializable {
 		
 	}
 	
-	public ActBean(Integer eventId, Integer memberId, String eventName, Integer eventCat, String eventTime,
+	public ActBean(Integer eventId, MemberBean memberId, String eventName, Integer eventCat, String eventTime,
 			String groupNum, Integer budget, String eventPlace, String createTime, CatBean catbean) {
 		super();
 		this.eventId = eventId;

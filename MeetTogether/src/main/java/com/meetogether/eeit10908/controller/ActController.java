@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.rowset.serial.SerialBlob;
 
@@ -87,8 +88,10 @@ public class ActController {
 	}
 	
 	@RequestMapping(value = "/eeit10908", method = RequestMethod.GET)
-	public String getAddNewProductForm(Model model) {
+	public String getAddNewProductForm(Model model, HttpServletRequest request) {
 		System.out.println("--------------+++------------");
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		
 		List<ActBean> beans = service.getAllAct();	
 	    ActBean aa = new ActBean();
 	    CatBean cc = new CatBean();
