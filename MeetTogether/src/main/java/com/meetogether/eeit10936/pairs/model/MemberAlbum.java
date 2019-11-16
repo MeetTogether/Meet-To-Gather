@@ -61,8 +61,6 @@ public class MemberAlbum implements Serializable {
 	public void setPhoto(Blob photo) {
 		this.photo = photo;
 	}
- 
-
 
 	public MemberAlbumPk getPk() {
 		return pk;
