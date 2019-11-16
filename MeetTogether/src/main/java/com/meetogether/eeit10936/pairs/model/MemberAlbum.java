@@ -44,7 +44,7 @@ public class MemberAlbum implements Serializable {
 	public void setAlbumImage(MultipartFile albumImage) {
 		this.albumImage = albumImage;
 	}
-	MemberAlbum(){
+	public MemberAlbum(){
 		
 	}
 	public MemberAlbum(MemberAlbumPk pk){

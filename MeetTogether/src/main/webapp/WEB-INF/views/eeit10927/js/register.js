@@ -135,9 +135,9 @@ function checkError() {
 	}
 	if(flag == 0) {
 		document.getElementById("registerForm").submit();
-		document.href();
+//		document.href();
 	} else {
-		;
+//		;
 	}
 }
 
