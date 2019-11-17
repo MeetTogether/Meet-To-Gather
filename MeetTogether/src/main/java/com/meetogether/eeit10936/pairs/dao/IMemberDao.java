@@ -1,6 +1,7 @@
 package com.meetogether.eeit10936.pairs.dao;
 
 import java.sql.Blob;
+import java.sql.Date;
 import java.util.List;
 
 import com.meetogether.eeit10936.pairs.model.IMember;
@@ -28,5 +29,7 @@ public interface IMemberDao {
 	public Blob getPhotosById(Integer id, int status);
 
 	public boolean checkVip(Integer id);
+	
+	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate);
 
 }

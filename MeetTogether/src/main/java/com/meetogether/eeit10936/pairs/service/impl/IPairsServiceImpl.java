@@ -1,6 +1,7 @@
 package com.meetogether.eeit10936.pairs.service.impl;
 
 import java.sql.Blob;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -146,4 +147,12 @@ public class IPairsServiceImpl implements IPairsService {
 		// TODO Auto-generated method stub
 		return pdao.checkVip(id);
 	}
+	
+	@Transactional
+	@Override
+	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate){
+		return pdao.findMemberByChoice(id, sex, city, stdate, eddate);
+		
+	}
+	
 }

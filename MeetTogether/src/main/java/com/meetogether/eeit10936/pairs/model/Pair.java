@@ -23,7 +23,7 @@ public class Pair implements Serializable {
 			@AttributeOverride(name = "pairMemberId", column = @Column(name = "pairmemberid")) })
 	private PairPK pairPk;
 	
-	@Column(name = "status")
+	@Column(name = "pairStatus")
 	private Integer status;
 	@Column(name = "pairtime", insertable = false, updatable = false)
 	private Timestamp pairTime;

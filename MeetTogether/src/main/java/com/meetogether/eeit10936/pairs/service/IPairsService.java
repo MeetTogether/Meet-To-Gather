@@ -1,6 +1,7 @@
 package com.meetogether.eeit10936.pairs.service;
 
 import java.sql.Blob;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +30,7 @@ public interface IPairsService {
 	public Blob getPhotosById(Integer id, int status);
 
 	public boolean checkVip(Integer id);
+	
+	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate);
 
 }

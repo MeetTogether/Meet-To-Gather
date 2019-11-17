@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +42,7 @@ public class ChatMsgRedisDao {
 		try {
 			jedis = jedisPool.getResource();
 			jedis.lpush(key, gson.toJson(msg));
+			setUnreadMsg(msg.getTo().toString(),msg.getFrom().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -64,6 +64,7 @@ public class ChatMsgRedisDao {
 				Gson gson = new GsonBuilder().create();
 				jedis.lpush(key, gson.toJson(msg));
 				recordListFromRedis = jedis.lrange(key, 0, 5);
+				setUnreadMsg(to.toString(),from.toString());
 			}
 			Gson gson =new Gson();
 			recordListFromRedis.forEach((i)->{
@@ -79,8 +80,28 @@ public class ChatMsgRedisDao {
 		}
 	}
 	
-	public void saveDefaultRecord() {
-		
+	private void setUnreadMsg(String to,String from) {
+		Jedis jedis = jedisPool.getResource();
+		jedis.hincrBy(to, from, 1);
+		jedis.close();
+	}
+	
+	public String getUnreadMsg(String to,String from) {
+		Jedis jedis = jedisPool.getResource();
+		if(jedis.hexists(to, from)){
+			String unreadMsg = jedis.hget(to, from);
+			jedis.close();
+			return unreadMsg;
+		}
+		return null;
+	}
+	
+	public void delUnreadMsg(String to,String from) {
+		Jedis jedis = jedisPool.getResource();
+		if(jedis.hexists(to, from)){
+			jedis.hdel(to, from);
+			jedis.close();
+		}
 	}
 
 }
