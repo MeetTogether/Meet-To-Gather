@@ -19,9 +19,12 @@ import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.model.Msglike;
 import com.meetogether.eeit10927.model.Msgreply;
+import com.meetogether.eeit10927.model.Msgtag;
 import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10927.service.IMsgTypeService;
 import com.meetogether.eeit10927.service.IMsgreplyService;
+import com.meetogether.eeit10927.service.IMsgtagService;
+import com.meetogether.eeit10936.pairs.model.VipStatus;
 
 @Controller
 public class MsgreplyController {
@@ -40,10 +43,22 @@ public class MsgreplyController {
 		this.msgService = msgService;
 	}
 	
+	IMsgreplyService mlService;
+	@Autowired
+	public void setMlService(IMsgreplyService mlService) {
+		this.mlService = mlService;
+	}
+	
 	IMsgTypeService mtService;
 	@Autowired
 	public void setMTDao(IMsgTypeService mtService) {
 		this.mtService = mtService;
+	}
+	
+	IMsgtagService mtagService;
+	@Autowired
+	public void setMtagService(IMsgtagService mtagService) {
+		this.mtagService = mtagService;
 	}
 
 	@RequestMapping(value = "/GetAllReMsgServlet", method = RequestMethod.GET)
@@ -54,11 +69,14 @@ public class MsgreplyController {
 		Message msg = msgService.getMsgByMsgId(msgId);
 		model.addAttribute("msgBean", msg);
 		model.addAttribute("messageBean", new Message());
-		
+		// 查詢對這篇文章的回覆
 		List<Msgreply> list = mrService.getAllMsgreply(msgId);
 		model.addAttribute("reBeans", list);
-		
+		// 查詢對這篇文章按讚的人
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
+		model.addAttribute("mlBeans", mlBeans);
+		
 		Msglike msgLike = new Msglike();
 		msgLike.setMessageId(msgId);
 		msgLike.setMemberId(userId);
@@ -127,6 +145,16 @@ public class MsgreplyController {
 	public List<Message> getRecentMsgList() {
 		list = msgService.getRecentMsg();
 		return list;
+	}
+	
+	@ModelAttribute("tagCloud")
+	public Map<String, Integer> getMsgTags() {
+		Map<String, Integer> msgTagMap = new HashMap<>();
+		List<Msgtag> list = mtagService.getAllMsgtag();
+		for (Msgtag tag : list) {
+			msgTagMap.put(tag.getTagName(), 1);
+		}
+		return msgTagMap;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,19 @@ public class VipStatusController {
 	public void setMrService(IVipStatusService vipService) {
 		this.vipService = vipService;
 	}
-
-	@RequestMapping(value = "/VipBuy", method = RequestMethod.GET)
-	public String getVipBuyForm(Model model) {
-		model.addAttribute("vipBean", new VipStatus());
-		return "eeit10927/html/vipBuy";
-	}
-
 	
 	@RequestMapping(value = "/VipBuy")
-	public void vipPayPage(Model model, HttpServletResponse response, 
-			@ModelAttribute("vipBean") VipStatus vip) {
+	public void vipPayPage(Model model, HttpServletResponse response, HttpServletRequest request) {
+		int userId = Integer.parseInt(request.getParameter("mbId"));
+		VipStatus vip = new VipStatus();
+		vip.setMbId(userId);
+		
+		String url = "";
+		url = request.getScheme() + "://" + request.getServerName() + ":"
+				+ request.getServerPort() + request.getContextPath()
+				+ request.getServletPath();
+//		System.out.println("--------------present url: " + url);
+		
 		String orderNumber = vipService.add(vip);
 
 		Date timeNow = new Date();
