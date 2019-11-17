@@ -25,18 +25,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
+
+
 
 @Controller
 
@@ -48,11 +52,11 @@ public class MemberController {
 		this.context = context;
 	}
 
-	MemberService service;
+	MemberService mservice;
 
 	@Autowired
 	public void setService(MemberService service) {
-		this.service = service;
+		this.mservice = service;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -65,9 +69,26 @@ public class MemberController {
 		return "index";
 	}
 
+	@RequestMapping("/updatemember")
+	public String update(
+	@ModelAttribute("updatemember") MemberBean member, 
+	BindingResult result, 
+	Model model,
+	@PathVariable Integer id, 
+	HttpServletRequest request) {
+		member.getFileName();
+MemberBean  mm = mservice.getMemberById(member.getMemberId());
+System.out.println("請印出id" +mm+member.getMemberId());
+
+
+		return "eeit109/getMember";
+	}
+	
+	
+	
 	@RequestMapping("/members")
 	public String list(Model model) {
-		List<MemberBean> list = service.selectALL();
+		List<MemberBean> list = mservice.selectALL();
 		model.addAttribute("members", list);
 		return "eeit10901/getMember";
 	}
@@ -75,7 +96,9 @@ public class MemberController {
 	@RequestMapping("/getmember")
 	public String getMemberById(Model model, HttpServletRequest req) {
 		Integer userId = (Integer) req.getSession().getAttribute("userId");
-		model.addAttribute("member", service.getMemberById(userId));
+//		MemberBean member = new MemberBean();
+//		model.addAttribute("memberForm", member);
+		model.addAttribute("member", mservice.getMemberById(userId));
 		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/getMember";
 	}
@@ -90,6 +113,7 @@ public class MemberController {
 	public String getaddRegister(Model model) {
 		MemberBean mm = new MemberBean();
 		model.addAttribute("memberBean", mm);
+		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/register";
 	}
 
@@ -98,6 +122,7 @@ public class MemberController {
 			HttpServletRequest request, HttpServletResponse response) {
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		model.addAttribute("errorMsg", errorMsg);
+		model.addAttribute("vipBean", new VipStatus());
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
@@ -107,7 +132,7 @@ public class MemberController {
 		System.out.println("captcha add: " + member.getmChecksum());
 		boolean captCheck = false;
 		captCheck = member.getmChecksum().equals(captcha);
-		boolean accCheck = service.mEmailExist(member);
+		boolean accCheck = mservice.mEmailExist(member);
 		if (accCheck) {
 			errorMsg.put("accError", "此帳號已存在");
 		}
@@ -116,7 +141,7 @@ public class MemberController {
 		}
 		int memberId = 0;
 		if (accCheck == false && captCheck == true) {
-			memberId = service.add(member);
+			memberId = mservice.add(member);
 			request.getSession().setAttribute("userEmail", member.getMemberEmail());
 			request.getSession().setAttribute("userPwd", member.getMemberPassword());
 		}
@@ -187,7 +212,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/updateVerifyMailSucess", method = RequestMethod.GET)
 	public String updateVerifyMailSucess(@RequestParam(value = "id") Integer memberId, Model model) {
-		service.updeatVerifyMail(memberId);
+		mservice.updeatVerifyMail(memberId);
 		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/verifyMailSuccess";
 	}

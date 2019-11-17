@@ -287,32 +287,31 @@ var jQuery_1_12_4 = $.noConflict();
 				
 			<tr>
 				<td>編號
-				<td>${member.memberId}</td>
+				<td><input type="text" value="${member.memberId}" id="memberId" disabled="true"/></td>
 			<tr>
 				<td>mail
-				<td>${member.memberEmail}</td>
+				<td><input type="text" value="${member.memberEmail}" name="memberEmail" disabled="true"/></td>
 			<tr>
 				<td>密碼
-						<td><input type="password" value="${member.memberPassword}"disabled="true"></td>
+						<td><input type="password" value="${member.memberPassword}"></td>
 				
 			<tr>
 				<td>暱稱
-				<td>${member.memberName}"</td>
+				<td><input type="text" value="${member.memberName}"></td>
 				
 			<tr>
 				<td>生日
-				<td>${member.memberBirth}</td>
+				<td><input type="date" value="${member.memberBirth}"></td>
 				 
 			<tr>
 				<td>性別</td>
-					
-				<td><select id="sex" disabled="true" style="background-color=#DDDDDD" >
+				<td><select id="sex" >
 				<option value="1">男</option>
 				<option value="0">女</option>
 				</select ></td>
 			<tr>
 				<td>縣市
-				<td>${member.memberCity}</td>
+				<td><input type="text" value="${member.memberCity}"></td>
 				
 		</table>
 		<input type="button" id="updata" value="送出修改">
