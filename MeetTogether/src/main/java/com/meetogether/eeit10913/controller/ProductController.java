@@ -80,6 +80,8 @@ public class ProductController {
 		// return "eeit10913/products";
 		return "eeit10913/products2";
 	}
+	
+	
 
 
 

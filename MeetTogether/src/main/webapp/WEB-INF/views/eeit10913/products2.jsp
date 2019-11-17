@@ -213,6 +213,7 @@ p {
 		</div>
 	</nav>
 	<!-- END nav -->
+	
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
 		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
@@ -234,7 +235,7 @@ p {
 		</div>
 	</section>
 
-	
+	<marquee direction="right" height="30" scrollamount="5" behavior="alternate">跑馬燈待修改</marquee>
 	<section class="ftco-section ftco-car-details">
 		<div class="container">
 			<div class="row justify-content-center">

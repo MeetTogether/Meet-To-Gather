@@ -19,14 +19,15 @@ import com.meetogether.eeit10901.model.MemberBean;
 @Table(name = "eventReview")
 public class ReviewBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer reviewId;
 	private Integer eventId;
 	private MemberBean member;
 	private String eventComment;
 	private Integer eventStars;
 	private Integer mbId;
-	
+	private String createTime;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "reviewId")
@@ -46,6 +47,13 @@ public class ReviewBean implements Serializable {
 		this.eventId = eventId;
 	}
 
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 
 	public String getEventComment() {
 		return eventComment;
@@ -62,7 +70,7 @@ public class ReviewBean implements Serializable {
 	public void setEventStars(Integer eventStars) {
 		this.eventStars = eventStars;
 	}
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "memberId")
 	public MemberBean getMember() {
@@ -72,32 +80,34 @@ public class ReviewBean implements Serializable {
 	public void setMember(MemberBean member) {
 		this.member = member;
 	}
+
 	@Transient
 	public Integer getMbId() {
 		return mbId;
 	}
-	
+
 	public void setMbId(Integer mbId) {
 		this.mbId = mbId;
 	}
 
 	public ReviewBean(Integer reviewId, Integer eventId, Integer mbId, String eventComment, Integer eventStars,
-			MemberBean memberBean) {
+			String createTime, MemberBean memberBean) {
 		super();
 		this.reviewId = reviewId;
 		this.eventId = eventId;
 		this.mbId = mbId;
 		this.eventComment = eventComment;
 		this.eventStars = eventStars;
+		this.createTime = createTime;
 //		this.memberBean = memberBean;
 
 	}
-
 
 	public ReviewBean() {
 		// TODO Auto-generated constructor stub
 	}
 
+//json
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -116,9 +126,5 @@ public class ReviewBean implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-
-	
-	
 
 }
