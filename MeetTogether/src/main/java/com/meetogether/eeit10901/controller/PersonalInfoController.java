@@ -35,7 +35,7 @@ public class PersonalInfoController {
 	public String processAddNewProductForm
 		(@ModelAttribute("personalinfobean") MemberInfo pp) {
 		service.addPersonalInfo(pp);
-		return "redirect:addPersonalHope";
+		return "addPersonalInfo";
 	}
 	
 }

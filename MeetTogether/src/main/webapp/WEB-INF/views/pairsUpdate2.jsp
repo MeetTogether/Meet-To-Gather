@@ -16,18 +16,18 @@
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
 
-<link rel="stylesheet" href="../css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="../css/animate.css">
-<link rel="stylesheet" href="../css/owl.carousel.min.css">
-<link rel="stylesheet" href="../css/owl.theme.default.min.css">
-<link rel="stylesheet" href="../css/magnific-popup.css">
-<link rel="stylesheet" href="../css/aos.css">
-<link rel="stylesheet" href="../css/ionicons.min.css">
-<link rel="stylesheet" href="../css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="../css/jquery.timepicker.css">
-<link rel="stylesheet" href="../css/flaticon.css">
-<link rel="stylesheet" href="../css/icomoon.css">
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/aos.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script>
 	function getage(birth) {
 		let dateNow = new Date().getTime();
@@ -44,7 +44,7 @@
 					.trim();
 			document.getElementById("interest").innerText = members[num].mil;
 			var i = 1;
-			var srcUrl = "../memberPhoto/" + members[num].mb.memberId + "/" + i;
+			var srcUrl = "${pageContext.request.contextPath}/memberPhoto/" + members[num].mb.memberId + "/" + i;
 			document.getElementById("pairImg").setAttribute("src", srcUrl);
 			document.getElementById("pairImg").addEventListener(
 					"click",
@@ -52,7 +52,7 @@
 						var vip = ${vipstatus};
 						i++;
 						vip ? i > 5 ? i = 1 : i = i : i > 3 ? i = 1 : i = i;
-						srcUrl = "../memberPhoto/" + members[num].mb.memberId
+						srcUrl = "${pageContext.request.contextPath}/memberPhoto/" + members[num].mb.memberId
 								+ "/" + i;
 						document.getElementById("pairImg").setAttribute("src",
 								srcUrl);
@@ -82,7 +82,7 @@
 
 	function pairAjax() {
 		let xhttp = new XMLHttpRequest();
-		xhttp.open("Get", "../showPairMember", true);
+		xhttp.open("Get", "${pageContext.request.contextPath}/showPairMember", true);
 		xhttp.setRequestHeader("Pagram", true);
 		xhttp.send();
 		xhttp.onreadystatechange = function() {
@@ -98,14 +98,14 @@
 	function chat(id) {
 		window
 				.open(
-						"../chat/" + id,
+						"${pageContext.request.contextPath}/chat/" + id,
 						"_blank",
 						"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 	}
 
 	function friendAjax() {
 		let xhttp = new XMLHttpRequest();
-		xhttp.open("Get", "../showFriendList", true);
+		xhttp.open("Get", "${pageContext.request.contextPath}/showFriendList", true);
 		xhttp.setRequestHeader("Pagram", true);
 		xhttp.send();
 		xhttp.onreadystatechange = function() {
@@ -238,7 +238,7 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a href="index.html"
+					<li class="nav-item active"><a href="${pageContext.request.contextPath}/LoginServlet"
 						class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="about.html" class="nav-link">我的資料</a></li>
 					<li class="nav-item"><a href="pricing.html" class="nav-link">活動</a></li>
@@ -252,7 +252,7 @@
 	</nav>
 	<!-- END nav -->
 	<section 
-		style="background-image: url('../eeit10927/images/galaxy.jpg');
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/galaxy.jpg');
 				border: 1px solid black;"
 		data-stellar-background-ratio="0.5">
 		<h2>${currentUser.memberBasic.memberId }</h2>
@@ -390,24 +390,24 @@
 	</div>
 
 
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="../js/popper.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/jquery.easing.1.3.js"></script>
-	<script src="../js/jquery.waypoints.min.js"></script>
-	<script src="../js/jquery.stellar.min.js"></script>
-	<script src="../js/owl.carousel.min.js"></script>
-	<script src="../js/jquery.magnific-popup.min.js"></script>
-	<script src="../js/aos.js"></script>
-	<script src="../js/jquery.animateNumber.min.js"></script>
-	<script src="../js/bootstrap-datepicker.js"></script>
-	<script src="../js/jquery.timepicker.min.js"></script>
-	<script src="../js/scrollax.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/aos.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.animateNumber.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.timepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scrollax.min.js"></script>
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="../js/google-map.js"></script>
-	<script src="../js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/google-map.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 
 </body>
 </html>

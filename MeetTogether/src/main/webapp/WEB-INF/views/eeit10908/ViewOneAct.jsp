@@ -267,8 +267,8 @@ jQuery_1_12_4(document).ready(
 	              	<div class="icon"><span class="flaticon-dashboard"></span></div>
 	              	<div class="text">
 		                <h3 class="heading mb-0 pl-3">
-		                	主辦人編號
-		                	<span>${actdata.memberId}</span>
+		                	主 辦 人
+		                	<span>${actdata.memberId.memberName}</span>
 		                </h3>
 	                </div>
                 </div>

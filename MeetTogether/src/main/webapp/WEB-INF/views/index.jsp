@@ -67,14 +67,16 @@ li {
 			</button>
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
-					<li class="nav-item active"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="" class="nav-link">會員資料</a></li>
+				<ul class="navbar-nav ml-auto" id="menu">
+					<li class="nav-item active"><a href="index.html"
+						class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
+					<li class="nav-item">
+							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
+						</li>
+					<li class="nav-item"><a href="blog.html" class="nav-link">會員資料</a></li>
+
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">

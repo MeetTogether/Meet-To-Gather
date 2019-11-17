@@ -37,19 +37,14 @@ public class MemberAlbum implements Serializable {
 	
 	
 	
-	public Blob getPhoto() {
-		return photo;
-	}
-	public void setPhoto(Blob photo) {
-		this.photo = photo;
-	}
+ 
 	public MultipartFile getAlbumImage() {
 		return albumImage;
 	}
 	public void setAlbumImage(MultipartFile albumImage) {
 		this.albumImage = albumImage;
 	}
-	MemberAlbum(){
+	public MemberAlbum(){
 		
 	}
 	public MemberAlbum(MemberAlbumPk pk){
@@ -57,6 +52,15 @@ public class MemberAlbum implements Serializable {
 	}
 
 	
+
+
+	public Blob getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
+	}
 
 	public MemberAlbumPk getPk() {
 		return pk;

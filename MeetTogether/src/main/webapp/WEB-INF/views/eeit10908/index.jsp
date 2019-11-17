@@ -91,11 +91,10 @@
 	 $('.mdb-select').materialSelect();
 	 });
  
- function clickact(){
-	 alert("活動報名成功");
-
-	 document.getElementById("joinact").innerHTML = "已參加";
-	 
+ function clickact(myObj){
+// 	 alert("活動報名成功");
+	 myObj.innerHTML="已參加";
+	 console.log(myObj);
  }
  
  
@@ -294,24 +293,21 @@ option {
 p {
 	margin-bottom: 0;
 }
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {background-color: #AAAAAA;}
+.dropbtn {
+  background-color: #DDDDDD;
+
+}
 </style>
 
 
 
 </head>
 <body>
-<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
-<!-- 	<span style="float: left; margin: 12px 12px 20px 0;"> -->
-<%-- 		<img src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" style="width:370px; margin:auto;"> --%>
-<!-- 	</span> -->
-<!-- 	<br> -->
-<!-- 	Upgrade 1: 每日新增好友數20名！<br> -->
-<!-- 	Upgrade 2: 新增討論區文章匯出功能！<br><br> -->
-<%-- 	<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
-<%-- 		<form:input type="hidden" path="mbId" value="${userId}" /> --%>
-<!-- 		<input type="submit" value="前往付款" class="reply"> -->
-<%-- 	</form:form> --%>
-<!-- 	</div> -->
+	
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
@@ -328,8 +324,8 @@ p {
 <%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
-					<li class="nav-item active"><a
+					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
+					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
@@ -351,34 +347,38 @@ p {
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>討論區 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動表 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">討論區</h1>
+					<h1 class="mb-3 bread">活動清單</h1>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<input id="vipBuyButton" type="submit" value="升級VIP GO!" class="reply">
-					
 	
-
+					
+	<div>&nbsp;</div>
+	<button style="margin-left:13.5%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="getTodayDate()" >
+  			新增活動
+	</button>
 	<div align="center">
-		<h2>活 動 總 表</h2>
-		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?eventCat=${catList.key}">
-		<div class="dropdown" >
 		
-		<form:select path="eventCat" onchange="submit();" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="width:170px; align:center;">
+		<h2>活 動 清 單</h2>
+		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?eventCat=${catList.key}">
+	
+		<div class="dropdown">
+		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px; align:center;">
 		<span class="caret"></span>
-			 <ul class="dropdown-menu" >
-				<li><form:option value="-1" label="請選擇" /></li>
-				<li><form:options items="${catList}" /></li>
-			  </ul>	
+				<div class="dropdown-content">
+				<form:option value="-1" label="請選擇" />
+				
+				<form:options items="${catList}" />
+				</div>
 		
 		</form:select>
-			
 		</div>
+		
 		</form:form>
 		<p>
 <!-- 		<table border="1"> -->
@@ -410,7 +410,7 @@ p {
     					<div class="text p-4 text-center">
     						<h2 class="mb-0"><a href="car-single.html">${acts.eventName}</a></h2>
     						<span>scheduled start tine:${acts.eventTime}</span>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-black btn-outline-black mr-1" id="joinact" onclick="clickact()">參加活動</a> <a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a></p>
+    						<p class="d-flex mb-0 d-block"><a href="###" class="btn btn-black btn-outline-black mr-1" id="joinact" onclick="clickact(this)">參加活動</a> <a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a></p>
     					</div>
     				</div>
     			</div>
@@ -459,10 +459,8 @@ p {
 		
 <!-- 		</table> -->
 <!-- 		<br> <a href='addActis'><input type="button" value="新增活動"></a> -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="getTodayDate()">
-  			新增活動
-		</button>
-		<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -475,7 +473,7 @@ p {
 		      <div class="modal-body" style="background-color: #e7eef1;">
 		     <form:form method="post" 
  			modelAttribute="actBean" enctype="multipart/form-data">
-				主辦人編號:<p>
+				<span style="text-align:left;">主辦人編號:</span>
 					<form:input type="text" path="memberId" /><p>
 		     	活動名稱:<p>
 					<form:input type="text" path="eventName"/><p>
@@ -486,8 +484,7 @@ p {
 						</form:select><p>
 				活動開始時間:<p>
 
-						<div class="input-group date form_datetime col-md-8"
-							data-date="2019-11-04T15:25:07Z"
+						<div class="input-group date form_datetime col-md-8"							
 							data-date-format="yyyy-mm-dd - HH:ii p"
 							data-link-field="dtp_input1">
 							<form:input class="form-control" type="text" path="eventTime" />
@@ -497,7 +494,7 @@ p {
 								class="glyphicon glyphicon-th"></span></span>
 						</div><p> 
 			           活動內容:<p>
-					<form:input type="textarea" path="actContent"  style="width:300px;height:100px;"/><p>
+					<form:textarea type="textarea" path="actContent"  style="width:300px;height:100px;" ></form:textarea><p>
 		     	
 						
 		     	活動參與人數:<p>
@@ -516,9 +513,10 @@ p {
 		     	
 		    
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">取 消</button>
-        		<button type="submit" class="btn btn-primary">新 增</button>
+        		   <button type="submit" class="btn btn-primary">新 增</button>
 		    	</form:form>
 		      </div>
+		      
 		      
 <!-- 		       <div class="modal-footer"> -->
         
@@ -526,11 +524,7 @@ p {
     </div>
   </div>
 </div>
-		
-	
-	
-	
-	
+
 	</div>
 	
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -592,16 +586,24 @@ p {
 		src="${pageContext.request.contextPath}/eeit10908/assets/locales/bootstrap-datetimepicker.fr.js"
 		charset="UTF-8"></script>
 	<script type="text/javascript">
+
 		$('.form_datetime').datetimepicker({
+	
 			//language:  'fr',
 			weekStart : 1,
 			todayBtn : 1,
 			autoclose : 1,
 			todayHighlight : 1,
-			startView : 2,
+			//startView : 2,
 			forceParse : 0,
-			showMeridian : 1
+ 			showMeridian : 1,
+		    
+ 			
+ 			
+ 			
+ 			minDate: "dateToday",
 		});
+	
  	</script> 
 
   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>

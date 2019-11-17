@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -171,53 +170,6 @@ p {
 		    });
 		});
 </script>
-
-=======
-<meta charset="UTF-8">
-<meta http-equiv="refresh" content="3;url=http://localhost:8080/MeetTogether/">
-<title>RegisterSuccess</title>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/eeit10927/js/login.js"></script>
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/eeit10901/styles/top.css" --%>
-<!-- 	type="text/css"> -->
-
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="css/animate.css">
-
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-
-<link rel="stylesheet" href="css/aos.css">
-
-<link rel="stylesheet" href="css/ionicons.min.css">
-
-<link rel="stylesheet" href="css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/style.css">
-<style>
-#thumb {
-	height: 40px;
-}
-li {
-	float: left;
-	width: 7em;
-	color: #FFAA33;
-	font-family:monospace;
-}
-
-</style>
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 </head>
 <body>
 <div id="dialog-confirm" title="升級為VIP會員">
@@ -252,7 +204,7 @@ li {
 					<li class="nav-item active"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
@@ -299,10 +251,6 @@ li {
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
 			</button>
-
-<<<<<<< HEAD
-<a href="http://localhost:8080/MeetTogether/">回登入畫面</a>
-=======
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto" id="menu">
 					<li class="nav-item active"><a href="index.html"
@@ -313,7 +261,7 @@ li {
 							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
 						</li>
 
-					<li class="nav-item"><a href="blog.html" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
 
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
@@ -348,18 +296,7 @@ li {
               </ul>
             </div>
           </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Information</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">首頁</a></li>
-                <li><a href="#" class="py-2 d-block">交友</a></li>
-                <li><a href="#" class="py-2 d-block">活動</a></li>
-                <li><a href="#" class="py-2 d-block">討論區</a></li>
-                <li><a href="#" class="py-2 d-block">會員資料</a></li>
-              </ul>
-            </div>
-          </div>
+       
           
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
@@ -377,6 +314,5 @@ li {
         
       </div>
     </footer>
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 </body>
 </html>

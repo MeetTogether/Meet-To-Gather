@@ -17,6 +17,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,10 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String getMemberLoginForm(Model model) {
+	public String getMemberLoginForm(Model model, HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			return "indexLoging";
+		}
 		Member member = new Member();
 		model.addAttribute("memberBean", member);
 		return "index";
@@ -67,16 +71,14 @@ public class MemberController {
 		model.addAttribute("members", list);
 		return "eeit10901/getMember";
 	}
-	
+
 	@RequestMapping("/getmember")
-	public String getMemberById(Model model, HttpServletRequest req)	{
+	public String getMemberById(Model model, HttpServletRequest req) {
 		Integer userId = (Integer) req.getSession().getAttribute("userId");
 		model.addAttribute("member", service.getMemberById(userId));
 		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/getMember";
 	}
-
-	
 
 //	@RequestMapping(value="/register",method=RequestMethod.POST)
 //	public String addRegister (@ModelAttribute("memberBean") MemberBean mm) {
@@ -92,8 +94,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String addRegister(@ModelAttribute("memberBean") MemberBean member, 
-			BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String addRegister(@ModelAttribute("memberBean") MemberBean member, BindingResult result, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		model.addAttribute("errorMsg", errorMsg);
 		String[] suppressedFields = result.getSuppressedFields();
@@ -106,18 +108,18 @@ public class MemberController {
 		boolean captCheck = false;
 		captCheck = member.getmChecksum().equals(captcha);
 		boolean accCheck = service.mEmailExist(member);
-		if(accCheck) {
+		if (accCheck) {
 			errorMsg.put("accError", "此帳號已存在");
 		}
-//		if (captCheck == false) {
-//			errorMsg.put("captError", "驗證碼錯誤");
-//		}
+		if (captCheck == false) {
+			errorMsg.put("captError", "驗證碼錯誤");
+		}
 		int memberId = 0;
 		if (accCheck == false && captCheck == true) {
 			memberId = service.add(member);
 			request.getSession().setAttribute("userEmail", member.getMemberEmail());
 			request.getSession().setAttribute("userPwd", member.getMemberPassword());
-		} 
+		}
 		MultipartFile picture = member.getMemberImage();
 		String originalFilename = picture.getOriginalFilename();
 		member.setFileName(originalFilename);
@@ -134,11 +136,11 @@ public class MemberController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}
-		
+
 		if (!errorMsg.isEmpty()) {
 			return "/eeit10901/register";
 		}
-		
+
 		final String Email = "109meettogether@gmail.com";// your Gmail
 		final String EmailPwd = "eeit109*";// your password
 		String host = "smtp.gmail.com";
@@ -160,9 +162,9 @@ public class MemberController {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(Email));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(member.getMemberEmail()));
-			message.setSubject("MeetTogether驗證信");//主旨
-			message.setText("請點選連結以開通帳號:"
-					+ "http://localhost:8080/MeetTogether/updateVerifyMailSucess?id="+member.getMemberId());//訊息
+			message.setSubject("MeetTogether驗證信");// 主旨
+			message.setText("請點選連結以開通帳號:" + "http://localhost:8080/MeetTogether/updateVerifyMailSucess?id="
+					+ member.getMemberId());// 訊息
 
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, Email, EmailPwd);
@@ -173,7 +175,7 @@ public class MemberController {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		return "redirect:registerSuccess";
 	}
 
@@ -183,22 +185,18 @@ public class MemberController {
 		return "eeit10901/registerSuccess";
 	}
 
-	
-	@RequestMapping(value ="/updateVerifyMailSucess" ,method=RequestMethod.GET)
-	public String updateVerifyMailSucess(@RequestParam(value="id") Integer memberId, Model model) {
+	@RequestMapping(value = "/updateVerifyMailSucess", method = RequestMethod.GET)
+	public String updateVerifyMailSucess(@RequestParam(value = "id") Integer memberId, Model model) {
 		service.updeatVerifyMail(memberId);
 		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/verifyMailSuccess";
 	}
-	
+
 	@RequestMapping("/interestPersonalInfo")
 	public String InsertInterestPersonalInfo(Model model) {
 		model.addAttribute("vipBean", new VipStatus());
 		return "redirect:interestPersonalInfo";
 
 	}
-	
-	
-	 
-	
+
 }

@@ -63,7 +63,7 @@
 				<ul class="navbar-nav ml-auto" id="menu">
 					<li class="nav-item active"><a href="index.html"
 						class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="about.html" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs" class="nav-link">交友</a></li>
 					<li class="nav-item"><a href="pricing.html" class="nav-link">活動</a></li>
 					<li class="nav-item">
 							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
