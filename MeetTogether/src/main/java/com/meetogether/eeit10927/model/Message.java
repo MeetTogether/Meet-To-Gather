@@ -3,12 +3,15 @@ package com.meetogether.eeit10927.model;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -65,6 +68,8 @@ public class Message implements Serializable {
 	private String mtName;
 	private Set<Msglike> msglike = new LinkedHashSet<>();
 	private Set<Msgreply> msgreply = new LinkedHashSet<>();
+	private List<Msgtag> msgtag = new ArrayList<>();
+	private List<String> msgTagName;
 
 	public Message() {
 	}
@@ -232,6 +237,15 @@ public class Message implements Serializable {
 	public void setMsgreply(Set<Msgreply> msgreply) {
 		this.msgreply = msgreply;
 	}
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "message", fetch = FetchType.EAGER)
+	public List<Msgtag> getMsgtag() {
+		return msgtag;
+	}
+
+	public void setMsgtag(List<Msgtag> msgtag) {
+		this.msgtag = msgtag;
+	}
 
 	@Transient
 	public String getCreateTimeFormat() {
@@ -250,5 +264,15 @@ public class Message implements Serializable {
 	public void setUpdateTimeFormat(String updateTimeFormat) {
 		this.updateTimeFormat = updateTimeFormat;
 	}
+
+	@Transient
+	public List<String> getMsgTagName() {
+		return msgTagName;
+	}
+
+	public void setMsgTagName(List<String> msgTagName) {
+		this.msgTagName = msgTagName;
+	}
+
 
 }

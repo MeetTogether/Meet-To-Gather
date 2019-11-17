@@ -105,7 +105,7 @@ public class UtilController {
 		if (type.equals("member")) {
 			MemberBean member = msgService.getMemberById(id);
 			fileName = member.getFileName();
-			System.out.println("member filename: " + fileName);
+//			System.out.println("member filename: " + fileName);
 			blob = member.getPhoto();
 //			filePath = "C:/temp/images/member/" + fileName;
 		} else if (type.equals("message")) {

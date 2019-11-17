@@ -7,37 +7,22 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<title>MeetTogether - Article Verify</title>
+<title>MeetTogether - 討論區 - 編輯文章</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/animate.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/aos.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/flaticon.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/icomoon.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/aos.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <style type="text/css">
 body {
 	background-color: #e7eef1;
@@ -127,14 +112,6 @@ body {
     -ms-flex: 0 0 95%;
     flex: 0 0 95%;
     max-width: 95%; }
-.MemberPic {
-	border-radius: 50%;
-	height: 30px;
-	margin: 8px 5px;
-	display: inline-flex;
-	align-items: center;
-	float: left;
-}
 .likeBtn, .dislikeBtn, .replyBtn {
 	height: 20px;
 	cursor: pointer;
@@ -142,49 +119,62 @@ body {
 p {
 	margin-bottom: 0;
 }
+.input_tag {
+	height: 52px !important;
+	font-size: 18px;
+	border-radius: 5px;
+	width: 50%;
+	padding: 0.375rem 0.75rem;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid #ced4da;
+}
 </style>
 <script type="text/javascript">
-	$(document).ready(
-		function() {
-			$("#Postbox").hide();
-			$("#Postbutton").click(function() {
-				$("#Postbox").toggle("blind"); /* 展開發文表單 */
-				/* $('html,body').animate({
-					scrollTop : 0
-				}); 返回到頁面頂端 */
+	$(document).ready(function() {
+		$("#Postbox").hide();
+		$("#Postbutton").click(function() {
+			jQ("#Postbox").toggle("blind"); /* 展開發文表單 */
+			/* $('html,body').animate({
+				scrollTop : 0
+			}); 返回到頁面頂端 */
+		});
+		$("#ViewMyPost").click(
+			function() {
+				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
 			});
-			$("#ViewMyPost").click(
-				function() {
-					top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
-				});
-			$("#ViewAllPost").click(
-				function() {
-					top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-				});
-			$("input#deletePost").click(function() {
-				var c = confirm('是否確認刪除');
-				console.log(c);
-				if (c) {
-					$(this).parent("form#deletePostForm").submit();
-				} else {
-				}
-			});
-			
-			$("#nverify").click(function() {
+		$("#ViewAllPost").click(
+			function() {
 				top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
 			});
-			$("#reupload").hide();
-			$("#renewPhoto").click(function() {
-				if ($(this).prop("checked") == false) {
-					$("#reupload").hide();
-				} else if ($(this).prop("checked") == true){
-					$("#reupload").show();
-				}
-			});
+		$("input#deletePost").click(function() {
+			var c = confirm('是否確認刪除');
+			console.log(c);
+			if (c) {
+				jQ(this).parent("form#deletePostForm").submit();
+			} else {
+			}
 		});
+		
+		$("#nverify").click(function() {
+			top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
+		});
+		$("#reupload").hide();
+		$("#renewPhoto").click(function() {
+			if ($(this).prop("checked") == false) {
+				$("#reupload").hide();
+			} else if ($(this).prop("checked") == true){
+				$("#reupload").show();
+			}
+		});
+	});
 </script>
 </head>
 <body>
+<!-- vip購買 -->
+<jsp:include page="/WEB-INF/views/vip_div.jsp"/>
+
+	<!-- nav -->
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
@@ -198,16 +188,19 @@ p {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Our Car</a></li>
-					<li class="nav-item active"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">Member
-							Center</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
+					<li class="nav-item active"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+						</c:if></a></li>
+					<li class="nav-item"><c:if test="${!empty userId}">
+						<img style="height: 40px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${!empty userId}">
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>
@@ -239,126 +232,23 @@ p {
 			<div class="row">
 				<!-- .col-md-8 -->
 				<!-- 左側選單 -->
-				<div class="col-md-4 sidebar ftco-animate">
-					<div class="sidebar-box ftco-animate">
-						<h3 id="Postbutton" class="point">+ 發表文章</h3>
-						<h3 id="ViewMyPost" class="point">+ 看自己的文章</h3>
-						<h3 id="ViewAllPost" class="point">+ 看所有文章</h3>
-					</div>
-					<div class="sidebar-box ftco-animate">
-						<div class="categories">
-							<h3>分類查詢</h3>
-							<c:forEach items="${msgType}" var="type" varStatus="typeCnt">
-								<li><a href="${pageContext.request.contextPath}/SearchPostByType?typeId=${type.key}">${type.value}
-									<input type="hidden" id="msgTypeId" value="${type.key}">
-									<span id="msgTypeCnt${typeCnt.count}" class="msgTypeCnt">${mtc.value }</span>
-								</a></li>
-							</c:forEach>
-						</div>
-					</div>
-					<div class="sidebar-box ftco-animate">
-						<h3>關鍵字查詢</h3>
-						<form action="./SearchPostServlet" method="GET"
-							class="search-form">
-							<div class="form-group">
-								<span class="icon icon-search"></span> <input type="text"
-									class="form-control" name="queryString" id="queryString"
-									placeholder="Type a keyword" autocomplete="off">
-							</div>
-						</form>
-					</div>
-					<div class="sidebar-box ftco-animate">
-						<h3>熱門文章</h3>
-						<c:forEach items="${popularMsgBeans}" var="recentMsgBean">
-						<div class="block-21 mb-4 d-flex">
-							<a class="blog-img mr-4"
-								style="background-image: url(${pageContext.request.contextPath}/getImage?type=member&id=${recentMsgBean.member.memberId});"></a>
-							<div class="text">
-								<h3 class="heading">
-									<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${recentMsgBean.msgId}">${recentMsgBean.msgTitle }</a>
-								</h3>
-								<div class="meta">
-									<div>
-										<span class="icon-calendar"></span>${recentMsgBean.createTimeFormat}
-									</div>
-									<div>
-										<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${recentMsgBean.member.memberId}"><span class="icon-person"></span>${recentMsgBean.member.memberName}</a>
-									</div>
-									<div>
-										<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${recentMsgBean.msgId}"><span class="icon-chat"></span>${recentMsgBean.replyCount}</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
-					</div>
-
-					<div class="sidebar-box ftco-animate">
-						<h3>Tag Cloud</h3>
-						<div class="tagcloud">
-							<a href="#" class="tag-cloud-link">dish</a>
-							<a href="#" class="tag-cloud-link">menu</a>
-							<a href="#" class="tag-cloud-link">food</a>
-							<a href="#"class="tag-cloud-link">sweet</a>
-							<a href="#" class="tag-cloud-link">tasty</a>
-							<a href="#" class="tag-cloud-link">delicious</a>
-							<a href="#" class="tag-cloud-link">desserts</a>
-							<a href="#" class="tag-cloud-link">drinks</a>
-						</div>
-					</div>
-				</div>
+				<jsp:include page="../fragment/sidebar_left.jsp"/>
 
 				<!-- 右側文章 -->
 				<div style="width: 66%">
 					<!-- 發文 -->
-					<div id="Postbox" class="col-md-8 order-md-last ftco-animate">
-						<form:form method="post" action="./PostServlet"
-							enctype="multipart/form-data" id="postForm"
-							modelAttribute="messageBean">
-							<form:input type="hidden" path="mbId" value="${userId}" />
-							<table>
-								<tr>
-									<td>文章分類
-									<td><form:select path="mtId" style="width: 100%"
-											class="form-control">
-											<form:options items="${msgType}" />
-										</form:select>
-								<tr>
-									<td>文章標題
-									<td><form:input type="text" name="msgTitle" id="msgTitle"
-											path="msgTitle" size="65%" autocomplete="off"
-											class="form-control" required="required" /> <form:errors
-											path="msgTitle" class="errors"></form:errors>
-								<tr>
-									<td>文章內容
-									<td><form:textarea rows="7em" cols="65%" name="msgText"
-											id="msgText" path="msgText" class="form-control"
-											required="required" /> <form:errors path="msgText"
-											class="errors"></form:errors>
-								<tr>
-									<td>上傳照片
-									<td><form:input type="file" name="msgImage" id="msgImage"
-											path="msgImage" class="form-control" />
-							</table>
-							<br>
-							<input type="submit" value="發文" name="post" id="post"
-								class="reply" />
-							<input type="reset" value="清空" name="cancel" id="cancel"
-								class="reply" />
-						</form:form>
-						<br>
-					</div>
+					<jsp:include page="../fragment/postMsg.jsp"/>
 
 					<!-- 一則文章 -->
-<%-- 					<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt"> --%>
-<%-- 						<c:set var="mId" value="${msgBean.member.memberId}" /> --%>
+<%-- 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt"> --%>
+<%-- 					<c:set var="mId" value="${msgBean.member.memberId}" /> --%>
 						<div class="col-md-8 order-md-last ftco-animate">
 							<div class="about-author d-flex p-4 bg-light">
 								<div>
 									<form:form method="POST" action="${pageContext.request.contextPath}/UpdatePostServlet" enctype="multipart/form-data" id="postModify" modelAttribute="msgBean">
 										<table>
 											<tr>
-												<td>文章分類
+												<td style="width:11%">文章分類
 												<td><form:select path="mtName" style="width: 100%" class="form-control">
 													<c:forEach var="mt" items="${msgType}">
 														<c:choose>
@@ -375,13 +265,13 @@ p {
 												<td>文章標題
 												<td><form:input type="text" name="msgTitle" id="msgTitle" path="msgTitle" class="form-control" 
 													size="65%" value="${msgBean.msgTitle}" autocomplete="off" />
-													<br><form:errors path="msgTitle" class="errors"></form:errors>
+													<form:errors path="msgTitle" class="errors"></form:errors>
 											<tr>
 												<td>文章內容
 												<td><c:set var="msgText" value="${msgBean.msgText}"/>
 													<form:textarea rows="7em" cols="65%" name="msgText"  class="form-control"
 														id="msgText" path="msgText" value="${msgText}" />
-													<br><form:errors path="msgText" class="errors"></form:errors>
+													<form:errors path="msgText" class="errors"></form:errors>
 											<tr>
 												<td>上傳照片
 												<td><c:if test="${msgBean.msgPhoto ne null}">
@@ -392,20 +282,46 @@ p {
 													<label><input type="checkbox" name="renewPhoto" value="renew" id="renewPhoto">重新上傳照片</label>
 													<form:input type="file" name="msgImage" id="reupload" path="msgImage" class="form-control" />
 													<span id="msg_mPhoto"></span>
+											<br>
+											<tr>
+												<td>文章標籤(最多5個)
+												<td><div class="input_fields_wrap_verify">
+													<c:forEach items="${msgBean.msgtag }" var="tags" varStatus="cnt">
+														<div><form:input type="text" path="msgTagName" class="input_tag" value="${tags.tagName}" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>
+														<c:set var="countTag" value="${cnt.count}" />
+													</c:forEach>
+													<input type="hidden" name="tagCnt" id="tagCnt" value="${countTag}">
+													<button class="add_field_button_verify" id="tagButton">增加標籤</button>
+													</div>
+													<script type="text/javascript">
+													$(document).ready(function() {
+														var max_fields = 5;
+														var wrapper_verify = $(".input_fields_wrap_verify");
+														var add_button_verify = $(".add_field_button_verify");
+														
+														var x_verify = document.getElementById("tagCnt").value;
+														console.log(x_verify);
+														$(add_button_verify).click(function(e) {
+															e.preventDefault();
+															if (x_verify < max_fields) {
+																x_verify++;
+																$(wrapper_verify).append('<div><form:input type="text" path="msgTagName" class="input_tag" placeholder="#tag here" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>');
+															}
+														});
+														$(wrapper_verify).on("click", ".remove_field", function(e) {
+															e.preventDefault(); $(this).parent('div').remove(); x_verify--;
+														});
+													});
+													</script>
+											<br>
+											
 													
 										</table><br>
-										<input type="hidden" value="${msgBean.msgId}" name="msgId">
+										<input type="hidden" value="${msgBean.msgId}" name="msgId" />
+										<input type="hidden" value="${msgBean.member.memberId}" name="mbId" />
 										<input type="submit" value="修改" name="verify" id="verify" class="reply" >
 										<input type="button" value="返回" name="nverity" id="nverify" class="reply" >
 									</form:form>
-								</div>
-							</div>
-							<div class="tag-widget post-tag-container mb-5 mt-5">
-								<div class="tagcloud">
-									<a href="#" class="tag-cloud-link">Life</a> <a href="#"
-										class="tag-cloud-link">Sport</a> <a href="#"
-										class="tag-cloud-link">Tech</a> <a href="#"
-										class="tag-cloud-link">Travel</a>
 								</div>
 							</div>
 						<hr>
@@ -419,87 +335,8 @@ p {
 	</section>
 	<!-- .section -->
 
-	<footer class="ftco-footer ftco-bg-dark ftco-section">
-		<div class="container">
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About Autoroad</h2>
-						<p>Far far away, behind the word mountains, far from the
-							countries Vokalia and Consonantia, there live the blind texts.</p>
-						<ul
-							class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-instagram"></span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Information</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">About</a></li>
-							<li><a href="#" class="py-2 d-block">Services</a></li>
-							<li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-							<li><a href="#" class="py-2 d-block">Best Price
-									Guarantee</a></li>
-							<li><a href="#" class="py-2 d-block">Privacy &amp;
-									Cookies Policy</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Customer Support</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">FAQ</a></li>
-							<li><a href="#" class="py-2 d-block">Payment Option</a></li>
-							<li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-							<li><a href="#" class="py-2 d-block">How it works</a></li>
-							<li><a href="#" class="py-2 d-block">Contact Us</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Have a Questions?</h2>
-						<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span
-									class="text">203 Fake St. Mountain View, San Francisco,
-										California, USA</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span
-										class="text">+2 392 3929 210</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span
-										class="text">info@yourdomain.com</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-
-					<p>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-						All rights reserved | This template is made with <i
-							class="icon-heart color-danger" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-
+	<!-- footer引入 -->
+	<jsp:include page="/WEB-INF/views/footer.jsp"/>
 
 
 	<!-- loader -->
