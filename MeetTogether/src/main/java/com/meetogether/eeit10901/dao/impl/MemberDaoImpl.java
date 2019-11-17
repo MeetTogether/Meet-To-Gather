@@ -1,6 +1,5 @@
 package com.meetogether.eeit10901.dao.impl;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
-import com.meetogether.eeit10927.model.Member;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -21,14 +19,16 @@ public class MemberDaoImpl implements MemberDao {
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
+
 	@Override
 	public MemberBean findByEmail(MemberBean member) {
-	
+
 		String hql = "from MemberBean m WHERE m.memberEmail = ?0";
-		return (MemberBean) factory.getCurrentSession().createQuery(hql)
-				.setParameter(0, member.getMemberEmail()).uniqueResult();
-		
+		return (MemberBean) factory.getCurrentSession().createQuery(hql).setParameter(0, member.getMemberEmail())
+				.uniqueResult();
+
 	}
+
 	@Override
 	public boolean verifyAccount(MemberBean member) {
 		String hql = "from MemberBean m WHERE m.memberEmail = ?0 and m.memberPassword = ?1";
@@ -51,18 +51,19 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("member Birth: " + member.getMemberBirth());
 		member.setAdminTag(0);
 		member.setDeleteTag(0);
-	 
+
 		factory.getCurrentSession().save(member);
 		int memberId = member.getMemberId();
 		return memberId;
 	}
 
 	@Override
-	public void update(MemberBean m, MemberBean memberId) {
-		String hql = "UPDATE MemberBean b SET b.member = :member WHERE memberId = :id";
-		Session session = factory.getCurrentSession();
-
-		int n = session.createQuery(hql).setParameter("member", m).setParameter("id", memberId).executeUpdate();
+	public void update(MemberBean m) {
+		if (m != null && m.getMemberId() != null) {
+			Session session = getSession();
+			session.saveOrUpdate(m);
+		}
+		
 
 	}
 
@@ -71,7 +72,7 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 
 	}
-	//註解
+	// 註解
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -96,25 +97,21 @@ public class MemberDaoImpl implements MemberDao {
 		return exist;
 	}
 
-
 	@Override
 	public MemberBean getMemberById(Integer memberId) {
 		Session session = factory.getCurrentSession();
 		MemberBean result = session.get(MemberBean.class, memberId);
 		return result;
-	
-	}
-	
-	public Integer updeatVerifyMail(Integer memberId) {
-		String hql = "update MemberBean set verifyMail= 1 where memberId =?0";
-		Integer result = factory.getCurrentSession().createQuery(hql)
-		.setParameter(0, memberId)
-		.executeUpdate();
-		return result;
-	}
-	 
-		 
+
 	}
 
-	
- 
+	public Integer updeatVerifyMail(Integer memberId) {
+		String hql = "update MemberBean set verifyMail= 1 where memberId =?0";
+		Integer result = factory.getCurrentSession().createQuery(hql).setParameter(0, memberId).executeUpdate();
+		return result;
+	}
+
+	public Session getSession() {
+		return factory.getCurrentSession();
+	}
+}

@@ -248,8 +248,8 @@ jQuery_1_12_4(document).ready(
 <%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
-					<li class="nav-item active"><a
+					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
+					<li class="nav-item "><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
@@ -271,10 +271,10 @@ jQuery_1_12_4(document).ready(
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>討論區 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動表 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">討論區</h1>
+					<h1 class="mb-3 bread">活動表</h1>
 				</div>
 			</div>
 		</div>

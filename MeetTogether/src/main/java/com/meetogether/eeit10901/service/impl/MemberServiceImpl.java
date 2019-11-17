@@ -30,13 +30,11 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public void update(MemberBean m) {
-		dao.update(m, m);
+		dao.update(m);
 	}
-
 	@Transactional
 	@Override
 	public void delete(MemberBean m) {
-		dao.update(m, m);
 	}
 
 

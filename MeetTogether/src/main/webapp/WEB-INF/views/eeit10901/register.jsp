@@ -180,6 +180,7 @@ background-color:#FF8800;
 							<td><form:input type="text" name="mChecksum" id="mChecksum" path="mChecksum"
 									placeholder="請輸入驗證碼" autocomplete="off" />
 							<td><span id="msg_mChecksum" class='msgWrong'>${errorMsg.captError}</span>
+							<input type="hidden" value="" id="">
 						<tr>
 							<td>上傳照片
 							<td><form:input type="file" name="memberImage"
