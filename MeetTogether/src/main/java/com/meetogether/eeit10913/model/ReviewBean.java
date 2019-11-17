@@ -1,6 +1,7 @@
 ﻿package com.meetogether.eeit10913.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10908.model.ActBean;
 
 @Entity
 @Table(name = "eventReview")
@@ -21,12 +23,13 @@ public class ReviewBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer reviewId;
-	private Integer eventId;
+	private ActBean eventId;
 	private MemberBean member;
 	private String eventComment;
 	private Integer eventStars;
 	private Integer mbId;
-	private String createTime;
+	@Column(name="createTime", insertable=false,updatable=false)
+	private Timestamp createTime;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,19 +42,21 @@ public class ReviewBean implements Serializable {
 		this.reviewId = reviewId;
 	}
 
-	public Integer getEventId() {
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "eventId")
+	public ActBean getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(Integer eventId) {
+	public void setEventId(ActBean eventId) {
 		this.eventId = eventId;
 	}
 
-	public String getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
@@ -90,8 +95,8 @@ public class ReviewBean implements Serializable {
 		this.mbId = mbId;
 	}
 
-	public ReviewBean(Integer reviewId, Integer eventId, Integer mbId, String eventComment, Integer eventStars,
-			String createTime, MemberBean memberBean) {
+	public ReviewBean(Integer reviewId, ActBean eventId, Integer mbId, String eventComment, Integer eventStars,
+			Timestamp createTime, MemberBean memberBean) {
 		super();
 		this.reviewId = reviewId;
 		this.eventId = eventId;
@@ -108,23 +113,23 @@ public class ReviewBean implements Serializable {
 	}
 
 //json
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("ReviewBean [reviewId=");
-		builder.append(reviewId);
-		builder.append(", eventId=");
-		builder.append(eventId);
-		builder.append(", mbId=");
-		builder.append(mbId);
-		builder.append(", eventComment=");
-		builder.append(eventComment);
-		builder.append(", eventStars=");
-		builder.append(eventStars);
-//		builder.append(", memberBean=");
-//		builder.append(memberBean);
-		builder.append("]");
-		return builder.toString();
-	}
+//	@Override
+//	public String toString() {
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("ReviewBean [reviewId=");
+//		builder.append(reviewId);
+//		builder.append(", eventId=");
+//		builder.append(eventId);
+//		builder.append(", mbId=");
+//		builder.append(mbId);
+//		builder.append(", eventComment=");
+//		builder.append(eventComment);
+//		builder.append(", eventStars=");
+//		builder.append(eventStars);
+////		builder.append(", memberBean=");
+////		builder.append(memberBean);
+//		builder.append("]");
+//		return builder.toString();
+//	}
 
 }

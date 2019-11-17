@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
 import com.meetogether.eeit10927.service.IMessageService;
@@ -95,6 +96,13 @@ public class ProductDaoImpl implements ProductDao {
 	Blob b=(Blob) session.createQuery("SELECT mb.photo FROM MemberBean mb WHERE mb.memberId = ?1")
 	.setParameter(1, id).uniqueResult();
 	return b;
+	}
+	
+	@Override
+	public ActBean getActivityById(int actId) {
+		Session session = factory.getCurrentSession();
+		ActBean aa = session.get(ActBean.class, actId);	
+		return aa;
 	}
 
 

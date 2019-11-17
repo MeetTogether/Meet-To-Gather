@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
 @Service
@@ -60,5 +61,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Blob getphotoById(Integer id) {
 	return dao.getphotoById(id);
+	}
+	
+	@Transactional
+	@Override
+	public ActBean getActivityById(int actId) {
+		return dao.getActivityById(actId);
 	}
 }

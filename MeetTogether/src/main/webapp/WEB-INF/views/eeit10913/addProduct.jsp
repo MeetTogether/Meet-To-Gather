@@ -381,11 +381,6 @@ body {
 						</div>
 						
 						<div class="form-group">
-						<label>活動建立時間:</label>
-					<form:input type="text" path="createTime" id="create" />
-						</div>
-						
-						<div class="form-group">
 							<input class="form-group" type="submit" value="送出評論"
 								class="btn btn-primary py-3 px-5" />
 
