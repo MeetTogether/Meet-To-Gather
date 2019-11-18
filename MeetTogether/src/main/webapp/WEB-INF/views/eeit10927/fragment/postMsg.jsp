@@ -34,11 +34,32 @@
 			<tr>
 				<td>文章標籤(最多5個)
 				<td><div class="input_fields_wrap">
-						<div><form:input type="text" path="msgTagName" id="msgTagName1" placeholder="#tag here" class="input_tag" />&ensp;&ensp;
+				<script type="text/javascript">
+				var jQueryConflict = $.noConflict();
+				function getTag(myObj) {
+					jQueryConflict(myObj).autocomplete({
+						source: function(request, response) {
+							jQueryConflict.ajax({
+								url:"getMsgtagByQuery",
+								dataType:"JSON",
+								data:{tagQuery:request.term},
+								success:function(data) {
+									console.log('data: ' + data);
+									response(data);
+								}
+							});
+						},
+						minLength:1,
+						select: function(event,ui) {
+							jQueryConflict(myObj).val(ui.item);
+			            }
+			        });
+				}
+				</script>
+						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;
 						<button class="add_field_button">增加標籤</button></div>
 					</div>
 				<script type="text/javascript">
-					var jQueryConflict = $.noConflict();
 					jQueryConflict(document).ready(function() {
 						var max_fields = 5;
 						var wrapper = jQueryConflict(".input_fields_wrap");
@@ -49,9 +70,7 @@
 							e.preventDefault();
 							if (x < max_fields) {
 								x++;
-								let inputId = 'msgTagName' + x.toString();
-								console.log('inputId: ' + inputId);
-								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>';
+								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)"/>&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>';
 								jQueryConflict(wrapper).append(appendContent);
 							}
 						});
@@ -61,8 +80,11 @@
 						
 						
 						let tags = document.getElementsByClassName("input_tag");
-						for (let t = 0; t < tags.length; t++) {
+						
+						
+						/* for (let t = 0; t < tags.length; t++) {
 							jQueryConflict(tags[t]).on("focus", function() {
+								console.log(tags[t]);
 								jQueryConflict(tags[t]).autocomplete({
 									source: function(request, response) {
 										jQueryConflict.ajax({
@@ -81,7 +103,7 @@
 						            }
 						        });
 							});
-						}
+						} */
 					});
 // 						參考網址: https://dotblogs.com.tw/peterkyo/2019/02/26/100805
 						

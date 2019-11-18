@@ -30,7 +30,7 @@
 .reply_a {
 	padding: 5px 10px;
 	/*background: #18e2eb45;*/
-	background: #ffc107;
+	background: #ffc107ab;
 	color: #000000;
 	text-transform: uppercase;
 	font-size: 14px;
@@ -41,7 +41,7 @@
 }
 .reply {
 	padding: 5px 10px;
-	background: #ffc1075e;
+	background: #ff07295e;
 	color: #000000;
 	text-transform: uppercase;
 	font-size: 14px;
@@ -77,11 +77,12 @@
 .testimony-wrap{
 	background: #ff00000f;
 }
-/*
+
 .p-4{
-	background: #0384f30f;
-	background: #c3f3031c;
-}*/
+	/*background: #0384f30f;
+	background: #c3f3031c;*/
+	background: #f3f2bd6b;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -105,7 +106,7 @@ $(document).ready(function() {
 		$(DivId).css('display',"block");
 	}
 	function run() {
-		myInterval = window.setInterval(autoRun, 3000);
+		myInterval = window.setInterval(autoRun, 2000);
 	}
 	
 });
@@ -147,7 +148,7 @@ $(document).ready(function() {
 	<!-- END nav -->
 	
 	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m1"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg01.jpg');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg09.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -237,7 +238,7 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m6"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg09.jpg');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg01.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -295,8 +296,8 @@ $(document).ready(function() {
 										far from the countries Vokalia and Consonantia, there live the
 										blind texts.</p>
 									<p class="d-flex mb-0 d-block">
-										<a href="###" class="reply_n">不喜歡</a>&ensp;&ensp;
-										<a href="###" class="reply">喜歡</a>
+										<a href="###" class="reply_n">SKIP</a>&ensp;&ensp;
+										<a href="###" class="reply">LIKE</a>
 									</p>
 								</div>
 							</div>
