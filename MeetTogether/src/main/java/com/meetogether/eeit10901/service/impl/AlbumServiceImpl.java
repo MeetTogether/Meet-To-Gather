@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.meetogether.eeit10901.dao.IAlbumDao;
+import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.service.AlbumService;
 
 import com.meetogether.eeit10936.pairs.model.MemberAlbum;
@@ -12,8 +15,9 @@ import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 @Service
 public class AlbumServiceImpl implements AlbumService {
 	@Autowired
-	private AlbumService album;
+	private IAlbumDao album;
 	
+
 	
 	@Override
 	public List<MemberAlbum> getAllAlbum() {
@@ -32,15 +36,15 @@ public class AlbumServiceImpl implements AlbumService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+@Transactional
 	@Override
-	public void addAlbum(MemberAlbum product) {
-		// TODO Auto-generated method stub
-
+	public void addAlbum(MemberAlbum addalbum) {
+		
+		album.addAlbum(addalbum);
 	}
 
 	@Override
-	public List<MemberAlbum> getCompanyList() {
+	public List<MemberAlbum> getAlbumList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

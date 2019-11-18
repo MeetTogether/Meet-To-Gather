@@ -239,7 +239,7 @@ var jQuery_1_12_4 = $.noConflict();
 					<li class="nav-item active"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
 					<li class="nav-item"><a class="nav-link"><c:if
 								test="${!empty userId}">${userName}
 						</c:if></a></li>

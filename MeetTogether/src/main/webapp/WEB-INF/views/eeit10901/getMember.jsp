@@ -232,7 +232,7 @@ p {
 					<li class="nav-item active"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
 					<li class="nav-item"><a class="nav-link"><c:if
 								test="${!empty userId}">${userName}
 						</c:if></a></li>
@@ -289,7 +289,7 @@ p {
 					disabled="true"></td>
 			<tr>
 				<td>暱稱
-				<td>${member.memberName}"</td>
+				<td>${member.memberName}</td>
 			<tr>
 				<td>生日
 				<td>${member.memberBirth}</td>

@@ -108,7 +108,7 @@ background-color:#FF8800;
 			<h2>新增照片</h2>
 			<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
 			<form:form enctype="multipart/form-data" method="POST"
-				modelAttribute="ma" id='registerForm'>
+				modelAttribute="albumbean" id='registerForm'>
 				<table>
 					<tr>
 						<td>id
@@ -116,9 +116,7 @@ background-color:#FF8800;
 					<tr>
 						<td>status
 						<td><form:input type="text" path="status" />
-					<tr>
-						<td>deleteTag
-						<td><form:input type="text" path="deleteTag" />
+					
 					<tr>
 						<td>上傳照片
 						<td><form:input type="file" path="albumImage" />
