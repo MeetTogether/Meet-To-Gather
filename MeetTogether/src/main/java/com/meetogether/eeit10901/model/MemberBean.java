@@ -128,8 +128,9 @@ public class MemberBean implements Serializable {
 	}
 
 
-	public void setMemberBirth(Date memberBirth) {
+	public Date setMemberBirth(Date memberBirth) {
 		this.memberBirth = memberBirth;
+		return memberBirth;
 	}
 
 

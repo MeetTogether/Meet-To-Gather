@@ -1,14 +1,18 @@
 package com.meetogether.eeit10901.controller;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.model.PersonalInfoBean;
 
 import com.meetogether.eeit10901.service.PersonalInfoService;
@@ -28,14 +32,15 @@ public class PersonalInfoController {
 	public String getAddNewProductForm(Model model) {
 		MemberInfo pp = new MemberInfo();
 		model.addAttribute("personalinfobean", pp);
-		return "addPersonalInfo";
+		return "eeit10901/addPersonalInfo";
 	}
 	
 	@RequestMapping(value="/personal", method=RequestMethod.POST)
 	public String processAddNewProductForm
-		(@ModelAttribute("personalinfobean") MemberInfo pp) {
-		service.addPersonalInfo(pp);
-		return "addPersonalInfo";
+		(@ModelAttribute("personalinfobean") MemberBean member, BindingResult result, Model model,
+				HttpServletRequest request, HttpServletResponse response, MemberInfo personalinfo) {
+		service.addPersonalInfo(personalinfo);
+		return "eeit10901/addPersonalInfo";
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.meetogether.eeit10901.controller;
 
 import java.sql.Blob;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,18 +26,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
+
 import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
 
@@ -68,21 +70,42 @@ public class MemberController {
 		model.addAttribute("memberBean", member);
 		return "index";
 	}
-
-	@RequestMapping("/updatemember")
-	public String update(
-	@ModelAttribute("updatemember") MemberBean member, 
-	BindingResult result, 
-	Model model,
-	@PathVariable Integer id, 
-	HttpServletRequest request) {
-		member.getFileName();
-MemberBean  mm = mservice.getMemberById(member.getMemberId());
-System.out.println("請印出id" +mm+member.getMemberId());
-
-
-		return "eeit109/getMember";
+	
+	@RequestMapping(value = "/upadateInfo/{id}", method = RequestMethod.GET)
+	public String updateByInfoGet(Model model,@PathVariable Integer id)
+			 {
+		model.addAttribute("updateInfo", mservice.getMemberById(id));
+		System.out.println("name:"+ mservice.getMemberById(id).getMemberCity());
+		return "eeit10901/updateMember";
 	}
+
+	@RequestMapping(value = "/upadateInfo/{id}", method = RequestMethod.POST)
+	public String updateByInfo(@ModelAttribute("updateInfo") MemberBean m, Model model) {
+		System.out.println("編號"+m.getMemberId());
+		System.out.println("email"+m.getMemberEmail());
+		System.out.println("密碼"+m.getMemberPassword());
+		System.out.println("檔名"+m.getFileName());
+		System.out.println("縣市"+m.getMemberCity());
+		System.out.println("性別"+m.getMemberSex());
+		mservice.update(m);
+		System.out.println("密碼2"+m.getMemberPassword());
+		System.out.println("編號2"+m.getMemberId());
+		System.out.println("email 2"+m.getMemberEmail());
+	
+		System.out.println("檔名2"+m.getFileName());
+		System.out.println("縣市2"+m.getMemberCity());
+		System.out.println("性別2"+m.getMemberSex());
+	
+//		model.addAttribute("vipBean", new VipStatus());
+		model.addAttribute("member", mservice.getMemberById(m.getMemberId()));
+		
+	
+		return "eeit10901/getMember";
+	}
+	
+
+
+	
 	
 	
 	
@@ -99,7 +122,7 @@ System.out.println("請印出id" +mm+member.getMemberId());
 //		MemberBean member = new MemberBean();
 //		model.addAttribute("memberForm", member);
 		model.addAttribute("member", mservice.getMemberById(userId));
-		model.addAttribute("vipBean", new VipStatus());
+//		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/getMember";
 	}
 

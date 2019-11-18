@@ -15,7 +15,8 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
@@ -28,7 +29,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
+
+
 <script>
+
+	function test() {
+		alert("test");
+	}
 	function getage(birth) {
 		let dateNow = new Date().getTime();
 		let birthTime = new Date(birth).getTime();
@@ -39,60 +47,84 @@
 	function myInnerText() {
 		if (members[num]) {
 			document.getElementById("name").innerText = members[num].mb.memberName;
-			document.getElementById("age").innerText = getage(members[num].mb.memberBirth);
+			document.getElementById("memberAge").innerText = getage(members[num].mb.memberBirth);
 			document.getElementById("memberCity").innerText = members[num].mb.memberCity
 					.trim();
 			document.getElementById("interest").innerText = members[num].mil;
 			var i = 1;
-			var srcUrl = "${pageContext.request.contextPath}/memberPhoto/" + members[num].mb.memberId + "/" + i;
+			var srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
+					+ members[num].mb.memberId + "/" + i;
 			document.getElementById("pairImg").setAttribute("src", srcUrl);
-			document.getElementById("pairImg").addEventListener(
-					"click",
-					function() {
-						var vip = ${vipstatus};
-						i++;
-						vip ? i > 5 ? i = 1 : i = i : i > 3 ? i = 1 : i = i;
-						srcUrl = "${pageContext.request.contextPath}/memberPhoto/" + members[num].mb.memberId
-								+ "/" + i;
-						document.getElementById("pairImg").setAttribute("src",
-								srcUrl);
-					});
+			document
+					.getElementById("pairImg")
+					.addEventListener(
+							"click",
+							function() {
+								var vip = ${vipstatus};
+								i++;
+								vip ? i > 5 ? i = 1 : i = i : i > 3 ? i = 1
+										: i = i;
+								srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
+										+ members[num].mb.memberId + "/" + i;
+								document.getElementById("pairImg")
+										.setAttribute("src", srcUrl);
+							});
 		} else {
-			window.location.href = "./noMore";
+			//window.location.href = "./noMore";
 		}
 	}
 	function binding() {
-		let inputs = document.getElementsByTagName("input");
-		for (let a = 0; a < inputs.length; a++) {
-			inputs[a].addEventListener("click", function() {
-				a == 0 ? url = "insertPairList?pairid="
-						+ members[num].mb.memberId + "&status=0"
-						: url = "insertPairList?pairid="
-								+ members[num].mb.memberId + "&status=1";
-				console.log(url);
-				let xhttp = new XMLHttpRequest();
-				xhttp.open("Get", url, true);
-				xhttp.setRequestHeader("Pragma", true);
-				xhttp.send();
-				num++;
-				myInnerText();
-			});
-		}
+		let like = document.getElementById("like")
+		let dontlike = document.getElementById("dontlike")
+		like.addEventListener("click", function() {
+			url = "insertPairList?pairid=" + members[num].mb.memberId
+					+ "&status=1";
+			console.log(url);
+			let xhttp = new XMLHttpRequest();
+			xhttp.open("Get", url, true);
+			xhttp.setRequestHeader("Pragma", true);
+			xhttp.send();
+			num++;
+			myInnerText();
+		});
+		dontlike.addEventListener("click", function() {
+			url = "insertPairList?pairid=" + members[num].mb.memberId
+					+ "&status=0";
+			console.log(url);
+			let xhttp = new XMLHttpRequest();
+			xhttp.open("Get", url, true);
+			xhttp.setRequestHeader("Pragma", true);
+			xhttp.send();
+			num++;
+			myInnerText();
+		});
 	}
 
 	function pairAjax() {
 		let xhttp = new XMLHttpRequest();
-		xhttp.open("Get", "${pageContext.request.contextPath}/showPairMember", true);
-		xhttp.setRequestHeader("Pagram", true);
-		xhttp.send();
+		xhttp.open("POST", "${pageContext.request.contextPath}/showPairMember",
+				true);
+		xhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		console.log(getQueryString());
+		xhttp.send(getQueryString());
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				members = JSON.parse(xhttp.responseText);
+				console.log(members);
 				num = 0;
 				myInnerText();
 				binding();
 			}
 		}
+	}
+	function getQueryString() {
+		var sex = document.getElementById("sex").value;
+		var city = document.getElementById("city").value;
+		var age1 = document.getElementById("age1").value;
+		var age2 = document.getElementById("age2").value;
+		return "sex=" + sex + "&city=" + city + "&age1=" + age1 + "&age2="
+				+ age2;
 	}
 
 	function chat(id) {
@@ -102,56 +134,135 @@
 						"_blank",
 						"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 	}
+	function del(){
+		let ful = document.getElementById("friends");
+		while (ful.firstChild) {
+			ful.removeChild(ful.firstChild);
+		}
+	}
+	
+	function delAjax(to,from){
+		url = "to=" + to +"&from=" + from;
+		let xhttp = new XMLHttpRequest();
+		xhttp.open("Get", "${pageContext.request.contextPath}/chat/del?" + url, true);
+		xhttp.setRequestHeader("Pragma", true);
+		xhttp.send();
+		
+	}
 
 	function friendAjax() {
+		
 		let xhttp = new XMLHttpRequest();
-		xhttp.open("Get", "${pageContext.request.contextPath}/showFriendList", true);
+		xhttp.open("Get", "${pageContext.request.contextPath}/showFriendList",
+				true);
 		xhttp.setRequestHeader("Pagram", true);
 		xhttp.send();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				friends = JSON.parse(xhttp.responseText);
 				console.log(friends);
-				Object
-						.keys(friends)
-						.forEach(
-								function(k) {
-									console.log(k + ' - ' + friends[k]);
-									var newLi = document.createElement("li");
-									newLi.setAttribute("id", k);
-									var newContent = document
-											.createTextNode(friends[k]);
-									newLi.appendChild(newContent);
-									var imgsrc = "/MeetTogether/getImage?type=member&id="
-											+ k;
-									var friendimg = document
-											.createElement("img");
-									friendimg.setAttribute("src", imgsrc);
-									friendimg.setAttribute("class", "fimg");
-									document.getElementById("friends")
-											.appendChild(newLi);
-									newLi.appendChild(friendimg);
-									document.getElementById(k)
-											.addEventListener("click",
-													function() {
-														var id = this.id;
-														chat(id);
-													});
-								});
 
+				for(let friend of friends){
+					
+					var newLi = document.createElement("li");
+					newLi.setAttribute("id", friend.id);
+					newLi.setAttribute("class","list-group-item d-flex justify-content-between align-items-center");
+					var newLiContent = document.createTextNode(friend.name);
+					newLi.appendChild(newLiContent);
+					
+					var newSpan = document.createElement("span");
+					newSpan.setAttribute("class","badge badge-primary badge-pill");
+					if(friend.unRead){
+					var newSpanContent = document.createTextNode(friend.unRead);
+					newSpan.appendChild(newSpanContent);}
+					
+					var imgsrc = "/MeetTogether/getImage?type=member&id=" + friend.id;
+					var friendimg = document.createElement("img");
+					friendimg.setAttribute("src", imgsrc);
+					friendimg.setAttribute("class", "fimg");
+					
+					document.getElementById("friends").appendChild(newLi);
+					newLi.appendChild(newSpan);
+					newLi.appendChild(friendimg);
+					
+					
+					document.getElementById(friend.id).addEventListener("click",
+							function() {
+								var id = this.id;
+								var currentid = ${sessionScope.userId};
+								delAjax(currentid,this.id);
+								this.childNodes[1].innerText="";
+								chat(id);
+							});
+				}
 			}
 		}
 	}
 
-	function showfiend() {
-		document.getElementById("sidebar").classList.toggle('active');
+	function serachMyFriends() {
+		del();
+
+		var fName = document.getElementById("serachFriend").value;
+		let xhttp = new XMLHttpRequest();
+		xhttp.open("Get",
+				"${pageContext.request.contextPath}/showFriendListByName?fName="
+						+ fName, true);
+		xhttp.setRequestHeader("Pagram", true);
+		xhttp.send();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				serachFriends = JSON.parse(xhttp.responseText);
+				console.log(serachFriends);
+				for(let serachfriend of serachFriends){
+					
+					var newLi = document.createElement("li");
+					newLi.setAttribute("id", serachfriend.id);
+					newLi.setAttribute("class","list-group-item d-flex justify-content-between align-items-center");
+					var newLiContent = document.createTextNode(serachfriend.name);
+					newLi.appendChild(newLiContent);
+					
+					var newSpan = document.createElement("span");
+					newSpan.setAttribute("class","badge badge-primary badge-pill");
+					if(serachfriend.unRead){
+					var newSpanContent = document.createTextNode(serachfriend.unRead);
+					newSpan.appendChild(newSpanContent);}
+					
+					var imgsrc = "/MeetTogether/getImage?type=member&id=" + serachfriend.id;
+					var friendimg = document.createElement("img");
+					friendimg.setAttribute("src", imgsrc);
+					friendimg.setAttribute("class", "fimg");
+					
+					document.getElementById("friends").appendChild(newLi);
+					newLi.appendChild(newSpan);
+					newLi.appendChild(friendimg);
+					
+					
+					document.getElementById(serachfriend.id).addEventListener("click",
+							function() {
+								var id = this.id;
+								var currentid = ${sessionScope.userId};
+								delAjax(currentid,this.id);
+								this.childNodes[1].innerText="";
+								chat(id);
+							});
+
+				}
+			}
+		}
 	}
+
 	document.addEventListener("DOMContentLoaded", function() {
 		pairAjax();
 		friendAjax();
-		document.getElementById("friendList").addEventListener("click",
+		document.getElementById("sex").addEventListener("change", function() {
+			pairAjax();
+		});
+		document.getElementById("city").addEventListener("change", function() {
+			pairAjax();
+		});
+		document.getElementById("serachFriend").addEventListener("change",
 				function() {
-					showfiend();
+					serachMyFriends();
 				});
 
 	});
@@ -167,216 +278,155 @@
 }
 
 .pairImg {
-	height: 100%;
-	width: 100%;
+	height: 300px;
+	width: 500px;
+}
+td{
+	width:125px;
+	border-bottom: 1px solid #ddd;
 }
 
-.pairs {
-	width: 30%;
-	margin: auto;
-}
-
-.pairs inside {
-	width: 100%;
-}
-
-.bd {
-	border: 2px solid black;
-}
-
-.tab {
-	width: 100%;
-}
-
-#sidebar {
-	position: absolute;
-	width: 200px;
-	height: 100%;
-	background: #151719;
-	left: -200px;
-	transition: all 500ms linear;
-	z-index: 5555;
-}
-
-#sidebar.active {
-	left: 0px;
-}
-
-#sidebar ul li {
-	color: rgba(230, 230, 230, 0.9);
-	list-style: none;
-	padding: 15px 10px;
-	border-bottom: 1px solid rgba(100, 100, 100, 0.3);
-}
-
-#sidebar .toggle-btn {
-	position: absolute;
-	left: 230px;
-	top: 20px;
-}
-
-#sidebar .toggle-btn span {
-	display: block;
-	width: 30px;
-	height: 5px;
-	background: #151719;
-	margin: 5px 0px;
-}
 </style>
 </head>
 <body>
+
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<span class="navbar-brand">配對</span>
+			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span>
+				<span class="oi oi-menu"></span> Menu
 			</button>
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a href="${pageContext.request.contextPath}/LoginServlet"
-						class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="about.html" class="nav-link">我的資料</a></li>
-					<li class="nav-item"><a href="pricing.html" class="nav-link">活動</a></li>
-					<li class="nav-item"><span class="nav-link" id="friendList">好友列表</span></li>
-					<li class="nav-item"><a href="blog.html" class="nav-link">文章</a></li>
-					<li class="nav-item"><a href="contact.html" class="nav-link">與我們聯繫</a></li>
-
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="#" class="nav-link" id="friendList">交友</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/GetAllPostServlet"
+						class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+						</c:if></a></li>
+					<li class="nav-item"><c:if test="${!empty userId}">
+						<img style="height: 40px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${!empty userId}">
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<!-- END nav -->
-	<section 
+	<section class="hero-wrap hero-wrap-2 js-fullheight"
 		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/galaxy.jpg');
 				border: 1px solid black;"
 		data-stellar-background-ratio="0.5">
-		<h2>${currentUser.memberBasic.memberId }</h2>
-		<h2>${currentUser.memberBasic.memberName }</h2>
-		<h2>Vip:${vipstatus}</h2>
 	</section>
 	<section class="contact-section" style="border: 1px solid black;">
-		<div id="sidebar">
-			<ul id="friends">
-				<li>好友列表</li>
-			</ul>
-		</div>
 		<div class="container">
-			<h2 class="text-center">配對</h2>
-			<div class="pairs">
-				<div id="container" class="bd" style="width: 100%;">
-					<div id="imgContainer" class="bd">
+			<div class="row">
+				
+				<!-- 左側文章 -->
+				<div style="width: 55%">
+					<!-- 發文 -->
+					<div id="Postbox" class="col-md-8 order-md-last ftco-animate">
+						<h2 class="text-center">配對</h2>
+						<div class="form-row">
+							<div class="col">
+								<label for="sex">性別</label> 
+								<select
+									class="form-control" id="sex">
+									<option value="3">全部</option>
+									<option value="1">男</option>
+									<option value="2">女</option>
+								</select>
+							</div>
+							<div class="col">
+								<label for="city">城市</label> 
+								<select
+									class="form-control" id="city">
+									<option value="everyCity">全部</option>
+									<option value="基隆市">基隆市</option>
+									<option value="台北市">台北市</option>
+									<option value="台北縣">台北縣</option>
+									<option value="桃園縣">桃園市</option>
+									<option value="新竹市">新竹市</option>
+									<option value="新竹縣">新竹縣</option>
+									<option value="苗栗縣">苗栗縣</option>
+									<option value="台中市">台中市</option>
+									<option value="彰化縣">彰化縣</option>
+									<option value="南投縣">南投縣</option>
+									<option value="雲林縣">雲林縣</option>
+									<option value="嘉義市">嘉義市</option>
+									<option value="嘉義縣">嘉義縣</option>
+									<option value="台南市">台南市</option>
+									<option value="高雄市">高雄市</option>
+									<option value="屏東縣">屏東縣</option>
+									<option value="台東縣">台東縣</option>
+									<option value="花蓮縣">花蓮縣</option>
+									<option value="宜蘭縣">宜蘭縣</option>
+									<option value="澎湖縣">澎湖縣</option>
+									<option value="金門縣">金門縣</option>
+									<option value="連江縣">連江縣</option>
+								</select>
+							</div>
+							<div class="col">
+								<p>
+									<label for="age">年齡:</label> <input type="text"
+										id="age" readonly
+										style="border: 0; color: #f6931f; font-weight: bold;">
+										<input type="hidden" id="age1" value="18">
+										<input type="hidden" id="age2" value="99">
+								</p>
+								<div id="slider-range"></div>
+							</div>
+						</div>
 						<img id="pairImg" class="pairImg" />
-					</div>
-					<table class="tab">
-						<tr>
-							<td>姓名:</td>
-							<td id="name"></td>
-							<td>年齡:</td>
-							<td id="age"></td>
-						</tr>
-						<tr>
-							<td>城市</td>
-							<td id="memberCity"></td>
-							<td>興趣:</td>
-							<td id="interest"></td>
-						</tr>
-						<tr>
-							<td><input type="button" value="不喜歡" id="dontlike"></td>
-							<td></td>
-							<td><input type="button" value="喜歡" id="like"></td>
-							<td></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</section>
-	<footer class="ftco-footer ftco-bg-dark" style="margin-top:50px;">
-		<div class="container">
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About Autoroad</h2>
-						<p>Far far away, behind the word mountains, far from the
-							countries Vokalia and Consonantia, there live the blind texts.</p>
-						<ul
-							class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-instagram"></span></a></li>
-						</ul>
+						<table style="width: 500px;height: 50px;">
+							<tr>
+								<td>姓名</td>
+								<td id="name"></td>
+								<td>年齡</td>
+								<td id="memberAge"></td>
+							</tr>
+							<tr>
+								<td>城市</td>
+								<td id="memberCity"></td>
+								<td>興趣</td>
+								<td id="interest"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="button" value="不喜歡" id="dontlike" class="btn btn-info btn-block" /></td>
+								
+								<td colspan="2"><input type="button" value="喜歡" id="like" class="btn btn-danger  btn-block" /></td>
+								
+							</tr>
+						</table>
+						
 					</div>
 				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Information</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">About</a></li>
-							<li><a href="#" class="py-2 d-block">Services</a></li>
-							<li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-							<li><a href="#" class="py-2 d-block">Best Price
-									Guarantee</a></li>
-							<li><a href="#" class="py-2 d-block">Privacy &amp;
-									Cookies Policy</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Customer Support</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">FAQ</a></li>
-							<li><a href="#" class="py-2 d-block">Payment Option</a></li>
-							<li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-							<li><a href="#" class="py-2 d-block">How it works</a></li>
-							<li><a href="#" class="py-2 d-block">Contact Us</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Have a Questions?</h2>
-						<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span
-									class="text">203 Fake St. Mountain View, San Francisco,
-										California, USA</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span
-										class="text">+2 392 3929 210</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span
-										class="text">info@yourdomain.com</span></a></li>
-							</ul>
+				<!-- .col-md-8 -->
+				<!-- 右側選單 -->
+				<div class="col-md-4 sidebar ftco-animate list-group" style="padding-top: 50px; padding-right: 50px;">
+					<div class="row">
+						<span class="">好友列表</span><br>
+						<input type="text" class="form-control" placeholder="搜尋好友" autocomplete="off" id="serachFriend">
+						<div class="sidebar-box ftco-animate" style="padding:0; overflow:scroll; height: 300px;" >
+							<ul class="list-group" id="friends">
+							</ul>						
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12 text-center">
-
-					<p>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;
-						<script>
-							document.write(new Date().getFullYear());
-						</script>
-						All rights reserved | This template is made with <i
-							class="icon-heart color-danger" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					</p>
-				</div>
-			</div>
 		</div>
-		
-	</footer>
+	</section>
+	<jsp:include page="/WEB-INF/views/footer.jsp"/>
 
 
 
@@ -408,6 +458,8 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="${pageContext.request.contextPath}/js/google-map.js"></script>
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="${pageContext.request.contextPath}/js/slider.js"></script>
 
 </body>
 </html>

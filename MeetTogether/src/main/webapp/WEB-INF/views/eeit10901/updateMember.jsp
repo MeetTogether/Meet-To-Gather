@@ -155,9 +155,9 @@ p {
 var jQuery_1_12_4 = $.noConflict();
 	jQuery_1_12_4(document).ready(function() {
 	jQuery_1_12_4("#sex").val('${member.memberSex}');
-	jQuery_1_12_4("#updata").click(function(){
-		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
-		jQuery_1_12_4("#updataMmber").submit();
+// 	jQuery_1_12_4("#updata").click(function(){
+// 		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
+// 		jQuery_1_12_4("#updataMmber").submit();
 	})
 		jQuery_1_12_4("#Postbox").hide();
 		jQuery_1_12_4("#Postbutton").click(function() {
@@ -207,17 +207,17 @@ var jQuery_1_12_4 = $.noConflict();
 
 </head>
 <body>
-	<div id="dialog-confirm" title="升級為VIP會員">
-		<span style="float: left; margin: 12px 12px 20px 0;"> <img
-			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg"
-			style="width: 370px; margin: auto;">
-		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br>
-		<br>
-		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy">
-			<form:input type="hidden" path="mbId" value="${userId}" />
-			<input type="submit" value="前往付款" class="reply">
-		</form:form>
-	</div>
+<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
+<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
+<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
+<!-- 			style="width: 370px; margin: auto;"> -->
+<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
+<!-- 		<br> -->
+<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
+<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
+<!-- 			<input type="submit" value="前往付款" class="reply"> -->
+<%-- 		</form:form> --%>
+<!-- 	</div> -->
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -275,52 +275,59 @@ var jQuery_1_12_4 = $.noConflict();
 			</div>
 		</div>
 	</section>
-	<div align=center>
-		<h2>個人基本資料</h2>
-		<form action="updateMmeber" method="post" id="updataMmber">
+	<div align=center style="background-color:=black">
+		<h2>修改個人基本資料</h2>
+		<form:form modelAttribute="updateInfo" method="post" >
 	
 		<table border='1'>
 			<tr>
-			<img style="height: 200px"
-					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'/>
+			<img style="height: 200px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'/>
 					<tr bgcolor='#ffad00'>
 				
 			<tr>
 				<td>編號
-				<td><input type="text" value="${member.memberId}" id="memberId" disabled="true"/></td>
+				<td><form:input  path="memberId" value="${updateInfo.memberId}"  /></td>
 			<tr>
 				<td>mail
-				<td><input type="text" value="${member.memberEmail}" name="memberEmail" disabled="true"/></td>
+				<td><form:input  path="memberEmail" value="${updateInfo.memberEmail}"  /></td>
 			<tr>
 				<td>密碼
-						<td><input type="password" value="${member.memberPassword}"></td>
+						<td><form:input type="password" path="memberPassword" value="${updateInfo.memberPassword}" /></td>
 				
 			<tr>
 				<td>暱稱
-				<td><input type="text" value="${member.memberName}"></td>
+				<td><form:input  path="memberName" value="${updateInfo.memberName}"/></td>
 				
 			<tr>
 				<td>生日
-				<td><input type="date" value="${member.memberBirth}"></td>
+				<td><form:input type="date" path="memberBirth" value="${updateInfo.memberBirth}"/></td>
 				 
 			<tr>
 				<td>性別</td>
-				<td><select id="sex" >
-				<option value="1">男</option>
-				<option value="0">女</option>
-				</select ></td>
+				<td><form:select path="memberSex" id="sex">
+				<c:choose>
+							<c:when test="${updateInfo.memberSex eq 1 }">
+								<option value="1" selected>男</option>
+								<option value="0">女</option>
+							</c:when>
+							<c:otherwise>
+								<option value="1">男</option>
+								<option value="0" selected>女</option>
+							</c:otherwise>
+						</c:choose>
+				</form:select ></td>
 			<tr>
 				<td>縣市
-				<td><input type="text" value="${member.memberCity}"></td>
+				<td><form:input path="memberCity" value="${updateInfo.memberCity}"/></td>
 				
 		</table>
-		<input type="button" id="updata" value="送出修改">
-		</form>
+		<input type="submit" value="確認修改">
+		</form:form>
 	</div>
 
-	<a href="personal" class="nav-link">輸入個人喜好</a>
-	<a href="personalH" class="nav-link">輸入個人希望條件</a>
-	<a href="addAlbum" class="nav-link">相簿</a>
+	<a href="../personal" class="nav-link">輸入個人喜好</a>
+	<a href="./personalH" class="nav-link">輸入個人希望條件</a>
+	<a href="../addAlbum" class="nav-link">相簿</a>
 
 </body>
 </html>

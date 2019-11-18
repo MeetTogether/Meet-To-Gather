@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10908.model.ActBean;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -58,13 +59,26 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void update(MemberBean m) {
-		if (m != null && m.getMemberId() != null) {
-			Session session = getSession();
-			session.saveOrUpdate(m);
-		}
-		
 
+		public void update(MemberBean m) {
+			 Session session = factory.getCurrentSession();
+//			 String hql = "from MemberBean WHERE memberId = ?0";
+//			 MemberBean result = (MemberBean) session.createQuery(hql).setParameter(0, m.getMemberId()).uniqueResult();
+//			 result.setMemberPassword(m.getMemberPassword());
+//			 result.setMemberEmail(m.getMemberEmail());
+//			 result.setMemberName(m.getMemberName());
+//			 result.setMemberBirth(m.getMemberBirth());
+//			 result.setMemberCity(m.getMemberCity());
+//			 result.setMemberSex(m.getMemberSex());
+			 session.update(m);
+		
+			 
+			 System.out.println("password"+m.getMemberPassword());
+			 System.out.println("eMAIL"+m.getMemberEmail());
+			 System.out.println("生日"+m.getMemberBirth());
+			 System.out.println("縣市"+m.getMemberCity());
+			 
+			 
 	}
 
 	@Override

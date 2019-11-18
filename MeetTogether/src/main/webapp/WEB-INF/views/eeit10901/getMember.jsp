@@ -152,72 +152,65 @@ p {
 }
 </style>
 <script type="text/javascript">
-var jQuery_1_12_4 = $.noConflict();
+	var jQuery_1_12_4 = $.noConflict();
 	jQuery_1_12_4(document).ready(function() {
-	jQuery_1_12_4("#sex").val('${member.memberSex}');
-	jQuery_1_12_4("#updata").click(function(){
-		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
-		jQuery_1_12_4("#updataMmber").submit();
+		jQuery_1_12_4("#sex").val('${member.memberSex}');
+		// 	jQuery_1_12_4("#updata").click(function(){
+		// 		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
+		// 		jQuery_1_12_4("#updataMmber").submit();
 	})
-		jQuery_1_12_4("#Postbox").hide();
-		jQuery_1_12_4("#Postbutton").click(function() {
-			jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
-			/* $('html,body').animate({
-				scrollTop : 0
-			}); 返回到頁面頂端 */
-		});
-		jQuery_1_12_4("#ViewMyPost")
-				.click(
-						function() {
-							top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
-						});
-		jQuery_1_12_4("#ViewAllPost")
-				.click(
-						function() {
-							top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-						});
-		jQuery_1_12_4("input#deletePost")
-				.click(
-						function() {
-							var c = confirm('是否確認刪除');
-							console.log(c);
-							if (c) {
-								jQuery_1_12_4(this).parent(
-										"form#deletePostForm")
-										.submit();
-							} else {
-							}
-						});
-
-		jQuery_1_12_4("#dialog-confirm").hide();
-		jQuery_1_12_4("#vipBuyButton").click(function() {
-			jQuery_1_12_4("#dialog-confirm").dialog({
-				resizable : false,
-				height : "auto",
-				width : 420,
-				modal : true,
-			});
-		});
-		
-		jQuery_1_12_4
-		
-		
+	jQuery_1_12_4("#Postbox").hide();
+	jQuery_1_12_4("#Postbutton").click(function() {
+		jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
+		/* $('html,body').animate({
+			scrollTop : 0
+		}); 返回到頁面頂端 */
 	});
+	jQuery_1_12_4("#ViewMyPost")
+			.click(
+					function() {
+						top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
+					});
+	jQuery_1_12_4("#ViewAllPost")
+			.click(
+					function() {
+						top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
+					});
+	jQuery_1_12_4("input#deletePost").click(function() {
+		var c = confirm('是否確認刪除');
+		console.log(c);
+		if (c) {
+			jQuery_1_12_4(this).parent("form#deletePostForm").submit();
+		} else {
+		}
+	});
+
+	jQuery_1_12_4("#dialog-confirm").hide();
+	jQuery_1_12_4("#vipBuyButton").click(function() {
+		jQuery_1_12_4("#dialog-confirm").dialog({
+			resizable : false,
+			height : "auto",
+			width : 420,
+			modal : true,
+		});
+	});
+
+	jQuery_1_12_4);
 </script>
 
 </head>
 <body>
-	<div id="dialog-confirm" title="升級為VIP會員">
-		<span style="float: left; margin: 12px 12px 20px 0;"> <img
-			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg"
-			style="width: 370px; margin: auto;">
-		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br>
-		<br>
-		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy">
-			<form:input type="hidden" path="mbId" value="${userId}" />
-			<input type="submit" value="前往付款" class="reply">
-		</form:form>
-	</div>
+	<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
+	<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
+	<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
+	<!-- 			style="width: 370px; margin: auto;"> -->
+	<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
+	<!-- 		<br> -->
+	<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
+	<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
+	<!-- 			<input type="submit" value="前往付款" class="reply"> -->
+	<%-- 		</form:form> --%>
+	<!-- 	</div> -->
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -277,14 +270,13 @@ var jQuery_1_12_4 = $.noConflict();
 	</section>
 	<div align=center>
 		<h2>個人基本資料</h2>
-		<form action="updateMmeber" method="post" id="updataMmber">
-	
+
 		<table border='1'>
 			<tr>
-			<img style="height: 200px"
-					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'/>
-					<tr bgcolor='#ffad00'>
-				
+				<img style="height: 250px"
+					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
+
+				<!-- 					<tr bgcolor='#ffad00'> -->
 			<tr>
 				<td>編號
 				<td>${member.memberId}</td>
@@ -293,30 +285,36 @@ var jQuery_1_12_4 = $.noConflict();
 				<td>${member.memberEmail}</td>
 			<tr>
 				<td>密碼
-						<td><input type="password" value="${member.memberPassword}"disabled="true"></td>
-				
+				<td><input type="password" value="${member.memberPassword}"
+					disabled="true"></td>
 			<tr>
 				<td>暱稱
 				<td>${member.memberName}"</td>
-				
 			<tr>
 				<td>生日
 				<td>${member.memberBirth}</td>
-				 
 			<tr>
 				<td>性別</td>
-					
-				<td><select id="sex" disabled="true" style="background-color=#DDDDDD" >
-				<option value="1">男</option>
-				<option value="0">女</option>
-				</select ></td>
+
+				<td><select>
+
+						<c:choose>
+							<c:when test="${member.memberSex == 1 }">
+								<option value="1" selected>男</option>
+							</c:when>
+							<c:otherwise>
+								<option value="0" selected>女</option>
+							</c:otherwise>
+						</c:choose>
+
+
+				</select></td>
 			<tr>
 				<td>縣市
 				<td>${member.memberCity}</td>
-				
 		</table>
-		<input type="button" id="updata" value="送出修改">
-		</form>
+		<a class="btn btn-secondary" href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改資料</a>
+
 	</div>
 
 	<a href="personal" class="nav-link">輸入個人喜好</a>
