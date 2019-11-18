@@ -11,8 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.service.impl.ActService;
 import com.meetogether.eeit10913.model.ReviewBean;
 import com.meetogether.eeit10913.service.ProductService;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
@@ -26,8 +27,14 @@ public class ProductController {
 		this.context = context;
 	}
 
+//	活動的service
+	ActService service1;
+	@Autowired
+	public void setService1(ActService service1) {
+		this.service1 = service1;
+	}
+//  評論的service
 	ProductService service;
-
 	@Autowired
 	public void setService(ProductService service) {
 		this.service = service;
@@ -38,15 +45,19 @@ public class ProductController {
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String getaddReview(Model model, HttpServletRequest request) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-//		ActBean ab = new ActBean();
+
 		ReviewBean rb = new ReviewBean();
-//		model.addAttribute("actBean", ab);
+
+//		model.addAttribute("event",service1.getActivityById(actId));
 		model.addAttribute("reviewBean", rb);
 		return "eeit10913/addProduct";
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-	public String abc(@ModelAttribute("reviewBean") ReviewBean rb) {
+	public String abc(@ModelAttribute("reviewBean") ReviewBean rb, 
+			@RequestParam(value = "eventId") Integer eventId) {
+//		rb.setEvent(service1.getActivityById(eventId));
+		rb.setEventId(eventId);
 		System.out.println(rb.getEventComment());
 		System.out.println(rb.getEventStars());
 		System.out.println("rb1111111:::::::" + rb);

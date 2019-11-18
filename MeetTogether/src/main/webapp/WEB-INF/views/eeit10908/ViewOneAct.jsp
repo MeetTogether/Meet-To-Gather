@@ -467,8 +467,8 @@ jQuery_1_12_4(document).ready(
 									   	</div>
 							   		</div>
 							   		<div class="col-md-5">
-							   			<div class="rating-wrap">
-								   			<h3 class="head">Give a Review</h3>
+							   			<div class="rating-wrap">c
+								   			<h3 class="head"><a href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give a Review</a></h3>
 								   			<div class="wrap">
 									   			<p class="star">
 									   				<span>

@@ -46,5 +46,6 @@ public class ProductController2 {
 			service.update(aa);
 			return "redirect:/allreview";
 		}
+	
 
 }

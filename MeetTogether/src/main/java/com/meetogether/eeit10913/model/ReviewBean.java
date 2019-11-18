@@ -25,7 +25,8 @@ public class ReviewBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer reviewId;
-	private ActBean eventId;
+	private ActBean event;
+	private Integer eventId;
 	private MemberBean member;
 	private String eventComment;
 	private Integer eventStars;
@@ -45,11 +46,20 @@ public class ReviewBean implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "eventId")
-	public ActBean getEventId() {
+	public ActBean getEvent() {
+		return event;
+	}
+
+	public void setEvent(ActBean event) {
+		this.event = event;
+	}
+
+	@Transient
+	public Integer getEventId() {
 		return eventId;
 	}
 
-	public void setEventId(ActBean eventId) {
+	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
 
@@ -97,11 +107,11 @@ public class ReviewBean implements Serializable {
 		this.mbId = mbId;
 	}
 
-	public ReviewBean(Integer reviewId, ActBean eventId, Integer mbId, String eventComment, Integer eventStars,
+	public ReviewBean(Integer reviewId, ActBean event, Integer mbId, String eventComment, Integer eventStars,
 			Timestamp createTime, MemberBean memberBean) {
 		super();
 		this.reviewId = reviewId;
-		this.eventId = eventId;
+		this.event = event;
 		this.mbId = mbId;
 		this.eventComment = eventComment;
 		this.eventStars = eventStars;
@@ -113,6 +123,8 @@ public class ReviewBean implements Serializable {
 	public ReviewBean() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 //json
 //	@Override

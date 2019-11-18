@@ -13,6 +13,7 @@ import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
+import com.meetogether.eeit10913.service.ProductService;
 import com.meetogether.eeit10927.service.IMessageService;
 
 @Repository
@@ -27,7 +28,8 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Autowired
 	IMessageService msgService;
- 	
+	@Autowired
+	ProductService pService;
  	
 	@Override
 	public void add(ReviewBean review) {
@@ -35,9 +37,11 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		System.out.println("review=============================="+review);
 		MemberBean mb = msgService.getMemberById(review.getMbId());
+		ActBean actBean = pService.getActivityById(review.getEventId());
 //		MemberBean mb = getMemberById(review.getMember().getMemberId());
 //		System.out.println("=============================="+review.getMember().getMemberId());
 		review.setMember(mb);
+		review.setEvent(actBean);
 		session.save(review);
 	}
 	

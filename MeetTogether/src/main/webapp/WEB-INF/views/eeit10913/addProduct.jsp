@@ -356,7 +356,18 @@ body {
 							<form:input path="mbId" value="${userId}" type='hidden'
 								class='form:input-large' />
 						</div>
-
+<!-- 						抓取活動id -->
+<!-- 						<div class="form-group" style="font-size: 16px; color: black;"> -->
+<!-- 							<label>活動ID</label> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<input type="text" class="form-control" value=${reviewBean.eventId} -->
+<!-- 								readonly="readonly"> -->
+<%-- 							<form:input path="eventId" value="${reviewBean.eventId}" type='hidden' --%>
+<%-- 								class='form:input-large' />  --%>
+<!-- 						</div> -->
+						
+						<!-- 選擇評分 -->
 						<div class="form-group">
 							<label for="exampleFormControlSelect1">請選擇您的評分</label>
 
@@ -380,14 +391,7 @@ body {
 							<td><span id="msg_eventComment" class='msgWrong'></span>
 						</div>
 						
-						<div class="form-group">
-<!-- 							<label>time</label> -->
-						</div>
-<!-- 						<div class="form-group"> -->
-							
-<%-- 						<form:input path="createtime"  type='hidden' --%>
-<%-- 								class='form:input-large' /> --%>
-<!-- 						</div> -->
+					
 						
 						<div class="form-group">
 							<input class="form-group" type="submit" value="送出評論"
