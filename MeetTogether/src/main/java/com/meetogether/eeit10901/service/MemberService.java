@@ -1,5 +1,6 @@
 package com.meetogether.eeit10901.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.ui.Model;
@@ -26,5 +27,7 @@ public interface MemberService {
 	public MemberBean getMemberById(Integer memberId);
 
 	Integer updeatVerifyMail(Integer memberId);
+
+ 
 	
 }
