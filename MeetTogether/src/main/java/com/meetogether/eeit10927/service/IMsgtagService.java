@@ -18,5 +18,7 @@ public interface IMsgtagService {
 	List<Message> getMsgByTagName(String tagName);
 	
 	void deleteMsgTagByMsgId(Integer msgId);
+	
+	List<Msgtag> getMsgtagByQuery(String query);
 
 }

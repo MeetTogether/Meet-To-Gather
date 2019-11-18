@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.service.IMessageService;
@@ -192,6 +193,18 @@ IMessageDao dao;
 	@Override
 	public int getMsgCntByType(Integer typeId) {
 		return dao.getMsgCntByType(typeId);
+	}
+
+	@Transactional
+	@Override
+	public List<MemberBean> getNewMember() {
+		return dao.getNewMember();
+	}
+
+	@Transactional
+	@Override
+	public List<ActBean> getPopActivity() {
+		return dao.getPopActivity();
 	}
 
 

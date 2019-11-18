@@ -6,7 +6,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>MeetTogether - 討論區 - 編輯文章</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -42,12 +43,22 @@ p {
 	line-height: 1.5;
 	border: 1px solid #ced4da;
 }
+.Vinput_tag {
+	height: 52px !important;
+	font-size: 18px;
+	border-radius: 5px;
+	width: 50%;
+	padding: 0.375rem 0.75rem;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid #ced4da;
+}
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#Postbox").hide();
 		$("#Postbutton").click(function() {
-			jQ("#Postbox").toggle("blind"); /* 展開發文表單 */
+			$("#Postbox").toggle("blind"); /* 展開發文表單 */
 			/* $('html,body').animate({
 				scrollTop : 0
 			}); 返回到頁面頂端 */
@@ -109,7 +120,7 @@ p {
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<img style="height: 40px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
@@ -150,7 +161,7 @@ p {
 				<!-- 右側文章 -->
 				<div style="width: 66%">
 					<!-- 發文 -->
-					<jsp:include page="../fragment/postMsg.jsp"/>
+<%-- 					<jsp:include page="../fragment/postMsg.jsp"/> --%>
 
 					<!-- 一則文章 -->
 <%-- 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt"> --%>
@@ -200,7 +211,7 @@ p {
 												<td>文章標籤(最多5個)
 												<td><div class="input_fields_wrap_verify">
 													<c:forEach items="${msgBean.msgtag }" var="tags" varStatus="cnt">
-														<div><form:input type="text" path="msgTagName" class="input_tag" value="${tags.tagName}" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>
+														<div><form:input type="text" path="msgTagName" class="Vinput_tag" value="${tags.tagName}"  autocomplet="off" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>
 														<c:set var="countTag" value="${cnt.count}" />
 													</c:forEach>
 													<input type="hidden" name="tagCnt" id="tagCnt" value="${countTag}">
@@ -218,7 +229,7 @@ p {
 															e.preventDefault();
 															if (x_verify < max_fields) {
 																x_verify++;
-																$(wrapper_verify).append('<div><form:input type="text" path="msgTagName" class="input_tag" placeholder="#tag here" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>');
+																$(wrapper_verify).append('<div><form:input type="text" path="msgTagName" class="Vinput_tag" placeholder="#tag here" autocomplet="off" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>');
 															}
 														});
 														$(wrapper_verify).on("click", ".remove_field", function(e) {
@@ -341,6 +352,7 @@ p {
 				}
 			});
 		}
+		
 	});
 	
 </script>

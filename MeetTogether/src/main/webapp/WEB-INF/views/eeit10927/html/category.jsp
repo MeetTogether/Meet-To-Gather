@@ -19,6 +19,12 @@
 			<form:options items="${msgType}" />
 		</form:select>
 	</form:form> --%>
+	
+	<form action="./getMsgtagByQuery" method="GET">
+		<input type="text" name="tagQuery">
+		<input type="submit" value="submit">
+	</form>	
+	
 	<h3>背景原文</h3>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" >

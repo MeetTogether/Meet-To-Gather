@@ -1,58 +1,124 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
+<title>MeetTogether - 首頁</title>
 <meta charset="UTF-8">
-<title>MeetTogether</title>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/eeit10927/js/login.js"></script>
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-	rel="stylesheet">
-
-<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="css/animate.css">
-
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-
-<link rel="stylesheet" href="css/aos.css">
-
-<link rel="stylesheet" href="css/ionicons.min.css">
-
-<link rel="stylesheet" href="css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/aos.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
-#thumb {
-	height: 40px;
+.reply_a {
+	padding: 5px 10px;
+	/*background: #18e2eb45;*/
+	background: #ffc107;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+	width: 45%;
 }
-/* li { */
-/* 	float: left; */
-/* 	width: 7em; */
-/* 	color: #FFAA33; */
-/* 	font-family:monospace; */
-/* } */
-
+.reply {
+	padding: 5px 10px;
+	background: #ffc1075e;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+	width: 45%;
+}
+.reply_n {
+	padding: 5px 10px;
+	background: #ACD6FF;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+	width: 45%;
+}
+.reply_a:hover {
+	color: #fff;
+	/*background: #18e2ebb5;*/
+	background: #fd7e14;
+}
+.reply:hover {
+	color: #fff;
+	background: #FF5151;
+}
+.reply_n:hover {
+	color: #fff;
+	background: #2894FF;
+}
+.testimony-wrap{
+	background: #ff00000f;
+}
+/*
+.p-4{
+	background: #0384f30f;
+	background: #c3f3031c;
+}*/
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+	autoRun();
+	run();
+	function clickact(myObj){
+		 myObj.innerHTML="已參加";
+		 console.log(myObj);
+	}
+	var num = 0;
+	function autoRun() {
+		for (var i = 1; i <= 7; i++) {
+			var nDivId = '#m'+i;
+			$(nDivId).css('display',"none");
+		}
+		if (num < 7)
+			num++;
+		else
+			num = 1;
+		var DivId = '#m'+num;
+		$(DivId).css('display',"block");
+	}
+	function run() {
+		myInterval = window.setInterval(autoRun, 3000);
+	}
+	
+});
+</script>
 </head>
 <body>
-<nav
+
+	<!-- nav -->
+	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-		
-			<a class="navbar-brand"
-				href="http://localhost:8080/MeetTogether/register">Meet <span>Together</span></a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -60,260 +126,153 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto" id="menu">
-					<li class="nav-item active"><a href="index.html"
-						class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="pricing.html" class="nav-link">活動</a></li>
-					<li class="nav-item">
-							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
-						</li>
-
-					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
-
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
-
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img id="thumb"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<!-- END nav -->
-	<div class="hero-wrap"
-		style="background-image: url('images/friend.jpg');"
+	
+	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m1"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg01.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div
-				class="row no-gutters slider-text justify-content-start align-items-center">
-				<div class="col-lg-6 col-md-6 ftco-animate d-flex align-items-end">
-					<div class="text">
-						<h1 class="mb-4">
-							Now <span>Meet</span> <span>Together</span>
-						</h1>
-						<p style="font-size: 18px;">A world wide community to meet
-							friends and friends</p>
-							
-							</div>
-				</div>
-				<div class="col-lg-2 col"></div>
-				<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
-					<div class="form-group">
-<%-- 					<form:form  type="hidden" method="POST" class="request-form ftco-animate" --%>
-<%-- 							modelAttribute="memberBean" id="loginForm" --%>
-<%-- 							action="./LoginServlet" > --%>
-<%-- 						</form:form> --%>
-					</div>
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span>
+					</p>
+					<h1 class="mb-3 bread">首頁</h1>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<section class="ftco-section">
-		<div class="container-fluid px-4">
-			<div class="row justify-content-center">
-				<div class="col-md-12 heading-section text-center ftco-animate mb-5">
-					<span class="subheading">選擇你想參加的活動</span>
-					<h2 class="mb-2">正在舉辦的熱門活動</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-1.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Audi</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-2.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Ford</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-3.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Cheverolet</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-4.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Mercedes</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-5.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Audi</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-6.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Ford</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-7.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Cheverolet</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="car-wrap ftco-animate">
-						<div class="img d-flex align-items-end"
-							style="background-image: url(images/car-8.jpg);">
-							<div class="price-wrap d-flex">
-								<span class="rate">$25</span>
-								<p class="from-day">
-									<span>From</span> <span>/Day</span>
-								</p>
-							</div>
-						</div>
-						<div class="text p-4 text-center">
-							<h2 class="mb-0">
-								<a href="#">Mercedes Grand Sedan</a>
-							</h2>
-							<span>Mercedes</span>
-							<p class="d-flex mb-0 d-block">
-								<a href="#" class="btn btn-black btn-outline-black mr-1">Book
-									now</a> <a href="#" class="btn btn-black btn-outline-black ml-1">Details</a>
-							</p>
-						</div>
-					</div>
+	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m2"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg02.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span>
+					</p>
+					<h1 class="mb-3 bread">首頁</h1>
 				</div>
 			</div>
 		</div>
-	</section>
-
+	</div>
+	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m3"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg05.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span>
+					</p>
+					<h1 class="mb-3 bread">首頁</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m4"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg07.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span>
+					</p>
+					<h1 class="mb-3 bread">首頁</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m5"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg08.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span>
+					</p>
+					<h1 class="mb-3 bread">首頁</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m6"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg09.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span>
+					</p>
+					<h1 class="mb-3 bread">首頁</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero-wrap hero-wrap-2 js-fullheight" id="m7"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
+		data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span>
+					</p>
+					<h1 class="mb-3 bread">首頁</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<section class="ftco-section testimony-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5">
@@ -325,76 +284,62 @@
 			<div class="row ftco-animate">
 				<div class="col-md-12">
 					<div class="carousel-testimony owl-carousel ftco-owl">
+					<c:forEach var='newMember' items="${newMembers}">
 						<div class="item">
 							<div class="testimony-wrap text-center py-4 pb-5">
 								<div class="user-img mb-4"
-									style="background-image: url(images/person_1.jpg)"></div>
+									style="background-image: url(${pageContext.request.contextPath}/getImage?id=${newMember.memberId}&type=member)"></div>
 								<div class="text pt-4">
+									<p class="name">${newMember.memberName }</p>
 									<p class="mb-4">Far far away, behind the word mountains,
 										far from the countries Vokalia and Consonantia, there live the
 										blind texts.</p>
-									<p class="name">Roger Scott</p>
-									<span class="position">Marketing Manager</span>
+									<p class="d-flex mb-0 d-block">
+										<a href="###" class="reply_n">不喜歡</a>&ensp;&ensp;
+										<a href="###" class="reply">喜歡</a>
+									</p>
 								</div>
 							</div>
 						</div>
-						<div class="item">
-							<div class="testimony-wrap text-center py-4 pb-5">
-								<div class="user-img mb-4"
-									style="background-image: url(images/person_2.jpg)"></div>
-								<div class="text pt-4">
-									<p class="mb-4">Far far away, behind the word mountains,
-										far from the countries Vokalia and Consonantia, there live the
-										blind texts.</p>
-									<p class="name">Roger Scott</p>
-									<span class="position">Interface Designer</span>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="testimony-wrap text-center py-4 pb-5">
-								<div class="user-img mb-4"
-									style="background-image: url(images/person_3.jpg)"></div>
-								<div class="text pt-4">
-									<p class="mb-4">Far far away, behind the word mountains,
-										far from the countries Vokalia and Consonantia, there live the
-										blind texts.</p>
-									<p class="name">Roger Scott</p>
-									<span class="position">UI Designer</span>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="testimony-wrap text-center py-4 pb-5">
-								<div class="user-img mb-4"
-									style="background-image: url(images/person_1.jpg)"></div>
-								<div class="text pt-4">
-									<p class="mb-4">Far far away, behind the word mountains,
-										far from the countries Vokalia and Consonantia, there live the
-										blind texts.</p>
-									<p class="name">Roger Scott</p>
-									<span class="position">Web Developer</span>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="testimony-wrap text-center py-4 pb-5">
-								<div class="user-img mb-4"
-									style="background-image: url(images/person_1.jpg)"></div>
-								<div class="text pt-4">
-									<p class="mb-4">Far far away, behind the word mountains,
-										far from the countries Vokalia and Consonantia, there live the
-										blind texts.</p>
-									<p class="name">Roger Scott</p>
-									<span class="position">System Analyst</span>
-								</div>
-							</div>
-						</div>
+					</c:forEach>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
+	
+	<section class="ftco-section">
+		<div class="container-fluid px-4">
+			<div class="row justify-content-center">
+				<div class="col-md-12 heading-section text-center ftco-animate mb-5">
+					<span class="subheading">選擇你想參加的活動</span>
+					<h2 class="mb-2">正在舉辦的熱門活動</h2>
+				</div>
+			</div>
+			<div class="row">
+			<c:forEach var='acts' items="${actBeanList}">
+				<div class="col-md-3">
+					<div class="car-wrap ftco-animate">
+						<div class="img d-flex align-items-end"
+							style="background-image: url(${pageContext.request.contextPath}/getImage?id=${acts.eventId}&type=act);">
+						</div>
+						<div class="text p-4 text-center">
+							<h2 class="mb-0">
+								<a href="#">${acts.eventName}</a>
+							</h2>
+							<span>scheduled time<br>${acts.eventTime}</span>
+							<p class="d-flex mb-0 d-block">
+								<a href="###" class="reply_a" id="joinact" onclick="clickact(this)">參加活動</a>&ensp;&ensp;
+								<a href="ByActivity?getId=${acts.eventId}" class="reply_a">活動細節</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+			</div>
+		</div>
+	</section>
+	
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5">
@@ -404,136 +349,38 @@
 				</div>
 			</div>
 			<div class="row d-flex">
+			<c:forEach var='popMsg' items="${popMsgs}">
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry justify-content-end">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('images/image_1.jpg');"> </a>
+						<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}" class="block-20"
+							style="background-image: url(${pageContext.request.contextPath}/getImage?id=${popMsg.msgId}&type=message);"> </a>
 						<div class="text pt-4">
 							<div class="meta mb-3">
 								<div>
-									<a href="#">July. 24, 2019</a>
+									<a href="#">${popMsg.createTimeFormat}</a>
 								</div>
 								<div>
-									<a href="#">Admin</a>
+									<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${popMsg.member.memberId}"><span class="icon-person"></span>${popMsg.member.memberName}</a>
 								</div>
 								<div>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span>
-										3</a>
+									<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}"><span class="icon-chat"></span>${popMsg.replyCount}</a>
 								</div>
 							</div>
 							<h3 class="heading mt-2">
-								<a href="#">Why Lead Generation is Key for Business Growth</a>
+								<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}">${popMsg.msgTitle }</a>
 							</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia.</p>
+							<p>${popMsg.msgTextShort }
+							<p><a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}">閱讀更多<span class="icon-long-arrow-right"></span></a></p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry justify-content-end">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('images/image_2.jpg');"> </a>
-						<div class="text pt-4">
-							<div class="meta mb-3">
-								<div>
-									<a href="#">July. 24, 2019</a>
-								</div>
-								<div>
-									<a href="#">Admin</a>
-								</div>
-								<div>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span>
-										3</a>
-								</div>
-							</div>
-							<h3 class="heading mt-2">
-								<a href="#">Why Lead Generation is Key for Business Growth</a>
-							</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 d-flex ftco-animate">
-					<div class="blog-entry">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('images/image_3.jpg');"> </a>
-						<div class="text pt-4">
-							<div class="meta mb-3">
-								<div>
-									<a href="#">July. 24, 2019</a>
-								</div>
-								<div>
-									<a href="#">Admin</a>
-								</div>
-								<div>
-									<a href="#" class="meta-chat"><span class="icon-chat"></span>
-										3</a>
-								</div>
-							</div>
-							<h3 class="heading mt-2">
-								<a href="#">Why Lead Generation is Key for Business Growth</a>
-							</h3>
-							<p>A small river named Duden flows by their place and
-								supplies it with the necessary regelialia.</p>
-						</div>
-					</div>
-				</div>
+			</c:forEach>
 			</div>
 		</div>
 	</section>
 
-	<footer class="ftco-footer ftco-bg-dark ftco-section">
-		<div class="container">
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About MeetTogether</h2>
-						<p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-						<ul
-							class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-instagram"></span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Information</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">首頁</a></li>
-							<li><a href="#" class="py-2 d-block">交友</a></li>
-							<li><a href="#" class="py-2 d-block">活動</a></li>
-							<li><a href="#" class="py-2 d-block">討論區</a></li>
-							<li><a href="#" class="py-2 d-block">會員資料</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Have a Questions?</h2>
-						<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span
-									class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span
-										class="text">02 6631 6666</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span
-										class="text">info@iiiedu.org.tw</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</footer>
-
+	<!-- footer引入 -->
+	<jsp:include page="/WEB-INF/views/footer.jsp"/>
 
 
 	<!-- loader -->

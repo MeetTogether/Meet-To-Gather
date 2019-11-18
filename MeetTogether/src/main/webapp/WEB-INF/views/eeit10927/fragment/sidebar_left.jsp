@@ -8,7 +8,14 @@
 		<h3 id="Postbutton" class="point">+ 發表文章</h3>
 		<h3 id="ViewMyPost" class="point">+ 看自己的文章&ensp;</h3>
 		<h3 id="ViewAllPost" class="point">+ 看所有文章</h3>
-		<button type="button" class="reply" data-toggle="modal" data-target="#vipModalLong">升級VIP GO!</button>
+		<c:choose>
+			<c:when test="${vipTag ne true }">
+				<button type="button" class="reply" data-toggle="modal" data-target="#vipModalLong">升級VIP GO!</button>
+			</c:when>
+			<c:otherwise>
+				<button type="button" class="reply" data-toggle="modal" data-target="#vipModalLong">延長VIP GO!</button>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<div class="sidebar-box ftco-animate">
 		<div class="categories">
