@@ -381,6 +381,15 @@ body {
 						</div>
 						
 						<div class="form-group">
+<!-- 							<label>time</label> -->
+						</div>
+<!-- 						<div class="form-group"> -->
+							
+<%-- 						<form:input path="createtime"  type='hidden' --%>
+<%-- 								class='form:input-large' /> --%>
+<!-- 						</div> -->
+						
+						<div class="form-group">
 							<input class="form-group" type="submit" value="送出評論"
 								class="btn btn-primary py-3 px-5" />
 

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import com.meetogether.eeit10901.model.MemberBean;
@@ -28,7 +30,6 @@ public class ReviewBean implements Serializable {
 	private String eventComment;
 	private Integer eventStars;
 	private Integer mbId;
-	@Column(name="createTime", insertable=false,updatable=false)
 	private Timestamp createTime;
 
 	@Id
@@ -52,6 +53,7 @@ public class ReviewBean implements Serializable {
 		this.eventId = eventId;
 	}
 
+	@Column(name="createTime", insertable=false,updatable=false)
 	public Timestamp getCreateTime() {
 		return createTime;
 	}
