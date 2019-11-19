@@ -143,15 +143,7 @@ public class MsgreplyController {
 		return tagList;
 	}
 	
-	@RequestMapping(value = "/getMsgtagByQuery", method = RequestMethod.GET, produces = { "application/json" })
-	public @ResponseBody Set<String> getMsgtagByQuery(@RequestParam(value="tagQuery") String tagQuery) {
-		List<Msgtag> result = mtagService.getMsgtagByQuery(tagQuery); 
-		Set<String> tagList = new HashSet<String>();
-		for (Msgtag tag : result) {
-			tagList.add(tag.getTagName());
-		}
-		return tagList;
-	}
+
 	
 	@ModelAttribute("msgType")
 	public Map<Integer, String> getMsgTypeList() {

@@ -170,7 +170,7 @@ p {
 		    });
 		});
 </script>
-<meta http-equiv="refresh" content="3;url="http://localhost:8080/MeetTogether />
+<meta http-equiv="refresh" content="2;url=${pageContext.request.contextPath}/">
 </head>
 <body style="background-color:#FFAA33">
 <div id="dialog-confirm" title="升級為VIP會員">
