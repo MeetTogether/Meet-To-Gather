@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -432,7 +432,8 @@ p {
 	</section>
 
 	<c:forEach var='reviewBean' items='${review}'>
-	<marquee onMouseOver="this.stop()" onMouseOut="this.start()" height="50" direction="right" scrolldelay="4" scrollamount="5">要跑的文字${reviewBean.member.memberId}</marquee>
+		<marquee onMouseOver="this.stop()" onMouseOut="this.start()"
+			height="50" direction="right" scrolldelay="4" scrollamount="5">要跑的文字${reviewBean.member.memberId}</marquee>
 	</c:forEach>
 	<section class="ftco-section ftco-car-details">
 		<div class="container">
@@ -454,10 +455,13 @@ p {
 											class=""></li>
 									</ol>
 									<div class="carousel-inner">
+									<a href="http://localhost:8080/MeetTogether/ByActivity?getId=2">
 										<div class="carousel-item active">
-											<img class="d-block w-100"
+											
+												<img class="d-block w-100"
 												src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg.jpg"
 												alt="First slide">
+											
 											<div class="carousel-caption d-none d-md-block">
 												<h4>
 													<i class="material-icons">location_on</i> Yellowstone
@@ -465,6 +469,7 @@ p {
 												</h4>
 											</div>
 										</div>
+										</a>
 										<div class="carousel-item">
 											<img class="d-block w-100"
 												src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg2.jpg"
@@ -691,7 +696,7 @@ p {
 													<h4>
 														<p>
 															<b style='font-size: 16px;'>會員編號:
-																${reviewBean.member.memberId}</b>
+																${reviewBean.member.memberName}</b>
 														</p>
 													</h4>
 
@@ -729,11 +734,11 @@ p {
 									<div class="col-md-5">
 										<div class="rating-wrap">
 											<h3 class="head">Give a Review</h3>
-<!-- 											<a id=condition -->
-<%-- 												href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />" --%>
-<!-- 												class="btn btn-primary"> <span -->
-<!-- 												class="glyphicon-info-sigh glyphicon"></span>Give a Review -->
-<!-- 											</a> -->
+											<!-- 											<a id=condition -->
+											<%-- 												href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />" --%>
+											<!-- 												class="btn btn-primary"> <span -->
+											<!-- 												class="glyphicon-info-sigh glyphicon"></span>Give a Review -->
+											<!-- 											</a> -->
 											<div class="wrap">
 												<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5</b>
 												<p class="star">
@@ -741,35 +746,35 @@ p {
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 														(98%)
-													</span> <span>20 Reviews</span>
+													</span> ${five} <span></span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 														(85%)
-													</span> <span>10 Reviews</span>
+													</span> <span>${four}</span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 														(70%)
-													</span> <span>5 Reviews</span>
+													</span> <span>${three}</span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 														(10%)
-													</span> <span>0 Reviews</span>
+													</span> <span>${two}</span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 														(0%)
-													</span> <span>0 Reviews</span>
+													</span> <span>${one}</span>
 												</p>
 											</div>
 

@@ -315,25 +315,43 @@ body {
 				<td>會員名
 				<td>
 				<p class="star">
-					<b style='font-size: 16px;'>${editProduct.member.memberId}</b><form:input type="hidden" path="member.memberId"
+					<b style='font-size: 16px;'>${editProduct.member.memberName}</b><form:input type="hidden" path="member.memberName"
+							value="${editProduct.member.memberName}" />
+				</p>
+				<p class="star">
+				<form:input type="hidden" path="member.memberId"
 							value="${editProduct.member.memberId}" />
 				</p>
 
 				<tr>
 					<!-- 				path抓reviewBean裡的值,value抓表單已有的值 -->
 					<td>評論編號
-					<td><form:input type="text" path="reviewId"
+					<td>	<b style='font-size: 16px;'>${editProduct.reviewId}</b><form:input type="hidden" path="reviewId"
 							value="${editProduct.reviewId}" />
 						<p>
 				<tr>
 					<td>活動評論:
-					<td><form:input type="text" path="eventComment"
-							value="${editProduct.eventComment}" />
+				<td><%-- 	<form:input type="text" path="eventComment" --%>
+<%-- 							value="${editProduct.eventComment}" /> --%>
+							<form:textarea path="eventComment" id="eventComment" cols="50"
+								rows="5" style="border: 1px black solid;" value="${editProduct.eventComment}" ></form:textarea>
 						<p>
 				<tr>
 					<td>星等:
-					<td><form:input type="text" path="eventStars"
-							value="${editProduct.eventStars}" />
+					<td>
+<%-- 					<form:input type="text" path="eventStars" --%>
+<%-- 							value="${editProduct.eventStars}" /> --%>
+
+							<form:select path="eventStars" id="exampleFormControlSelect1"
+								name="rate" value="${editProduct.eventStars}">
+
+								<form:option value="1">1</form:option>
+								<form:option value="2">2</form:option>
+								<form:option value="3">3</form:option>
+								<form:option value="4">4</form:option>
+								<form:option value="5">5</form:option>
+							</form:select>
+						
 						<p>
 						
 			</table>
