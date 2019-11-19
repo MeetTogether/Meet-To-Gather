@@ -40,7 +40,8 @@ public class AlbumController {
 	
 	@RequestMapping(value = "/addAlbum", method = RequestMethod.GET)
 	public String getaddAlbum(Model model) {
-		MemberAlbum mm = new MemberAlbum();
+		MemberAlbumPk albumpk = new MemberAlbumPk();
+		MemberAlbum mm = new MemberAlbum(albumpk);
 		model.addAttribute("albumbean", mm);
 		return "eeit10901/addAlbum";
 	}
@@ -53,16 +54,18 @@ public class AlbumController {
 			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
 
-		MultipartFile picture = album.getAlbumImage();
-		String originalFilename = picture.getOriginalFilename();
-//		album.setFileName(originalFilename);
+		MultipartFile picture = album.getAlbumImage();//拿到照片
+		String originalFilename = picture.getOriginalFilename();//取檔名出來
+		album.getPk().setFileName(originalFilename);//把檔名放到pk 再放到album裡面
+//		MemberAlbumPk albumpk = new MemberAlbumPk();
+//		albumpk.setFileName(originalFilename);
 //		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 //		String rootDirectory = context.getRealPath("/");
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
-		if (picture != null && !picture.isEmpty()) {
+		if (picture != null && !picture.isEmpty()) {//處理照片
 			try {
 				byte[] b = picture.getBytes();
-				Blob blob = new SerialBlob(b);
+				Blob blob = new SerialBlob(b);//blog的形式寫到資料庫
 				album.setPhoto(blob);
 			} catch (Exception e) {
 				e.printStackTrace();
