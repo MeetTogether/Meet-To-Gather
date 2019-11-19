@@ -38,8 +38,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
-
+import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.service.impl.ActService;
 import com.meetogether.eeit10927.model.Member;
+import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
 
 
@@ -60,13 +62,25 @@ public class MemberController {
 	public void setService(MemberService service) {
 		this.mservice = service;
 	}
+	
+	@Autowired
+	ActService actService;
+	
+	@Autowired
+	IMessageService msgService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMemberLoginForm(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
+			List<ActBean> beans = actService.getAllAct();	
+			model.addAttribute("actBeanList", beans);
+			List<MemberBean> memberBeans = msgService.getNewMember();
+			model.addAttribute("newMembers", memberBeans);
+			List<com.meetogether.eeit10927.model.Message> msgBeans = msgService.getPopularMsg();
+			model.addAttribute("popMsgs", msgBeans);
 			return "indexLoging";
 		}
-		Member member = new Member();
+		MemberBean member = new MemberBean();
 		model.addAttribute("memberBean", member);
 		return "index";
 	}

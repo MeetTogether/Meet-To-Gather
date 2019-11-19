@@ -170,6 +170,7 @@ p {
 		    });
 		});
 </script>
+<meta http-equiv="refresh" content="2;url=${pageContext.request.contextPath}/">
 </head>
 <body>
 <div id="dialog-confirm" title="升級為VIP會員">
@@ -280,7 +281,7 @@ p {
 
 
 
-<a href="http://localhost:8080/MeetTogether/register">將自動轉回登入畫面</a>
+<a href="http://localhost:8080/MeetTogether/">將自動轉回登入畫面</a>
 
 <footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
