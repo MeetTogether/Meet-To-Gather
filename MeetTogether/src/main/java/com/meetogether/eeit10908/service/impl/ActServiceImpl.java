@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.meetogether.eeit10908.dao.impl.ActDao;
 import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.model.ActJoinBean;
 import com.meetogether.eeit10908.model.CatBean;
 
 
@@ -80,6 +81,20 @@ public class ActServiceImpl implements ActService {
 	public void updateActImageFilename(Integer actId, String filename) {
 		custDao.updateActImageFilename(actId, filename);
 		
+	}
+
+
+	@Override
+	public void addActJoin(ActJoinBean actJ) {
+		custDao.addActJoinx(actJ);
+		
+	}
+
+
+	@Override
+	public List<ActJoinBean> CheckJoinPersons(Integer memberId) {
+			
+		return custDao.CheckJoinPerson(memberId);
 	}
 
 }

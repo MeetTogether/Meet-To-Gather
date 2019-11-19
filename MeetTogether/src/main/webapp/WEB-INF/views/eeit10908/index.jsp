@@ -37,8 +37,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title> 活 動 總 表 </title>
 
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="UTF-8">
 <script>
  	function getTodayDate() {
@@ -97,6 +95,7 @@
 	 console.log(myObj);
  }
  
+
  
  var jQuery_1_12_4 = $.noConflict();
 	
@@ -323,22 +322,23 @@ p {
 				<ul class="navbar-nav ml-auto">
 <%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="/MeetTogether/pairs/" class="nav-link">交友</a></li>
 					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+					
+					
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
-
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img id="thumb" style="height: 40px"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -377,12 +377,12 @@ p {
 		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?eventCat=${catList.key}">
 	
 		<div class="dropdown">
-		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px;">
+		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px; align:center;">
 		<span class="caret"></span>
 				<div class="dropdown-content">
-				<form:option value="-1" label="請選擇" style="align:left;"/>
+				<form:option value="-1" label="請選擇" />
 				
-				<form:options items="${catList}" style="align:center;"/>
+				<form:options items="${catList}" />
 				</div>
 		
 		</form:select>
@@ -418,8 +418,32 @@ p {
     					</div>
     					<div class="text p-4 text-center">
     						<h2 class="mb-0"><a href="car-single.html">${acts.eventName}</a></h2>
-    						<span>scheduled start tine:${acts.eventTime}</span>
-    						<p class="d-flex mb-0 d-block"><a href="###" class="btn btn-black btn-outline-black mr-1" id="joinact" onclick="clickact(this)">參加活動</a> <a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a></p>
+    						<span>scheduled start time:${acts.eventTime}</span>
+    						
+    						<c:set var="done" value="false" />
+    						
+    						<c:forEach items="${ActJoinBeans}" var="ActJoinBean">
+								<c:if test="${acts.eventId eq ActJoinBean.eventBean.eventId}">    						
+    								<c:set var="done" value="true" />	
+    							</c:if>
+    						</c:forEach>
+    						
+    						
+    						<c:choose>
+    						<c:when  test="${done}">
+    							<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/JoinAct?getActId=${acts.eventId}" 
+								class="btn btn-black btn-outline-black mr-1" id="joinact" disabled="disabled">已參加</a>
+    						</c:when>
+  						
+    						
+    						<c:otherwise>
+								<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/JoinAct?getActId=${acts.eventId}" 
+								class="btn btn-black btn-outline-black mr-1" id="joinact" onload="clickact(this)">參加活動</a> 
+    						</c:otherwise>
+    						</c:choose>
+    						
+    						
+    						<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a></p>
     					</div>
     				</div>
     			</div>
@@ -483,7 +507,7 @@ p {
 		     <form:form method="post" 
  			modelAttribute="actBean" enctype="multipart/form-data">
 				<span style="text-align:left;">主辦人:</span>
-					${member.memberName}<p>
+					${actBean.memberId.memberName}<p>
 		     	活動名稱:<p>
 					<form:input type="text" path="eventName"/><p>
 		     	活動類型:<p>

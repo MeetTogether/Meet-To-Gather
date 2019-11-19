@@ -25,7 +25,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-
 <link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'>
 
 <title>活 動 資 料</title>
@@ -34,7 +33,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="UTF-8">
-<style type="text/css">
+<style>
 body {
 /* 	background: -webkit-radial-gradient(ellipse, white, aqua); */
 /* 	background: -o-radial-gradient(ellipse, white, aqua); */
@@ -55,7 +54,6 @@ body {
 	font-family: inherit;
 	font-size: inherit;
 }
-
 
 .btn-link:active {
 	color: #FF0000;
@@ -91,7 +89,6 @@ select {
 option {
 	text-align: center;
 }
-
 .point {
 	cursor: pointer;
 }
@@ -213,8 +210,11 @@ function getTodayDate() {
 				: fullDate.getMinutes();
 		var today = yyyy + "/" + MM + "/" + dd + "," + hh + ":" + mm;
 		var elem = document.getElementById("create");
+		
+
 		elem.value = today;
 		return today;
+
 	}
 	
 	var VisibleMenu = ''; // 記錄目前顯示的子選單的 ID
@@ -252,8 +252,6 @@ function clickact(myObj){
  myObj.innerHTML="已參加";
  console.log(myObj);
 }
-
-
 var jQuery_1_12_4 = $.noConflict();
 
 jQuery_1_12_4(document).ready(
@@ -319,13 +317,11 @@ jQuery_1_12_4(document).ready(
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
-
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img id="thumb" style="height: 40px"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -352,29 +348,30 @@ jQuery_1_12_4(document).ready(
 			</div>
 		</div>
 	</section>
-
+	
+	
 	<div>&nbsp;</div>
 	<button style="margin-left:13.5%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="getTodayDate()" >
   			新增活動
 	</button>
+
+
 	<div align="center">
 		<h2>${catclass} 類 型 列 表</h2>
-		
+
 		<form method="get" action="/MeetTogether/index/ChangeIndexCat">
-			<div class="dropdown">
-				<select name="eventCat" onchange="submit();" class="dropbtn" style="align:left; ">
-						
-						<option value="" disabled selected hidden style=" text-align-last:left;">${catclass}</option>
-						
-						<c:forEach items="${catList}" var="cat">															
-								<option value="${cat.key}" style=" text-align-last:left;">${cat.value}</option>
-								
+				<div class="dropdown">
+				<select name="eventCat" onchange="submit();" class="dropbtn">
+					
+						<option value="" disabled selected hidden >${catclass}</option>
+						<c:forEach items="${catList}" var="cat">
+								<option value="${cat.key}">${cat.value}</option>
 						</c:forEach>
-						
+			
 				</select>
-			</div>	
+				</div>
 		</form>
-		
+
 <p>
 		<a href="/MeetTogether/eeit10908" style="color:black">回到總表</a>
 		<p>
@@ -438,7 +435,9 @@ jQuery_1_12_4(document).ready(
 			</div>
     	</div>
     </section>
-		<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+			
+			
+			<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -501,7 +500,7 @@ jQuery_1_12_4(document).ready(
 <!--       </div> -->
     </div>
   </div>
-</div>	
+</div>
 <!-- 		</table> -->
 	
 	
@@ -550,13 +549,8 @@ jQuery_1_12_4(document).ready(
       </div>
     </footer>
     
-  
-
-  <!-- loader -->
-<%--   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> --%>
-
-	<script src="${pageContext.request.contextPath}/eeit10908/assets/jquery/jquery-1.8.3.min.js"></script>
-	
+  	<script src="${pageContext.request.contextPath}/eeit10908/assets/jquery/jquery-1.8.3.min.js"></script>
+<!-- 	123456789 -->
 	<script
 		src="${pageContext.request.contextPath}/eeit10908/assets/js/bootstrap.min.js"></script>
 	<script
@@ -585,6 +579,10 @@ jQuery_1_12_4(document).ready(
 		});
 	
  	</script> 
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
 
   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.model.ActJoinBean;
 import com.meetogether.eeit10908.model.CatBean;
 
 
@@ -107,8 +108,22 @@ public class ActDaoImpl implements ActDao {
 		result.setActFilename(filename);
 		
 	}
+
+	@Override
+	public void addActJoinx(ActJoinBean actJ) {	
+		Session session = factory.getCurrentSession();
+
+		session.save(actJ);
+		
+	}
 	
-	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ActJoinBean> CheckJoinPerson(Integer memberId){
+		String hql="from ActJoinBean WHERE memberId = ?0";
+		List<ActJoinBean> list = factory.getCurrentSession().createQuery(hql).setParameter(0, memberId).getResultList();
+		return list;
+	}
 	
 	
 	

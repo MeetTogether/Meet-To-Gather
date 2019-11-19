@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10908.model.ActJoinBean;
 import com.meetogether.eeit10908.model.CatBean;
 import com.meetogether.eeit10908.service.impl.ActService;
 
@@ -61,21 +62,23 @@ public class ActController {
 	public void setmService(MemberService mService) {
 		this.mService = mService;
 	}
-	@RequestMapping("/eeit10908")
-	public String index(Model model) {
-		List<ActBean> beans = service.getAllAct();	
-		CatBean cc = new CatBean();
-		model.addAttribute("actBeanCat",cc);
-		model.addAttribute("actBeanList",beans);
-		return "/eeit10908/index";
-	}
+//	@RequestMapping("/eeit10908")
+//	public String index(Model model) {
+//		List<ActBean> beans = service.getAllAct();	
+//		CatBean cc = new CatBean();
+//		model.addAttribute("actBeanCat",cc);
+//		model.addAttribute("actBeanList",beans);
+//		return "/eeit10908/index";
+//	}
 	
 	@RequestMapping(value = "/index/ChangeIndexCat")
 	public String selectIndexCat(@RequestParam("eventCat") int catId,Model model, HttpServletRequest request) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
 		model.addAttribute("member",memberbean);
-		
+		if(userId == null) {
+			return "redirect:/";
+		}
 		List<ActBean> aaa = service.getActivityByCat(catId);
 		Map<Integer, String> bbb= getCompanyList(); 
 		System.out.println(catId);
@@ -87,7 +90,7 @@ public class ActController {
 		return "/eeit10908/QueryCatIndex";
 	}
 	
-	@RequestMapping(value = "/MeetTogether/index/ChangeIndexCat")
+	@RequestMapping(value = "/eeit10908/index/ChangeIndexCat")
 	public String selectIndexCats(@RequestParam("eventCat") int catId,Model model, HttpServletRequest request) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
@@ -108,10 +111,16 @@ public class ActController {
 	public String getAddNewProductForm(Model model, HttpServletRequest request) {
 		System.out.println("--------------+++------------");
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-		MemberBean memberbean = mService.getMemberById(userId);
-		model.addAttribute("member",memberbean);
+		if(userId == null) {
+			return "redirect:/";
+		}
+		MemberBean memberbean = mService.getMemberById(userId);	
+		List<ActJoinBean> joinBeans = service.CheckJoinPersons(userId);
+		model.addAttribute("ActJoinBeans",joinBeans);
+//		model.addAttribute("member",memberbean);
 		List<ActBean> beans = service.getAllAct();	
 	    ActBean aa = new ActBean();
+	    aa.setMemberId(memberbean);
 	    CatBean cc = new CatBean();
 		model.addAttribute("actBeanCat",cc);
 	    //aa.setGroupNum("9");
@@ -274,11 +283,12 @@ public class ActController {
 //	    return "Actdata";
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
+		
 		model.addAttribute("member",memberbean);
 	    return "/eeit10908/ViewOneAct";
 	}
 	
-	@RequestMapping(value = "/index/ByActivity")
+	@RequestMapping(value = "/eeit10908/ByActivity")
 	public String getActByIds(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
 		model.addAttribute("actdata",service.getActivityById(id));
@@ -350,4 +360,16 @@ public class ActController {
 	}
 	
 	
+	@RequestMapping("/JoinAct")
+    public String JoinActivity(@RequestParam("getActId") Integer id,Model model,HttpServletRequest request
+    		) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		ActJoinBean actJ = new ActJoinBean();
+		MemberBean member = mService.getMemberById(userId);
+		ActBean eventBean = service.getActivityById(id);
+		actJ.setMemberbean(member);
+		actJ.setEventBean(eventBean);
+		service.addActJoin(actJ);
+		return "redirect:/eeit10908";
+    }
 }
