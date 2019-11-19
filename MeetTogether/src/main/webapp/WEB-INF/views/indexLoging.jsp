@@ -191,7 +191,7 @@ $(document).ready(function() {
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${empty userId}">
-						<a href="<c:url value='/LoginServlet'  />" class="nav-link">登入</a>
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入</a>
 						</c:if></li>
 				</ul>
 			</div>

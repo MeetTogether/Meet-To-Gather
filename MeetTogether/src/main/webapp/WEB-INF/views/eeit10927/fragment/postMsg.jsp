@@ -33,9 +33,8 @@
 						path="msgImage" class="form-control" />
 			<tr>
 				<td>文章標籤(最多5個)
-				<td><div class="input_fields_wrap">
 				<script type="text/javascript">
-				var jQueryConflict = $.noConflict();
+				jQueryConflict = $.noConflict();
 				function getTag(myObj) {
 					jQueryConflict(myObj).autocomplete({
 						source: function(request, response) {
@@ -56,11 +55,11 @@
 			        });
 				}
 				</script>
-						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;
-						<button class="add_field_button">增加標籤</button></div>
+				<td><div class="input_fields_wrap">
+						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;<button class="add_field_button">增加標籤</button></div>
 					</div>
 				<script type="text/javascript">
-					jQueryConflict(document).ready(function() {
+				jQueryConflict(document).ready(function() {
 						var max_fields = 5;
 						var wrapper = jQueryConflict(".input_fields_wrap");
 						var add_button = jQueryConflict(".add_field_button");
@@ -70,7 +69,9 @@
 							e.preventDefault();
 							if (x < max_fields) {
 								x++;
-								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)"/>&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>';
+								let inputId = 'msgTagName' + x.toString();
+								console.log('inputId: ' + inputId);
+								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>';
 								jQueryConflict(wrapper).append(appendContent);
 							}
 						});
@@ -79,12 +80,9 @@
 						});
 						
 						
-						let tags = document.getElementsByClassName("input_tag");
-						
-						
-						/* for (let t = 0; t < tags.length; t++) {
+						/* let tags = document.getElementsByClassName("input_tag");
+						for (let t = 0; t < tags.length; t++) {
 							jQueryConflict(tags[t]).on("focus", function() {
-								console.log(tags[t]);
 								jQueryConflict(tags[t]).autocomplete({
 									source: function(request, response) {
 										jQueryConflict.ajax({

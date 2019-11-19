@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsgTypeDao;
@@ -43,6 +44,9 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	public void setmTagDao(IMsgtagDao mTagDao) {
 		this.mTagDao = mTagDao;
 	}
+	
+	@Autowired
+	MemberService memberService;
 	
 	public MessageDaoHibernateImpl() {
 	}

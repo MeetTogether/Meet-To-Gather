@@ -1,7 +1,5 @@
 package com.meetogether.eeit10927.controller;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.model.Msglike;
@@ -36,7 +32,6 @@ import com.meetogether.eeit10936.pairs.model.VipStatus;
 public class MsgreplyController {
 	
 	List<Message> list = null;
-	Gson gson;
 	
 	IMsgreplyService mrService;
 	@Autowired
@@ -131,8 +126,7 @@ public class MsgreplyController {
 	public @ResponseBody Integer getMsgTypeCnt(@RequestParam(value="typeId") Integer typeId) {
 		return msgService.getMsgCntByType(typeId);
 	}
-
-//	無法把值送到jsp
+	
 	@RequestMapping(value = "/getMsgtagByQuery", method = RequestMethod.GET, produces = { "application/json" })
 	public @ResponseBody Set<String> getMsgtagByQuery(@RequestParam(value="tagQuery") String tagQuery) {
 		List<Msgtag> result = mtagService.getMsgtagByQuery(tagQuery); 
