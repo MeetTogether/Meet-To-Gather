@@ -38,4 +38,12 @@ public class ChatService {
 	public List<InMessage> getRecord(Integer from , Integer to){
 		return dao.getRecord(from, to);
 	}
+	
+	public String getUnreadMsg(String to,String from) {
+		return dao.getUnreadMsg(to, from);
+	}
+	
+	public void delUnreadMsg(String to,String from) {
+		dao.delUnreadMsg(to, from);
+	}
 }

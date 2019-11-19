@@ -42,6 +42,8 @@
 	href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'>
 <style type="text/css">
 body {
 	background-color: #e7eef1;
@@ -222,6 +224,27 @@ body {
 						});
 					});
 
+	function getTodayDate() {
+		var fullDate = new Date();
+		var yyyy = fullDate.getFullYear();
+		var MM = (fullDate.getMonth() + 1) >= 10 ? (fullDate.getMonth() + 1)
+				: ("0" + (fullDate.getMonth() + 1));
+		var dd = fullDate.getDate() < 10 ? ("0" + fullDate.getDate())
+				: fullDate.getDate();
+		var hh = fullDate.getHours() < 10 ? ("0" + fullDate.getHours())
+				: fullDate.getHours();
+		var mm = fullDate.getMinutes() < 10 ? ("0" + fullDate.getMinutes())
+				: fullDate.getMinutes();
+		var today = yyyy + "/" + MM + "/" + dd + "," + hh + ":" + mm;
+		var elem = document.getElementById("create");
+
+		elem.value = today;
+		return today;
+
+	}
+
+	var VisibleMenu = ''; // 記錄目前顯示的子選單的 ID
+
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js">
 </script>
 <script>
@@ -243,17 +266,17 @@ body {
 
 </head>
 <body>
-<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
-<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
-<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
-<!-- 			style="width: 370px; margin: auto;"> -->
-<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
-<!-- 		<br> -->
-<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
-<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
-<!-- 			<input type="submit" value="前往付款" class="reply"> -->
-<%-- 		</form:form> --%>
-<!-- 	</div> -->
+	<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
+	<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
+	<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
+	<!-- 			style="width: 370px; margin: auto;"> -->
+	<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
+	<!-- 		<br> -->
+	<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
+	<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
+	<!-- 			<input type="submit" value="前往付款" class="reply"> -->
+	<%-- 		</form:form> --%>
+	<!-- 	</div> -->
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -333,7 +356,18 @@ body {
 							<form:input path="mbId" value="${userId}" type='hidden'
 								class='form:input-large' />
 						</div>
-
+<!-- 						抓取活動id -->
+<!-- 						<div class="form-group" style="font-size: 16px; color: black;"> -->
+<!-- 							<label>活動ID</label> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<input type="text" class="form-control" value=${reviewBean.eventId} -->
+<!-- 								readonly="readonly"> -->
+<%-- 							<form:input path="eventId" value="${reviewBean.eventId}" type='hidden' --%>
+<%-- 								class='form:input-large' />  --%>
+<!-- 						</div> -->
+						
+						<!-- 選擇評分 -->
 						<div class="form-group">
 							<label for="exampleFormControlSelect1">請選擇您的評分</label>
 
@@ -356,6 +390,9 @@ body {
 								rows="5" style="border: 1px black solid;"></form:textarea>
 							<td><span id="msg_eventComment" class='msgWrong'></span>
 						</div>
+						
+					
+						
 						<div class="form-group">
 							<input class="form-group" type="submit" value="送出評論"
 								class="btn btn-primary py-3 px-5" />

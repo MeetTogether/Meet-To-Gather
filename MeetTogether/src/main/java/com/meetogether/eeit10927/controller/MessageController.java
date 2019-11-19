@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.model.Msglike;
+import com.meetogether.eeit10927.model.Msgtag;
 import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10927.service.IMsgTypeService;
 import com.meetogether.eeit10927.service.IMsgreplyService;
+import com.meetogether.eeit10927.service.IMsgtagService;
 import com.meetogether.eeit10927.validate.MessageValidator;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
 
@@ -59,20 +63,33 @@ public class MessageController {
 	public void setMlService(IMsgreplyService mlService) {
 		this.mlService = mlService;
 	}
+	
+	IMsgtagService mtagService;
+	@Autowired
+	public void setMtagService(IMsgtagService mtagService) {
+		this.mtagService = mtagService;
+	}
 
 	@RequestMapping(value = "/GetAllPostServlet", method = RequestMethod.GET)
 	public String getAllMessage(Model model, HttpServletRequest request) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/";
+		}
+		
+		String url = "";
+		url = request.getScheme() + "://" + request.getServerName() + ":"
+				+ request.getServerPort() + request.getContextPath()
+				+ request.getServletPath();
+//		System.out.println("--------------present url: " + url);
 		
 		// 空messageBean給postMsg.jsp
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
-		// 空messageBean給分類查詢
+		// 空messageTypeBean給分類查詢
 		model.addAttribute("msgTypeBean", new MsgType());
-		// 空vipBean給VIP購買
-		model.addAttribute("vipBean", new VipStatus());
 		
 		// 查到的msgLike和空的msgLikeBean給forum.jsp
-		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
 		model.addAttribute("mlBeans", mlBeans);
 		Msglike msgLike = new Msglike();
@@ -130,19 +147,20 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/GetUserPostServlet", method = RequestMethod.GET)
-	public String getUserMessage(@RequestParam(value = "memberId") Integer memberId, Model model, HttpServletRequest request) {
+	public String getUserMessage(@RequestParam(value = "memberId") Integer memberId, 
+			Model model, HttpServletRequest request) {
+		
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 		
 		// 空messageBean給分類查詢
 		model.addAttribute("msgTypeBean", new MsgType());
-		// 空vipBean給VIP購買
-		model.addAttribute("vipBean", new VipStatus());
 
 		list = msgService.getUserMessage(memberId);
 		model.addAttribute("msgBeans", list);
 		
-		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
 		model.addAttribute("mlBeans", mlBeans);
 		Msglike msgLike = new Msglike();
@@ -156,7 +174,7 @@ public class MessageController {
 		
 		Message msgBean = msgService.getMsgByMsgId(msgId);
 		msgBean.setMsgText(msgBean.getMsgText().replace("<br>", "\n"));
-		System.out.println("messge filename: " + msgBean.getMsgFilename());
+//		System.out.println("messge filename: " + msgBean.getMsgFilename());
 		model.addAttribute("msgBean", msgBean);
 		return "eeit10927/html/forumView";
 	}
@@ -165,7 +183,7 @@ public class MessageController {
 	public String updateMessage(@ModelAttribute("msgBean") Message message, Model model, 
 			BindingResult result) {
 		new MessageValidator().validate(message, result);
-		System.out.println("**update post errors: " + result);
+//		System.out.println("**update post errors: " + result);
 		if (result.hasErrors()) {
 			return "eeit10927/html/forumView";
 		}
@@ -234,9 +252,10 @@ public class MessageController {
 		return "eeit10927/html/forum";
 	}
 	
-//	@RequestMapping(value = "/SearchPostByType", method = RequestMethod.GET)
+	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String searchMessageByTypeForm(Model model) {
 		model.addAttribute("msgTypeBean", new MsgType());
+		model.addAttribute("actBean", new ActBean());
 		return "eeit10927/html/category";
 	}
 	
@@ -283,7 +302,22 @@ public class MessageController {
 		return "eeit10927/html/forum";
 	}
 	
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	@RequestMapping(value = "/getMsgByTagName", method = RequestMethod.GET)
+	public String getMsgByTagName(Model model,
+			@RequestParam(value = "tagname") String tagName) {
+		List<Message> msgBeans = mtagService.getMsgByTagName(tagName);
+//		System.out.println("---------msg size: " + msgBeans.size());
+		// 查到的messageBean給forum.jsp
+		model.addAttribute("msgBeans", msgBeans);
+		// 空messageBean給postMsg.jsp
+		model.addAttribute("messageBean", new Message());
+		// 空messageTypeBean給分類查詢
+		model.addAttribute("msgTypeBean", new MsgType());
+		return "eeit10927/html/forum";
+	}
+	
+	
+//	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public String goCategory() {
 		return "eeit10927/html/category";
 	}
@@ -308,6 +342,17 @@ public class MessageController {
 	public List<Message> getRecentMsgList() {
 		list = msgService.getRecentMsg();
 		return list;
+	}
+	
+	@ModelAttribute("tagCloud")
+	public Map<String, Integer> getMsgTags() {
+		Map<String, Integer> msgTagMap = new HashMap<>();
+		List<Msgtag> list = mtagService.getAllMsgtag();
+//		System.out.println("----------------number of tag: " + list.size());
+		for (Msgtag tag : list) {
+			msgTagMap.put(tag.getTagName(), 1);
+		}
+		return msgTagMap;
 	}
 	
 }

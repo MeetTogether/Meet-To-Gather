@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10913.dao.ProductDao;
 import com.meetogether.eeit10913.model.ReviewBean;
+import com.meetogether.eeit10913.service.ProductService;
 import com.meetogether.eeit10927.service.IMessageService;
 
 @Repository
@@ -26,7 +28,8 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Autowired
 	IMessageService msgService;
- 	
+	@Autowired
+	ProductService pService;
  	
 	@Override
 	public void add(ReviewBean review) {
@@ -34,9 +37,11 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = factory.getCurrentSession();
 		System.out.println("review=============================="+review);
 		MemberBean mb = msgService.getMemberById(review.getMbId());
+		ActBean actBean = pService.getActivityById(review.getEventId());
 //		MemberBean mb = getMemberById(review.getMember().getMemberId());
 //		System.out.println("=============================="+review.getMember().getMemberId());
 		review.setMember(mb);
+		review.setEvent(actBean);
 		session.save(review);
 	}
 	
@@ -95,6 +100,13 @@ public class ProductDaoImpl implements ProductDao {
 	Blob b=(Blob) session.createQuery("SELECT mb.photo FROM MemberBean mb WHERE mb.memberId = ?1")
 	.setParameter(1, id).uniqueResult();
 	return b;
+	}
+	
+	@Override
+	public ActBean getActivityById(int actId) {
+		Session session = factory.getCurrentSession();
+		ActBean aa = session.get(ActBean.class, actId);	
+		return aa;
 	}
 
 

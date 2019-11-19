@@ -1,6 +1,7 @@
 package com.meetogether.eeit10936.friends.service.Impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,13 @@ public class IFriendServiceImpl implements IFriendService {
 	public void addFriendList(Integer id, Integer f2) {
 		dao.addFriendList(id, f2);
 	}
+	@Transactional
+	@Override
+	public Map<Integer, String> findFriendsByName(Integer id,String fName) {
+		// TODO Auto-generated method stub
+		return dao.findFriendsByName(id,fName);
+	}
+	
+	
 
 }

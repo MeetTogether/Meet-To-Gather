@@ -6,60 +6,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>MeetTogether - 首頁</title>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Login</title>
-
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="${pageContext.request.contextPath}/eeit10927/js/login.js"></script>
-<!-- <link rel="stylesheet" -->
-<%-- 	href="${pageContext.request.contextPath}/eeit10901/styles/top.css" --%>
-<!-- 	type="text/css"> -->
-
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-	rel="stylesheet">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="css/animate.css">
-
 <link rel="stylesheet" href="css/owl.carousel.min.css">
 <link rel="stylesheet" href="css/owl.theme.default.min.css">
 <link rel="stylesheet" href="css/magnific-popup.css">
-
 <link rel="stylesheet" href="css/aos.css">
-
 <link rel="stylesheet" href="css/ionicons.min.css">
-
 <link rel="stylesheet" href="css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
 <link rel="stylesheet" href="css/flaticon.css">
 <link rel="stylesheet" href="css/icomoon.css">
 <link rel="stylesheet" href="css/style.css">
-<style>
-/* #thumb {
-	height: 40px;
-}
-li {
-	float: left;
-	width: 7em;
-	color: #FFAA33;
-	font-family:monospace;
-} */
-
-</style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-
+	<!-- nav -->
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -67,16 +40,12 @@ li {
 			</button>
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto" id="menu">
-					<li class="nav-item active"><a href="index.html"
-						class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
-					<li class="nav-item">
-							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
-						</li>
-					<li class="nav-item"><a href="blog.html" class="nav-link">會員資料</a></li>
-
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
@@ -144,7 +113,7 @@ li {
 
 							<br>
 							<div class="form-group">
-								<input type="button" value="登入" id="login"
+								<input type="submit" value="登入" id="login"
 									class="btn btn-primary py-3 px-4" /> 尚未成為會員? <a
 									href="register">前往註冊</a>
 							</div>

@@ -6,13 +6,13 @@ import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 
 public interface AlbumService {
 	List<MemberAlbum>  getAllAlbum();
-	void updateAlbum(Integer productId);
+	void updateAlbum(Integer memberId);
 	
 
 	public MemberAlbum getMemberById(Integer memberId);
-	void  addAlbum(MemberAlbum product);
+	void  addAlbum(MemberAlbum album);
 
-	List<MemberAlbum>  getCompanyList();
-	// ==================== Product CRUD ===================	
+	List<MemberAlbum>  getAlbumList();
+
 	void deleteAlbum(Integer memberId);
 }

@@ -1,6 +1,7 @@
 package com.meetogether.eeit10936.pairs.dao.impl;
 
 import java.sql.Blob;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,34 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		List<IMember> list = query.getResultList();
 		return list;
 	}
+	@Override
+	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate) {
+		List<String> interList = new ArrayList<String>();
+		String hql="SELECT NEW com.meetogether.eeit10936.pairs.model.MemberModel(mb,mh,mi) "
+					+ "From MemberBean mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
+					+"JOIN MemberInfo mi ON mb.memberId = mi.memberId WHERE mb.memberId = ?0 ";
+		if (sex != null)
+			hql += "AND mb.memberSex = ?1 ";
+		if (city != null)
+			hql += "AND mb.memberCity = ?2 ";
+		if (stdate != null)
+			hql += "AND mb.memberBirth BETWEEN ?3 AND ?4";
+		
+		TypedQuery<IMember> query = factory.getCurrentSession()
+									.createQuery(hql , IMember.class).setParameter(0, id);
+		
+		if(sex != null || city != null || stdate != null)
+			query.setParameter(1, sex).setParameter(2, city).setParameter(3, stdate).setParameter(4, eddate);
+		
+		IMember member = query.getSingleResult();
+		findInterestByMemberId(id).forEach((i) -> {
+			interList.add(findInteretByInterestId(i));
+		});
+		member.setMemberInterestList(interList);
+		return member;
+	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -130,7 +159,7 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 	@Override
 	public boolean checkVip(Integer id) {
 //		String hql = "From VipStatus v WHERE v.memberId = ?0 AND v.startTime >= ?1 AND v.endTime <= ?1";
-		String hql = "From VipStatus v WHERE v.member.memberId = ?0 AND v.startTime >= ?1 AND v.endTime >= ?1 AND v.vipStatus = 1";
+		String hql = "From VipStatus v WHERE v.member.memberId = ?0 AND v.startTime <= ?1 AND v.endTime >= ?1 AND v.vipStatus = 1";
 		VipStatus result = factory.getCurrentSession().createQuery(hql, VipStatus.class).setParameter(0, id)
 				.setParameter(1, new Timestamp(System.currentTimeMillis())).uniqueResult();
 		if (result != null) {

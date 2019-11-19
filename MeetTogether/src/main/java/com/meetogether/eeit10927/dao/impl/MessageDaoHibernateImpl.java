@@ -3,6 +3,7 @@ package com.meetogether.eeit10927.dao.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,11 +12,15 @@ import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.MemberService;
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsgTypeDao;
+import com.meetogether.eeit10927.dao.IMsgtagDao;
 import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
+import com.meetogether.eeit10927.model.Msgtag;
 
 @Repository
 public class MessageDaoHibernateImpl implements IMessageDao {
@@ -25,17 +30,26 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	private int totalPages = -1;	// 總頁數
 	private int textLength = 50;	// 顯示部份文章的字數
 	
-	private SessionFactory factory;
+	SessionFactory factory;
 	@Autowired
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
 	
-	private IMsgTypeDao mtDao;
+	IMsgTypeDao mtDao;
 	@Autowired
 	public void setMtDaoService(IMsgTypeDao mtDao) {
 		this.mtDao = mtDao;
 	}
+	
+	IMsgtagDao mTagDao;
+	@Autowired
+	public void setmTagDao(IMsgtagDao mTagDao) {
+		this.mTagDao = mTagDao;
+	}
+	
+	@Autowired
+	MemberService memberService;
 	
 	public MessageDaoHibernateImpl() {
 	}
@@ -45,7 +59,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	public Message getMsgByMsgId(Integer msgId) {
 		String hql = "from Message WHERE msgId = ?0";
 		Message result = (Message) factory.getCurrentSession().createQuery(hql).setParameter(0, msgId).uniqueResult();
-		result.setMsgText(result.getMsgText().replace("\n", "<br>"));
+//		result.setMsgText(result.getMsgText().replace("\n", "<br>"));
 		return result;
 	}
 
@@ -176,11 +190,25 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	@Override
 	public int add(Message msg) {
 		Session session = factory.getCurrentSession();
+		msg.setMsgText(msg.getMsgText().replace("<script>", "＜script＞").replace("</script>", "＜/script＞"));
 		MsgType mt = mtDao.getMsgTypeById(msg.getMtId());
 		MemberBean mb = getMemberById(msg.getMbId());
 		msg.setMsgType(mt);
 		msg.setMember(mb);
 		session.save(msg);
+		
+		List<String> tags = msg.getMsgTagName();
+//		System.out.println("-------------tags size: " + tags.size());
+		for (String tagname : tags) {
+			if (tagname.length() > 0) {
+				Msgtag tag = new Msgtag();
+				tag.setMember(mb);
+				tag.setMessage(msg);
+				tag.setTagName(tagname);
+				session.save(tag);
+			}
+		}
+		
 		int msgId = msg.getMsgId();
 		return msgId;
 	}
@@ -211,31 +239,61 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	// ok 已確認需使用
 	@Override
 	public void update(Message msg) {
+		Session session = factory.getCurrentSession();
 		Date updateTime = new Date();
 		String hql = "from Message WHERE msgId = ?0";
-		Message result = (Message) factory.getCurrentSession().createQuery(hql).setParameter(0, msg.getMsgId()).uniqueResult();
+		Message result = (Message) session.createQuery(hql).setParameter(0, msg.getMsgId()).uniqueResult();
 		
+		MemberBean mb = getMemberById(msg.getMbId());
 		MsgType mt = mtDao.getMsgTypeByName(msg.getMtName());
+		result.setMsgId(msg.getMsgId());
 		result.setMsgType(mt);
 		result.setMsgTitle(msg.getMsgTitle());
 		result.setMsgText(msg.getMsgText());
 		result.setMsgFilename(msg.getMsgFilename());
 		result.setMsgPhoto(msg.getMsgPhoto());
 		result.setUpdateTime(updateTime);
+		result.setMsgText(msg.getMsgText().replace("<script>", "＜script＞").replace("</script>", "＜/script＞"));
+		mTagDao.deleteMsgTagByMsgId(msg.getMsgId());
+		List<String> tags = msg.getMsgTagName();
+		for (String tagname : tags) {
+			if (tagname.length() > 0) {
+				Msgtag tag = new Msgtag();
+				tag.setMember(mb);
+				tag.setMessage(result);
+				tag.setTagName(tagname);
+				session.save(tag);
+			}
+		}
 	}
 	
 	// ok 已確認需使用
 	@Override
 	public void updateText(Message msg) {
+		Session session = factory.getCurrentSession();
 		Date updateTime = new Date();
 		String hql = "from Message WHERE msgId = ?0";
-		Message result = (Message) factory.getCurrentSession().createQuery(hql).setParameter(0, msg.getMsgId()).uniqueResult();
+		Message result = (Message) session.createQuery(hql).setParameter(0, msg.getMsgId()).uniqueResult();
 		
+		MemberBean mb = getMemberById(msg.getMbId());
 		MsgType mt = mtDao.getMsgTypeByName(msg.getMtName());
+		result.setMsgId(msg.getMsgId());
 		result.setMsgType(mt);
 		result.setMsgTitle(msg.getMsgTitle());
 		result.setMsgText(msg.getMsgText());
 		result.setUpdateTime(updateTime);
+		result.setMsgText(msg.getMsgText().replace("<script>", "＜script＞").replace("</script>", "＜/script＞"));
+		mTagDao.deleteMsgTagByMsgId(msg.getMsgId());
+		List<String> tags = msg.getMsgTagName();
+		for (String tagname : tags) {
+			if (tagname.length() > 0) {
+				Msgtag tag = new Msgtag();
+				tag.setMember(mb);
+				tag.setMessage(result);
+				tag.setTagName(tagname);
+				session.save(tag);
+			}
+		}
 	}
 	
 	// ok 已確認需使用
@@ -393,6 +451,28 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 				msg.setMsgTextShort(msg.getMsgText());
 			}
 		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> getNewMember() {
+		List<MemberBean> list = new ArrayList<>();
+		String hql = "from MemberBean order by createTime desc";
+		list = factory.getCurrentSession().createQuery(hql)
+				.setMaxResults(5)
+				.getResultList();
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ActBean> getPopActivity() {
+		List<ActBean> list = new ArrayList<>();
+		String hql = "from ActBean order by createTime desc";
+		list = factory.getCurrentSession().createQuery(hql)
+				.setMaxResults(8)
+				.getResultList();
 		return list;
 	}
 	

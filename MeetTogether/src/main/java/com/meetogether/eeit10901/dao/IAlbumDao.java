@@ -13,6 +13,6 @@ public interface IAlbumDao {
 	void  addAlbum(MemberAlbum product);
 
 	List<MemberAlbum>  getCompanyList();
-	// ==================== Product CRUD ===================	
+
 	void deleteAlbum(Integer memberId);
 }

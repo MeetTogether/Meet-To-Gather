@@ -1,12 +1,14 @@
 package com.meetogether.eeit10901.controller;
 
 import java.sql.Blob;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -15,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.AlbumService;
-import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10936.pairs.model.MemberAlbum;
+import com.meetogether.eeit10936.pairs.model.MemberAlbumPk;
 
+@Controller
 public class AlbumController {
 	ServletContext context;
 
@@ -35,13 +37,13 @@ public class AlbumController {
 	public void setService(AlbumService service) {
 		this.service = service;
 	}
-//	
-//	@RequestMapping(value = "/addAlbum", method = RequestMethod.GET)
-//	public String getaddAlbum(Model model) {
-//		MemberAlbum mm = new MemberAlbum();
-//		model.addAttribute("albumbean", mm);
-//		return "eeit10901/album";
-//	}
+	
+	@RequestMapping(value = "/addAlbum", method = RequestMethod.GET)
+	public String getaddAlbum(Model model) {
+		MemberAlbum mm = new MemberAlbum();
+		model.addAttribute("albumbean", mm);
+		return "eeit10901/addAlbum";
+	}
 	
 	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
 	public String addAlbum(@ModelAttribute("albumbean") MemberAlbum album, BindingResult result,
@@ -54,8 +56,8 @@ public class AlbumController {
 		MultipartFile picture = album.getAlbumImage();
 		String originalFilename = picture.getOriginalFilename();
 //		album.setFileName(originalFilename);
-		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
-		String rootDirectory = context.getRealPath("/");
+//		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+//		String rootDirectory = context.getRealPath("/");
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
 		if (picture != null && !picture.isEmpty()) {
 			try {
@@ -71,5 +73,14 @@ public class AlbumController {
 		service.addAlbum(album);
 		return "eeit10901/album";
 }
+	@RequestMapping("/Album")
+	public String getAlbum(Model model) {
+	List<MemberAlbum> list = service.getAllAlbum();
+	System.out.println("這是"+list);
+	model.addAttribute("albums", list);
+	return "eeit10901/album";
+	
 
+}
+	
 }

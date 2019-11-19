@@ -73,7 +73,7 @@ background-color:#FF8800;
 							<a href="<c:url value='/GetAllPostServlet' />"class="nav-link">討論區</a>
 						</li>
 
-					<li class="nav-item"><a href="blog.html" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
 
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
@@ -90,7 +90,7 @@ background-color:#FF8800;
 		</div>
 	</nav>
     <!-- END nav -->
-     <section class="top111 js-fullheight" style="background-image: url('images/111.jpg');height: 250px;width:2044px;" data-stellar-background-ratio="0.5">
+     <section class="top111 js-fullheight" style="background-image: url('images/image_1.jpg');height: 250px;width:2044px;" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -108,7 +108,7 @@ background-color:#FF8800;
 			<h2>新增照片</h2>
 			<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
 			<form:form enctype="multipart/form-data" method="POST"
-				modelAttribute="ma" id='registerForm'>
+				modelAttribute="albumbean" id='registerForm'>
 				<table>
 					<tr>
 						<td>id
@@ -116,9 +116,7 @@ background-color:#FF8800;
 					<tr>
 						<td>status
 						<td><form:input type="text" path="status" />
-					<tr>
-						<td>deleteTag
-						<td><form:input type="text" path="deleteTag" />
+					
 					<tr>
 						<td>上傳照片
 						<td><form:input type="file" path="albumImage" />

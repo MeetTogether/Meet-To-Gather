@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -6,25 +7,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <title>MeetTogether</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/aos.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/aos.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/ionicons.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/jquery.timepicker.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/flaticon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 <style type="text/css">
 body {
 	background-color: #e7eef1;
@@ -110,10 +127,12 @@ body {
 }
 
 .col-md-8 {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 95%;
-    flex: 0 0 95%;
-    max-width: 95%; }
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 95%;
+	flex: 0 0 95%;
+	max-width: 95%;
+}
+
 .MemberPic {
 	border-radius: 50%;
 	height: 30px;
@@ -122,69 +141,76 @@ body {
 	align-items: center;
 	float: left;
 }
+
 .likeBtn, .dislikeBtn, .replyBtn {
 	height: 20px;
 	cursor: pointer;
 }
+
 p {
 	margin-bottom: 0;
 }
 </style>
 <script type="text/javascript">
 	var jQuery_1_12_4 = $.noConflict();
-	
-	jQuery_1_12_4(document).ready(
-		function() {
-			jQuery_1_12_4("#Postbox").hide();
-			jQuery_1_12_4("#Postbutton").click(function() {
-				jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
-				/* $('html,body').animate({
-					scrollTop : 0
-				}); 返回到頁面頂端 */
-			});
-			jQuery_1_12_4("#ViewMyPost").click(
-				function() {
-					top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
-				});
-			jQuery_1_12_4("#ViewAllPost").click(
-				function() {
-					top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-				});
-			jQuery_1_12_4("input#deletePost").click(function() {
-				var c = confirm('是否確認刪除');
-				console.log(c);
-				if (c) {
-					jQuery_1_12_4(this).parent("form#deletePostForm").submit();
-				} else {
-				}
-			});
-			
-			jQuery_1_12_4("#dialog-confirm").hide();
-			jQuery_1_12_4("#vipBuyButton").click(function() {
-				jQuery_1_12_4("#dialog-confirm").dialog({
-					resizable : false,
-					height : "auto",
-					width : 420,
-					modal : true,
-				});
-		    });
+	jQuery_1_12_4(document).ready(function() {
+		jQuery_1_12_4("#sex").val('${member.memberSex}');
+		// 	jQuery_1_12_4("#updata").click(function(){
+		// 		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
+		// 		jQuery_1_12_4("#updataMmber").submit();
+	})
+	jQuery_1_12_4("#Postbox").hide();
+	jQuery_1_12_4("#Postbutton").click(function() {
+		jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
+		/* $('html,body').animate({
+			scrollTop : 0
+		}); 返回到頁面頂端 */
+	});
+	jQuery_1_12_4("#ViewMyPost")
+			.click(
+					function() {
+						top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
+					});
+	jQuery_1_12_4("#ViewAllPost")
+			.click(
+					function() {
+						top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
+					});
+	jQuery_1_12_4("input#deletePost").click(function() {
+		var c = confirm('是否確認刪除');
+		console.log(c);
+		if (c) {
+			jQuery_1_12_4(this).parent("form#deletePostForm").submit();
+		} else {
+		}
+	});
+
+	jQuery_1_12_4("#dialog-confirm").hide();
+	jQuery_1_12_4("#vipBuyButton").click(function() {
+		jQuery_1_12_4("#dialog-confirm").dialog({
+			resizable : false,
+			height : "auto",
+			width : 420,
+			modal : true,
 		});
+	});
+
+	jQuery_1_12_4);
 </script>
 
 </head>
 <body>
-<div id="dialog-confirm" title="升級為VIP會員">
-	<span style="float: left; margin: 12px 12px 20px 0;">
-		<img src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" style="width:370px; margin:auto;">
-	</span>
-	<br>
-	Upgrade 1: 每日新增好友數20名！<br>
-	Upgrade 2: 新增討論區文章匯出功能！<br><br>
-	<form:form modelAttribute="vipBean" method="POST" action="./VipBuy">
-		<form:input type="hidden" path="mbId" value="${userId}" />
-		<input type="submit" value="前往付款" class="reply">
-	</form:form>
-</div>
+	<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
+	<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
+	<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
+	<!-- 			style="width: 370px; margin: auto;"> -->
+	<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
+	<!-- 		<br> -->
+	<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
+	<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
+	<!-- 			<input type="submit" value="前往付款" class="reply"> -->
+	<%-- 		</form:form> --%>
+	<!-- 	</div> -->
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -199,20 +225,23 @@ p {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
 					<li class="nav-item active"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="getmember" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a class="nav-link"><c:if
+								test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<img style="height: 40px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+							<img style="height: 40px"
+								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -240,26 +269,57 @@ p {
 		</div>
 	</section>
 	<div align=center>
-		<h2>會員資料</h2>
+		<h2>個人基本資料</h2>
+
 		<table border='1'>
-			<tr bgcolor='#ffad00'>
-				<th>名稱
-				<th>值
-				<tr><td>照片<td>${member.photo}</td>
-				<tr><td>編號<td>${member.memberId}</td>
-				<tr><td>mail<td>${member.memberEmail}</td>
-				<tr><td>密碼<td>${member.memberPassword}</td>
-				<tr><td>暱稱<td>${member.memberName}</td>
-				<tr><td>生日<td>${member.memberBirth}</td>
-				<tr><td>性別<td>${member.memberSex}</td>
-				<tr><td>縣市<td>${member.memberCity}</td>
-				
+			<tr>
+				<img style="height: 250px"
+					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
+
+				<!-- 					<tr bgcolor='#ffad00'> -->
+			<tr>
+				<td>編號
+				<td>${member.memberId}</td>
+			<tr>
+				<td>mail
+				<td>${member.memberEmail}</td>
+			<tr>
+				<td>密碼
+				<td><input type="password" value="${member.memberPassword}"
+					disabled="true"></td>
+			<tr>
+				<td>暱稱
+				<td>${member.memberName}</td>
+			<tr>
+				<td>生日
+				<td>${member.memberBirth}</td>
+			<tr>
+				<td>性別</td>
+
+				<td><select>
+
+						<c:choose>
+							<c:when test="${member.memberSex == 1 }">
+								<option value="1" selected>男</option>
+							</c:when>
+							<c:otherwise>
+								<option value="0" selected>女</option>
+							</c:otherwise>
+						</c:choose>
+
+
+				</select></td>
+			<tr>
+				<td>縣市
+				<td>${member.memberCity}</td>
 		</table>
+		<a class="btn btn-secondary" href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改資料</a>
+
 	</div>
-	
+
 	<a href="personal" class="nav-link">輸入個人喜好</a>
 	<a href="personalH" class="nav-link">輸入個人希望條件</a>
 	<a href="addAlbum" class="nav-link">相簿</a>
-	
+
 </body>
 </html>

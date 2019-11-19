@@ -1,14 +1,11 @@
 package com.meetogether.eeit10936.chat.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.meetogether.eeit10936.chat.model.InMessage;
 import com.meetogether.eeit10936.chat.service.ChatService;
@@ -29,7 +26,10 @@ public class ChatController {
 		service.sendChatMessage(message);
 	}
 	
-	
+	@GetMapping("/del")
+	public void delUnreadMsg(@RequestParam("to")String to,@RequestParam("from")String from) {
+		service.delUnreadMsg(to, from);
+	}
 	
 	
 }

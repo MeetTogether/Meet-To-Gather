@@ -82,7 +82,7 @@ public class MsglikeDaoHibernateImpl implements IMsglikeDao {
 	// ok 已確認需使用
 	@Override
 	public String findMsglikeByMsgAndMember(Msglike mlike) {
-		String hql = "from Msglike WHERE msgId = ?0 AND mId = ?1";
+		String hql = "from Msglike WHERE msgId = ?0 AND mId = ?1 and deleteTag = 'False'";
 		Msglike result = (Msglike) factory.getCurrentSession().createQuery(hql).setParameter(0, mlike.getMessageId())
 				.setParameter(1, mlike.getMemberId()).uniqueResult();
 		if (result != null) {

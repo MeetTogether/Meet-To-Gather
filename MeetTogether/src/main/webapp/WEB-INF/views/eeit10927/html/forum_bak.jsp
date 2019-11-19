@@ -88,7 +88,7 @@ input[type=submit]:hover {
 			</header>
 		</div>
 		<div id="content">
- 			<jsp:include page="../fragment/postMsg.jsp"/>
+ 			<jsp:include page="../fragment/postMsg_bak.jsp"/>
 			<div id="ViewPost">
 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 					<c:set var="count" value="${cnt.count}" scope="request" />

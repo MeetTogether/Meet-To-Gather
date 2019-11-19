@@ -3,6 +3,7 @@ package com.meetogether.eeit10927.dao;
 import java.util.List;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.model.Message;
 
 
@@ -57,5 +58,8 @@ public int add(Message msg);
 	public int getRecordsPerPage();
 	public void setRecordsPerPage(int recordsPerPage);
 	public void setTotalPages(int totalPages);
+	
+	public List<MemberBean> getNewMember();
+	public List<ActBean> getPopActivity();
 	
 }

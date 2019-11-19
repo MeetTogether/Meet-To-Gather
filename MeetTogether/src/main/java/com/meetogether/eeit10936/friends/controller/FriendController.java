@@ -1,6 +1,6 @@
 package com.meetogether.eeit10936.friends.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.meetogether.eeit10901.model.MemberBean;
@@ -21,6 +22,7 @@ import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10936.chat.model.InMessage;
 import com.meetogether.eeit10936.chat.service.ChatService;
 import com.meetogether.eeit10936.friends.model.FriendList;
+import com.meetogether.eeit10936.friends.model.FriendListUnread;
 import com.meetogether.eeit10936.friends.service.IFriendService;
 
 @Controller
@@ -35,11 +37,12 @@ public class FriendController {
 	private MemberService mbService;
 
 	@GetMapping(value = "/showFriendList", produces = "application/json;charset=utf-8")
-	public @ResponseBody Map<Integer, String> showFriendList(HttpSession session, Model model) {
+	public @ResponseBody List<FriendListUnread> showFriendList(HttpSession session, Model model) {
 		Integer currentUserId = (Integer) session.getAttribute("userId");
 		List<FriendList> fList = fService.findFriendsById(currentUserId);
-		Map<Integer, String> mMap = new HashMap<>();
+		List<FriendListUnread> lflu =new ArrayList<FriendListUnread>();
 		fList.forEach((i) -> {
+			FriendListUnread flu =new FriendListUnread();
 			String memberName = null;
 			Integer memberIdInteger = null;
 			if (i.getMemberId().equals(currentUserId)) {
@@ -49,10 +52,30 @@ public class FriendController {
 				memberIdInteger = i.getMemberId();
 				memberName = mService.getMemberById(i.getMemberId()).getMemberName();
 			}
-			mMap.put(memberIdInteger, memberName);
+			flu.setId(memberIdInteger);
+			flu.setName(memberName);
+			flu.setUnRead(cService.getUnreadMsg(currentUserId.toString(), memberIdInteger.toString()));
+			lflu.add(flu);
 		});
-		return mMap;
+		return lflu;
 
+	}
+	@GetMapping(value = "/showFriendListByName", produces = "application/json;charset=utf-8")
+	public @ResponseBody List<FriendListUnread> showFriendListByName(@RequestParam(value = "fName",required = true,defaultValue = "") String fName,
+																HttpSession session, Model model){
+		Integer currentUserId = (Integer) session.getAttribute("userId");
+		List<FriendListUnread> lflu =new ArrayList<FriendListUnread>();
+		Map<Integer, String> mp = fService.findFriendsByName(currentUserId,fName);
+		mp.forEach((k, v) -> {
+			FriendListUnread friendListUnread =new FriendListUnread();
+			friendListUnread.setId(k);
+			friendListUnread.setName(v);
+			friendListUnread.setUnRead(cService.getUnreadMsg(currentUserId.toString(), k.toString()));
+			lflu.add(friendListUnread);
+		});
+		
+		return lflu;
+				
 	}
 
 	@RequestMapping(value = "/chat/{friendId}", method = RequestMethod.GET)
@@ -63,7 +86,7 @@ public class FriendController {
 		if (session.getAttribute("userId") == null) {
 			return "redirect:/";
 		}
-		return "eeit10936/chat2";
+		return "eeit10936/chat";
 	}
 
 	@GetMapping(value = "/chat/record/{userId}/{friendId}", produces = "application/json;charset=utf-8")

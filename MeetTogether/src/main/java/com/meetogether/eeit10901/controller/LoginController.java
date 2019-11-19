@@ -18,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
+import com.meetogether.eeit10936.pairs.service.IPairsService;
 
 @Controller
 public class LoginController {
@@ -26,6 +27,11 @@ public class LoginController {
 	@Autowired
 	public void setService(MemberService mService) {
 		this.mService = mService;
+	}
+	IPairsService pService;
+	@Autowired
+	public void setpService(IPairsService pService) {
+		this.pService = pService;
 	}
 
 	@RequestMapping(value = "/LoginServlet", method = RequestMethod.POST)
@@ -44,15 +50,19 @@ public class LoginController {
 			session.setAttribute("userId", mBean.getMemberId());
 			session.setAttribute("userName", mBean.getMemberName());
 			session.setAttribute("admin", String.valueOf(mBean.getAdminTag()));
+			// 登入時也把會員是否為vip身份放入session
+			boolean vip = pService.checkVip(mBean.getMemberId());
+			session.setAttribute("vipTag", vip);
 			System.out.println("member controller: mId: " + mBean.getMemberId() + "\tmEmail: " + mBean.getMemberEmail()
-					+ "\tadminTag: " + mBean.getAdminTag());
+					+ "\tadminTag: " + mBean.getAdminTag()
+					+ "\tvipTag: " + vip);
 
 		} else {
 			errorMsg.put("loginError", "帳號或密碼錯誤");
 			return "index";
 		}
 
-		return "indexLoging";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/LogoutServlet")
