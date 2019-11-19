@@ -431,8 +431,9 @@ p {
 		</div>
 	</section>
 
-	<marquee direction="right" height="30" scrollamount="5"
-		behavior="alternate">${reviewBean.member.memberId}</marquee>
+	<c:forEach var='reviewBean' items='${review}'>
+	<marquee onMouseOver="this.stop()" onMouseOut="this.start()" height="50" direction="right" scrolldelay="4" scrollamount="5">要跑的文字${reviewBean.member.memberId}</marquee>
+	</c:forEach>
 	<section class="ftco-section ftco-car-details">
 		<div class="container">
 			<div class="row justify-content-center">
@@ -734,7 +735,7 @@ p {
 <!-- 												class="glyphicon-info-sigh glyphicon"></span>Give a Review -->
 <!-- 											</a> -->
 											<div class="wrap">
-												<b style="font-size: 25px">目前平均分數: ${avgEventStar}</b>
+												<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5</b>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
