@@ -24,4 +24,6 @@ public interface ProductService {
 
 	ActBean getActivityById(int actId);
 
+	public List<ReviewBean> selectALLByEventId(Integer eventId);
+
 }

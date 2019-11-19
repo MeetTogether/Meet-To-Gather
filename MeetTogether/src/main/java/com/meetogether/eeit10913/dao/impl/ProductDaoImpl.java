@@ -108,6 +108,20 @@ public class ProductDaoImpl implements ProductDao {
 		ActBean aa = session.get(ActBean.class, actId);	
 		return aa;
 	}
+	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ReviewBean> selectALLByEventId(Integer eventId) {
+		String hql = "FROM ReviewBean where eventId = eventId";
+		Session session = null;
+		List<ReviewBean> list = new ArrayList<>();
+
+		session = factory.getCurrentSession();
+		list = session.createQuery(hql).getResultList();
+		
+		return list;
+	}
 
 
 

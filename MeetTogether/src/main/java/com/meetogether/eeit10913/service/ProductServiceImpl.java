@@ -68,4 +68,10 @@ public class ProductServiceImpl implements ProductService {
 	public ActBean getActivityById(int actId) {
 		return dao.getActivityById(actId);
 	}
+	
+	@Transactional
+	@Override
+	public List<ReviewBean> selectALLByEventId(Integer eventId) {
+		return dao.selectALLByEventId(eventId);
+	}
 }

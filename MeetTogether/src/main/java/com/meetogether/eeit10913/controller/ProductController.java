@@ -71,7 +71,9 @@ public class ProductController {
 	@RequestMapping("/allreview")
 	public String list(Model model, @ModelAttribute("ReviewBean") ReviewBean reviewBean, Integer avgEventStar) {
 		System.out.println("@RequestMapping(\"/eeit10913/products2/avgEventStar\") =========== ");
-		List<ReviewBean> list = service.selectALL();
+//		List<ReviewBean> list = service.selectALL();
+		List<ReviewBean> list = service.selectALLByEventId(reviewBean.getEventId());
+		System.out.println(reviewBean.getEventId()+"============================reviewBean.getEventId()");
 		Integer reviewSize = list.size();
 		Integer totalEventStar = 0;
 		Integer one = 0;
@@ -80,6 +82,7 @@ public class ProductController {
 		Integer four = 0;
 		Integer five = 0;
 		avgEventStar = 0;
+	
 		for (ReviewBean rb : list) {
 			// totalEventStar = totalEventStar + reviewBean.getEventStars();
 			totalEventStar += rb.getEventStars();
@@ -106,6 +109,8 @@ public class ProductController {
 		// return "eeit10913/products";
 		return "eeit10913/products2";
 	}
+	
+	 
 	
 	
 

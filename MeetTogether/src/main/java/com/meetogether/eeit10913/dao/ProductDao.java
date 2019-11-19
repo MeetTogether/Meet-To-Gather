@@ -24,4 +24,6 @@ public interface ProductDao {
 	Blob getphotoById(Integer id);
 
 	ActBean getActivityById(int actId);
+
+	public List<ReviewBean> selectALLByEventId(Integer eventId);
 } 
