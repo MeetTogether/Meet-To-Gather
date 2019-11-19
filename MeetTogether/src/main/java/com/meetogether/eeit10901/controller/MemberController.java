@@ -72,7 +72,10 @@ public class MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMemberLoginForm(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
+<<<<<<< HEAD
 			model.addAttribute("memberBean", new MemberBean());
+=======
+>>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 			List<ActBean> beans = actService.getAllAct();	
 			model.addAttribute("actBeanList", beans);
 			List<MemberBean> memberBeans = msgService.getNewMember();
