@@ -7,10 +7,12 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,7 +57,7 @@ public class VipStatusController {
 		AioCheckOutOneTime obj = new AioCheckOutOneTime();
 		obj.setMerchantTradeNo(orderNumber);
 		obj.setMerchantTradeDate(timeFormat);
-		obj.setTotalAmount("300");
+		obj.setTotalAmount("149");
 		obj.setTradeDesc("MeetTogether VIP金牌會員升級");
 		obj.setItemName("MeetTogether VIP金牌會員-30天");
 		obj.setReturnURL("http://localhost:8080/MeetTogether/VipPaySuccess");
@@ -82,10 +84,11 @@ public class VipStatusController {
 	}
 	
 	@RequestMapping(value = "/VipPaySuccess", method=RequestMethod.GET)
-	public String vipUpgradeSuccess(Model model, 
+	public String vipUpgradeSuccess(Model model, HttpSession session,
 			@RequestParam(value = "MerchantTradeNo") String MerchantTradeNo) {
 //		System.out.println("--------MerchantTradeNo: " + MerchantTradeNo);
 		vipService.vipUpgradeSuccess(MerchantTradeNo);
+		session.setAttribute("vipTag", true);
 		return "forward:/";
 	}
 	

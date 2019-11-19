@@ -34,26 +34,79 @@
 			<tr>
 				<td>文章標籤(最多5個)
 				<td><div class="input_fields_wrap">
-						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" />&ensp;&ensp;<button class="add_field_button">增加標籤</button></div>
+				<script type="text/javascript">
+				var jQueryConflict = $.noConflict();
+				function getTag(myObj) {
+					jQueryConflict(myObj).autocomplete({
+						source: function(request, response) {
+							jQueryConflict.ajax({
+								url:"getMsgtagByQuery",
+								dataType:"JSON",
+								data:{tagQuery:request.term},
+								success:function(data) {
+									console.log('data: ' + data);
+									response(data);
+								}
+							});
+						},
+						minLength:1,
+						select: function(event,ui) {
+							jQueryConflict(myObj).val(ui.item);
+			            }
+			        });
+				}
+				</script>
+						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;
+						<button class="add_field_button">增加標籤</button></div>
 					</div>
 				<script type="text/javascript">
-				$(document).ready(function() {
+					jQueryConflict(document).ready(function() {
 						var max_fields = 5;
-						var wrapper = $(".input_fields_wrap");
-						var add_button = $(".add_field_button");
+						var wrapper = jQueryConflict(".input_fields_wrap");
+						var add_button = jQueryConflict(".add_field_button");
 						
 						let x = 1;
-						$(add_button).click(function(e) {
+						jQueryConflict(add_button).click(function(e) {
 							e.preventDefault();
 							if (x < max_fields) {
 								x++;
-								$(wrapper).append('<div><form:input type="text" path="msgTagName" class="input_tag" placeholder="#tag here" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>');
+								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)"/>&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>';
+								jQueryConflict(wrapper).append(appendContent);
 							}
 						});
-						$(wrapper).on("click", ".remove_field", function(e) {
-							e.preventDefault(); $(this).parent('div').remove(); x--;
+						jQueryConflict(wrapper).on("click", ".remove_field", function(e) {
+							e.preventDefault(); jQueryConflict(this).parent('div').remove(); x--;
 						});
+						
+						
+						let tags = document.getElementsByClassName("input_tag");
+						
+						
+						/* for (let t = 0; t < tags.length; t++) {
+							jQueryConflict(tags[t]).on("focus", function() {
+								console.log(tags[t]);
+								jQueryConflict(tags[t]).autocomplete({
+									source: function(request, response) {
+										jQueryConflict.ajax({
+											url:"getMsgtagByQuery",
+											dataType:"JSON",
+											data:{tagQuery:request.term},
+											success:function(data) {
+												console.log('data: ' + data);
+												response(data);
+											}
+										});
+									},
+									minLength:1,
+									select: function(event,ui) {
+										jQueryConflict(tags[t]).val(ui.item);
+						            }
+						        });
+							});
+						} */
 					});
+// 						參考網址: https://dotblogs.com.tw/peterkyo/2019/02/26/100805
+						
 				</script>
 			
 		</table>

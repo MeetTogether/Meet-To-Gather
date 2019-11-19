@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10908.model.CatBean;
 import com.meetogether.eeit10908.service.impl.ActService;
@@ -44,6 +46,8 @@ public class ActController {
 	
 	ServletContext context;
 	
+	MemberService mService;
+	
 	@Autowired
 	public void setContext(ServletContext context) {
 		this.context = context;
@@ -51,6 +55,11 @@ public class ActController {
 	@Autowired
 	public void setService(ActService service) {
 		this.service = service;
+	}
+	
+	@Autowired
+	public void setmService(MemberService mService) {
+		this.mService = mService;
 	}
 	@RequestMapping("/eeit10908")
 	public String index(Model model) {
@@ -62,12 +71,16 @@ public class ActController {
 	}
 	
 	@RequestMapping(value = "/index/ChangeIndexCat")
-	public String selectIndexCat(@RequestParam("eventCat") int catId,Model model) {
-
+	public String selectIndexCat(@RequestParam("eventCat") int catId,Model model, HttpServletRequest request) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		model.addAttribute("member",memberbean);
 		
 		List<ActBean> aaa = service.getActivityByCat(catId);
 		Map<Integer, String> bbb= getCompanyList(); 
 		System.out.println(catId);
+		ActBean aa = new ActBean();
+		model.addAttribute("actBean", aa); 
 		String Catclass = (String)bbb.get(catId);
 		model.addAttribute("catclass",Catclass);
 		model.addAttribute("actBeanCat",aaa);
@@ -75,12 +88,16 @@ public class ActController {
 	}
 	
 	@RequestMapping(value = "/MeetTogether/index/ChangeIndexCat")
-	public String selectIndexCats(@RequestParam("eventCat") int catId,Model model) {
-
+	public String selectIndexCats(@RequestParam("eventCat") int catId,Model model, HttpServletRequest request) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		model.addAttribute("member",memberbean);
 		
 		List<ActBean> aaa = service.getActivityByCat(catId);
 		Map<Integer, String> bbb= getCompanyList(); 
 		System.out.println(catId);
+		ActBean aa = new ActBean();
+		model.addAttribute("actBean", aa); 
 		String Catclass = (String)bbb.get(catId);
 		model.addAttribute("catclass",Catclass);
 		model.addAttribute("actBeanCat",aaa);
@@ -91,7 +108,8 @@ public class ActController {
 	public String getAddNewProductForm(Model model, HttpServletRequest request) {
 		System.out.println("--------------+++------------");
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-		
+		MemberBean memberbean = mService.getMemberById(userId);
+		model.addAttribute("member",memberbean);
 		List<ActBean> beans = service.getAllAct();	
 	    ActBean aa = new ActBean();
 	    CatBean cc = new CatBean();
@@ -190,9 +208,11 @@ public class ActController {
 	}
 	
 	@RequestMapping(value = "/index/addActis", method = RequestMethod.GET)
-	public String getAddNewProductForms(Model model) {
+	public String getAddNewProductForms(Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
 	    ActBean aa = new ActBean();
+	    
 	    aa.setGroupNum("9");
 	    model.addAttribute("actBean", aa); 
 	    return "/eeit10908/";
@@ -246,28 +266,35 @@ public class ActController {
 	}
 	
 	@RequestMapping(value = "/ByActivity")
-	public String getActById(@RequestParam("getId") Integer id,Model model) {
+	public String getActById(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
 		model.addAttribute("actdata",service.getActivityById(id));
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		model.addAttribute("member",memberbean);
 	    return "/eeit10908/ViewOneAct";
 	}
 	
 	@RequestMapping(value = "/index/ByActivity")
-	public String getActByIds(@RequestParam("getId") Integer id,Model model) {
+	public String getActByIds(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
 		model.addAttribute("actdata",service.getActivityById(id));
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		model.addAttribute("member",memberbean);
 	    return "/eeit10908/ViewOneAct";
 	}
 	
 	@RequestMapping(value = "/actdata", method = RequestMethod.GET)
 	public String getActByIdForm(@RequestParam("getId") Integer id,Model model) {
 		System.out.println("--------------+++------------");
+		
 		model.addAttribute("actdata",service.getActivityById(id));
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 

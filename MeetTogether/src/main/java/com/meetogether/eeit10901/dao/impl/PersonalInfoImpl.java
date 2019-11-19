@@ -1,5 +1,7 @@
 package com.meetogether.eeit10901.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,12 @@ public class PersonalInfoImpl implements IPersonalInfoDao {
 	
 	
 	@Override
-	public void addPersonalInfo(MemberInfo personalinfo) {
+	public List<MemberInfo> addPersonalInfo(MemberInfo personalinfo) {
 		Session session = factory.getCurrentSession();
 		MemberBean mb = getMemberById(personalinfo.getMemberId());
 		
 		session.save(personalinfo);
+		return null;
 	}
 
 
@@ -34,6 +37,13 @@ public class PersonalInfoImpl implements IPersonalInfoDao {
 		Session session = factory.getCurrentSession();
 		MemberBean result = session.get(MemberBean.class, memberId);
 		return result;
+	}
+
+
+	@Override
+	public List<MemberInfo> getAllInfo() {
+		
+		return null;
 	}
 
 

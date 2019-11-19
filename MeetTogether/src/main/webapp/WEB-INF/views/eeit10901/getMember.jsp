@@ -273,9 +273,10 @@ p {
 
 		<table border='1'>
 			<tr>
+			<td  colspan="2">
 				<img style="height: 250px"
 					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
-
+</td>
 				<!-- 					<tr bgcolor='#ffad00'> -->
 			<tr>
 				<td>編號
@@ -317,7 +318,7 @@ p {
 
 	</div>
 
-	<a href="personal" class="nav-link">輸入個人喜好</a>
+	<a href="${pageContext.request.contextPath}/personal/${member.memberId}" class="nav-link">輸入個人喜好</a>
 	<a href="personalH" class="nav-link">輸入個人希望條件</a>
 	<a href="addAlbum" class="nav-link">相簿</a>
 

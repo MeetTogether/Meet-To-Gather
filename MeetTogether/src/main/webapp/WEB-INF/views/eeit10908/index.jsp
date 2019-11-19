@@ -329,7 +329,16 @@ p {
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-link">登出</a></li>
+					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+						</c:if></a></li>
+
+					<li class="nav-item"><c:if test="${!empty userId}">
+							<img id="thumb" style="height: 40px"
+								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${!empty userId}">
+							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>
@@ -368,12 +377,12 @@ p {
 		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?eventCat=${catList.key}">
 	
 		<div class="dropdown">
-		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px; align:center;">
+		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px;">
 		<span class="caret"></span>
 				<div class="dropdown-content">
-				<form:option value="-1" label="請選擇" />
+				<form:option value="-1" label="請選擇" style="align:left;"/>
 				
-				<form:options items="${catList}" />
+				<form:options items="${catList}" style="align:center;"/>
 				</div>
 		
 		</form:select>
@@ -473,8 +482,8 @@ p {
 		      <div class="modal-body" style="background-color: #e7eef1;">
 		     <form:form method="post" 
  			modelAttribute="actBean" enctype="multipart/form-data">
-				<span style="text-align:left;">主辦人編號:</span>
-					<form:input type="text" path="memberId" /><p>
+				<span style="text-align:left;">主辦人:</span>
+					${member.memberName}<p>
 		     	活動名稱:<p>
 					<form:input type="text" path="eventName"/><p>
 		     	活動類型:<p>

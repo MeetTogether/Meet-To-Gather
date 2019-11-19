@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
+<link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'>
 
 <title>活 動 資 料</title>
 <meta name="viewport"
@@ -33,7 +34,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta charset="UTF-8">
-<style>
+<style type="text/css">
 body {
 /* 	background: -webkit-radial-gradient(ellipse, white, aqua); */
 /* 	background: -o-radial-gradient(ellipse, white, aqua); */
@@ -54,6 +55,7 @@ body {
 	font-family: inherit;
 	font-size: inherit;
 }
+
 
 .btn-link:active {
 	color: #FF0000;
@@ -89,6 +91,7 @@ select {
 option {
 	text-align: center;
 }
+
 .point {
 	cursor: pointer;
 }
@@ -187,8 +190,69 @@ option {
 p {
 	margin-bottom: 0;
 }
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {background-color: #AAAAAA;}
+.dropbtn {
+  background-color: #DDDDDD;
+
+}
 </style>
 <script>
+function getTodayDate() {
+		var fullDate = new Date();
+		var yyyy = fullDate.getFullYear();
+		var MM = (fullDate.getMonth() + 1) >= 10 ? (fullDate.getMonth() + 1)
+				: ("0" + (fullDate.getMonth() + 1));
+		var dd = fullDate.getDate() < 10 ? ("0" + fullDate.getDate())
+				: fullDate.getDate();
+		var hh = fullDate.getHours() < 10 ? ("0" + fullDate.getHours())
+				: fullDate.getHours();
+		var mm = fullDate.getMinutes() < 10 ? ("0" + fullDate.getMinutes())
+				: fullDate.getMinutes();
+		var today = yyyy + "/" + MM + "/" + dd + "," + hh + ":" + mm;
+		var elem = document.getElementById("create");
+		elem.value = today;
+		return today;
+	}
+	
+	var VisibleMenu = ''; // 記錄目前顯示的子選單的 ID
+
+// 顯示或隱藏子選單
+function switchMenu( theMainMenu, theSubMenu, theEvent ){
+ var SubMenu = document.getElementById( theSubMenu );
+ if( SubMenu.style.display == 'none' ){ // 顯示子選單
+     SubMenu.style.minWidth = theMainMenu.clientWidth; // 讓子選單的最小寬度與主選單相同 (僅為了美觀)
+     SubMenu.style.display = 'block';
+     hideMenu(); // 隱藏子選單
+     VisibleMenu = theSubMenu;
+ }
+ else{ // 隱藏子選單
+     if( theEvent != 'MouseOver' || VisibleMenu != theSubMenu ){
+         SubMenu.style.display = 'none';
+         VisibleMenu = '';
+     }
+ }
+}
+
+// 隱藏子選單
+function hideMenu(){
+ if( VisibleMenu != '' ){
+     document.getElementById( VisibleMenu ).style.display = 'none';
+ }
+ VisibleMenu = '';
+}
+$(document).ready(function() {
+ $('.mdb-select').materialSelect();
+ });
+
+function clickact(myObj){
+//	 alert("活動報名成功");
+ myObj.innerHTML="已參加";
+ console.log(myObj);
+}
+
 
 var jQuery_1_12_4 = $.noConflict();
 
@@ -253,7 +317,16 @@ jQuery_1_12_4(document).ready(
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-link">登出</a></li>
+					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+						</c:if></a></li>
+
+					<li class="nav-item"><c:if test="${!empty userId}">
+							<img id="thumb" style="height: 40px"
+								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${!empty userId}">
+							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>
@@ -280,20 +353,28 @@ jQuery_1_12_4(document).ready(
 		</div>
 	</section>
 
-
+	<div>&nbsp;</div>
+	<button style="margin-left:13.5%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="getTodayDate()" >
+  			新增活動
+	</button>
 	<div align="center">
 		<h2>${catclass} 類 型 列 表</h2>
-
+		
 		<form method="get" action="/MeetTogether/index/ChangeIndexCat">
-				<select name="eventCat" onchange="submit();">
-						<option value="" disabled selected hidden >${catclass}</option>
-						<c:forEach items="${catList}" var="cat">
-								<option value="${cat.key}">${cat.value}</option>
+			<div class="dropdown">
+				<select name="eventCat" onchange="submit();" class="dropbtn" style="align:left; ">
+						
+						<option value="" disabled selected hidden style=" text-align-last:left;">${catclass}</option>
+						
+						<c:forEach items="${catList}" var="cat">															
+								<option value="${cat.key}" style=" text-align-last:left;">${cat.value}</option>
+								
 						</c:forEach>
 						
 				</select>
+			</div>	
 		</form>
-
+		
 <p>
 		<a href="/MeetTogether/eeit10908" style="color:black">回到總表</a>
 		<p>
@@ -357,9 +438,72 @@ jQuery_1_12_4(document).ready(
 			</div>
     	</div>
     </section>
-			
+		<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+ 		<h5 class="modal-title" id="exampleModalLongTitle" align="center">新  增  活  動</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+			   
+		      <div class="modal-body" style="background-color: #e7eef1;">
+		     <form:form method="post" 
+ 			modelAttribute="actBean" enctype="multipart/form-data">
+				<span style="text-align:left;">主辦人:</span>
+					${member.memberName}<p>
+		     	活動名稱:<p>
+					<form:input type="text" path="eventName"/><p>
+		     	活動類型:<p>
+					<form:select path="eventCat">
+							<form:option value="-1" label="請選擇" />
+							<form:options items="${catList}" />
+						</form:select><p>
+				活動開始時間:<p>
+
+						<div class="input-group date form_datetime col-md-8"							
+							data-date-format="yyyy-mm-dd - HH:ii p"
+							data-link-field="dtp_input1">
+							<form:input class="form-control" type="text" path="eventTime" />
+							<span class="input-group-addon"><span
+								class="glyphicon glyphicon-remove"></span></span> <span
+								class="input-group-addon"><span
+								class="glyphicon glyphicon-th"></span></span>
+						</div><p> 
+			           活動內容:<p>
+					<form:textarea type="textarea" path="actContent"  style="width:300px;height:100px;" ></form:textarea><p>
+		     	
+						
+		     	活動參與人數:<p>
+					<form:input type="text" path="groupNum" value="" /><p>
+		     	
+		     	預算:<p>
+					<form:input type="text" path="budget"  /><p>
+		     	活動地點:<p>
+					<form:input type="text" path="eventPlace" /><p>
+				活動建立時間:<p>
+					<form:input type="text" path="createTime" id="create" /><p>
+				活動圖片:<p>&emsp;&emsp;&emsp;&emsp;
+					<form:input type="file" path="actImage" value="新增圖片" align="right"/><p>	
+		     	
+		     	
+		     	
+		    
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">取 消</button>
+        		   <button type="submit" class="btn btn-primary">新 增</button>
+		    	</form:form>
+		      </div>
+		      
+		      
+<!-- 		       <div class="modal-footer"> -->
+        
+<!--       </div> -->
+    </div>
+  </div>
+</div>	
 <!-- 		</table> -->
-		<br> <a href='addActis'><input type="button" value="新增活動"></a>
+	
 	
 	</div>
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
@@ -409,8 +553,38 @@ jQuery_1_12_4(document).ready(
   
 
   <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+<%--   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div> --%>
 
+	<script src="${pageContext.request.contextPath}/eeit10908/assets/jquery/jquery-1.8.3.min.js"></script>
+	
+	<script
+		src="${pageContext.request.contextPath}/eeit10908/assets/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.js"
+		charset="UTF-8"></script>
+	<script
+		src="${pageContext.request.contextPath}/eeit10908/assets/locales/bootstrap-datetimepicker.fr.js"
+		charset="UTF-8"></script>
+	<script type="text/javascript">
+
+		$('.form_datetime').datetimepicker({
+	
+			//language:  'fr',
+			weekStart : 1,
+			todayBtn : 1,
+			autoclose : 1,
+			todayHighlight : 1,
+			//startView : 2,
+			forceParse : 0,
+ 			showMeridian : 1,
+		    
+ 			
+ 			
+ 			
+ 			minDate: "dateToday",
+		});
+	
+ 	</script> 
 
   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>

@@ -101,7 +101,7 @@ p {
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<img style="height: 40px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>

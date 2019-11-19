@@ -56,27 +56,29 @@ public class MemberDaoImpl implements MemberDao {
 		factory.getCurrentSession().save(member);
 		int memberId = member.getMemberId();
 		return memberId;
+		
+		
 	}
 
 	@Override
 
 		public void update(MemberBean m) {
 			 Session session = factory.getCurrentSession();
-//			 String hql = "from MemberBean WHERE memberId = ?0";
-//			 MemberBean result = (MemberBean) session.createQuery(hql).setParameter(0, m.getMemberId()).uniqueResult();
-//			 result.setMemberPassword(m.getMemberPassword());
-//			 result.setMemberEmail(m.getMemberEmail());
-//			 result.setMemberName(m.getMemberName());
-//			 result.setMemberBirth(m.getMemberBirth());
-//			 result.setMemberCity(m.getMemberCity());
-//			 result.setMemberSex(m.getMemberSex());
-			 session.update(m);
+			 String hql = "from MemberBean WHERE memberId = ?0";
+			 MemberBean result = (MemberBean) session.createQuery(hql).setParameter(0, m.getMemberId()).uniqueResult();
+			 result.setMemberPassword(m.getMemberPassword());
+			 result.setMemberEmail(m.getMemberEmail());
+			 result.setMemberName(m.getMemberName());
+			 result.setMemberBirth(m.getMemberBirth());
+			 result.setMemberCity(m.getMemberCity());
+			 result.setMemberSex(m.getMemberSex());
+//			 session.update(m);
 		
 			 
-			 System.out.println("password"+m.getMemberPassword());
-			 System.out.println("eMAIL"+m.getMemberEmail());
-			 System.out.println("生日"+m.getMemberBirth());
-			 System.out.println("縣市"+m.getMemberCity());
+//			 System.out.println("password"+m.getMemberPassword());
+//			 System.out.println("eMAIL"+m.getMemberEmail());
+//			 System.out.println("生日"+m.getMemberBirth());
+//			 System.out.println("縣市"+m.getMemberCity());
 			 
 			 
 	}
