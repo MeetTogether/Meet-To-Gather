@@ -72,6 +72,7 @@ public class MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMemberLoginForm(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
+			model.addAttribute("memberBean", new MemberBean());
 			List<ActBean> beans = actService.getAllAct();	
 			model.addAttribute("actBeanList", beans);
 			List<MemberBean> memberBeans = msgService.getNewMember();
