@@ -157,7 +157,6 @@ public class MemberController {
 	public String getaddRegister(Model model) {
 		MemberBean mm = new MemberBean();
 		model.addAttribute("memberBean", mm);
-		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/register";
 	}
 
@@ -183,15 +182,11 @@ public class MemberController {
 		if (captCheck == false) {
 			errorMsg.put("captError", "驗證碼錯誤");
 		}
-		int memberId = 0;
-		if (accCheck == false && captCheck == true) {
-			memberId = mservice.add(member);
-			request.getSession().setAttribute("userEmail", member.getMemberEmail());
-			request.getSession().setAttribute("userPwd", member.getMemberPassword());
-		}
+		
 		MultipartFile picture = member.getMemberImage();
 		String originalFilename = picture.getOriginalFilename();
 		member.setFileName(originalFilename);
+		System.out.println("--------memberController-originalFilename: " + originalFilename);
 //		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 //		String rootDirectory = context.getRealPath("/");
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
@@ -200,6 +195,7 @@ public class MemberController {
 				byte[] b = picture.getBytes();
 				Blob blob = new SerialBlob(b);
 				member.setPhoto(blob);
+				System.out.println("--------memberController-blob: " + blob);
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
@@ -208,6 +204,11 @@ public class MemberController {
 
 		if (!errorMsg.isEmpty()) {
 			return "/eeit10901/register";
+		}
+		if (accCheck == false && captCheck == true) {
+			mservice.add(member);
+			request.getSession().setAttribute("userEmail", member.getMemberEmail());
+			request.getSession().setAttribute("userPwd", member.getMemberPassword());
 		}
 
 		final String Email = "109meettogether@gmail.com";// your Gmail

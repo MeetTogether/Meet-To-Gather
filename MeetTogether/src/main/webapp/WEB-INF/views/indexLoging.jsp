@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/eeit10927/js/login.js"></script>
 <style>
 .reply_a {
 	padding: 5px 10px;
@@ -85,6 +86,10 @@
 	background: #f3f2bd6b;*/
 	background: white;
 }
+.msgWrong {
+	color: red;
+	font-size: 0.9em;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -125,35 +130,32 @@ $(document).ready(function() {
     <span aria-hidden="true">&times;</span>
 	</button>
 </div>
-<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
+<div style="width:95%; text-align: center;">
 	<div class="form-group">
-		<form:form method="POST" class="request-form ftco-animate"
+		<form:form method="POST" 
 			modelAttribute="memberBean" id="loginForm"
 			action="./LoginServlet">
 			<h2>Welcome</h2>
 			
-			<table>
-				<tr>
-					<td>請輸入Email
-				<tr>
-					<td><form:input type="email" name="mEmail" id="mEmail"
-							path="memberEmail" value="${userEmail}" autocomplete="off" />
-					<td><span id="msg_mEmail" class='msgWrong'></span>
-				<tr>
-					<td>請輸入密碼
-				<tr>
-					<td><form:input type="password" name="mPwd" id="mPwd"
-							path="memberPassword" value="${userPwd}" />
-					<td><span id="msg_mPwd" class='msgWrong'>${errorMsg.loginError}</span>
-			</table>
-
-
-
+			<div>
+				<div style="text-align: center;">
+				請輸入Email<br>
+				</div>
+				<form:input type="email" name="mEmail" id="mEmail" path="memberEmail" value="${userEmail}" autocomplete="off" style="width:60%;" />
+				<span id="msg_mEmail" class='msgWrong'></span>
+			</div>
+			<br>
+			<div>
+				<div style="text-align: center;">
+				請輸入密碼<br>
+				</div>
+				<form:input type="password" name="mPwd" id="mPwd" path="memberPassword" value="${userPwd}" style="width:60%;" />
+				<span id="msg_mPwd" class='msgWrong'>${errorMsg.loginError}</span>
+			</div>
 			<br>
 			<div class="form-group">
-				<input type="submit" value="登入" id="login"
-					class="btn btn-primary py-3 px-4" /> 尚未成為會員? <a
-					href="register">前往註冊</a>
+				<input type="submit" value="登入" id="login" class="btn btn-primary py-3 px-4" />
+				尚未成為會員? <a href="register">前往註冊</a>
 			</div>
 		</form:form>
 	</div>
@@ -191,7 +193,7 @@ $(document).ready(function() {
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${empty userId}">
-						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入</a>
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>
