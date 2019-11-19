@@ -75,13 +75,15 @@
 	background: #2894FF;
 }
 .testimony-wrap{
-	background: #ff00000f;
+	/*background: #ff00000f;*/
+	background: white;
 }
 
 .p-4{
 	/*background: #0384f30f;
-	background: #c3f3031c;*/
-	background: #f3f2bd6b;
+	background: #c3f3031c;
+	background: #f3f2bd6b;*/
+	background: white;
 }
 </style>
 <script type="text/javascript">
@@ -113,6 +115,53 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<!-- 登入視窗 -->
+<div class="modal fade" id="loginModalLong" tabindex="-1" role="dialog" aria-labelledby="loginModalLongTitle" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+	<h5 class="modal-title" id="vipModalLongTitle" align="center">會員登入</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
+	<div class="form-group">
+		<form:form method="POST" class="request-form ftco-animate"
+			modelAttribute="memberBean" id="loginForm"
+			action="./LoginServlet">
+			<h2>Welcome</h2>
+			
+			<table>
+				<tr>
+					<td>請輸入Email
+				<tr>
+					<td><form:input type="email" name="mEmail" id="mEmail"
+							path="memberEmail" value="${userEmail}" autocomplete="off" />
+					<td><span id="msg_mEmail" class='msgWrong'></span>
+				<tr>
+					<td>請輸入密碼
+				<tr>
+					<td><form:input type="password" name="mPwd" id="mPwd"
+							path="memberPassword" value="${userPwd}" />
+					<td><span id="msg_mPwd" class='msgWrong'>${errorMsg.loginError}</span>
+			</table>
+
+
+
+			<br>
+			<div class="form-group">
+				<input type="submit" value="登入" id="login"
+					class="btn btn-primary py-3 px-4" /> 尚未成為會員? <a
+					href="register">前往註冊</a>
+			</div>
+		</form:form>
+	</div>
+</div>
+</div>
+</div>
+</div>
+
 
 	<!-- nav -->
 	<nav
@@ -140,6 +189,9 @@ $(document).ready(function() {
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${empty userId}">
+						<a href="<c:url value='/LoginServlet'  />" class="nav-link">登入</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -296,7 +348,14 @@ $(document).ready(function() {
 										far from the countries Vokalia and Consonantia, there live the
 										blind texts.</p>
 									<p class="d-flex mb-0 d-block">
-										<a href="###" class="reply_n">SKIP</a>&ensp;&ensp;
+									<c:choose>
+										<c:when test="${userId eq null }">
+											<button type="button" class="reply_n" data-toggle="modal" data-target="#loginModalLong">SKIP</button>
+										</c:when>
+										<c:otherwise>
+											<a href="###" class="reply_n">SKIP</a>&ensp;&ensp;
+										</c:otherwise>
+									</c:choose>
 										<a href="###" class="reply">LIKE</a>
 									</p>
 								</div>

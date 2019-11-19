@@ -72,6 +72,7 @@ public class MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMemberLoginForm(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
+			model.addAttribute("memberBean", new MemberBean());
 			List<ActBean> beans = actService.getAllAct();	
 			model.addAttribute("actBeanList", beans);
 			List<MemberBean> memberBeans = msgService.getNewMember();
@@ -82,7 +83,13 @@ public class MemberController {
 		}
 		MemberBean member = new MemberBean();
 		model.addAttribute("memberBean", member);
-		return "index";
+		List<ActBean> beans = actService.getAllAct();	
+		model.addAttribute("actBeanList", beans);
+		List<MemberBean> memberBeans = msgService.getNewMember();
+		model.addAttribute("newMembers", memberBeans);
+		List<com.meetogether.eeit10927.model.Message> msgBeans = msgService.getPopularMsg();
+		model.addAttribute("popMsgs", msgBeans);
+		return "indexLoging";
 	}
 	
 	@RequestMapping(value = "/upadateInfo/{id}", method = RequestMethod.GET)
