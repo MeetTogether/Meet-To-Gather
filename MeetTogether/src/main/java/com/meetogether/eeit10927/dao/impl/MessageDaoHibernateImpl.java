@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.MemberService;
+import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsgTypeDao;
 import com.meetogether.eeit10927.dao.IMsgtagDao;
@@ -28,23 +30,26 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	private int totalPages = -1;	// 總頁數
 	private int textLength = 50;	// 顯示部份文章的字數
 	
-	private SessionFactory factory;
+	SessionFactory factory;
 	@Autowired
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
 	
-	private IMsgTypeDao mtDao;
+	IMsgTypeDao mtDao;
 	@Autowired
 	public void setMtDaoService(IMsgTypeDao mtDao) {
 		this.mtDao = mtDao;
 	}
 	
-	private IMsgtagDao mTagDao;
+	IMsgtagDao mTagDao;
 	@Autowired
 	public void setmTagDao(IMsgtagDao mTagDao) {
 		this.mTagDao = mTagDao;
 	}
+	
+	@Autowired
+	MemberService memberService;
 	
 	public MessageDaoHibernateImpl() {
 	}
@@ -449,7 +454,27 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		return list;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> getNewMember() {
+		List<MemberBean> list = new ArrayList<>();
+		String hql = "from MemberBean order by createTime desc";
+		list = factory.getCurrentSession().createQuery(hql)
+				.setMaxResults(5)
+				.getResultList();
+		return list;
+	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ActBean> getPopActivity() {
+		List<ActBean> list = new ArrayList<>();
+		String hql = "from ActBean order by createTime desc";
+		list = factory.getCurrentSession().createQuery(hql)
+				.setMaxResults(8)
+				.getResultList();
+		return list;
+	}
 	
 	
 }

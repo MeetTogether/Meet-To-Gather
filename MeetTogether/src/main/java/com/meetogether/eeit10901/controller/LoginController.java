@@ -49,9 +49,9 @@ public class LoginController {
 
 		} else {
 			errorMsg.put("loginError", "帳號或密碼錯誤");
-			return "index";
+			return "indexLoging";
 		}
-
+		
 		return "indexLoging";
 	}
 

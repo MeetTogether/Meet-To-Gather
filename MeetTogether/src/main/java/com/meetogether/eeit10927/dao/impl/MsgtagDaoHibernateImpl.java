@@ -1,6 +1,8 @@
 package com.meetogether.eeit10927.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -78,6 +80,21 @@ public class MsgtagDaoHibernateImpl implements IMsgtagDao {
 		}
 //		String hql = "delete from Msgtag where msgId = ?0";
 //		session.createQuery(hql).setParameter(0, msgId).executeUpdate();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Msgtag> getMsgtagByQuery(String query) {
+		String hql = "from Msgtag where deleteTag = 'False' and tagName like ?0";
+		String tagQuery = query + "%";
+		List<Msgtag> tags = (List<Msgtag>) factory.getCurrentSession().createQuery(hql)
+				.setParameter(0, tagQuery).getResultList();
+		Map<String, Integer> tagMap = new HashMap<String, Integer>();
+		for (Msgtag tag : tags) {
+			tagMap.put(tag.getTagName(), 1);
+		}
+		System.out.println("----------tagMap: " + tagMap);
+		return tags;
 	}
 	
 }

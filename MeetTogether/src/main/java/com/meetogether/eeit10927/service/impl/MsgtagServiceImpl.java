@@ -52,4 +52,10 @@ public class MsgtagServiceImpl implements IMsgtagService {
 		tagDao.deleteMsgTagByMsgId(msgId);
 	}
 
+	@Transactional
+	@Override
+	public List<Msgtag> getMsgtagByQuery(String query) {
+		return tagDao.getMsgtagByQuery(query);
+	}
+
 }

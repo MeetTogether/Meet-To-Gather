@@ -1,6 +1,7 @@
 package com.meetogether.eeit10901.controller;
 
 import java.sql.Blob;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.meetogether.eeit10901.service.AlbumService;
 import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 import com.meetogether.eeit10936.pairs.model.MemberAlbumPk;
+
 @Controller
 public class AlbumController {
 	ServletContext context;
@@ -37,23 +39,23 @@ public class AlbumController {
 	}
 	
 	@RequestMapping(value = "/addAlbum", method = RequestMethod.GET)
-	public String getaddRegister(Model model) {
-		MemberAlbumPk mapk= new MemberAlbumPk();
-		MemberAlbum ma =new MemberAlbum(mapk);
-		model.addAttribute("ma", ma);
+	public String getaddAlbum(Model model) {
+		MemberAlbum mm = new MemberAlbum();
+		model.addAttribute("albumbean", mm);
 		return "eeit10901/addAlbum";
 	}
-
+	
 	@RequestMapping(value = "/addAlbum", method = RequestMethod.POST)
-	public String addRegister(@ModelAttribute("ma") MemberAlbum ma, BindingResult result,
+	public String addAlbum(@ModelAttribute("albumbean") MemberAlbum album, BindingResult result,
 			HttpServletRequest request) {
 		String[] suppressedFields = result.getSuppressedFields();
 		if (suppressedFields.length > 0) {
 			throw new RuntimeException("嘗試傳入不允許的欄位: " + StringUtils.arrayToCommaDelimitedString(suppressedFields));
 		}
-		MultipartFile picture = ma.getAlbumImage();
+
+		MultipartFile picture = album.getAlbumImage();
 		String originalFilename = picture.getOriginalFilename();
-		ma.getPk().setFileName(originalFilename);
+//		album.setFileName(originalFilename);
 //		String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
 //		String rootDirectory = context.getRealPath("/");
 		// 建立Blob物件，交由 Hibernate 寫入資料庫
@@ -61,17 +63,24 @@ public class AlbumController {
 			try {
 				byte[] b = picture.getBytes();
 				Blob blob = new SerialBlob(b);
-				ma.setPhoto(blob);
+				album.setPhoto(blob);
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 
 		}
-		service.addAlbum(ma);
-		return "eeit10901/addAlbum";
-	}
-
+		service.addAlbum(album);
+		return "eeit10901/album";
+}
+	@RequestMapping("/Album")
+	public String getAlbum(Model model) {
+	List<MemberAlbum> list = service.getAllAlbum();
+	System.out.println("這是"+list);
+	model.addAttribute("albums", list);
+	return "eeit10901/album";
 	
 
+}
+	
 }
