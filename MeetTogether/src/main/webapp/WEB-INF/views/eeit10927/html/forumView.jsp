@@ -230,8 +230,12 @@ p {
 															e.preventDefault();
 															if (x_verify < max_fields) {
 																x_verify++;
+<<<<<<< HEAD
 																var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="Vinput_tag" onclick="getTag(this)"/>&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>';
 																jQueryConflict(wrapper_verify).append(appendContent);
+=======
+																jQueryConflict(wrapper_verify).append('<div><form:input type="text" path="msgTagName" class="Vinput_tag" placeholder="#tag here" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>');
+>>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 															}
 														});
 														jQueryConflict(wrapper_verify).on("click", ".remove_field", function(e) {

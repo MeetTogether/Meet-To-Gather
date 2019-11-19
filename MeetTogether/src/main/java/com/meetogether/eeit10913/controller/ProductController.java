@@ -44,10 +44,10 @@ public class ProductController {
 //新增方法
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String getaddReview(Model model, HttpServletRequest request) {
-		Integer userId = (Integer) request.getSession().getAttribute("userId");
-
+//		Integer userId1 = (Integer) request.getSession().getAttribute("userId");
+//		System.out.println("userId ===================  "+userId1);
 		ReviewBean rb = new ReviewBean();
-
+		System.out.println("rb ===================  "+rb);
 //		model.addAttribute("event",service1.getActivityById(actId));
 		model.addAttribute("reviewBean", rb);
 		return "eeit10913/addProduct";
@@ -74,16 +74,34 @@ public class ProductController {
 		List<ReviewBean> list = service.selectALL();
 		Integer reviewSize = list.size();
 		Integer totalEventStar = 0;
+		Integer one = 0;
+		Integer two = 0;
+		Integer three = 0;
+		Integer four = 0;
+		Integer five = 0;
 		avgEventStar = 0;
 		for (ReviewBean rb : list) {
 			// totalEventStar = totalEventStar + reviewBean.getEventStars();
 			totalEventStar += rb.getEventStars();
+			if(rb.getEventStars()==1)++one;
+			else if(rb.getEventStars()==2)++two;
+			else if(rb.getEventStars()==3)++three;
+			else if(rb.getEventStars()==4)++four;
+			else if(rb.getEventStars()==5)++five;
+			else {
+				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+			}
 		}
 		System.out.println("==========" + totalEventStar);
 		avgEventStar = totalEventStar / reviewSize;
 		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
 		model.addAttribute("review", list);
 		model.addAttribute("avgEventStar", avgEventStar);
+		model.addAttribute("one", one);
+		model.addAttribute("two", two);
+		model.addAttribute("three", three);
+		model.addAttribute("four", four);
+		model.addAttribute("five", five);
 		model.addAttribute("vipBean", new VipStatus());
 		// return "eeit10913/products";
 		return "eeit10913/products2";

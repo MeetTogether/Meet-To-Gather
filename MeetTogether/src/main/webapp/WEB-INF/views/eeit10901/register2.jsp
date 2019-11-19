@@ -132,7 +132,7 @@ background-color:#FF8800;
 
 	<div class="row block-9 justify-content-center mb-5">
 		<div class="col-md-8 mb-md-5">
-			<h2 class="text-center"  style="font-weight:bold">請輸入以下資料</h2>
+			<h2 class="text-center"  style="font-weight:bold">請輸入以下會員資料</h2>
 			<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
 			<form:form enctype="multipart/form-data" method="POST" modelAttribute="memberBean" id='registerForm' class="bg-light p-5 contact-form">
 				<div class="form-group">

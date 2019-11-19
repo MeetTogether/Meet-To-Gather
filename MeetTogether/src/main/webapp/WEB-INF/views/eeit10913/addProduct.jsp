@@ -266,17 +266,6 @@ body {
 
 </head>
 <body>
-	<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
-	<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
-	<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
-	<!-- 			style="width: 370px; margin: auto;"> -->
-	<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
-	<!-- 		<br> -->
-	<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
-	<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
-	<!-- 			<input type="submit" value="前往付款" class="reply"> -->
-	<%-- 		</form:form> --%>
-	<!-- 	</div> -->
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -351,21 +340,18 @@ body {
 							<label>會員ID</label>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" value=${userId }
-								readonly="readonly">
+<%-- 							<input type="text" class="form-control" value=${userId } --%>
+<!-- 								readonly="readonly"> -->
 							<form:input path="mbId" value="${userId}" type='hidden'
+								class='form:input-large' /> 
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" value=${userName }
+								readonly="readonly">
+							<form:input path="mbId" value="${userName}" type='hidden'
 								class='form:input-large' />
 						</div>
-<!-- 						抓取活動id -->
-<!-- 						<div class="form-group" style="font-size: 16px; color: black;"> -->
-<!-- 							<label>活動ID</label> -->
-<!-- 						</div> -->
-<!-- 						<div class="form-group"> -->
-<!-- 							<input type="text" class="form-control" value=${reviewBean.eventId} -->
-<!-- 								readonly="readonly"> -->
-<%-- 							<form:input path="eventId" value="${reviewBean.eventId}" type='hidden' --%>
-<%-- 								class='form:input-large' />  --%>
-<!-- 						</div> -->
+
 						
 						<!-- 選擇評分 -->
 						<div class="form-group">

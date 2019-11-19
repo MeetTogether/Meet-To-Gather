@@ -3,21 +3,18 @@ package com.meetogether.eeit10927.dao.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsgTypeDao;
 import com.meetogether.eeit10927.dao.IMsgtagDao;
-import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.model.Msgtag;
