@@ -10,7 +10,10 @@ import com.meetogether.eeit10936.pairs.model.MemberInfo;
 
 public interface PersonalInfoService {
 
-	  List<MemberInfo>  addPersonalInfo(MemberInfo personalinfo); 
-	  List<MemberInfo> getAllInfo();
+
 	  MemberBean getMemberById(Integer memberId) ;
+
+	  void addPersonalInfo(MemberInfo mm);
+
+	  List<MemberInfo> getInfoList();
 }

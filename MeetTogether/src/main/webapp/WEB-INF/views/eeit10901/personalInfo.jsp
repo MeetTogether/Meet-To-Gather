@@ -42,66 +42,10 @@
 	href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
-<script type="text/javascript">
-	var jQuery_1_12_4 = $.noConflict();
-	jQuery_1_12_4(document).ready(function() {
-		jQuery_1_12_4("#sex").val('${member.memberSex}');
-		// 	jQuery_1_12_4("#updata").click(function(){
-		// 		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
-		// 		jQuery_1_12_4("#updataMmber").submit();
-	})
-	jQuery_1_12_4("#Postbox").hide();
-	jQuery_1_12_4("#Postbutton").click(function() {
-		jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
-		/* $('html,body').animate({
-			scrollTop : 0
-		}); 返回到頁面頂端 */
-	});
-	jQuery_1_12_4("#ViewMyPost")
-			.click(
-					function() {
-						top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
-					});
-	jQuery_1_12_4("#ViewAllPost")
-			.click(
-					function() {
-						top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-					});
-	jQuery_1_12_4("input#deletePost").click(function() {
-		var c = confirm('是否確認刪除');
-		console.log(c);
-		if (c) {
-			jQuery_1_12_4(this).parent("form#deletePostForm").submit();
-		} else {
-		}
-	});
-
-	jQuery_1_12_4("#dialog-confirm").hide();
-	jQuery_1_12_4("#vipBuyButton").click(function() {
-		jQuery_1_12_4("#dialog-confirm").dialog({
-			resizable : false,
-			height : "auto",
-			width : 420,
-			modal : true,
-		});
-	});
-
-	jQuery_1_12_4);
-</script>
 
 </head>
 <body>
-	<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
-	<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
-	<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
-	<!-- 			style="width: 370px; margin: auto;"> -->
-	<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
-	<!-- 		<br> -->
-	<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
-	<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
-	<!-- 			<input type="submit" value="前往付款" class="reply"> -->
-	<%-- 		</form:form> --%>
-	<!-- 	</div> -->
+
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -160,8 +104,8 @@
 		</div>
 	</section>
 	<div align=center>
-		<h2>個人基本資料</h2>
-
+		<h2>個人條件資料</h2>
+<form:form modelAttribute="infoBean" method="post" >
 		<table border='1'>
 			<tr>
 			<td  colspan="2">
@@ -170,42 +114,38 @@
 </td>
 				<!-- 					<tr bgcolor='#ffad00'> -->
 			<tr>
-				<td>編號
-				<td>${member.memberId}</td>
+				<td>婚姻
+				<td>${infoBean.marriage}</td>
 			<tr>
-				<td>mail
-				<td>${member.memberEmail}</td>
+				<td>教育
+				<td>${infoBean.education}</td>
 			<tr>
-				<td>密碼
-				<td><input type="password" value="${member.memberPassword}"
-					disabled="true"></td>
+				<td>抽菸習慣
+				<td>${infoBean.smoking}
+					</td>
 			<tr>
-				<td>暱稱
-				<td>${member.memberName}</td>
+				<td>喝酒習慣
+				<td>${infoBean.drink}</td>
 			<tr>
-				<td>生日
-				<td>${member.memberBirth}</td>
+				<td>種族
+				<td>${infoBean.ethnicity}</td>
 			<tr>
-				<td>性別</td>
-
-				<td><select>
-
-						<c:choose>
-							<c:when test="${member.memberSex == 1 }">
-								<option value="1" selected>男</option>
-							</c:when>
-							<c:otherwise>
-								<option value="0" selected>女</option>
-							</c:otherwise>
-						</c:choose>
-
-
-				</select></td>
+				<td>種族
+				<td>${infoBean.ethnicity}</td>
 			<tr>
-				<td>縣市
-				<td>${member.memberCity}</td>
+				<td>身材
+				<td>${infoBean.bodyType}</td>
+			<tr>
+				<td>薪水
+				<td>${infoBean.salary}</td>
+<!-- 			<tr> -->
+<!-- 				<td>興趣 -->
+<%-- 				<td>${infoBean.interest}</td> --%>
+			
+				
 		</table>
-		<a class="btn btn-secondary" href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改資料</a>
+		</form:form>
+
 
 	</div>
 

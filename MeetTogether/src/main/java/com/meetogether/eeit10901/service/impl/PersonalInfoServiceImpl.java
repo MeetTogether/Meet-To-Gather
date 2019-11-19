@@ -33,15 +33,19 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
 	
 	@Transactional
 	@Override
-	public List<MemberInfo> addPersonalInfo(MemberInfo personalinfo) {
+	public void addPersonalInfo(MemberInfo personalinfo) {
 		infoDao.addPersonalInfo(personalinfo);
-		return null;
-	}
-	@Transactional
-	@Override
-	public List<MemberInfo> getAllInfo() {
 		
-		return infoDao.getAllInfo();
 	}
+
+	@Override
+	public List<MemberInfo> getInfoList() {
+
+		return infoDao.getMemberList();
+	}
+
+	
+	
+	 
 
 }
