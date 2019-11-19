@@ -3,21 +3,17 @@ package com.meetogether.eeit10927.dao.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
-import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsgTypeDao;
 import com.meetogether.eeit10927.dao.IMsgtagDao;
-import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.model.Msgtag;
@@ -30,26 +26,23 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	private int totalPages = -1;	// 總頁數
 	private int textLength = 50;	// 顯示部份文章的字數
 	
-	SessionFactory factory;
+	private SessionFactory factory;
 	@Autowired
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
 	
-	IMsgTypeDao mtDao;
+	private IMsgTypeDao mtDao;
 	@Autowired
 	public void setMtDaoService(IMsgTypeDao mtDao) {
 		this.mtDao = mtDao;
 	}
 	
-	IMsgtagDao mTagDao;
+	private IMsgtagDao mTagDao;
 	@Autowired
 	public void setmTagDao(IMsgtagDao mTagDao) {
 		this.mTagDao = mTagDao;
 	}
-	
-	@Autowired
-	MemberService memberService;
 	
 	public MessageDaoHibernateImpl() {
 	}
