@@ -207,7 +207,16 @@ jQuery_1_12_4(document).ready(
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/LogoutServlet" class="nav-link">登出</a></li>
+					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+						</c:if></a></li>
+
+					<li class="nav-item"><c:if test="${!empty userId}">
+							<img id="thumb" style="height: 40px"
+								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${!empty userId}">
+							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>
@@ -268,7 +277,7 @@ jQuery_1_12_4(document).ready(
 	              	<div class="text">
 		                <h3 class="heading mb-0 pl-3">
 		                	主 辦 人
-		                	<span>${actdata.memberId.memberName}</span>
+		                	<span>${member.memberName}</span>
 		                </h3>
 	                </div>
                 </div>
@@ -467,8 +476,8 @@ jQuery_1_12_4(document).ready(
 									   	</div>
 							   		</div>
 							   		<div class="col-md-5">
-							   			<div class="rating-wrap">
-								   			<h3 class="head">Give a Review</h3>
+							   			<div class="rating-wrap">c
+								   			<h3 class="head"><a href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give a Review</a></h3>
 								   			<div class="wrap">
 									   			<p class="star">
 									   				<span>
