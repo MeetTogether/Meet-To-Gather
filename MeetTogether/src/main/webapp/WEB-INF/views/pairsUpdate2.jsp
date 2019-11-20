@@ -33,10 +33,6 @@
 
 
 <script>
-
-	function test() {
-		alert("test");
-	}
 	function getage(birth) {
 		let dateNow = new Date().getTime();
 		let birthTime = new Date(birth).getTime();
@@ -77,7 +73,7 @@
 		let like = document.getElementById("like")
 		let dontlike = document.getElementById("dontlike")
 		like.addEventListener("click", function() {
-			url = "insertPairList?pairid=" + members[num].mb.memberId
+			url = "../insertPairList?pairid=" + members[num].mb.memberId
 					+ "&status=1";
 			console.log(url);
 			let xhttp = new XMLHttpRequest();

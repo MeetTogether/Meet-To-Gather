@@ -36,6 +36,7 @@ import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10908.model.ActJoinBean;
 import com.meetogether.eeit10908.model.CatBean;
 import com.meetogether.eeit10908.service.impl.ActService;
+import com.meetogether.eeit10913.controller.ProductController;
 import com.meetogether.eeit10913.model.ReviewBean;
 import com.meetogether.eeit10913.service.ProductService;
 
@@ -52,6 +53,7 @@ public class ActController {
 	MemberService mService;
 	
 	ProductService pService;
+	
 	
 	
 	@Autowired
@@ -130,6 +132,7 @@ public class ActController {
 		List<ActBean> beans = service.getAllAct();	
 	    ActBean aa = new ActBean();
 	    aa.setMemberId(memberbean);
+	    System.out.println(aa.getMemberId());
 	    CatBean cc = new CatBean();
 		model.addAttribute("actBeanCat",cc);
 	    //aa.setGroupNum("9");
@@ -139,9 +142,9 @@ public class ActController {
 	}
 	 
 	@RequestMapping(value = "/eeit10908", method = RequestMethod.POST)
-	public String processAddNewProductForm(@ModelAttribute("actBean") ActBean aa
+	public String processAddNewProductForm(@ModelAttribute("actBean") ActBean aa, HttpServletRequest request
 			) {
-
+		
 		MultipartFile msgImage = aa.getActImage();
 		String originalFilename = msgImage.getOriginalFilename();
 		String ext = "";
@@ -160,7 +163,15 @@ public class ActController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		aa.setMemberId(memberbean);
+		
 		service.addActivity(aa);
+		
+		
+		
+		
 		
 		if (originalFilename.length() > 0) {
 			savedFilename = "Message-" + aa.getEventId() + "-" + String.valueOf(System.currentTimeMillis()) + ext;
@@ -286,7 +297,41 @@ public class ActController {
 	@RequestMapping(value = "/ByActivity")
 	public String getActById(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
+		System.out.println("===============================================ByActivity==========================================");
 		model.addAttribute("actdata",service.getActivityById(id));
+		ActBean actbean= service.getActivityById(id);
+		System.out.println("actbean.getEventId() =============================== "+actbean.getEventId());
+		List<ReviewBean> list = pService.selectALLByEventId(actbean.getEventId());
+		Integer reviewSize = list.size();
+		Integer totalEventStar = 0;
+		Integer one = 0;
+		Integer two = 0;
+		Integer three = 0;
+		Integer four = 0;
+		Integer five = 0;
+		Integer avgEventStar = 0;
+		for (ReviewBean rb : list) {
+			// totalEventStar = totalEventStar + reviewBean.getEventStars();
+			totalEventStar += rb.getEventStars();
+			if(rb.getEventStars()==1)++one;
+			else if(rb.getEventStars()==2)++two;
+			else if(rb.getEventStars()==3)++three;
+			else if(rb.getEventStars()==4)++four;
+			else if(rb.getEventStars()==5)++five;
+			else {
+				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+			}
+		}
+		System.out.println("==========" + totalEventStar);
+		avgEventStar = totalEventStar / reviewSize;
+		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
+		model.addAttribute("avgEventStar", avgEventStar);
+		model.addAttribute("one", one);
+		model.addAttribute("two", two);
+		model.addAttribute("three", three);
+		model.addAttribute("four", four);
+		model.addAttribute("five", five);
+		System.out.println("avgEventStar =================================================================== "+avgEventStar);
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
@@ -302,7 +347,41 @@ public class ActController {
 	@RequestMapping(value = "/index/ByActivity")
 	public String getActByIds(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
+		System.out.println("===============================================ByActivity2==========================================");
 		model.addAttribute("actdata",service.getActivityById(id));
+		ActBean actbean= service.getActivityById(id);
+		System.out.println("actbean.getEventId() =============================== "+actbean.getEventId());
+		List<ReviewBean> list = pService.selectALLByEventId(actbean.getEventId());
+		Integer reviewSize = list.size();
+		Integer totalEventStar = 0;
+		Integer one = 0;
+		Integer two = 0;
+		Integer three = 0;
+		Integer four = 0;
+		Integer five = 0;
+		Integer avgEventStar = 0;
+		for (ReviewBean rb : list) {
+			// totalEventStar = totalEventStar + reviewBean.getEventStars();
+			totalEventStar += rb.getEventStars();
+			if(rb.getEventStars()==1)++one;
+			else if(rb.getEventStars()==2)++two;
+			else if(rb.getEventStars()==3)++three;
+			else if(rb.getEventStars()==4)++four;
+			else if(rb.getEventStars()==5)++five;
+			else {
+				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+			}
+		}
+		System.out.println("==========" + totalEventStar);
+		avgEventStar = totalEventStar / reviewSize;
+		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
+		model.addAttribute("avgEventStar", avgEventStar);
+		model.addAttribute("one", one);
+		model.addAttribute("two", two);
+		model.addAttribute("three", three);
+		model.addAttribute("four", four);
+		model.addAttribute("five", five);
+		System.out.println("avgEventStar =================================================================== "+avgEventStar);
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
@@ -317,12 +396,52 @@ public class ActController {
 	@RequestMapping(value = "/eeit10908/ByActivity")
 	public String getActByIds2(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
+		System.out.println("===============================================ByActivity3==========================================");
+		model.addAttribute("queryString",request.getQueryString());
 		model.addAttribute("actdata",service.getActivityById(id));
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
+		ActBean actbean= service.getActivityById(id);
+		
+		
+//		======================= 算評比分數=========================
+		System.out.println("actbean.getEventId() =============================== "+actbean.getEventId());
+		List<ReviewBean> list = pService.selectALLByEventId(actbean.getEventId());
+		Integer reviewSize = list.size();
+		Integer totalEventStar = 0;
+		Integer one = 0;
+		Integer two = 0;
+		Integer three = 0;
+		Integer four = 0;
+		Integer five = 0;
+		Integer avgEventStar = 0;
+		for (ReviewBean rb : list) {
+			// totalEventStar = totalEventStar + reviewBean.getEventStars();
+			totalEventStar += rb.getEventStars();
+			if(rb.getEventStars()==1)++one;
+			else if(rb.getEventStars()==2)++two;
+			else if(rb.getEventStars()==3)++three;
+			else if(rb.getEventStars()==4)++four;
+			else if(rb.getEventStars()==5)++five;
+			else {
+				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+			}
+		}
+		System.out.println("==========" + totalEventStar);
+		avgEventStar = totalEventStar / reviewSize;
+		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
+		model.addAttribute("avgEventStar", avgEventStar);
+		model.addAttribute("one", one);
+		model.addAttribute("two", two);
+		model.addAttribute("three", three);
+		model.addAttribute("four", four);
+		model.addAttribute("five", five);
+		System.out.println("avgEventStar =================================================================== "+avgEventStar);
+//		======================= 算評比分數   End=========================
 		List<ReviewBean> review = pService.selectALLByEventId(id);
 		model.addAttribute("review",review);
+		
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
 		model.addAttribute("member",memberbean);
@@ -332,7 +451,41 @@ public class ActController {
 	@RequestMapping(value = "/eeit10908/index/ByActivity")
 	public String getActByIds3(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
+		System.out.println("===============================================ByActivity4==========================================");
 		model.addAttribute("actdata",service.getActivityById(id));
+		ActBean actbean= service.getActivityById(id);
+		System.out.println("actbean.getEventId() =============================== "+actbean.getEventId());
+		List<ReviewBean> list = pService.selectALLByEventId(actbean.getEventId());
+		Integer reviewSize = list.size();
+		Integer totalEventStar = 0;
+		Integer one = 0;
+		Integer two = 0;
+		Integer three = 0;
+		Integer four = 0;
+		Integer five = 0;
+		Integer avgEventStar = 0;
+		for (ReviewBean rb : list) {
+			// totalEventStar = totalEventStar + reviewBean.getEventStars();
+			totalEventStar += rb.getEventStars();
+			if(rb.getEventStars()==1)++one;
+			else if(rb.getEventStars()==2)++two;
+			else if(rb.getEventStars()==3)++three;
+			else if(rb.getEventStars()==4)++four;
+			else if(rb.getEventStars()==5)++five;
+			else {
+				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+			}
+		}
+		System.out.println("==========" + totalEventStar);
+		avgEventStar = totalEventStar / reviewSize;
+		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
+		model.addAttribute("avgEventStar", avgEventStar);
+		model.addAttribute("one", one);
+		model.addAttribute("two", two);
+		model.addAttribute("three", three);
+		model.addAttribute("four", four);
+		model.addAttribute("five", five);
+		System.out.println("avgEventStar =================================================================== "+avgEventStar);
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
@@ -416,4 +569,40 @@ public class ActController {
 		service.addActJoin(actJ);
 		return "redirect:/eeit10908";
     }
+	
+//	==========================================================================================================================
+
+		
+//		List<ReviewBean> list = pService.selectALLByEventId(eventId);
+//		Integer reviewSize = list.size();
+//		Integer totalEventStar = 0;
+//		Integer one = 0;
+//		Integer two = 0;
+//		Integer three = 0;
+//		Integer four = 0;
+//		Integer five = 0;
+//		Integer avgEventStar = 0;
+//		for (ReviewBean rb : list) {
+//			// totalEventStar = totalEventStar + reviewBean.getEventStars();
+//			totalEventStar += rb.getEventStars();
+//			if(rb.getEventStars()==1)++one;
+//			else if(rb.getEventStars()==2)++two;
+//			else if(rb.getEventStars()==3)++three;
+//			else if(rb.getEventStars()==4)++four;
+//			else if(rb.getEventStars()==5)++five;
+//			else {
+//				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+//			}
+//		}
+//		System.out.println("==========" + totalEventStar);
+//		avgEventStar = totalEventStar / reviewSize;
+//		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
+//		model.addAttribute("avgEventStar", avgEventStar);
+//		model.addAttribute("one", one);
+//		model.addAttribute("two", two);
+//		model.addAttribute("three", three);
+//		model.addAttribute("four", four);
+//		model.addAttribute("five", five);
+	
+	
 }
