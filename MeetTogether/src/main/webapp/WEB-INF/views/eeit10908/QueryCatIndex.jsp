@@ -361,7 +361,7 @@ jQuery_1_12_4(document).ready(
 
 		<form method="get" action="/MeetTogether/index/ChangeIndexCat">
 				<div class="dropdown">
-				<select name="eventCat" onchange="submit();" class="dropbtn">
+				<select name="eventCat" onchange="submit();" class="btn dropbtn" style="width:170px;">
 					
 						<option value="" disabled selected hidden >${catclass}</option>
 						<c:forEach items="${catList}" var="cat">

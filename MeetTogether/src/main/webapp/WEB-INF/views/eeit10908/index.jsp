@@ -385,7 +385,7 @@ p {
 		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?eventCat=${catList.key}">
 	
 		<div class="dropdown">
-		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px; align:center;">
+		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px;">
 		<span class="caret"></span>
 				<div class="dropdown-content">
 				<form:option value="-1" label="請選擇" />
@@ -451,7 +451,12 @@ p {
     						</c:choose>
     						
     						
-    						<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a></p>
+    						<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a>
+    						
+    						
+    						
+    						
+    						<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動修改</a></p>
     					</div>
     				</div>
     			</div>
@@ -514,16 +519,16 @@ p {
 		      <div class="modal-body" style="background-color: #e7eef1;">
 		     <form:form method="post" 
  			modelAttribute="actBean" enctype="multipart/form-data">
-				<span style="text-align:left;">主辦人:</span>
-					${actBean.memberId.memberName}<p>
-		     	活動名稱:<p>
-					<form:input type="text" path="eventName"/><p>
-		     	活動類型:<p>
-					<form:select path="eventCat">
+				<span style="float:left; " >主 辦 人:</span>
+					<span style="float:left; margin-left:3%;">${actBean.memberId.memberName}</span><br><br>
+		     	<span style="float:left;">活 動 名 稱:</span><br>
+					<span style="float:left; margin-left:6%;" ><form:input type="text" path="eventName"/></span><br><br>
+		     	<span style="float:left;">活動類型:</span><br>
+				<span style="float:left; margin-left:6%;"><form:select path="eventCat">
 							<form:option value="-1" label="請選擇" />
 							<form:options items="${catList}" />
-						</form:select><p>
-				活動開始時間:<p>
+						</form:select></span><br><br>
+				<span style="float:left;">活動開始時間:</span><br>
 
 						<div class="input-group date form_datetime col-md-8"							
 							data-date-format="yyyy-mm-dd - HH:ii p"
@@ -533,22 +538,23 @@ p {
 								class="glyphicon glyphicon-remove"></span></span> <span
 								class="input-group-addon"><span
 								class="glyphicon glyphicon-th"></span></span>
-						</div><p> 
-			           活動內容:<p>
-					<form:textarea type="textarea" path="actContent"  style="width:300px;height:100px;" ></form:textarea><p>
+						</div><br>
+			           <span style="float:left;">活動內容:</span><br>
+					<span style="float:left; margin-left:6%;"><form:textarea type="textarea" path="actContent"  style="width:300px;height:100px;" ></form:textarea></span><br>
 		     	
 						
-		     	活動參與人數:<p>
-					<form:input type="text" path="groupNum" value="" /><p>
+		     	<br><br><br>
+		     	<span style="float:left;">活動參與人數:</span><br>
+					<span style="float:left; margin-left:6%;"><form:input type="text" path="groupNum" value="" /></span><br><br>
 		     	
-		     	預算:<p>
-					<form:input type="text" path="budget"  /><p>
-		     	活動地點:<p>
-					<form:input type="text" path="eventPlace" /><p>
-				活動建立時間:<p>
-					<form:input type="text" path="createTime" id="create" /><p>
-				活動圖片:<p>&emsp;&emsp;&emsp;&emsp;
-					<form:input type="file" path="actImage" value="新增圖片" align="right"/><p>	
+		     	<span style="float:left;">預算:</span><br>
+					<span style="float:left; margin-left:6%;"><form:input type="text" path="budget"  /></span><br><br>
+		     	<span style="float:left;">活動地點:</span><br>
+					<span style="float:left; margin-left:6%;"><form:input type="text" path="eventPlace" /></span><br><br>
+				<span style="float:left;">活動建立時間:</span><br>
+					<span style="float:left; margin-left:6%;"><form:input type="text" path="createTime" id="create" /></span><br><br>
+				<span style="float:left;">活動圖片:</span><br>&emsp;&emsp;&emsp;&emsp;
+					<span style="float:left; margin-left:6%;"><form:input type="file" path="actImage" value="新增圖片" align="right"/></span><br><br>
 		     	
 		     	
 		     	

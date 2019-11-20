@@ -36,6 +36,8 @@ import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10908.model.ActJoinBean;
 import com.meetogether.eeit10908.model.CatBean;
 import com.meetogether.eeit10908.service.impl.ActService;
+import com.meetogether.eeit10913.model.ReviewBean;
+import com.meetogether.eeit10913.service.ProductService;
 
 
 
@@ -49,6 +51,13 @@ public class ActController {
 	
 	MemberService mService;
 	
+	ProductService pService;
+	
+	
+	@Autowired
+	public void setpService(ProductService pService) {
+		this.pService = pService;
+	}
 	@Autowired
 	public void setContext(ServletContext context) {
 		this.context = context;
@@ -281,6 +290,8 @@ public class ActController {
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
+		List<ReviewBean> review = pService.selectALL();
+		model.addAttribute("review",review);
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
 		
@@ -288,18 +299,51 @@ public class ActController {
 	    return "/eeit10908/ViewOneAct";
 	}
 	
-	@RequestMapping(value = "/eeit10908/index/ByActivity")
+	@RequestMapping(value = "/index/ByActivity")
 	public String getActByIds(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
 		model.addAttribute("actdata",service.getActivityById(id));
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
+		List<ReviewBean> review = pService.selectALL();
+		model.addAttribute("review",review);
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
 		model.addAttribute("member",memberbean);
 	    return "/eeit10908/ViewOneAct";
 	}
+	
+	@RequestMapping(value = "/eeit10908/ByActivity")
+	public String getActByIds2(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
+		System.out.println("--------------+++------------");
+		model.addAttribute("actdata",service.getActivityById(id));
+//		ActBean aa = new ActBean();
+	   // model.addAttribute("actdata", aa); 
+//	    return "Actdata";
+		List<ReviewBean> review = pService.selectALL();
+		model.addAttribute("review",review);
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		model.addAttribute("member",memberbean);
+	    return "/eeit10908/ViewOneAct";
+	}
+	
+	@RequestMapping(value = "/eeit10908/index/ByActivity")
+	public String getActByIds3(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
+		System.out.println("--------------+++------------");
+		model.addAttribute("actdata",service.getActivityById(id));
+//		ActBean aa = new ActBean();
+	   // model.addAttribute("actdata", aa); 
+//	    return "Actdata";
+		List<ReviewBean> review = pService.selectALL();
+		model.addAttribute("review",review);
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		model.addAttribute("member",memberbean);
+	    return "/eeit10908/ViewOneAct";
+	}
+	
 	
 	@RequestMapping(value = "/actdata", method = RequestMethod.GET)
 	public String getActByIdForm(@RequestParam("getId") Integer id,Model model) {
