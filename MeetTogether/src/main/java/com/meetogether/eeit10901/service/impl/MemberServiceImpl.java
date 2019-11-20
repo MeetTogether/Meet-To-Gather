@@ -23,8 +23,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	@Override
 	public int add(MemberBean member) {
-		dao.add(member);
-		return 0;
+		return dao.add(member);
 	}
 
 	@Transactional
@@ -70,6 +69,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Integer updeatVerifyMail(Integer memberId) {
 		return dao.updeatVerifyMail(memberId);
+	}
+	
+	@Transactional
+	@Override
+	public void synchAlbum(Integer memberId) {
+		// TODO Auto-generated method stub
+		dao.synchAlbum(memberId);
+		
+	}
+
+	@Transactional
+	@Override
+	public void addAlbum(Integer memberId) {
+		dao.addAlbum(memberId);
 	}
 	
 

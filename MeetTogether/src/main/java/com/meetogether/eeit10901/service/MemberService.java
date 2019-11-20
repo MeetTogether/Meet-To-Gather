@@ -27,7 +27,10 @@ public interface MemberService {
 	public MemberBean getMemberById(Integer memberId);
 
 	Integer updeatVerifyMail(Integer memberId);
+	
+	void synchAlbum(Integer memberId);
 
+	public void addAlbum(Integer memberId);
  
 	
 }

@@ -12,4 +12,14 @@ public interface IFriendService {
 	void addFriendList(Integer id, Integer f2);
 	
 	public Map<Integer, String> findFriendsByName(Integer id,String fName);
+	
+	void invite(Integer f1id,Integer f2id);
+
+	void response(Integer f1id, Integer f2id,Integer status);
+	
+	boolean checkAddFriend(Integer f1id, Integer f2id);
+
+	boolean checkFriendList(Integer f1id, Integer f2id);
+	
+	boolean checkResponse(Integer f1id, Integer f2id);
 }
