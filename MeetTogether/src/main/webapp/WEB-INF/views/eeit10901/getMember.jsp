@@ -181,7 +181,7 @@
 <!-- 				<td>密碼 -->
 <%-- 				<td><input type="password" value="${member.memberPassword}" --%>
 <!-- 					disabled="true"></td> -->
-			<tr>
+<!-- 			<tr> -->
 				<td>暱稱
 				<td>${member.memberName}</td>
 			<tr>
@@ -191,13 +191,13 @@
 				<td>性別</td>
 
 				<td>
-
+                      
 						<c:choose>
 							<c:when test="${member.memberSex == 1 }">
-								<option value="1" selected>男</option>
+								<td value="1" selected>男</td>
 							</c:when>
 							<c:otherwise>
-								<option value="0" selected>女</option>
+								<td value="0" selected>女</td>
 							</c:otherwise>
 						</c:choose>
 
