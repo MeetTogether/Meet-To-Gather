@@ -90,7 +90,7 @@
 	 });
  
  function clickact(myObj){
-// 	 alert("活動報名成功");
+ 	 alert("活動報名成功");
 	 myObj.innerHTML="已參加";
 	 console.log(myObj);
  }
@@ -135,6 +135,7 @@
 				});
 		    });
 		});
+	
  </script>
 <style type="text/css">
 body {
@@ -300,6 +301,13 @@ p {
   background-color: #DDDDDD;
 
 }
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events：none;
+}
 </style>
 
 
@@ -431,8 +439,8 @@ p {
     						
     						<c:choose>
     						<c:when  test="${done}">
-    							<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/JoinAct?getActId=${acts.eventId}" 
-								class="btn btn-black btn-outline-black mr-1" id="joinact" disabled="disabled">已參加</a>
+    							<p class="d-flex mb-0 d-block"><a href="javascript:void(0)" 
+								class="btn btn-black btn-outline-black mr-1 isDisabled" id="joinacts" >已參加</a>
     						</c:when>
   						
     						
