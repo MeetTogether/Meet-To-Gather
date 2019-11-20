@@ -322,10 +322,13 @@ public class ActController {
 				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
 			}
 		}
+		if(reviewSize!=0) {
+			avgEventStar = totalEventStar / reviewSize;
+		}
 		System.out.println("==========" + totalEventStar);
 		System.out.println("==========1111111" + reviewSize);
 
-		avgEventStar = totalEventStar / reviewSize;
+		
 		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
 		model.addAttribute("avgEventStar", avgEventStar);
 		model.addAttribute("one", one);
@@ -374,8 +377,11 @@ public class ActController {
 				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
 			}
 		}
+		if(reviewSize!=0) {
+			avgEventStar = totalEventStar / reviewSize;
+		}
 		System.out.println("==========" + totalEventStar);
-		avgEventStar = totalEventStar / reviewSize;
+		
 		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
 		model.addAttribute("avgEventStar", avgEventStar);
 		model.addAttribute("one", one);
@@ -481,8 +487,11 @@ public class ActController {
 				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
 			}
 		}
+		if(reviewSize!=0) {
+			avgEventStar = totalEventStar / reviewSize;
+		}
 		System.out.println("==========" + totalEventStar);
-		avgEventStar = totalEventStar / reviewSize;
+		
 		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
 		model.addAttribute("avgEventStar", avgEventStar);
 		model.addAttribute("one", one);
