@@ -340,10 +340,10 @@ body {
 							<label>會員ID</label>
 						</div>
 						<div class="form-group">
-<%-- 							<input type="text" class="form-control" value=${userId } --%>
-<!-- 								readonly="readonly"> -->
+							<%-- 							<input type="text" class="form-control" value=${userId } --%>
+							<!-- 								readonly="readonly"> -->
 							<form:input path="mbId" value="${userId}" type='hidden'
-								class='form:input-large' /> 
+								class='form:input-large' />
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control" value=${userName }
@@ -351,8 +351,12 @@ body {
 							<form:input path="mbId" value="${userName}" type='hidden'
 								class='form:input-large' />
 						</div>
+<!-- 						<div> -->
+<%-- 							<form:input path="eventId" type="hidden" name="eventId" --%>
+<%--  								value="${eventId}"></form:input> --%>
+<%-- 							<input  type="hidden" name="eventId" value="${reviewBean.eventId}"></input> --%>
+<!-- 						</div> -->
 
-						
 						<!-- 選擇評分 -->
 						<div class="form-group">
 							<label for="exampleFormControlSelect1">請選擇您的評分</label>
@@ -376,9 +380,9 @@ body {
 								rows="5" style="border: 1px black solid;"></form:textarea>
 							<td><span id="msg_eventComment" class='msgWrong'></span>
 						</div>
-						
-					
-						
+
+
+
 						<div class="form-group">
 							<input class="form-group" type="submit" value="送出評論"
 								class="btn btn-primary py-3 px-5" />

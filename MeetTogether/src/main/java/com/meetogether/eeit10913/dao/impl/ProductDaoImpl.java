@@ -32,7 +32,7 @@ public class ProductDaoImpl implements ProductDao {
 	ProductService pService;
  	
 	@Override
-	public void add(ReviewBean review) {
+	public int add(ReviewBean review) {
 //		factory.getCurrentSession().save(review);
 		Session session = factory.getCurrentSession();
 		System.out.println("review=============================="+review);
@@ -43,6 +43,7 @@ public class ProductDaoImpl implements ProductDao {
 		review.setMember(mb);
 		review.setEvent(actBean);
 		session.save(review);
+		return review.getEventId();
 	}
 	
 
@@ -113,6 +114,7 @@ public class ProductDaoImpl implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReviewBean> selectALLByEventId(Integer eventId) {
+		System.out.println("eventId================="+eventId);
 		String hql = "FROM ReviewBean where eventId = eventId";
 		Session session = null;
 		List<ReviewBean> list = new ArrayList<>();
