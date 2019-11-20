@@ -191,25 +191,12 @@
 				<td>性別</td>
 
 				<td>
-<<<<<<< HEAD
-						
-=======
-                      
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 						<c:choose>
 							<c:when test="${member.memberSex == 1 }">
-<<<<<<< HEAD
 								男
-=======
-								<td value="1" selected>男</td>
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 							</c:when>
 							<c:otherwise>
-<<<<<<< HEAD
 								女
-=======
-								<td value="0" selected>女</td>
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 							</c:otherwise>
 						</c:choose>
 
