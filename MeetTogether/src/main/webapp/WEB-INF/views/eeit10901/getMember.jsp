@@ -167,7 +167,7 @@
 		<table border='1'>
 			<tr>
 			<td  colspan="2">
-				<img style="height: 250px"
+				<img style="height: 450px"
 					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
 </td>
 				<!-- 					<tr bgcolor='#ffad00'> -->

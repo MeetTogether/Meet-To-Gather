@@ -87,6 +87,11 @@ public class IPairsServiceImpl implements IPairsService {
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
 		IMember currentMember = pdao.findByMemberId(currentUserId);
 		pdao.findAllMember().forEach((member) -> {
+			System.out.println(member.getMemberBasic().getMemberName());
+			System.out.println(member.getMemberHope().getMemberId());
+			System.out.println(member.getMemberInfo().getSmoking());
+			System.out.println(currentMember.getMemberHope().getBodyType());
+
 			int score = 0;
 			Math.abs(member.getMemberInfo().getBodyType().equals(currentMember.getMemberHope().getBodyType()) ? score++
 					: score);
