@@ -280,13 +280,15 @@ var jQuery_1_12_4 = $.noConflict();
 		<form:form modelAttribute="updateInfo" method="post" >
 	
 		<table border='1'>
-			<tr>
-			<img style="height: 200px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'/>
-					<tr bgcolor='#ffad00'>
+					<tr>
+			<td  colspan="2">
+				<img style="height: 250px"
+					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
+</td>
 				
 			<tr>
 				<td>編號
-				<td><form:input  path="memberId" value="${updateInfo.memberId}"  /></td>
+				<td>${updateInfo.memberId}</td>
 			<tr>
 				<td>mail
 				<td><form:input  path="memberEmail" value="${updateInfo.memberEmail}"  /></td>
@@ -325,9 +327,10 @@ var jQuery_1_12_4 = $.noConflict();
 		</form:form>
 	</div>
 
-	<a href="../personal" class="nav-link">輸入個人喜好</a>
-	<a href="./personalH" class="nav-link">輸入個人希望條件</a>
-	<a href="../addAlbum" class="nav-link">相簿</a>
+		<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
+	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
+	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
+	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
 
 </body>
 </html>

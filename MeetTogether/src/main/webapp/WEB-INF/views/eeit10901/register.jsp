@@ -144,9 +144,9 @@
 								<td><span id="msg_mPhoto"></span>
 						</table>
 					</div>
-					<input type="submit" value="會員註冊" id="regis">
-					<input type="reset" value="重新填寫">
-					<input type="button" value="返回登入頁" id="backToLogin">
+					<input type="submit" value="會員註冊" id="regis"  >
+					<input type="reset" value="重新填寫"  >
+					<a href="${pageContext.request.contextPath}/"><input type="button" value="返回登入頁" id="backToLogin" ></a>
 
 				</form:form>
 			</div>

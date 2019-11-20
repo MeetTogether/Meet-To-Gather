@@ -62,16 +62,9 @@ public class ProductController {
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 	public String abc(@ModelAttribute("reviewBean") ReviewBean rb, 
 			@RequestParam(value = "eventId") Integer eventId, Model model) {
-		System.out.println("========================@RequestMapping(\"/addProduct\")==========POST==============");
-//		rb.setEvent(service1.getActivityById(eventId));
+		
 		rb.setEventId(eventId);
-		System.out.println(rb.getEventComment());
-		System.out.println(rb.getEventStars());
 		
-		System.out.println("rb.getEventId() ===========POST=========== "+rb.getEventId());
-		
-		System.out.println("rb1111111:::::::" + rb);
-//		service.add(ab);
 		int eventId2 = service.add(rb);
 		List<ReviewBean> list = service.selectALLByEventId(eventId);
 		model.addAttribute("reviewBean", list);

@@ -318,6 +318,10 @@ p {
 		</form:form>
 
 	</div>
+	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
+	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
+	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
+	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
 
 </body>
 </html>

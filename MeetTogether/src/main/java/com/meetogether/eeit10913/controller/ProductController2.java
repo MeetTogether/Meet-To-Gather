@@ -44,7 +44,9 @@ public class ProductController2 {
 		@RequestMapping(value = "/editProduct", method = RequestMethod.POST)
 		public String update(@ModelAttribute("editProduct") ReviewBean aa) {
 			service.update(aa);
-			return "redirect:/allreview";
+			System.out.println(" aa.getEventId()///////////"+ aa.getEvent().getEventId());
+			return "redirect:/ByActivity?getId=" + aa.getEvent().getEventId();
+		
 		}
 	
 

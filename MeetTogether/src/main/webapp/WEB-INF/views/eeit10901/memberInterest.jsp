@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="java.io.*,java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,12 +41,70 @@
 	href="${pageContext.request.contextPath}/css/flaticon.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/icomoon.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
+<script type="text/javascript">
+
+	var jQuery_1_12_4 = $.noConflict();
+	jQuery_1_12_4(document).ready(function() {
+		jQuery_1_12_4("#sex").val('${member.memberSex}');
+		// 	jQuery_1_12_4("#updata").click(function(){
+		// 		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
+		// 		jQuery_1_12_4("#updataMmber").submit();
+	})
+	jQuery_1_12_4("#Postbox").hide();
+	jQuery_1_12_4("#Postbutton").click(function() {
+		jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
+		/* $('html,body').animate({
+			scrollTop : 0
+		}); 返回到頁面頂端 */
+	});
+	jQuery_1_12_4("#ViewMyPost")
+			.click(
+					function() {
+						top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
+					});
+	jQuery_1_12_4("#ViewAllPost")
+			.click(
+					function() {
+						top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
+					});
+	jQuery_1_12_4("input#deletePost").click(function() {
+		var c = confirm('是否確認刪除');
+		console.log(c);
+		if (c) {
+			jQuery_1_12_4(this).parent("form#deletePostForm").submit();
+		} else {
+		}
+	});
+
+	jQuery_1_12_4("#dialog-confirm").hide();
+	jQuery_1_12_4("#vipBuyButton").click(function() {
+		jQuery_1_12_4("#dialog-confirm").dialog({
+			resizable : false,
+			height : "auto",
+			width : 420,
+			modal : true,
+		});
+	});
+
+	jQuery_1_12_4);
+</script>
 
 </head>
 <body>
-
+	<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
+	<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
+	<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
+	<!-- 			style="width: 370px; margin: auto;"> -->
+	<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
+	<!-- 		<br> -->
+	<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
+	<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
+	<!-- 			<input type="submit" value="前往付款" class="reply"> -->
+	<%-- 		</form:form> --%>
+	<!-- 	</div> -->
 
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
@@ -103,56 +162,25 @@
 			</div>
 		</div>
 	</section>
-	<div align=center>
-		<h2>個人條件資料</h2>
-<form:form modelAttribute="infoBean" method="post" >
-		<table border='1'>
-			<tr>
-			<td  colspan="2">
-				<img style="height: 250px"
-					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
-</td>
-				<!-- 					<tr bgcolor='#ffad00'> -->
-			<tr>
-				<td>婚姻
-				<td>${infoBean.marriage}</td>
-			<tr>
-				<td>教育
-				<td>${infoBean.education}</td>
-			<tr>
-				<td>抽菸習慣
-				<td>${infoBean.smoking}
-					</td>
-			<tr>
-				<td>喝酒習慣
-				<td>${infoBean.drink}</td>
-			<tr>
-				<td>種族
-				<td>${infoBean.ethnicity}</td>
-			<tr>
-				<td>種族
-				<td>${infoBean.ethnicity}</td>
-			<tr>
-				<td>身材
-				<td>${infoBean.bodyType}</td>
-			<tr>
-				<td>薪水
-				<td>${infoBean.salary}</td>
-<!-- 			<tr> -->
-<!-- 				<td>興趣 -->
-<%-- 				<td>${infoBean.interest}</td> --%>
-			
-				
-		</table>
-		</form:form>
+	<h2 align="center">興趣</h2>
+<table width="300px" border="1" align="center">
+<tr bgcolor="#949494">
 
+</tr>
+<%
+   Enumeration paramNames = request.getParameterNames();
 
-	</div>
-
+   while(paramNames.hasMoreElements()) {
+      String paramName = (String)paramNames.nextElement();
+      out.print("<tr><td>" + paramName + "</td>");
+  
+   }
+%>
+</table>
 	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
-	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
-	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
+	<a href="${pageContext.request.contextPath}/personalInterest"
+		class="nav-link">輸入個人興趣</a>
+	<a href="${pageContext.request.contextPath}/addHope" class="nav-link">輸入個人希望條件</a>
 	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
-
 </body>
 </html>

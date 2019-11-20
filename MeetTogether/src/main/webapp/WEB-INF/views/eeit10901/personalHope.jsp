@@ -104,8 +104,8 @@
 		</div>
 	</section>
 	<div align=center>
-		<h2>個人條件資料</h2>
-<form:form modelAttribute="infoBean" method="post" >
+		<h2>希望對象條件資料</h2>
+<form:form modelAttribute="hopeBean" method="post" >
 		<table border='1'>
 			<tr>
 			<td  colspan="2">
@@ -115,29 +115,29 @@
 				<!-- 					<tr bgcolor='#ffad00'> -->
 			<tr>
 				<td>婚姻
-				<td>${infoBean.marriage}</td>
+				<td>${hopeBean.marriage}</td>
 			<tr>
 				<td>教育
-				<td>${infoBean.education}</td>
+				<td>${hopeBean.education}</td>
 			<tr>
 				<td>抽菸習慣
-				<td>${infoBean.smoking}
+				<td>${hopeBean.smoking}
 					</td>
 			<tr>
 				<td>喝酒習慣
-				<td>${infoBean.drink}</td>
+				<td>${hopeBean.drink}</td>
 			<tr>
 				<td>種族
-				<td>${infoBean.ethnicity}</td>
+				<td>${hopeBean.ethnicity}</td>
 			<tr>
 				<td>種族
-				<td>${infoBean.ethnicity}</td>
+				<td>${hopeBean.ethnicity}</td>
 			<tr>
 				<td>身材
-				<td>${infoBean.bodyType}</td>
+				<td>${hopeBean.bodyType}</td>
 			<tr>
 				<td>薪水
-				<td>${infoBean.salary}</td>
+				<td>${hopeBean.salary}</td>
 <!-- 			<tr> -->
 <!-- 				<td>興趣 -->
 <%-- 				<td>${infoBean.interest}</td> --%>
