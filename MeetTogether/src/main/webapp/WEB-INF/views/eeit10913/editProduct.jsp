@@ -322,7 +322,9 @@ body {
 				<form:input type="hidden" path="member.memberId"
 							value="${editProduct.member.memberId}" />
 				</p>
-
+				<p>
+				<form:input type="hidden"  path="event.eventId" value="${reviewBean.event.eventId}"></form:input>
+				</p>
 				<tr>
 					<!-- 				path抓reviewBean裡的值,value抓表單已有的值 -->
 					<td>評論編號

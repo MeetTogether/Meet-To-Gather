@@ -290,7 +290,7 @@ public class ActController {
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
-		List<ReviewBean> review = pService.selectALL();
+		List<ReviewBean> review = pService.selectALLByEventId(id);
 		model.addAttribute("review",review);
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
@@ -306,7 +306,7 @@ public class ActController {
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
-		List<ReviewBean> review = pService.selectALL();
+		List<ReviewBean> review = pService.selectALLByEventId(id);
 		model.addAttribute("review",review);
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
@@ -321,7 +321,7 @@ public class ActController {
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
-		List<ReviewBean> review = pService.selectALL();
+		List<ReviewBean> review = pService.selectALLByEventId(id);
 		model.addAttribute("review",review);
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
@@ -336,7 +336,7 @@ public class ActController {
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
-		List<ReviewBean> review = pService.selectALL();
+		List<ReviewBean> review = pService.selectALLByEventId(id);
 		model.addAttribute("review",review);
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		MemberBean memberbean = mService.getMemberById(userId);
