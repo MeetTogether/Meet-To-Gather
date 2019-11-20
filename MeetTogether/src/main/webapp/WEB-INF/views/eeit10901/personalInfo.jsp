@@ -109,19 +109,48 @@
 		<table border='1'>
 			<tr>
 			<td  colspan="2">
-				<img style="height: 250px"
+				<img style="height: 400px"
 					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
 </td>
 				<!-- 					<tr bgcolor='#ffad00'> -->
 			<tr>
 				<td>婚姻
-				<td>${infoBean.marriage}</td>
+				
+				<td>
+				<c:choose>
+							<c:when test="${infoBean.marriage == 1 }">
+							  未婚
+							</c:when>
+							<c:when test="${infoBean.marriage == 2 }">
+							已婚
+							</c:when>
+							<c:when test="${infoBean.marriage == 3 }">
+							  喪偶
+							</c:when>
+							<c:otherwise>
+								一言難盡
+							</c:otherwise>
+						</c:choose>
+						</td>
 			<tr>
 				<td>教育
 				<td>${infoBean.education}</td>
 			<tr>
 				<td>抽菸習慣
-				<td>${infoBean.smoking}
+				<td>
+				<c:choose>
+				<c:when test="${infoBean.smoking == 1 }">
+							  從來不抽
+							</c:when>
+							<c:when test="${infoBean.smoking == 2 }">
+							偶爾抽菸
+							</c:when>
+							
+							<c:otherwise>
+								老菸槍
+							</c:otherwise>
+						</c:choose>
+			
 					</td>
 			<tr>
 				<td>喝酒習慣
@@ -148,7 +177,7 @@
 
 
 	</div>
-
+<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
 	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>

@@ -326,7 +326,7 @@ var jQuery_1_12_4 = $.noConflict();
 		<input type="submit" value="確認修改">
 		</form:form>
 	</div>
-
+<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 		<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
 	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>

@@ -209,7 +209,7 @@
 		<a class="btn btn-secondary" href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改資料</a>
 
 	</div>
-
+<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
 	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
