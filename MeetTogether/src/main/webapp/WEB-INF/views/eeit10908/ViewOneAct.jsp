@@ -545,60 +545,43 @@ jQuery_1_12_4(document).ready(
 							   			<div class="rating-wrap">
 								   			<h3 class="head"><a href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give a Review</a></h3>
 								   			<div class="wrap">
+								   			<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5</b>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(98%)
-								   					</span>
-								   					<span>20 Reviews</span>
+									   				<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(5)
+								   					
+								   					</span> ${five} <span></span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(85%)
-								   					</span>
-								   					<span>10 Reviews</span>
+									   		<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(4)
+								   					
+								   					</span> <span>${four}</span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(70%)
-								   					</span>
-								   					<span>5 Reviews</span>
+									   				<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(3)
+								   					</span> <span>${three}</span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(10%)
-								   					</span>
-								   					<span>0 Reviews</span>
+									   					<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(2)
+								   					</span> <span>${two}</span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(0%)
-								   					</span>
-								   					<span>0 Reviews</span>
+									   				<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(1)
+								   				</span> <span>${one}</span>
 									   			</p>
 									   		</div>
 								   		</div>
