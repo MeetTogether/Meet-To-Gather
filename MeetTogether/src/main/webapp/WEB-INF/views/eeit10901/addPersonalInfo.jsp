@@ -151,52 +151,6 @@ p {
 	margin-bottom: 0;
 }
 </style>
-<script type="text/javascript">
-	var jQuery_1_12_4 = $.noConflict();
-	jQuery_1_12_4(document).ready(function() {
-		jQuery_1_12_4("#sex").val('${member.memberSex}');
-		// 	jQuery_1_12_4("#updata").click(function(){
-		// 		jQuery_1_12_4("#updataMmber").attr('action','updateMmeber');
-		// 		jQuery_1_12_4("#updataMmber").submit();
-	})
-	jQuery_1_12_4("#Postbox").hide();
-	jQuery_1_12_4("#Postbutton").click(function() {
-		jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
-		/* $('html,body').animate({
-			scrollTop : 0
-		}); 返回到頁面頂端 */
-	});
-	jQuery_1_12_4("#ViewMyPost")
-			.click(
-					function() {
-						top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
-					});
-	jQuery_1_12_4("#ViewAllPost")
-			.click(
-					function() {
-						top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-					});
-	jQuery_1_12_4("input#deletePost").click(function() {
-		var c = confirm('是否確認刪除');
-		console.log(c);
-		if (c) {
-			jQuery_1_12_4(this).parent("form#deletePostForm").submit();
-		} else {
-		}
-	});
-
-	jQuery_1_12_4("#dialog-confirm").hide();
-	jQuery_1_12_4("#vipBuyButton").click(function() {
-		jQuery_1_12_4("#dialog-confirm").dialog({
-			resizable : false,
-			height : "auto",
-			width : 420,
-			modal : true,
-		});
-	});
-
-	jQuery_1_12_4);
-</script>
 
 </head>
 <body>
@@ -249,11 +203,9 @@ p {
 	</nav>
 	<!-- END nav -->
 	
-		<div class="hero-wrap"
-		style="background-image: url('images/friend.jpg');"
-		data-stellar-background-ratio="0.5">
+		
 	
-		 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('');" data-stellar-background-ratio="0.5">
+		 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${pageContext.request.contextPath}/eeit10901/images/mt6.webp');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -272,17 +224,17 @@ p {
 	<div align="center">
 
 
-		<form:form modelAttribute="infoBean" method="post"  >
+		<form:form modelAttribute="infoBean" method="POST" action="${pageContext.request.contextPath}/personal" >
 			<table>
 				<tr>
 				<tr>
 					<td>婚姻</td>
 					<td>
 						<form:select   path="marriage">
-							<option value="未婚">未婚</option>
-							<option value="已婚">已婚</option>
-							<option value="喪偶">喪偶</option>
-							<option value="一言難盡">一言難盡</option>
+							<option value="1">未婚</option>
+							<option value="2">已婚</option>
+							<option value="3">喪偶</option>
+							<option value="4">一言難盡</option>
 							
 							</form:select>
 				</tr>
@@ -299,9 +251,9 @@ p {
 				<tr>
 					<td>抽菸習慣</td>
 					<td><form:select name="smoking" path="smoking">
-							<option value="從來不抽">從來不抽</option>
-							<option value="偶爾抽菸">偶爾抽菸</option>
-							<option value="老菸槍">老菸槍</option>
+							<option value="1">從來不抽</option>
+							<option value="2">偶爾抽菸</option>
+							<option value="3">老菸槍</option>
 					</form:select>
 				<tr>
 					<td>喝酒習慣</td>
@@ -348,23 +300,24 @@ p {
 							<option value="$100,001~$200,000">$100,001~$200,000</option>
 							<option value="$200,001以上">$200,001以上</option>
 					</form:select>
-				<tr>
+<!-- 				<tr> -->
 
-                     <td>興趣</td>
-					<td><input type="checkbox" value="旅遊" name="Interest1" />旅遊</td>
-                    <td><input type="checkbox" value="電影" name="Interest2" />電影</td>
-                    <td><input type="checkbox" value="美食" name="Interest3"/>美食 </td>
-                    <td><input type="checkbox" value="運動" name="Interest4" />運動</td>
-                    <td><input type="checkbox" value="攝影" name="Interest5" />攝影</td>
-                    <td><input type="checkbox" value="農藝" name="Interest6"/>農藝</td>
-                    <td><input type="checkbox" value="寫程式" name="Interest7"/>寫程式</td>
+<!--                      <td>興趣 -->
+<!-- 					<td><input type="checkbox" value="旅遊" name="Interest1" />旅遊</td> -->
+<!--                     <td><input type="checkbox" value="電影" name="Interest2" />電影</td> -->
+<!--                     <td><input type="checkbox" value="美食" name="Interest3"/>美食 </td> -->
+<!--                     <td><input type="checkbox" value="運動" name="Interest4" />運動</td> -->
+<!--                     <td><input type="checkbox" value="攝影" name="Interest5" />攝影</td> -->
+<!--                     <td><input type="checkbox" value="農藝" name="Interest6"/>農藝</td> -->
+<!--                     <td><input type="checkbox" value="寫程式" name="Interest7"/>寫程式</td> -->
+                    
 			</table>
 		
-				<input type ="submit"  value="下一頁" id="add"></input> 
+				<input type ="submit"  value="下一頁" id="add">
 				<input type="reset" value="清除"/>
 		</form:form>
 
 	</div>
-</div>
+
 </body>
 </html>

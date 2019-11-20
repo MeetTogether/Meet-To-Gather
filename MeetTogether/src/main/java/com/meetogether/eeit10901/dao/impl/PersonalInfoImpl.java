@@ -11,10 +11,7 @@ import com.meetogether.eeit10901.dao.IPersonalInfoDao;
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.model.PersonalInfoBean;
 import com.meetogether.eeit10936.pairs.model.MemberInfo;
-
-
-
-
+import com.meetogether.eeit10936.pairs.model.MemberInterest;
 
 @Repository
 public class PersonalInfoImpl implements IPersonalInfoDao {
@@ -23,12 +20,13 @@ public class PersonalInfoImpl implements IPersonalInfoDao {
 	
 	
 	@Override
-	public List<MemberInfo> addPersonalInfo(MemberInfo personalinfo) {
+	public
+	void addPersonalInfo(MemberInfo mm) {
 		Session session = factory.getCurrentSession();
-		MemberBean mb = getMemberById(personalinfo.getMemberId());
+		MemberBean mb = getMemberById(mm.getMemberId());
 		
-		session.save(personalinfo);
-		return null;
+		session.save(mm);
+		
 	}
 
 
@@ -40,10 +38,16 @@ public class PersonalInfoImpl implements IPersonalInfoDao {
 	}
 
 
+
+
+
 	@Override
-	public List<MemberInfo> getAllInfo() {
+	public List<MemberInfo> getMemberList() {
+		String hql="form MemberBean";
+		Session session = factory.getCurrentSession();
+		 List<MemberInfo> list = session.createQuery(hql).getResultList();
+		return list;
 		
-		return null;
 	}
 
 

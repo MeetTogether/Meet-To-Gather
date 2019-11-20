@@ -13,7 +13,7 @@ public interface IPersonalInfoDao {
  
 	  MemberBean getMemberById(Integer memberId) ;
 
-	  List<MemberInfo> addPersonalInfo(MemberInfo personalinfo);
+	  void addPersonalInfo(MemberInfo mm);
 
-	  List<MemberInfo> getAllInfo();
+	  List<MemberInfo> getMemberList();
 }

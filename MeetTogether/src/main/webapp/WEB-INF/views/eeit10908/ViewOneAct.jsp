@@ -315,7 +315,7 @@ jQuery_1_12_4(document).ready(
 	              	<div class="icon"><span class="flaticon-car-seat"></span></div>
 	              	<div class="text">
 		                <h3 class="heading mb-0 pl-3">
-		                	活動參與人數
+		                	活動人數上限
 		                	<span>${actdata.groupNum}</span>
 		                </h3>
 	                </div>

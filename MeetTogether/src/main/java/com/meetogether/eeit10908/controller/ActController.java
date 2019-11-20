@@ -114,7 +114,7 @@ public class ActController {
 		if(userId == null) {
 			return "redirect:/";
 		}
-		MemberBean memberbean = mService.getMemberById(userId);	
+		MemberBean memberbean = mService.getMemberById(userId);
 		List<ActJoinBean> joinBeans = service.CheckJoinPersons(userId);
 		model.addAttribute("ActJoinBeans",joinBeans);
 //		model.addAttribute("member",memberbean);
@@ -288,7 +288,7 @@ public class ActController {
 	    return "/eeit10908/ViewOneAct";
 	}
 	
-	@RequestMapping(value = "/eeit10908/ByActivity")
+	@RequestMapping(value = "/eeit10908/index/ByActivity")
 	public String getActByIds(@RequestParam("getId") Integer id,Model model,HttpServletRequest request) {
 		System.out.println("--------------+++------------");
 		model.addAttribute("actdata",service.getActivityById(id));
