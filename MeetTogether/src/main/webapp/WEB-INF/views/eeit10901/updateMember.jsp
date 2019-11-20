@@ -286,9 +286,9 @@ var jQuery_1_12_4 = $.noConflict();
 					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
 </td>
 				
-			<tr>
-				<td>編號
-				<td>${updateInfo.memberId}</td>
+			
+				<form:input type="hidden" path="memberId" value="${updateInfo.memberId}"  />
+				
 			<tr>
 				<td>mail
 				<td><form:input  path="memberEmail" value="${updateInfo.memberEmail}"  /></td>

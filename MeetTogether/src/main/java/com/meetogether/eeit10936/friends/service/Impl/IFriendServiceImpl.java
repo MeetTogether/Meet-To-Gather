@@ -65,6 +65,11 @@ public class IFriendServiceImpl implements IFriendService {
 		// TODO Auto-generated method stub
 		return dao.checkResponse(f1id, f2id);
 	}
+	@Transactional
+	@Override
+	public void deleteFriends(Integer id,Integer fid) {
+		dao.deleteFriends(id, fid);
+	}
 	
 	
 	

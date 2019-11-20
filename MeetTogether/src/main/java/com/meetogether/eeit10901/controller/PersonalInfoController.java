@@ -23,6 +23,7 @@ import com.meetogether.eeit10901.service.PersonalInfoService;
 import com.meetogether.eeit10936.pairs.model.MemberInfo;
 import com.meetogether.eeit10936.pairs.model.MemberInterest;
 import com.meetogether.eeit10936.pairs.model.MemberInterestPK;
+import com.meetogether.eeit10936.pairs.model.VipStatus;
 
 
 @Controller
@@ -135,7 +136,14 @@ public class PersonalInfoController {
 			interestService.addPersonalInfo(mi);
 		}
 		
-		return "eeit10901/addPersonalInterest";
+		return "eeit10901/memberInterest";
+	}
+	
+	@RequestMapping("/memberInterest")
+	public String memberInterest(Model model) {
+//		model.addAttribute("vipBean", new VipStatus());
+		return "eeit10901/memberInterest";
+
 	}
 
 }
