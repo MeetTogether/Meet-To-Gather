@@ -17,27 +17,11 @@
             </div>
         </div>
     </section>
-    <hr style="height:1px;border:none;color:#333;background-color:#333;">
-    <section class="container">
-        <div class="row">
-          <c:forEach var='album' items='${albums}'>
-            <div class="col-sm-6 col-md-3" style="width: 360px; height: 360px">
-                <div class="thumbnail" style="width: 320px; height: 340px">
-                	<img width='100' height='200' 
-     					src="<c:url value='/getPicture/${album.memberId}' />" />
-                    <div class="caption">
-                        <p>
-                            <b style='font-size: 16px;'>${album.fileName}</b>
-                        </p>
-                        <p>${album.photo}</p>
-                      
-                    
-                    </div>
-                </div>
-            </div>
-          </c:forEach>
-        </div>
-    </section>
+    <c:forEach items="${userList}" var="userList" >
+
+	<!--拼接圖片回顯的的URL-->
+	<img  src="${pageContext.request.contextPath }/${userList.image}"><br>
+</c:forEach>
 </body>
 </html>
     
