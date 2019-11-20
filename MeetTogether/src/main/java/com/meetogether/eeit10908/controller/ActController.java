@@ -323,6 +323,8 @@ public class ActController {
 			}
 		}
 		System.out.println("==========" + totalEventStar);
+		System.out.println("==========1111111" + reviewSize);
+
 		avgEventStar = totalEventStar / reviewSize;
 		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
 		model.addAttribute("avgEventStar", avgEventStar);
@@ -429,7 +431,10 @@ public class ActController {
 			}
 		}
 		System.out.println("==========" + totalEventStar);
-		avgEventStar = totalEventStar / reviewSize;
+		if(reviewSize!=0) {
+			avgEventStar = totalEventStar / reviewSize;
+		}
+		
 		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
 		model.addAttribute("avgEventStar", avgEventStar);
 		model.addAttribute("one", one);
