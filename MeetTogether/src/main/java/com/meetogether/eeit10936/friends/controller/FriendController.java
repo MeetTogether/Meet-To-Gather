@@ -106,5 +106,18 @@ public class FriendController {
 		return "eeit10936/test";
 		
 	}
+	@RequestMapping("/del")
+	public String delFriend(Model model,HttpSession session) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		Integer fId=(Integer) model.getAttribute("fid");
+		fService.deleteFriends(userId, fId);
+		return "redirect:/";
+		
+		
+	}
+	
+	
+	
+	
 
 }

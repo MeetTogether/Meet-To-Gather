@@ -22,4 +22,6 @@ public interface IFriendService {
 	boolean checkFriendList(Integer f1id, Integer f2id);
 	
 	boolean checkResponse(Integer f1id, Integer f2id);
+
+	void deleteFriends(Integer id, Integer fid);
 }
