@@ -705,6 +705,9 @@ p {
 														<b style='font-size: 14px;'>星等:
 															${reviewBean.eventStars}</b>
 													</p>
+<!-- 													<p> -->
+<%-- 													<input type="hidden" name="eventId"value="${reviewBean.event.eventId} }"> --%>
+<!-- 													</p> -->
 
 													<p>
 														<b style='font-size: 14px;'>評論:
@@ -745,35 +748,35 @@ p {
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-														(98%)
+														(5)
 													</span> ${five} <span></span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-														(85%)
+														(4)
 													</span> <span>${four}</span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-														(70%)
+														(3)
 													</span> <span>${three}</span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-														(10%)
+														(2)
 													</span> <span>${two}</span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-														(0%)
+														(1)
 													</span> <span>${one}</span>
 												</p>
 											</div>
@@ -1068,8 +1071,7 @@ p {
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/jquery.timepicker.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
 	<script>

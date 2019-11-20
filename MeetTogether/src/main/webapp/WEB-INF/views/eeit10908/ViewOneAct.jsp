@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<link rel="stylesheet"
+	href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+	integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
+	crossorigin="anonymous">
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 <title>活 動 細 節</title>
 <meta name="viewport"
 	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
@@ -303,7 +315,7 @@ jQuery_1_12_4(document).ready(
 	              	<div class="icon"><span class="flaticon-car-seat"></span></div>
 	              	<div class="text">
 		                <h3 class="heading mb-0 pl-3">
-		                	活動參與人數
+		                	活動人數上限
 		                	<span>${actdata.groupNum}</span>
 		                </h3>
 	                </div>
@@ -369,38 +381,107 @@ jQuery_1_12_4(document).ready(
 							  </ul>
 							</div>
 
-						  <div class="tab-content" id="pills-tabContent">
-						    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
-						    	<div class="row">
-						    		<div class="col-md-4">
-						    			<ul class="features">
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>GPS</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Music</li>
-						    			</ul>
-						    		</div>
-						    		<div class="col-md-4">
-						    			<ul class="features">
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li>
-						    				<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Water</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li>
-						    				<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li>
-						    			</ul>
-						    		</div>
-						    		<div class="col-md-4">
-						    			<ul class="features">
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li>
-						    				<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li>
-						    			</ul>
-						    		</div>
-						    	</div>
-						    </div>
+<!-- 						  <div class="tab-content" id="pills-tabContent"> -->
+<!-- 						  	<div class="col-md-8 mr-auto ml-auto"> -->
+
+<!-- 							Carousel Card -->
+<!-- 							<div class="card card-raised card-carousel"> -->
+<!-- 								<div id="carouselExampleIndicators" class="carousel slide" -->
+<!-- 									data-ride="carousel" data-interval="3000"> -->
+<!-- 									<ol class="carousel-indicators"> -->
+<!-- 										<li data-target="#carouselExampleIndicators" data-slide-to="0" -->
+<!-- 											class="active"></li> -->
+<!-- 										<li data-target="#carouselExampleIndicators" data-slide-to="1" -->
+<!-- 											class=""></li> -->
+<!-- 										<li data-target="#carouselExampleIndicators" data-slide-to="2" -->
+<!-- 											class=""></li> -->
+<!-- 									</ol> -->
+<!-- 									<div class="carousel-inner"> -->
+<!-- 									<a href="http://localhost:8080/MeetTogether/ByActivity?getId=2"> -->
+<!-- 										<div class="carousel-item active"> -->
+											
+<!-- 												<img class="d-block w-100" -->
+<!-- 												src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg.jpg" -->
+<!-- 												alt="First slide"> -->
+											
+<!-- 											<div class="carousel-caption d-none d-md-block"> -->
+<!-- 												<h4> -->
+<!-- 													<i class="material-icons">location_on</i> Yellowstone -->
+<!-- 													National Park, United States -->
+<!-- 												</h4> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 										</a> -->
+<!-- 										<div class="carousel-item"> -->
+<!-- 											<img class="d-block w-100" -->
+<!-- 												src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg2.jpg" -->
+<!-- 												alt="Second slide"> -->
+<!-- 											<div class="carousel-caption d-none d-md-block"> -->
+<!-- 												<h4> -->
+<!-- 													<i class="material-icons">location_on</i> Somewhere Beyond, -->
+<!-- 													United States -->
+<!-- 												</h4> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 										<div class="carousel-item"> -->
+<!-- 											<img class="d-block w-100" -->
+<!-- 												src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg3.jpg" -->
+<!-- 												alt="Third slide"> -->
+<!-- 											<div class="carousel-caption d-none d-md-block"> -->
+<!-- 												<h4> -->
+<!-- 													<i class="material-icons">location_on</i> Yellowstone -->
+<!-- 													National Park, United States -->
+<!-- 												</h4> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 									<a class="carousel-control-prev" -->
+<!-- 										href="#carouselExampleIndicators" role="button" -->
+<!-- 										data-slide="prev"> <i class="material-icons">keyboard_arrow_left</i> -->
+<!-- 										<span class="sr-only">Previous</span> -->
+<!-- 									</a> <a class="carousel-control-next" -->
+<!-- 										href="#carouselExampleIndicators" role="button" -->
+<!-- 										data-slide="next"> <i class="material-icons">keyboard_arrow_right</i> -->
+<!-- 										<span class="sr-only">Next</span> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							End Carousel Card -->
+
+
+<!-- 						</div> -->
+<!-- -------------------------- -->
+<!-- 						    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab"> -->
+<!-- 						    	<div class="row"> -->
+<!-- 						    		<div class="col-md-4"> -->
+<!-- 						    			<ul class="features"> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>GPS</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Music</li> -->
+<!-- 						    			</ul> -->
+<!-- 						    		</div> -->
+<!-- 						    		<div class="col-md-4"> -->
+<!-- 						    			<ul class="features"> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li> -->
+<!-- 						    				<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Water</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li> -->
+<!-- 						    				<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li> -->
+<!-- 						    			</ul> -->
+<!-- 						    		</div> -->
+<!-- 						    		<div class="col-md-4"> -->
+<!-- 						    			<ul class="features"> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li> -->
+<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li> -->
+<!-- 						    			</ul> -->
+<!-- 						    		</div> -->
+<!-- 						    	</div> -->
+<!-- 						    </div> -->
 
 						    <div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
 						      <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
@@ -410,126 +491,97 @@ jQuery_1_12_4(document).ready(
 						    <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
 						      <div class="row">
 							   		<div class="col-md-7">
-							   			<h3 class="head">23 Reviews</h3>
-							   			<div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-									   		<div class="desc">
-									   			<h4>
-									   				<span class="text-left">Jacob Webb</span>
-									   				<span class="text-right">14 March 2018</span>
-									   			</h4>
-									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-								   					</span>
-								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-									   			</p>
-									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-									   		</div>
-									   	</div>
-									   	<div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-									   		<div class="desc">
-									   			<h4>
-									   				<span class="text-left">Jacob Webb</span>
-									   				<span class="text-right">14 March 2018</span>
-									   			</h4>
-									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-								   					</span>
-								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-									   			</p>
-									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-									   		</div>
-									   	</div>
-									   	<div class="review d-flex">
-									   		<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-									   		<div class="desc">
-									   			<h4>
-									   				<span class="text-left">Jacob Webb</span>
-									   				<span class="text-right">14 March 2018</span>
-									   			</h4>
-									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-								   					</span>
-								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
-									   			</p>
-									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
-									   		</div>
-									   	</div>
+							   				<h3 class="head">所有評論</h3>
+							   				<c:forEach var='reviewBean' items='${review}'>
+											<div class="review d-flex" style="border: 3px #cccccc solid;">
+												<!-- 												<div class="user-img" -->
+												<!-- 													style="background-image: url(images/person_1.jpg)"></div> -->
+												<!--使用者圖片呼叫 -->
+												<%-- 													<img width='50' height='50'src="<c:url value='memberPhoto/${currentUser.memberId}'/>" /> --%>
+												<img height='60'
+													src='${pageContext.request.contextPath}/getImage?type=member&id=${reviewBean.member.memberId}'>
+
+												<div class="desc">
+													<h4>
+														<p>
+															<b style='font-size: 16px;'>會員編號:
+																${reviewBean.member.memberName}</b>
+														</p>
+													</h4>
+
+
+													<p class="star">
+														<b style='font-size: 14px;'>星等:
+															${reviewBean.eventStars}</b>
+													</p>
+<!-- 													<p> -->
+<%-- 													<input type="hidden" name="eventId"value="${reviewBean.event.eventId} }"> --%>
+<!-- 													</p> -->
+
+													<p>
+														<b style='font-size: 14px;'>評論:
+															${reviewBean.eventComment}</b>
+													</p>
+
+													<p>
+														<b style='font-size: 14px;'>創建時間:
+															${fn:substring(reviewBean.createTime,0,16)}</b>
+													</p>
+
+													<p>
+														<c:if test="${userId==reviewBean.member.memberId}">
+															<a id=condition
+																href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />"
+																class="btn btn-primary"> <span
+																class="glyphicon-info-sigh glyphicon"></span>編輯資料
+															</a>
+														</c:if>
+													</p>
+												</div>
+											</div>
+										</c:forEach>
 							   		</div>
 							   		<div class="col-md-5">
-							   			<div class="rating-wrap">c
+							   			<div class="rating-wrap">
 								   			<h3 class="head"><a href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give a Review</a></h3>
 								   			<div class="wrap">
+								   			<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5</b>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(98%)
-								   					</span>
-								   					<span>20 Reviews</span>
+									   				<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(5)
+								   					
+								   					</span> ${five} <span></span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(85%)
-								   					</span>
-								   					<span>10 Reviews</span>
+									   		<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(4)
+								   					
+								   					</span> <span>${four}</span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(70%)
-								   					</span>
-								   					<span>5 Reviews</span>
+									   				<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(3)
+								   					</span> <span>${three}</span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(10%)
-								   					</span>
-								   					<span>0 Reviews</span>
+									   					<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(2)
+								   					</span> <span>${two}</span>
 									   			</p>
 									   			<p class="star">
-									   				<span>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					<i class="ion-ios-star"></i>
-									   					(0%)
-								   					</span>
-								   					<span>0 Reviews</span>
+									   				<span> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+														(1)
+								   				</span> <span>${one}</span>
 									   			</p>
 									   		</div>
 								   		</div>

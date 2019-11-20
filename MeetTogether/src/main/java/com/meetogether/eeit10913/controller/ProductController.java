@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.RequestPath;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,10 +45,15 @@ public class ProductController {
 //新增方法
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String getaddReview(Model model, HttpServletRequest request) {
-//		Integer userId1 = (Integer) request.getSession().getAttribute("userId");
-//		System.out.println("userId ===================  "+userId1);
+		System.out.println("========================@RequestMapping(\"/addProduct\")==========GET==============");
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		System.out.println("userId ===================  "+userId);
 		ReviewBean rb = new ReviewBean();
 		System.out.println("rb ===================  "+rb);
+		
+		
+		System.out.println("rb.getEventId() ==========GET===========  "+rb.getEventId());
+		
 //		model.addAttribute("event",service1.getActivityById(actId));
 		model.addAttribute("reviewBean", rb);
 		return "eeit10913/addProduct";
@@ -55,25 +61,13 @@ public class ProductController {
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 	public String abc(@ModelAttribute("reviewBean") ReviewBean rb, 
-			@RequestParam(value = "eventId") Integer eventId) {
-//		rb.setEvent(service1.getActivityById(eventId));
-		rb.setEventId(eventId);
-		System.out.println(rb.getEventComment());
-		System.out.println(rb.getEventStars());
-		System.out.println("rb1111111:::::::" + rb);
-//		service.add(ab);
-		service.add(rb);
+			@RequestParam(value = "eventId") Integer eventId, Model model) {
 		
-		return "redirect:/allreview";
-	}
-
-//查詢所有
-	@RequestMapping("/allreview")
-	public String list(Model model, @ModelAttribute("ReviewBean") ReviewBean reviewBean, Integer avgEventStar) {
-		System.out.println("@RequestMapping(\"/eeit10913/products2/avgEventStar\") =========== ");
-//		List<ReviewBean> list = service.selectALL();
-		List<ReviewBean> list = service.selectALLByEventId(reviewBean.getEventId());
-		System.out.println(reviewBean.getEventId()+"============================reviewBean.getEventId()");
+		rb.setEventId(eventId);
+		
+		int eventId2 = service.add(rb);
+		List<ReviewBean> list = service.selectALLByEventId(eventId);
+		model.addAttribute("reviewBean", list);
 		Integer reviewSize = list.size();
 		Integer totalEventStar = 0;
 		Integer one = 0;
@@ -81,34 +75,76 @@ public class ProductController {
 		Integer three = 0;
 		Integer four = 0;
 		Integer five = 0;
-		avgEventStar = 0;
+		int avgEventStar = 0;
 	
-		for (ReviewBean rb : list) {
+		for (ReviewBean rb2 : list) {
 			// totalEventStar = totalEventStar + reviewBean.getEventStars();
 			totalEventStar += rb.getEventStars();
-			if(rb.getEventStars()==1)++one;
-			else if(rb.getEventStars()==2)++two;
-			else if(rb.getEventStars()==3)++three;
-			else if(rb.getEventStars()==4)++four;
-			else if(rb.getEventStars()==5)++five;
+			if(rb2.getEventStars()==1)++one;
+			else if(rb2.getEventStars()==2)++two;
+			else if(rb2.getEventStars()==3)++three;
+			else if(rb2.getEventStars()==4)++four;
+			else if(rb2.getEventStars()==5)++five;
 			else {
-				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+				System.out.println("Exception ==== rb.getEventStars() ===== "+rb2.getEventStars());
 			}
 		}
-		System.out.println("==========" + totalEventStar);
 		avgEventStar = totalEventStar / reviewSize;
-		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
-		model.addAttribute("review", list);
 		model.addAttribute("avgEventStar", avgEventStar);
 		model.addAttribute("one", one);
 		model.addAttribute("two", two);
 		model.addAttribute("three", three);
 		model.addAttribute("four", four);
 		model.addAttribute("five", five);
-		model.addAttribute("vipBean", new VipStatus());
-		// return "eeit10913/products";
-		return "eeit10913/products2";
+		return "redirect:/ByActivity?getId=" + eventId2;
 	}
+
+//查詢所有
+//	@RequestMapping("/allreview")
+//	public String list(Model model, @ModelAttribute("ReviewBean") ReviewBean reviewBean, Integer avgEventStar) {
+//		System.out.println("========================@RequestMapping(\"/allreview\")========================");
+//		System.out.println("reviewBean.getEventId() ==================================  "+reviewBean.getEventId());
+//		List<ReviewBean> list = service.selectALLByEventId(eventId)();
+////		System.out.println(reviewBean.getReviewId()+"============================reviewBean.getReviewId()");
+////		ReviewBean review=service.getReviewById(reviewBean.getReviewId());
+////		System.out.println(review.getEventId()+"============================review.getEventId()");
+////		List<ReviewBean> list = service.selectALLByEventId(review.getEventId());
+//		
+//		Integer reviewSize = list.size();
+//		Integer totalEventStar = 0;
+//		Integer one = 0;
+//		Integer two = 0;
+//		Integer three = 0;
+//		Integer four = 0;
+//		Integer five = 0;
+//		avgEventStar = 0;
+//	
+//		for (ReviewBean rb : list) {
+//			// totalEventStar = totalEventStar + reviewBean.getEventStars();
+//			totalEventStar += rb.getEventStars();
+//			if(rb.getEventStars()==1)++one;
+//			else if(rb.getEventStars()==2)++two;
+//			else if(rb.getEventStars()==3)++three;
+//			else if(rb.getEventStars()==4)++four;
+//			else if(rb.getEventStars()==5)++five;
+//			else {
+//				System.out.println("Exception ==== rb.getEventStars() ===== "+rb.getEventStars());
+//			}
+//		}
+//		System.out.println("==========" + totalEventStar);
+//		avgEventStar = totalEventStar / reviewSize;
+//		System.out.println("totalEventStar/reviewSize=avgEventStar =========== " + avgEventStar);
+//		model.addAttribute("review", list);
+//		model.addAttribute("avgEventStar", avgEventStar);
+//		model.addAttribute("one", one);
+//		model.addAttribute("two", two);
+//		model.addAttribute("three", three);
+//		model.addAttribute("four", four);
+//		model.addAttribute("five", five);
+//		model.addAttribute("vipBean", new VipStatus());
+//		// return "eeit10913/products";
+//		return "eeit10913/products2";
+//	}
 	
 	 
 	

@@ -32,7 +32,7 @@ public class ProductDaoImpl implements ProductDao {
 	ProductService pService;
  	
 	@Override
-	public void add(ReviewBean review) {
+	public int add(ReviewBean review) {
 //		factory.getCurrentSession().save(review);
 		Session session = factory.getCurrentSession();
 		System.out.println("review=============================="+review);
@@ -43,6 +43,7 @@ public class ProductDaoImpl implements ProductDao {
 		review.setMember(mb);
 		review.setEvent(actBean);
 		session.save(review);
+		return review.getEventId();
 	}
 	
 
@@ -83,7 +84,10 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void update(ReviewBean rev) {
 		Session session=factory.getCurrentSession();
-		session.update(rev);
+		String hql = "from ReviewBean where reviewId = ?0";
+		ReviewBean result = (ReviewBean) factory.getCurrentSession().createQuery(hql).setParameter(0, rev.getReviewId()).uniqueResult();
+		result.setEventStars(rev.getEventStars());
+		result.setEventComment(rev.getEventComment());
 		
 	}
 	
@@ -113,12 +117,15 @@ public class ProductDaoImpl implements ProductDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReviewBean> selectALLByEventId(Integer eventId) {
-		String hql = "FROM ReviewBean where eventId = eventId";
+		System.out.println("eventId================="+eventId);
+		String hql = "FROM ReviewBean where eventId = ?0";
 		Session session = null;
 		List<ReviewBean> list = new ArrayList<>();
 
 		session = factory.getCurrentSession();
-		list = session.createQuery(hql).getResultList();
+		list = session.createQuery(hql)
+				.setParameter(0, eventId)
+				.getResultList();
 		
 		return list;
 	}

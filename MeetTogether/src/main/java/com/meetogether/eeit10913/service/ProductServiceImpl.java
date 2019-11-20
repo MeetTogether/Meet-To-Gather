@@ -22,8 +22,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Transactional
 	@Override
-	public void add(ReviewBean review) {
-		dao.add(review);
+	public int add(ReviewBean review) {
+		return dao.add(review);
 		
 	}
 	

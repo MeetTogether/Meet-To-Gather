@@ -29,14 +29,6 @@ public class ActJoinBean implements Serializable {
 	private Integer Joinid;
 	
 
-
-
-
-	
-
-
-
-
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "eventId")
 	private ActBean eventBean;

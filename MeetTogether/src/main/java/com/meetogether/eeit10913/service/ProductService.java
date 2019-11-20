@@ -8,7 +8,7 @@ import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10913.model.ReviewBean;
 
 public interface ProductService {
-	public void add(ReviewBean review);
+	public int add(ReviewBean review);
 
 	void update(ReviewBean rev);
 

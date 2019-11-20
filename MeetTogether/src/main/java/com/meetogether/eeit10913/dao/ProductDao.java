@@ -13,7 +13,7 @@ public interface ProductDao {
 
 	public List<ReviewBean> selectALL();
 
-	void add(ReviewBean review);
+	int add(ReviewBean review);
 	
 	void delete(Integer review);
 
