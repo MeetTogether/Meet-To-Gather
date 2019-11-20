@@ -25,4 +25,8 @@ public interface MemberDao {
 
 	public boolean mEmailExist(MemberBean member);
 
+	void synchAlbum(Integer memberId);
+	
+	public void addAlbum(Integer memberId);
+
 }
