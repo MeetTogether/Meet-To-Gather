@@ -425,7 +425,7 @@ p {
 <%--     								<img width="200" height="200" src="<c:url value='/getImage?id=${acts.eventId}&type=act'/>"/> --%>
     					</div>
     					<div class="text p-4 text-center">
-    						<h2 class="mb-0"><a href="car-single.html">${acts.eventName}</a></h2>
+    						<h2 class="mb-0"><a href="ByActivity?getId=${acts.eventId}">${acts.eventName}</a></h2>
     						<span>scheduled start time:${acts.eventTime}</span>
     						
     						<c:set var="done" value="false" />
@@ -450,13 +450,42 @@ p {
     						</c:otherwise>
     						</c:choose>
     						
-    						
+    					
     						<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a>
     						
     						
     						
+    						<c:set var="dones" value="false" />
     						
-    						<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動修改</a></p>
+							 <form:form method="post" 
+ 							modelAttribute="actBean">
+							<c:if test="${acts.memberId.memberId eq actBean.memberId.memberId}">    						
+    								<c:set var="dones" value="true" />	
+    						</c:if>
+							</form:form>
+    						
+    						
+    						
+    						<c:choose>
+    						<c:when  test="${dones}">
+    							
+    							<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動修改</a><p>
+    						
+    						</c:when>
+  						
+    						
+    						<c:otherwise>
+							 	
+    						</c:otherwise>
+    						</c:choose>
+    						
+    						
+    						
+    						
+    					
+    					
+    					
+    					
     					</div>
     				</div>
     			</div>

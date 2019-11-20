@@ -130,6 +130,7 @@ public class ActController {
 		List<ActBean> beans = service.getAllAct();	
 	    ActBean aa = new ActBean();
 	    aa.setMemberId(memberbean);
+	    System.out.println(aa.getMemberId());
 	    CatBean cc = new CatBean();
 		model.addAttribute("actBeanCat",cc);
 	    //aa.setGroupNum("9");
@@ -139,9 +140,9 @@ public class ActController {
 	}
 	 
 	@RequestMapping(value = "/eeit10908", method = RequestMethod.POST)
-	public String processAddNewProductForm(@ModelAttribute("actBean") ActBean aa
+	public String processAddNewProductForm(@ModelAttribute("actBean") ActBean aa, HttpServletRequest request
 			) {
-
+		
 		MultipartFile msgImage = aa.getActImage();
 		String originalFilename = msgImage.getOriginalFilename();
 		String ext = "";
@@ -160,7 +161,15 @@ public class ActController {
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
 		}
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		MemberBean memberbean = mService.getMemberById(userId);
+		aa.setMemberId(memberbean);
+		
 		service.addActivity(aa);
+		
+		
+		
+		
 		
 		if (originalFilename.length() > 0) {
 			savedFilename = "Message-" + aa.getEventId() + "-" + String.valueOf(System.currentTimeMillis()) + ext;
