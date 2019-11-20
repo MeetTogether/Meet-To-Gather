@@ -206,11 +206,11 @@ body {
 	</section>
 	<h1 class="mb-3 bread" align="center">請輸入興趣至少三樣</h1>
 
-	<div class="bg">
+	<div style="text-align:center">
 
-	<div>
-
-			<div class="chiller_cb">
+	<div style="text-align:center">
+<form style="text-align:center">
+			<div class="chiller_cb" >
 				<input id="myCheckbox1" type="checkbox" value="102" name="Interest1">
 				<label for="myCheckbox1">旅遊</label> <span></span>
 			</div>
@@ -240,7 +240,15 @@ body {
 				<input id="myCheckbox7" type="checkbox" value="108" name="Interest7">
 				<label for="myCheckbox7">寫程式</label> <span></span>
 			</div>
+			
+			
+				  <input type ="submit"  value="送出" id="add">
+					<input type="reset" value="清除"/>
+				
+				</form>	
+					
 		</div>
+			
 		</div>
 	
 

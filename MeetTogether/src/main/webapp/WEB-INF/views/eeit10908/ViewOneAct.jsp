@@ -594,14 +594,14 @@ p {
 
 													<div class="desc">
 														<h4>
-															<p>
-																<b style='font-size: 16px;'>會員編號:
+															<p align="left">
+																<b style='font-size: 16px;'>會員姓名:
 																	${reviewBean.member.memberName}</b>
 															</p>
 														</h4>
 
 
-														<p class="star">
+														<p class="star" align="left">
 															<b style='font-size: 14px;'>星等:
 																${reviewBean.eventStars}</b>
 														</p>
@@ -609,17 +609,17 @@ p {
 														<%-- 													<input type="hidden" name="eventId"value="${reviewBean.event.eventId} }"> --%>
 														<!-- 													</p> -->
 
-														<p>
+														<p align="left">
 															<b style='font-size: 14px;'>評論:
 																${reviewBean.eventComment}</b>
 														</p>
 
-														<p>
+														<p align="left">
 															<b style='font-size: 14px;'>創建時間:
 																${fn:substring(reviewBean.createTime,0,16)}</b>
 														</p>
 
-														<p>
+														<p align="right">
 															<c:if test="${userId==reviewBean.member.memberId}">
 																<a id=condition
 																	href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />"
