@@ -749,7 +749,7 @@ p {
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
 														class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 														(5)
-													</span> ${five} <span></span>
+													</span><span>${five}</span>
 												</p>
 												<p class="star">
 													<span> <i class="ion-ios-star"></i> <i
