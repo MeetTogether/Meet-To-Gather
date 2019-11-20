@@ -288,7 +288,8 @@ var jQuery_1_12_4 = $.noConflict();
 				
 			<tr>
 				<td>編號
-				<td>${updateInfo.memberId}</td>
+				<td><form:input readonly="true" path="memberId" value="${updateInfo.memberId}"  /></td>
+				
 			<tr>
 				<td>mail
 				<td><form:input  path="memberEmail" value="${updateInfo.memberEmail}"  /></td>

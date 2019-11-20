@@ -191,13 +191,13 @@
 				<td>性別</td>
 
 				<td>
-
+						
 						<c:choose>
 							<c:when test="${member.memberSex == 1 }">
-								<option value="1" selected>男</option>
+								男
 							</c:when>
 							<c:otherwise>
-								<option value="0" selected>女</option>
+								女
 							</c:otherwise>
 						</c:choose>
 

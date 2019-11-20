@@ -38,6 +38,7 @@ import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10908.service.impl.ActService;
 import com.meetogether.eeit10927.service.IMessageService;
+import com.meetogether.eeit10936.friends.service.IFriendService;
 import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
 
@@ -68,6 +69,8 @@ public class MemberController {
 	
 	@Autowired
 	AlbumService aService;
+	@Autowired
+	private IFriendService fService;
 
 	
 	
@@ -98,8 +101,10 @@ public class MemberController {
 	@RequestMapping(value = "/upadateInfo/{id}", method = RequestMethod.GET)
 	public String updateByInfoGet(Model model,@PathVariable Integer id)
 			 {
-		model.addAttribute("updateInfo", mservice.getMemberById(id));
-		System.out.println("name:"+ mservice.getMemberById(id).getMemberCity());
+		MemberBean member = mservice.getMemberById(id);
+		System.out.println("編號："+member.getMemberId());
+		model.addAttribute("updateInfo", member);
+		System.out.println("password:"+ mservice.getMemberById(id).getMemberPassword());
 		return "eeit10901/updateMember";
 	}
 
@@ -147,6 +152,18 @@ public class MemberController {
 //		model.addAttribute("memberForm", member);
 		model.addAttribute("member", mservice.getMemberById(userId));
 //		model.addAttribute("vipBean", new VipStatus());
+		return "eeit10901/getMember";
+	}
+	
+	
+	@RequestMapping("/getmember/{fid}")
+	public String getOtherMemberById(Model model, HttpSession session
+										,@PathVariable("fid")Integer fid) {
+		Integer currentUserId = (Integer) session.getAttribute("userId");		
+		model.addAttribute("member", mservice.getMemberById(fid));
+		model.addAttribute("friendStatus",fService.checkFriendList(currentUserId, fid));
+		model.addAttribute("addFriendsAlready",fService.checkAddFriend(currentUserId, fid));
+		model.addAttribute("responseYet",fService.checkResponse(currentUserId, fid));
 		return "eeit10901/getMember";
 	}
 
