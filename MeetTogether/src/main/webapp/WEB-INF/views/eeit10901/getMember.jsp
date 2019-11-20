@@ -181,7 +181,7 @@
 <!-- 				<td>密碼 -->
 <%-- 				<td><input type="password" value="${member.memberPassword}" --%>
 <!-- 					disabled="true"></td> -->
-<!-- 			<tr> -->
+			<tr>
 				<td>暱稱
 				<td>${member.memberName}</td>
 			<tr>
