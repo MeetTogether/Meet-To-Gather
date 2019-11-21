@@ -69,4 +69,10 @@ public class MsgreplyServiceImpl implements IMsgreplyService {
 		return mlDao.findMsglikeByMsgAndMember(mlike);
 	}
 
+	@Transactional
+	@Override
+	public List<Msglike> findMsglikeByMessage(Integer messageId) {
+		return mlDao.findMsglikeByMessage(messageId);
+	}
+
 }

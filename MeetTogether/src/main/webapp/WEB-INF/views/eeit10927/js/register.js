@@ -133,6 +133,10 @@ function checkError() {
 		$("#msg_mPhoto").empty().append(errorMsg).focus();
 		flag += 1;
 	}
+	if($("#memberCity").val()=="") {
+		$("#msg_memberCity").empty().append(errorMsg).focus();
+		flag += 1;
+	}
 	if(flag == 0) {
 		document.getElementById("registerForm").submit();
 //		document.href();

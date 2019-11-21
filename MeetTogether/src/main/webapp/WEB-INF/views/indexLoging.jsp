@@ -26,9 +26,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <script src="${pageContext.request.contextPath}/eeit10927/js/login.js"></script>
-
 <style>
 .reply_a {
 	padding: 5px 10px;
@@ -78,17 +76,12 @@
 	background: #2894FF;
 }
 .testimony-wrap{
-
-
 	/*background: #ff00000f;*/
 	background: white;
-
 }
 
 .p-4{
 	/*background: #0384f30f;
-
-
 	background: #c3f3031c;
 	background: #f3f2bd6b;*/
 	background: white;
@@ -96,13 +89,13 @@
 .msgWrong {
 	color: red;
 	font-size: 0.9em;
-
 }
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
 	autoRun();
 	run();
+	showModal();
 	function clickact(myObj){
 		 myObj.innerHTML="已參加";
 		 console.log(myObj);
@@ -123,12 +116,20 @@ $(document).ready(function() {
 	function run() {
 		myInterval = window.setInterval(autoRun, 2000);
 	}
+	function showModal() {
+		var userId = document.getElementById("userId").value;
+		console.log('userId: ' + userId);
+		if (userId > 0) {
+			$("#loginModalLong").modal('hide');
+		} else {
+			$("#loginModalLong").modal('show');
+		}
+	}
 	
 });
 </script>
 </head>
 <body>
-
 <!-- 登入視窗 -->
 <div class="modal fade" id="loginModalLong" tabindex="-1" role="dialog" aria-labelledby="loginModalLongTitle" aria-hidden="true">
 <div class="modal-dialog" role="document">
@@ -159,6 +160,7 @@ $(document).ready(function() {
 				請輸入密碼<br>
 				</div>
 				<form:input type="password" name="mPwd" id="mPwd" path="memberPassword" value="${userPwd}" style="width:60%;" />
+				<br>
 				<span id="msg_mPwd" class='msgWrong'>${errorMsg.loginError}</span>
 			</div>
 			<br>
@@ -172,8 +174,8 @@ $(document).ready(function() {
 </div>
 </div>
 </div>
-
-
+<!-- 登入後將userId放在這兒 -->
+<input type="hidden" value="${userId }" id="userId">
 
 	<!-- nav -->
 	<nav
@@ -191,6 +193,7 @@ $(document).ready(function() {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>					
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
@@ -201,11 +204,9 @@ $(document).ready(function() {
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
-
 						</c:if></li>
 					<li class="nav-item"><c:if test="${empty userId}">
 						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
-
 						</c:if></li>
 				</ul>
 			</div>
@@ -362,18 +363,22 @@ $(document).ready(function() {
 										far from the countries Vokalia and Consonantia, there live the
 										blind texts.</p>
 									<p class="d-flex mb-0 d-block">
-
-
 									<c:choose>
 										<c:when test="${userId eq null }">
-											<button type="button" class="reply_n" data-toggle="modal" data-target="#loginModalLong">SKIP</button>
+											<a href="###" class="reply_n" data-toggle="modal" data-target="#loginModalLong">SKIP</a>&ensp;&ensp;
 										</c:when>
 										<c:otherwise>
 											<a href="###" class="reply_n">SKIP</a>&ensp;&ensp;
 										</c:otherwise>
 									</c:choose>
-
-										<a href="###" class="reply">LIKE</a>
+									<c:choose>
+										<c:when test="${userId eq null }">
+											<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">LIKE</a>&ensp;&ensp;
+										</c:when>
+										<c:otherwise>
+											<a href="###" class="reply">LIKE</a>
+										</c:otherwise>
+									</c:choose>
 									</p>
 								</div>
 							</div>
@@ -406,8 +411,22 @@ $(document).ready(function() {
 							</h2>
 							<span>scheduled time<br>${acts.eventTime}</span>
 							<p class="d-flex mb-0 d-block">
-								<a href="###" class="reply_a" id="joinact" onclick="clickact(this)">參加活動</a>&ensp;&ensp;
-								<a href="ByActivity?getId=${acts.eventId}" class="reply_a">活動細節</a>
+								<c:choose>
+									<c:when test="${userId eq null }">
+										<a href="###" class="reply_a" data-toggle="modal" data-target="#loginModalLong">參加活動</a>&ensp;&ensp;
+									</c:when>
+									<c:otherwise>
+										<a href="###" class="reply_a" id="joinact" onclick="clickact(this)">參加活動</a>&ensp;&ensp;
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${userId eq null }">
+										<a href="###" class="reply_a" data-toggle="modal" data-target="#loginModalLong">活動細節</a>&ensp;&ensp;
+									</c:when>
+									<c:otherwise>
+										<a href="ByActivity?getId=${acts.eventId}" class="reply_a">活動細節</a>
+									</c:otherwise>
+								</c:choose>
 							</p>
 						</div>
 					</div>
@@ -429,25 +448,47 @@ $(document).ready(function() {
 			<c:forEach var='popMsg' items="${popMsgs}">
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry justify-content-end">
-						<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}" class="block-20"
+						<a class="block-20"
 							style="background-image: url(${pageContext.request.contextPath}/getImage?id=${popMsg.msgId}&type=message);"> </a>
 						<div class="text pt-4">
 							<div class="meta mb-3">
 								<div>
-									<a href="#">${popMsg.createTimeFormat}</a>
+									<a>${popMsg.createTimeFormat}</a>
 								</div>
 								<div>
-									<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${popMsg.member.memberId}"><span class="icon-person"></span>${popMsg.member.memberName}</a>
+									<c:choose>
+										<c:when test="${userId eq null }">
+											<a href="#" data-toggle="modal" data-target="#loginModalLong"><span class="icon-person"></span>${popMsg.member.memberName}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${popMsg.member.memberId}"><span class="icon-person"></span>${popMsg.member.memberName}</a>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div>
-									<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}"><span class="icon-chat"></span>${popMsg.replyCount}</a>
+									<c:choose>
+										<c:when test="${userId eq null }">
+											<a href="#" data-toggle="modal" data-target="#loginModalLong"><span class="icon-chat"></span>${popMsg.replyCount}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}"><span class="icon-chat"></span>${popMsg.replyCount}</a>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
-							<h3 class="heading mt-2">
-								<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}">${popMsg.msgTitle }</a>
-							</h3>
+							
+							<h3 class="heading mt-2">${popMsg.msgTitle }</h3>
 							<p>${popMsg.msgTextShort }
-							<p><a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}">閱讀更多<span class="icon-long-arrow-right"></span></a></p>
+							<p>
+							<c:choose>
+								<c:when test="${userId eq null }">
+									<a href="#" data-toggle="modal" data-target="#loginModalLong">閱讀更多<span class="icon-long-arrow-right"></span></a>
+								</c:when>
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}">閱讀更多<span class="icon-long-arrow-right"></span></a>
+								</c:otherwise>
+							</c:choose>
+							</p>
 						</div>
 					</div>
 				</div>

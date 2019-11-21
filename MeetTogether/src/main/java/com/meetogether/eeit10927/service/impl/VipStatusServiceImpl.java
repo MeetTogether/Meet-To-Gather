@@ -1,5 +1,7 @@
 package com.meetogether.eeit10927.service.impl;
 
+import java.sql.Timestamp;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,12 @@ public class VipStatusServiceImpl implements IVipStatusService {
 	@Override
 	public void vipUpgradeSuccess(String tradeNo) {
 		vipDao.vipUpgradeSuccess(tradeNo);
+	}
+
+	@Transactional
+	@Override
+	public Timestamp vipEndTime(Integer userId) {
+		return vipDao.vipEndTime(userId);
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10936.friends.dao.IFriendDao;
 import com.meetogether.eeit10936.friends.model.AddFriend;
 import com.meetogether.eeit10936.friends.model.FriendList;
@@ -20,6 +21,8 @@ import com.meetogether.eeit10936.pairs.model.Pair;
 public class IFriendDaoHibernateImol implements IFriendDao {
 	@Autowired
 	private SessionFactory factory;
+	@Autowired
+	private MemberService mService;
 	
 	@Override
 	public void deleteFriends(Integer id,Integer fid) {
@@ -28,13 +31,21 @@ public class IFriendDaoHibernateImol implements IFriendDao {
 							.setParameter(0, id).setParameter(1, fid).uniqueResult();
 		FriendList result2 = factory.getCurrentSession().createQuery(hql,FriendList.class)
 					.setParameter(0, fid).setParameter(1, id).uniqueResult();
-		
 		if(result!=null) {
 			factory.getCurrentSession().delete(result);
 		}else if(result2!=null) {
 			factory.getCurrentSession().delete(result2);
 		}
-		
+		String hql2="FROM AddFriend a WHERE a.f1Id = ?0 AND a.f2Id = ?1";
+		AddFriend result3 = factory.getCurrentSession().createQuery(hql2,AddFriend.class)
+		            .setParameter(0, id).setParameter(1, fid).uniqueResult();
+		AddFriend result4 = factory.getCurrentSession().createQuery(hql2,AddFriend.class)
+	            .setParameter(0, fid).setParameter(1, id).uniqueResult();
+		if(result3!=null) {
+			factory.getCurrentSession().delete(result3);
+		}else if(result4!=null) {
+			factory.getCurrentSession().delete(result4);
+		}
 		
 	}
 
@@ -167,5 +178,34 @@ public class IFriendDaoHibernateImol implements IFriendDao {
 			inviteAddFriend.setF2Id(f2id);
 			factory.getCurrentSession().persist(inviteAddFriend);
 		}
+	}
+	
+	@Override
+	public Map<Integer, String> responseList(Integer id){
+		Map<Integer, String> map =new HashMap<Integer, String>();
+		String hql="FROM AddFriend a WHERE a.f1Id = ?0 AND a.f1IdAllow IS NULL AND a.f2IdAllow = 1";
+		List<AddFriend> result = factory.getCurrentSession().createQuery(hql,AddFriend.class)
+		            .setParameter(0, id).getResultList();
+		if(result!=null) {
+			result.forEach((i)->{
+				MemberBean member = mService.getMemberById(i.getF2Id());
+				map.put(member.getMemberId(), member.getMemberName());
+			});
+		}
+		
+		
+		String hql1="FROM AddFriend a WHERE a.f2Id = ?0 AND a.f2IdAllow IS NULL AND a.f1IdAllow = 1";
+		List<AddFriend> result1 = factory.getCurrentSession().createQuery(hql1,AddFriend.class)
+		            .setParameter(0, id).getResultList();
+		if(result1!=null) {
+			result1.forEach((i)->{
+				MemberBean member = mService.getMemberById(i.getF1Id());
+				map.put(member.getMemberId(), member.getMemberName());
+			});
+			
+		}
+		
+		return map;
+		
 	}
 }

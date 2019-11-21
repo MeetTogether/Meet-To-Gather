@@ -23,23 +23,23 @@ import com.meetogether.eeit10927.model.Msgtag;
 public class MessageDaoHibernateImpl implements IMessageDao {
 	
 	private int pageNo = 0;			// 存放目前顯示頁面的編號
-	private int recordsPerPage = 2;	// 每頁3筆
+	private int recordsPerPage = 3;	// 每頁3筆
 	private int totalPages = -1;	// 總頁數
 	private int textLength = 50;	// 顯示部份文章的字數
 	
-	SessionFactory factory;
+	private SessionFactory factory;
 	@Autowired
 	public void setFactory(SessionFactory factory) {
 		this.factory = factory;
 	}
 	
-	IMsgTypeDao mtDao;
+	private IMsgTypeDao mtDao;
 	@Autowired
 	public void setMtDaoService(IMsgTypeDao mtDao) {
 		this.mtDao = mtDao;
 	}
 	
-	IMsgtagDao mTagDao;
+	private IMsgtagDao mTagDao;
 	@Autowired
 	public void setmTagDao(IMsgtagDao mTagDao) {
 		this.mTagDao = mTagDao;
@@ -343,19 +343,20 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	
 	// ok 已確認需使用
 	@Override
-	public int getTotalPages() {
-		totalPages = (int) (Math.ceil(getRecordCounts() / (double) recordsPerPage));
+	public int getTotalPages(Integer userId) {
+		totalPages = (int) (Math.ceil(getRecordCounts(userId) / (double) recordsPerPage));
 		return totalPages;
 	}
 	
 	// ok 已確認需使用
 	@SuppressWarnings("unchecked")
 	@Override
-	public long getRecordCounts() {
+	public long getRecordCounts(Integer userId) {
 		long count = 0;
-		String hql = "SELECT count(*) FROM Message";
+		String hql = "SELECT count(*) FROM Message WHERE memberId = ?0 AND (deleteTag = 'False' OR deleteTag IS NULL)";
 		Session session = factory.getCurrentSession();
-		List<Long> list = session.createQuery(hql).list();
+		List<Long> list = session.createQuery(hql)
+				.setParameter(0, userId).getResultList();
 		if (list.size() > 0) {
 			count = list.get(0);
 		}
@@ -365,9 +366,9 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 	// ok 已確認需使用
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Message> getPageMessages() {
+	public List<Message> getPageMessages(Integer userId) {
 		List<Message> list = new ArrayList<Message>();
-		String hql = "FROM Message WHERE deleteTag = 'False' OR deleteTag IS NULL ORDER BY createTime DESC";
+		String hql = "FROM Message WHERE memberId = ?0 AND (deleteTag = 'False' OR deleteTag IS NULL) ORDER BY createTime DESC";
 		Session session = factory.getCurrentSession();
 		int startRecordNo = 1;
 		if (pageNo < 1) {
@@ -376,7 +377,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 			startRecordNo = (pageNo - 1) * recordsPerPage;
 		}
 		
-		list = session.createQuery(hql)
+		list = session.createQuery(hql).setParameter(0, userId)
 				.setFirstResult(startRecordNo)
 				.setMaxResults(recordsPerPage)
                 .list();
@@ -390,6 +391,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		}
 		return list;
 	}
+	
 	@Override
 	public int getPageNo() {
 		return pageNo;
