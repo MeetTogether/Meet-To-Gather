@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix ="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
@@ -26,6 +27,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
 .likeBtn, .dislikeBtn, .replyBtn {
 	height: 20px;
@@ -46,32 +49,32 @@ p {
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#Postbox").hide();
-		$("#Postbutton").click(function() {
-			$("#Postbox").toggle("blind"); /* 展開發文表單 */
+jQueryConflict = $.noConflict();
+jQueryConflict(document).ready(function() {
+	jQueryConflict("#Postbox").hide();
+	jQueryConflict("#Postbutton").click(function() {
+		jQueryConflict("#Postbox").toggle("blind"); /* 展開發文表單 */
 			/* $('html,body').animate({
 				scrollTop : 0
 			}); 返回到頁面頂端 */
 		});
-		$("#ViewMyPost").click(
+	jQueryConflict("#ViewMyPost").click(
 			function() {
-				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
+				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}&pageNo=1";
 			});
-		$("#ViewAllPost").click(
+	jQueryConflict("#ViewAllPost").click(
 			function() {
 				top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
 			});
-		$("input#deletePost").click(function() {
+	jQueryConflict("input#deletePost").click(function() {
 			var c = confirm('是否確認刪除');
 			console.log(c);
 			if (c) {
-				$(this).parent("form#deletePostForm").submit();
+				jQueryConflict(this).parent("form#deletePostForm").submit();
 			} else {
 			}
 		});
-		
-		
+	
 	});
 </script>
 
@@ -201,8 +204,39 @@ p {
 												id="dislikeBtn" class="likeBtn">
 										</c:otherwise>
 									</c:choose>
-									<input type="hidden" id="msgId" value="${msgBean.msgId}">
-									<span id="likeCnt${cnt.count}">LIKE(${msgBean.likeCount})</span>
+									<input type="hidden" id="msgId" name="msgId" value="${msgBean.msgId}">
+									<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onclick="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
+									<div id="msgLikeModalLong" style="text-align: center;"></div>
+									<script type="text/javascript">
+										function hideMsgLike(likeObj) {
+											jQueryConflict(likeObj).next().hide();
+										}
+// 									jQueryConflict(".likeNumber").mouseout(function() {
+// 										jQueryConflict("#msgLikeModalLong").hide();
+// 									});
+										function showMsgLike(likeObj) {
+											var messageId = jQueryConflict(likeObj).prev('input[name=msgId]').val();
+											console.log("messageId: " + messageId);
+											jQueryConflict.ajax({
+												url:"findMsglikeByMessage",
+												dataType:"JSON",
+												data:{msgId:messageId},
+												success:function(data) {
+													console.log('msg like data: ' + data);
+													var memberInfoSet = "<table>";
+													jQueryConflict.each(data, function(key, value) {
+														memberInfoSet += "<tr><td>";
+														memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
+														memberInfoSet += "<td>"+value;
+													});
+													console.log(memberInfoSet);
+													jQueryConflict(likeObj).next().html(memberInfoSet);
+													jQueryConflict(likeObj).next().show();
+												}
+											});
+										}
+										
+									</script>
 								</div>
 							</div>
 							<h2 class="mb-3 mt-5" >
@@ -269,20 +303,21 @@ p {
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
+	
 
 <script>
-	$(document).ready(function() {
+jQueryConflict(document).ready(function() {
 		let imgs = document.getElementsByClassName("likeBtn");
 		for (let i = 0; i < imgs.length; i++) {
 			let imgId = 'likeBtn' + i;
-			$(imgs[i]).click(function() {
+			jQueryConflict(imgs[i]).click(function() {
 				let msgIdVal = $(this).next().val();
 				let spanId = 'likeCnt' + (i + 1);
 				console.log('msgIdVal:' + msgIdVal + ', spanId:' + spanId + ', userId:' + ${userId});
 				let info = $(this).attr("id");
 				console.log(info);
 				if (info == 'likeBtn') {
-					$.ajax({
+					jQueryConflict.ajax({
 						url : "LikeMsgServlet",
 						type : "GET",
 						dataType : "JSON",
@@ -290,13 +325,13 @@ p {
 						success : function(data) {
 							let txt = 'LIKE(' + data + ')';
 							let txt2 = 'span[id=' + spanId + ']';
-							$(txt2).html(txt);
+							jQueryConflict(txt2).html(txt);
 							console.log("data: " + data);
-							$(imgs[i]).attr("id","dislikeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/like.png");
+							jQueryConflict(imgs[i]).attr("id","dislikeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/like.png");
 						}
 					});
 				} else {
-					$.ajax({
+					jQueryConflict.ajax({
 						url : "DislikeMsgServlet",
 						type : "GET",
 						dataType : "JSON",
@@ -304,9 +339,9 @@ p {
 						success : function(data) {
 							let txt = 'LIKE(' + data + ')';
 							let txt2 = 'span[id=' + spanId + ']';
-							$(txt2).html(txt);
+							jQueryConflict(txt2).html(txt);
 							console.log("data: " + data);
-							$(imgs[i]).attr("id","likeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/dislike.png");
+							jQueryConflict(imgs[i]).attr("id","likeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/dislike.png");
 						}
 					});
 				}
@@ -320,7 +355,7 @@ p {
 				let typeIdVal = $(types[j]).prev().val();
 				let typeSpanId = 'msgTypeCnt' + (j + 1);
 				console.log('typeIdVal:' + typeIdVal + ', typeSpanId:' + typeSpanId);
-				$.ajax({
+				jQueryConflict.ajax({
 					url : "getMsgTypeCnt",
 					type : "GET",
 					dataType : "JSON",
@@ -328,7 +363,7 @@ p {
 					success : function(data) {
 						let txt = '(' + data + ')';
 						let txt2 = 'span[id=' + typeSpanId + ']';
-						$(txt2).html(txt);
+						jQueryConflict(txt2).html(txt);
 						console.log("data: " + data);
 					}
 				});

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -13,7 +14,8 @@
 				<button type="button" class="reply" data-toggle="modal" data-target="#vipModalLong">升級VIP GO!</button>
 			</c:when>
 			<c:otherwise>
-				<button type="button" class="reply" data-toggle="modal" data-target="#vipModalLong">延長VIP GO!</button>
+				<span class="icon-diamond" style="font-size: 14px;">&ensp;VIP&ensp;<fmt:formatDate value="${vipEndTime}" pattern="yyyy-MM-dd" /></span>
+				<br><button type="button" class="reply" data-toggle="modal" data-target="#vipModalLong">延長VIP GO!</button>
 			</c:otherwise>
 		</c:choose>
 	</div>

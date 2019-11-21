@@ -36,7 +36,6 @@ import com.meetogether.eeit10936.pairs.model.VipStatus;
 public class MsgreplyController {
 	
 	List<Message> list = null;
-	Gson gson;
 	
 	IMsgreplyService mrService;
 	@Autowired
@@ -131,8 +130,7 @@ public class MsgreplyController {
 	public @ResponseBody Integer getMsgTypeCnt(@RequestParam(value="typeId") Integer typeId) {
 		return msgService.getMsgCntByType(typeId);
 	}
-
-//	無法把值送到jsp
+	
 	@RequestMapping(value = "/getMsgtagByQuery", method = RequestMethod.GET, produces = { "application/json" })
 	public @ResponseBody Set<String> getMsgtagByQuery(@RequestParam(value="tagQuery") String tagQuery) {
 		List<Msgtag> result = mtagService.getMsgtagByQuery(tagQuery); 
@@ -143,7 +141,18 @@ public class MsgreplyController {
 		return tagList;
 	}
 	
-
+	@RequestMapping(value = "/findMsglikeByMessage", method = RequestMethod.GET, produces = { "application/json" })
+	public @ResponseBody Map<Integer, String> findMsglikeByMessage(@RequestParam(value="msgId") Integer msgId) {
+		Map<Integer, String> likeMap = new HashMap<Integer, String>();
+		List<Msglike> result = mlService.findMsglikeByMessage(msgId);
+		for (Msglike like : result) {
+			likeMap.put(like.getMember().getMemberId(), like.getMember().getMemberName());
+		}
+		Gson gson = new Gson(); 
+		String json = gson.toJson(likeMap); 
+		System.out.println("json:" + json);
+		return likeMap;
+	}
 	
 	@ModelAttribute("msgType")
 	public Map<Integer, String> getMsgTypeList() {

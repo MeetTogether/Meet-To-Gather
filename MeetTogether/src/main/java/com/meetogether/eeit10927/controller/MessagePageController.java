@@ -25,6 +25,7 @@ public class MessagePageController {
 //	@RequestMapping("/DisplayPageMessage")
 	public String displayPage(@RequestParam(value="pageNo") Integer pageNo,
 			Model model, HttpServletRequest request) {
+		int userId = (Integer) request.getSession().getAttribute("userId");
 		int recordsPerPage = 3;
 		if (pageNo == null) {
 			pageNo = 1;
@@ -32,9 +33,9 @@ public class MessagePageController {
 		
 		msgService.setPageNo(pageNo);
 		msgService.setRecordsPerPage(recordsPerPage);
-		List<Message> list = msgService.getPageMessages();
+		List<Message> list = msgService.getPageMessages(userId);
 		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("totalPages", msgService.getTotalPages());
+		model.addAttribute("totalPages", msgService.getTotalPages(userId));
 		model.addAttribute("msgBeans", list);
 		
 		model.addAttribute("messageBean", new Message());

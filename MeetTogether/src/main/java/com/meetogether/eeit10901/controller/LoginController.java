@@ -1,5 +1,6 @@
 package com.meetogether.eeit10901.controller;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10901.service.MemberService;
+import com.meetogether.eeit10927.service.IVipStatusService;
 import com.meetogether.eeit10936.pairs.service.IPairsService;
 
 @Controller
@@ -33,6 +35,9 @@ public class LoginController {
 	public void setpService(IPairsService pService) {
 		this.pService = pService;
 	}
+	
+	@Autowired
+	IVipStatusService vipService;
 
 	@RequestMapping(value = "/LoginServlet", method = RequestMethod.POST)
 	public String processMemberLoginForm(@ModelAttribute("memberBean") MemberBean member, BindingResult result,
@@ -50,18 +55,21 @@ public class LoginController {
 			session.setAttribute("userId", mBean.getMemberId());
 			session.setAttribute("userName", mBean.getMemberName());
 			session.setAttribute("admin", String.valueOf(mBean.getAdminTag()));
-			// 登入時也把會員是否為vip身份放入session
-			boolean vip = pService.checkVip(mBean.getMemberId());
-			session.setAttribute("vipTag", vip);
+			session.setAttribute("vipTag", pService.checkVip(mBean.getMemberId()));
+			Timestamp endTime = vipService.vipEndTime(mBean.getMemberId());
+			if (endTime != null) {
+				session.setAttribute("vipEndTime", endTime);
+			}
 			System.out.println("member controller: mId: " + mBean.getMemberId() + "\tmEmail: " + mBean.getMemberEmail()
 					+ "\tadminTag: " + mBean.getAdminTag()
-					+ "\tvipTag: " + vip);
+					+ "\tvipTag: " + pService.checkVip(mBean.getMemberId())
+					+ "\tvipEndTime: " + endTime);
 
 		} else {
 			errorMsg.put("loginError", "帳號或密碼錯誤");
 			return "indexLoging";
 		}
-
+		
 		return "redirect:/";
 	}
 

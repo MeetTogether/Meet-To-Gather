@@ -313,11 +313,12 @@ p {
                     
 			</table>
 		
-				<input type ="submit"  value="下一頁" id="add">
+				<input type ="submit"  value="送出" id="add">
 				<input type="reset" value="清除"/>
 		</form:form>
 
 	</div>
+	<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 <a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
 	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>

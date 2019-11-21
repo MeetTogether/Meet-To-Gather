@@ -163,22 +163,18 @@
 		</div>
 	</section>
 	<h2 align="center">興趣</h2>
+	<div class="form-group">
 <form:form modelAttribute="interest" method="get" >
-<table width="300px" border="1" align="center">
-<tr bgcolor="#949494">
-
-</tr>
-<%
-   Enumeration paramNames = request.getParameterNames();
-
-   while(paramNames.hasMoreElements()) {
-      String paramName = (String)paramNames.nextElement();
-      out.print("<tr><td>" + paramName + "</td>");
-  
-   }
-%>
+<table width="400px" border="1" align="center">
+<c:forEach var="interest" items="${interests }">
+	<tr bgcolor="#949494">
+		<td>${interest}</td>
+	</tr>
+</c:forEach>
 </table>
 </form:form>
+</div>
+<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest"
 		class="nav-link">輸入個人興趣</a>

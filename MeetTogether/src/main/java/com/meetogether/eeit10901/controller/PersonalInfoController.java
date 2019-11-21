@@ -1,8 +1,7 @@
 package com.meetogether.eeit10901.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -12,69 +11,99 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.IPersonalHopeService;
 import com.meetogether.eeit10901.service.IPersonalInterestService;
 import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10901.service.PersonalInfoService;
+import com.meetogether.eeit10936.pairs.model.MemberHope;
 import com.meetogether.eeit10936.pairs.model.MemberInfo;
 import com.meetogether.eeit10936.pairs.model.MemberInterest;
 import com.meetogether.eeit10936.pairs.model.MemberInterestPK;
-import com.meetogether.eeit10936.pairs.model.VipStatus;
-
+import com.meetogether.eeit10936.pairs.service.IPairsService;
 
 @Controller
 public class PersonalInfoController {
 	ServletContext context;
+
 	@Autowired
 	public void setContext(ServletContext context) {
 		this.context = context;
 	}
+
 	@Autowired
 	PersonalInfoService pService;
 	@Autowired
 	MemberService mService;
 	@Autowired
 	IPersonalInterestService interestService;
+	@Autowired
+	IPairsService prService;
+	@Autowired
+	IPersonalHopeService hService;
 
-	@RequestMapping(value="/personal", method=RequestMethod.GET)
+	@RequestMapping(value = "/personal", method = RequestMethod.GET)
 	public String getAddInfoForm(Model model, HttpServletRequest request, MemberInfo personalinfo) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-	
+
 		MemberBean member = mService.getMemberById(userId);
+
+		model.addAttribute("member", member);
+
+		MemberInfo ii = new MemberInfo();
+		model.addAttribute("infoBean", ii);
+
+		return "eeit10901/addPersonalInfo";
+	}
+
+	@RequestMapping(value = "/personal", method = RequestMethod.POST)
+	public String processAddInfoForm(@ModelAttribute("infoBean") MemberInfo ii, HttpServletRequest request) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		System.out.println("gggg" + ii.getBodyType());
+		ii.setMemberId(userId);
+		pService.addPersonalInfo(ii);
+		System.out.println("ffffff" + ii.getBodyType());
+		return "eeit10901/personalInfo";
+	}
+	@RequestMapping(value="/addHope", method=RequestMethod.GET)
+	public String getAddHopeForm(Model model, HttpServletRequest request, MemberHope personalHope) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
 	
+		MemberBean member = hService.getMemberById(userId);
+	System.out.println("希望"+userId);
 		
 		model.addAttribute("member", member);
 	
-		MemberInfo ii = new MemberInfo();
-	    model.addAttribute("infoBean", ii); 
+		MemberHope ii = new MemberHope();
+	    model.addAttribute("hopeBean", ii); 
+	    System.out.println("ii是"+ii.getDrink());
 		
-		return "eeit10901/addPersonalInfo";
+		return "eeit10901/addPersonalHope";
 	}
 	
-	@RequestMapping(value="/personal", method=RequestMethod.POST)
-	public String processAddInfoForm(@ModelAttribute("infoBean") MemberInfo ii, HttpServletRequest request) {
+	@RequestMapping(value="/addHope", method=RequestMethod.POST)
+	public String processAddHopeForm(@ModelAttribute("hopeBean") MemberHope ii, HttpServletRequest request) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-		System.out.println("gggg"+ii.getBodyType());
+		System.out.println("bbbb"+ii.getBodyType());
 		ii.setMemberId(userId);
-		pService.addPersonalInfo(ii);
-		System.out.println("ffffff"+ii.getBodyType());
-		return "eeit10901/personalInfo";
+		hService.addPersonalHope(ii);
+		System.out.println("OOOO"+ii.getBodyType());
+		return "eeit10901/personalHope";
 	}
 
 
-	@RequestMapping(value="/personalInterest", method=RequestMethod.GET)
+	@RequestMapping(value = "/personalInterest", method = RequestMethod.GET)
 	public String getAddInterestForm(Model model, HttpServletRequest request) {
-		
+
 		model.addAttribute("interestBean", new MemberInterest());
-	
+
 		return "eeit10901/addPersonalInterest";
 	}
-	
-	@RequestMapping(value="/personalInterest", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/personalInterest", method = RequestMethod.POST)
 	public String processAddInterestForm(Model model, HttpServletRequest request, HttpSession session) {
 		MemberInterestPK miPK = new MemberInterestPK();
 		MemberInterest mi = new MemberInterest();
@@ -135,13 +164,18 @@ public class PersonalInfoController {
 			mi.setMemberInterestPK(miPK);
 			interestService.addPersonalInfo(mi);
 		}
-		
-		return "eeit10901/memberInterest";
+
+		return "redirect:memberInterest";
 	}
-	
+
 	@RequestMapping("/memberInterest")
-	public String memberInterest(Model model) {
-//		model.addAttribute("vipBean", new VipStatus());
+	public String memberInterest(Model model, HttpSession session) {
+		Integer uid = (Integer) session.getAttribute("userId");
+		List<String> is = new ArrayList<>();
+		prService.findInterestByMemberId(uid).forEach((i) -> {
+			is.add(prService.findInteretByInterestId(i));
+		});
+		model.addAttribute("interests", is);
 		return "eeit10901/memberInterest";
 
 	}

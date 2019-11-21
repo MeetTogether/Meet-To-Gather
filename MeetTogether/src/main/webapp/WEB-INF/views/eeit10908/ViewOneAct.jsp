@@ -12,6 +12,9 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -73,6 +76,416 @@
 
 
 <style>
+
+button,
+input {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+
+body{
+  font-size: 14px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+}
+
+@font-face {
+  font-family: 'Nucleo Outline';
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot") format("embedded-opentype");
+  src: url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+h4,
+h5 {
+    font-weight: 400;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+}
+
+body{
+  font-size: 14px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+}
+
+@font-face {
+  font-family: 'Nucleo Outline';
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot") format("embedded-opentype");
+  src: url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+h4,
+h5 {
+    font-weight: 400;
+}
+
+a {
+    color: #f96332;
+}
+
+a:hover,
+a:focus {
+    color: #f96332;
+}
+
+h4,
+.h4 {
+    font-size: 1.5em;
+    line-height: 1.45em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h5,
+.h5 {
+    font-size: 1.3em;
+    line-height: 1.4em;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-weight: 700;
+    padding-top: 30px;
+}
+
+body {
+    color: #2c2c2c;
+    font-size: 14px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"] i {
+    -webkit-transition: transform 150ms ease 0s;
+    -moz-transition: transform 150ms ease 0s;
+    -o-transition: transform 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: transform 150ms ease 0s;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Nucleo Outline';
+    font-size: inherit;
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@-webkit-keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes nc-icon-spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.now-ui-icons.arrows-1_minimal-left:before {
+    content: "\ea3a";
+}
+
+.now-ui-icons.arrows-1_minimal-right:before {
+    content: "\ea3b";
+}
+
+img {
+    max-width: 100%;
+    border-radius: 1px;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.carousel .carousel-inner {
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 0.1875rem;
+}
+
+.login-page .link {
+    font-size: 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.section {
+    padding: 70px 0;
+    position: relative;
+    background: #FFFFFF;
+}
+
+[data-background-color="orange"] {
+    background-color: #e95e38;
+}
+
+[data-background-color="black"] {
+    background-color: #2c2c2c;
+}
+
+[data-background-color]:not([data-background-color="gray"]) {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) .title {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) h4,
+[data-background-color]:not([data-background-color="gray"]) h5,
+[data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
+    color: #FFFFFF;
+}
+
+footer{
+    margin-top:50px;
+    color: #555;
+    background: #fff;
+    padding: 25px;
+    font-weight: 300;
+    background: #f7f7f7;
+
+}
+.footer p{
+    margin-bottom: 0;
+}
+footer p a{
+    color: #555;
+    font-weight: 400;
+}
+
+footer p a:hover{
+    color: #e86c42;
+}
+
+}
+
+a {
+    color: #f96332;
+}
+
+a:hover,
+a:focus {
+    color: #f96332;
+}
+
+h4,
+.h4 {
+    font-size: 1.5em;
+    line-height: 1.45em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h5,
+.h5 {
+    font-size: 1.3em;
+    line-height: 1.4em;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-weight: 700;
+    padding-top: 30px;
+}
+
+body {
+    color: #2c2c2c;
+    font-size: 14px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"] i {
+    -webkit-transition: transform 150ms ease 0s;
+    -moz-transition: transform 150ms ease 0s;
+    -o-transition: transform 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: transform 150ms ease 0s;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+.now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Nucleo Outline';
+    font-size: inherit;
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@-webkit-keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes nc-icon-spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.now-ui-icons.arrows-1_minimal-left:before {
+    content: "\ea3a";
+}
+
+.now-ui-icons.arrows-1_minimal-right:before {
+    content: "\ea3b";
+}
+
+img {
+    max-width: 100%;
+    border-radius: 1px;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.carousel .carousel-inner {
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 0.1875rem;
+}
+
+.login-page .link {
+    font-size: 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.section {
+    padding: 70px 0;
+    position: relative;
+    background: #FFFFFF;
+}
+
+[data-background-color="orange"] {
+    background-color: #e95e38;
+}
+
+[data-background-color="black"] {
+    background-color: #2c2c2c;
+}
+
+[data-background-color]:not([data-background-color="gray"]) {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) .title {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) h4,
+[data-background-color]:not([data-background-color="gray"]) h5,
+[data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
+    color: #FFFFFF;
+}
+
+footer{
+    margin-top:50px;
+    color: #555;
+    background: #fff;
+    padding: 25px;
+    font-weight: 300;
+    background: #f7f7f7;
+
+}
+.footer p{
+    margin-bottom: 0;
+}
+footer p a{
+    color: #555;
+    font-weight: 400;
+}
+
+footer p a:hover{
+    color: #e86c42;
+}
+
+
 body {
 	/* 	background: -webkit-radial-gradient(circle, white, burlywood); */
 	/* 	background: -o-radial-gradient(circle, white, burlywood); */
@@ -206,10 +619,13 @@ body {
 	height: 20px;
 	cursor: pointer;
 }
+<<<<<<< HEAD
+=======
 
 p {
 	margin-bottom: 0;
 }
+>>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
 </style>
 
 <script>
@@ -260,9 +676,11 @@ p {
 					});
 </script>
 </head>
+
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
+
 			<a class="navbar-brand" href="/MeetTogether/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
@@ -272,6 +690,8 @@ p {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
+
+
 					<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
@@ -279,11 +699,14 @@ p {
 					<li class="nav-item active"><a href="/MeetTogether/eeit10908"
 						class="nav-link">活動</a></li>
 					<li class="nav-item "><a
+
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+
 					<li class="nav-item"><a class="nav-link"><c:if
 								test="${!empty userId}">${userName}
+
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 							<img style="height: 40px; border-radius: 50%;"
@@ -292,6 +715,7 @@ p {
 					<li class="nav-item"><c:if test="${!empty userId}">
 							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -309,10 +733,10 @@ p {
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>討論區 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動內容 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">討論區</h1>
+					<h1 class="mb-3 bread">活動內容</h1>
 				</div>
 			</div>
 		</div>
@@ -461,108 +885,76 @@ p {
 								</ul>
 							</div>
 
-							<div class="tab-content" id="pills-tabContent">
-								<div class="col-md-8 mr-auto ml-auto">
+									<div class="row justify-content-center">
+			<div class="col-lg-8 col-md-12">
 
-
-									<div class="card card-raised card-carousel">
-										<div id="carouselExampleIndicators" class="carousel slide"
-											data-ride="carousel" data-interval="3000">
-											<ol class="carousel-indicators">
-												<li data-target="#carouselExampleIndicators"
-													data-slide-to="0" class="active"></li>
-												<li data-target="#carouselExampleIndicators"
-													data-slide-to="1" class=""></li>
-												<li data-target="#carouselExampleIndicators"
-													data-slide-to="2" class=""></li>
-											</ol>
-											<div class="carousel-inner">
-												<a
-													href="http://localhost:8080/MeetTogether/ByActivity?getId=2">
-													<div class="carousel-item active">
-
-														<img class="d-block w-100"
-															src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg.jpg"
-															alt="First slide">
-
-														<div class="carousel-caption d-none d-md-block">
-															<h4>
-																<i class="material-icons">location_on</i> Yellowstone
-																National Park, United States
-															</h4>
-														</div>
-													</div>
-												</a>
-												<div class="carousel-item">
-													<img class="d-block w-100"
-														src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg2.jpg"
-														alt="Second slide">
-													<div class="carousel-caption d-none d-md-block">
-														<h4>
-															<i class="material-icons">location_on</i> Somewhere
-															Beyond, United States
-														</h4>
-													</div>
-												</div>
-												<div class="carousel-item">
-													<img class="d-block w-100"
-														src="https://rawgit.com/creativetimofficial/material-kit/master/assets/img/bg3.jpg"
-														alt="Third slide">
-													<div class="carousel-caption d-none d-md-block">
-														<h4>
-															<i class="material-icons">location_on</i> Yellowstone
-															National Park, United States
-														</h4>
-													</div>
-												</div>
-											</div>
-											<a class="carousel-control-prev"
-												href="#carouselExampleIndicators" role="button"
-												data-slide="prev"> <i class="material-icons">keyboard_arrow_left</i>
-												<span class="sr-only">Previous</span>
-											</a> <a class="carousel-control-next"
-												href="#carouselExampleIndicators" role="button"
-												data-slide="next"> <i class="material-icons">keyboard_arrow_right</i>
-												<span class="sr-only">Next</span>
-											</a>
-										</div>
-									</div>
-
-
-
-								</div>
+				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+					    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+					    <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
+					    <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
+					</ol>
+				  	<div class="carousel-inner" role="listbox">
+				    	<div class="carousel-item active">
+				      		<img class="d-block" src="https://images.unsplash.com/photo-1524654458049-e36be0721fa2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="First slide">
+					  		<div class="carousel-caption d-none d-md-block">
+					  			<h5>Nature, United States</h5>
+					  		</div>
+				    	</div>
+				    	<div class="carousel-item">
+				      		<img class="d-block" src="https://images.unsplash.com/photo-1451903978882-b165bd94e45d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Second slide">
+					  		<div class="carousel-caption d-none d-md-block">
+								<h5>Somewhere Beyond, United States</h5>
+					  		</div>
+				    	</div>
+				    	<div class="carousel-item">
+				      		<img class="d-block" src="https://images.unsplash.com/photo-1492252719637-c7b68468489b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Third slide">
+					  		<div class="carousel-caption d-none d-md-block">
+						  		<h5>Yellowstone National Park, United States</h5>
+					  		</div>
+				    	</div>
+					</div>
+				  	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				    	<i class="now-ui-icons arrows-1_minimal-left"></i>
+				  	</a>
+				  	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				    	<i class="now-ui-icons arrows-1_minimal-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
 								<!-- -------------------------- -->
-								<!-- 						    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab"> -->
-								<!-- 						    	<div class="row"> -->
-								<!-- 						    		<div class="col-md-4"> -->
-								<!-- 						    			<ul class="features"> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>GPS</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Music</li> -->
-								<!-- 						    			</ul> -->
-								<!-- 						    		</div> -->
-								<!-- 						    		<div class="col-md-4"> -->
-								<!-- 						    			<ul class="features"> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li> -->
-								<!-- 						    				<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Water</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li> -->
-								<!-- 						    				<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li> -->
-								<!-- 						    			</ul> -->
-								<!-- 						    		</div> -->
-								<!-- 						    		<div class="col-md-4"> -->
-								<!-- 						    			<ul class="features"> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li> -->
-								<!-- 						    				<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li> -->
-								<!-- 						    			</ul> -->
-								<!-- 						    		</div> -->
-								<!-- 						    	</div> -->
-								<!-- 						    </div> -->
+<!-- 														    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab"> -->
+<!-- 														    	<div class="row"> -->
+<!-- 														    		<div class="col-md-4"> -->
+<!-- 														    			<ul class="features"> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>GPS</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Music</li> -->
+<!-- 														    			</ul> -->
+<!-- 														    		</div> -->
+<!-- 														    		<div class="col-md-4"> -->
+<!-- 														    			<ul class="features"> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li> -->
+<!-- 														    				<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Water</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li> -->
+<!-- 														    				<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li> -->
+<!-- 														    			</ul> -->
+<!-- 														    		</div> -->
+<!-- 														    		<div class="col-md-4"> -->
+<!-- 														    			<ul class="features"> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li> -->
+<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li> -->
+<!-- 														    			</ul> -->
+<!-- 														    		</div> -->
+<!-- 														    	</div> -->
+<!-- 														    </div> -->
 
 								<div class="tab-pane fade" id="pills-manufacturer"
 									role="tabpanel" aria-labelledby="pills-manufacturer-tab">

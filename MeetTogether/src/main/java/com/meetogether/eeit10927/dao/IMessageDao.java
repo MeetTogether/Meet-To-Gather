@@ -9,16 +9,16 @@ import com.meetogether.eeit10927.model.Message;
 
 public interface IMessageDao {
 
-public int add(Message msg);
-	
+	public int add(Message msg);
+		
 	public void delete(Message msg);
-
+	
 	public void update(Message msg);
 	
 	public void updateText(Message msg);
-
+	
 	public Message getMsgByMsgId(Integer msgId);
-
+	
 	public List<Message> getAllMessage();
 	
 	public List<Message> getUserMessage(Integer memberId);
@@ -37,7 +37,7 @@ public int add(Message msg);
 	public List<Message> getAllMessageActive();
 	
 	public void updateReCnt(Message msg);
-
+	
 	public void updatelikeCnt(Message msg);
 	
 	public List<Message> getMsgType();
@@ -49,9 +49,9 @@ public int add(Message msg);
 	public List<Message> getPopularMsg();
 	public List<Message> getRecentMsg();
 	
-	public int getTotalPages();
-	public long getRecordCounts();
-	public List<Message> getPageMessages();
+	public int getTotalPages(Integer userId);
+	public long getRecordCounts(Integer userId);
+	public List<Message> getPageMessages(Integer userId);
 	
 	public int getPageNo();
 	public void setPageNo(int pageNo);

@@ -147,25 +147,48 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/GetUserPostServlet", method = RequestMethod.GET)
-	public String getUserMessage(@RequestParam(value = "memberId") Integer memberId, 
-			Model model, HttpServletRequest request) {
-		
+	public String getUserMessage(Model model, HttpServletRequest request, 
+			@RequestParam(value = "memberId") Integer memberId
+			) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		// 空messageBean給postMsg.jsp
+		model.addAttribute("messageBean", new Message());
 		
-		Message msg = new Message();
-		model.addAttribute("messageBean", msg);
-		
-		// 空messageBean給分類查詢
+		// 空messageTypeBean給分類查詢
 		model.addAttribute("msgTypeBean", new MsgType());
 
-		list = msgService.getUserMessage(memberId);
+		list = msgService.getPageMessages(userId);
 		model.addAttribute("msgBeans", list);
 		
 		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
 		model.addAttribute("mlBeans", mlBeans);
 		Msglike msgLike = new Msglike();
 		model.addAttribute("msgLike", msgLike);
-		return "eeit10927/html/forum";
+		
+		// 把頁數傳到forumMember.jsp
+		String pageNoStr = request.getParameter("pageNo");
+		int pageNo = 1;
+		if (pageNoStr == null) {
+			pageNo = 1;
+		} else {
+			pageNo = Integer.parseInt(pageNoStr.trim());
+		}
+		msgService.setPageNo(pageNo);
+		msgService.setRecordsPerPage(recordsPerPage);
+		model.addAttribute("pageNo", pageNo);
+		int totalPages = msgService.getTotalPages(userId);
+		model.addAttribute("totalPages", totalPages);
+		List<Integer> totalPage = new ArrayList<Integer>();
+		for (int i = 1; i <= totalPages; i++) {
+			totalPage.add(i);
+		}
+		model.addAttribute("totalPage", totalPage);
+		// 把總筆數、頁數傳給forumMember.jsp
+		List<Message> allMemberMsgs = msgService.getUserMessage(userId);
+		int totalCounts = allMemberMsgs.size();
+		model.addAttribute("totalCnt", totalCounts);
+		
+		return "eeit10927/html/forumMember";
 	}
 	
 	@RequestMapping(value = "/ViewPostServlet", method = RequestMethod.GET)
@@ -273,6 +296,7 @@ public class MessageController {
 	
 	@RequestMapping("/DisplayPageMessage")
 	public String displayPage(Model model, HttpServletRequest request) {
+		int userId = (Integer)request.getSession().getAttribute("userId");
 		String pageNoStr = request.getParameter("pageNo");
 		int pageNo = 1;
 		if (pageNoStr == null) {
@@ -289,14 +313,20 @@ public class MessageController {
 //		list = msgService.getPageMessages();
 		list = msgService.getAllMessageActive();
 		model.addAttribute("pageNo", pageNo);
-		model.addAttribute("totalPages", msgService.getTotalPages());
+		int totalPages = msgService.getTotalPages(userId);
+		List<Integer> totalPage = new ArrayList<Integer>();
+		for (int i = 1; i <= totalPages; i++) {
+			totalPage.add(i);
+		}
+		System.out.println("-----------totalPage: " + totalPage);
+		model.addAttribute("totalPages", msgService.getTotalPages(userId));
+		model.addAttribute("totalPage", totalPage);
 		// 查到的messageBean給forum.jsp
 		model.addAttribute("msgBeans", list);
 		// 空messageBean給postMsg.jsp
 		model.addAttribute("messageBean", new Message());
 		// 把總筆數、頁數傳給forum.jsp
-		List<Message> allMsg = msgService.getAllMessageActive();
-		int totalCounts = allMsg.size();
+		int totalCounts = list.size();
 		model.addAttribute("totalCnt", totalCounts);
 				
 		return "eeit10927/html/forum";

@@ -123,7 +123,7 @@ public class FriendController {
 	@RequestMapping(value = "/invite",method = RequestMethod.GET)
 	public String inviteFriend(HttpSession session,@RequestParam("fid")Integer fid,@RequestParam("sureOrRefuse") Integer sureOrRefuse ) {
 		Integer userId = (Integer)session.getAttribute("userId");
-		fService.response(f1id, f2id, status);
+		fService.response(userId, fid, sureOrRefuse);
 		return "redirect:/";
 	}
 	

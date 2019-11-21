@@ -209,7 +209,7 @@ body {
 	<div style="text-align:center">
 
 	<div style="text-align:center">
-<form style="text-align:center">
+<form method="POST" action="${pageContext.request.contextPath}/personalInterest" style="text-align:center">
 			<div class="chiller_cb" >
 				<input id="myCheckbox1" type="checkbox" value="102" name="Interest1">
 				<label for="myCheckbox1">旅遊</label> <span></span>

@@ -313,7 +313,7 @@ p {
                     
 			</table>
 		
-				<input type ="submit"  value="下一頁" id="add">
+				<input type ="submit"  value="送出" id="add">
 				<input type="reset" value="清除"/>
 		</form:form>
 
