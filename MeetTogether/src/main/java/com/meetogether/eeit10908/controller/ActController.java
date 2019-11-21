@@ -516,17 +516,50 @@ public class ActController {
 	public String getActByIdForm(@RequestParam("getId") Integer id,Model model) {
 		System.out.println("--------------+++------------");
 		
-		model.addAttribute("actdata",service.getActivityById(id));
+		model.addAttribute("actBean",service.getActivityById(id));
+		System.out.println("12345+++++-");
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
 //	    return "Actdata";
-	    return "/eeit10908/Actdata";
+	    return "/eeit10908/Updatethisact";
 	}
 
 	@RequestMapping(value = "/actdata", method = RequestMethod.POST)
-	public String updateActByIdForm(@ModelAttribute("actdata") ActBean aa
+	public String updateActByIdForm(@ModelAttribute("actBean") ActBean aa
 			) {
+
+		MultipartFile msgImage = aa.getActImage();
+		String originalFilename = msgImage.getOriginalFilename();
+		String ext = "";
+		String savedFilename = "";
+		boolean imageUpdate = false;
+		// 將留言上傳照片寫入資料庫
+		if (originalFilename.length() > 0) {	
+			ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+			imageUpdate = true;
+			try {
+				byte[] b = msgImage.getBytes();
+				Blob blob = new SerialBlob(b);
+				aa.setActPhoto(blob);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
+			}
+		}
+		System.out.println(aa.getEventId());
+		System.out.println(aa.getMemberId());
+		System.out.println(aa.getEventName());
+		System.out.println(aa.getEventCat());
+		System.out.println(aa.getEventTime());
+		System.out.println(aa.getEventPlace());
+		System.out.println(aa.getBudget());
+		
 		service.updateActivity(aa);
+		
+		if (originalFilename.length() > 0) {
+			savedFilename = "Message-" + aa.getEventId() + "-" + String.valueOf(System.currentTimeMillis()) + ext;
+			service.updateActImageFilename(aa.getEventId(), savedFilename);
+		}
 		return "redirect:/eeit10908";
 	}
 	

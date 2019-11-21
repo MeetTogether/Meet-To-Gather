@@ -375,192 +375,12 @@ p {
 
 	
 					
-	<div>&nbsp;</div>
-	<button style="margin-left:13.5%;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="getTodayDate()" >
-  			新增活動
-	</button>
-	<div align="center">
-		
-		<h2>活 動 清 單</h2>
-		<form:form method="get" modelAttribute="actBeanCat" action="index/ChangeIndexCat?eventCat=${catList.key}">
-	
-		<div class="dropdown">
-		<form:select path="eventCat" onchange="submit();" class="btn dropbtn"  style="width:170px;">
-		<span class="caret"></span>
-				<div class="dropdown-content">
-				<form:option value="-1" label="請選擇" />
-				
-				<form:options items="${catList}" />
-				</div>
-		
-		</form:select>
-		</div>
-		
-		</form:form>
-		<p>
-<!-- 		<table border="1"> -->
-			
-<!-- 				<tr bgcolor="#a8fefa" class="alternateRow"> -->
-<!-- 					<th>活動編號 -->
-<!-- 					<th>主辦人編號 -->
-<!-- 					<th>活動名稱 -->
-<!-- 					<th>活動類型 -->
-<!-- 					<th>活動開始時間  -->
-<!-- 					<th>活動參與人數 -->
-<!-- 					<th>預算 -->
-<!-- 					<th>活動地點 -->
-<!-- 					<th>google map地點標記 -->
-<!-- 					<th>活動圖片 -->
-<!-- 					<th>活動建立時間 -->
-<!-- 					<th>評價 -->
-		<section class="ftco-section">
-    	<div class="container">
-    		<div class="row">
-				
-
-		<c:forEach var='acts' items="${actBeanList}">
-				<div class="col-md-4">
-    				<div class="car-wrap ftco-animate">
-    					<div class="img d-flex align-items-end" style="background-image: url(${pageContext.request.contextPath}/getImage?id=${acts.eventId}&type=act)">
-<%--     								<img width="200" height="200" src="<c:url value='/getImage?id=${acts.eventId}&type=act'/>"/> --%>
-    					</div>
-    					<div class="text p-4 text-center">
-    						<h2 class="mb-0"><a href="ByActivity?getId=${acts.eventId}">${acts.eventName}</a></h2>
-    						<span>scheduled start time:${acts.eventTime}</span>
-    						
-    						<c:set var="done" value="false" />
-    						
-    						<c:forEach items="${ActJoinBeans}" var="ActJoinBean">
-								<c:if test="${acts.eventId eq ActJoinBean.eventBean.eventId}">    						
-    								<c:set var="done" value="true" />	
-    							</c:if>
-    						</c:forEach>
-    						
-    						
-    						<c:choose>
-    						<c:when  test="${done}">
-    							<p class="d-flex mb-0 d-block"><a href="javascript:void(0)" 
-								class="btn btn-black btn-outline-black mr-1 isDisabled" id="joinacts" >已參加</a>
-    						</c:when>
-  						
-    						
-    						<c:otherwise>
-								<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/JoinAct?getActId=${acts.eventId}" 
-								class="btn btn-black btn-outline-black mr-1" id="joinact" onload="clickact(this)">參加活動</a> 
-    						</c:otherwise>
-    						</c:choose>
-    						
-    					
-    						<a href="ByActivity?getId=${acts.eventId}" class="btn btn-black btn-outline-black ml-1">活動細節</a>
-    						
-    						
-    						
-    						<c:set var="dones" value="false" />
-    						
-							 <form:form method="post" 
- 							modelAttribute="actBean">
-							<c:if test="${acts.memberId.memberId eq actBean.memberId.memberId}">    						
-    								<c:set var="dones" value="true" />	
-    						</c:if>
-							</form:form>
-    						
-    						
-    						
-    						<c:choose>
-    						<c:when  test="${dones}">
-    							
-<!--     							<a  class="btn btn-black btn-outline-black ml-1" data-target="#exampleModalLong">活動修改</a><p> -->
-    							<br>
-    							
-<!--     							<button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleUpdate"  > -->
-<!--   								活動修改 -->
-<!-- 								</button> -->
-<%-- 								<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/actdata?getId=${acts.eventId}" --%>
-<!-- 								class="btn btn-black btn-outline-black mr-1" >活 動 修 改</a> -->
-								<p class="d-flex mb-0 d-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/actdata?getId=${acts.eventId}" 
-								class="btn btn-black btn-outline-black mr-1" >活 動 修 改</a>
-								
-  								
-  							
-    						</c:when>
-  						
-    						
-    						<c:otherwise>
-							 
-    						</c:otherwise>
-    						</c:choose>
-    						
-    						
-    						
-    						
-    					
-    					
-    					
-    					
-    					</div>
-    				</div>
-    			</div>
-		
-
-<!-- 					<tr class="" id="my_id"> -->
-<%-- 						<td><a href="ByActivity?getId=${acts.eventId}"><button --%>
-<%-- 									type="button" class="btn-link">${acts.eventId}</button></a> 					<input type="hidden" name="eventid" value="${acts.eventId}"> --%>
-<%-- 						<td>${acts.memberId} --%>
-<%-- 						<td>${acts.eventName} --%>
-<%-- 						<td>${acts.catbean.eventClass} --%>
-<%-- 						<td>${acts.eventTime} --%>
-<%-- 						<td>${acts.groupNum} --%>
-<%-- 						<td>${acts.budget} --%>
-<%-- 						<td align='center' valign="middle">${acts.eventPlace} --%>
-<!-- 						<td><iframe width="400" height="250" style="border: 0" -->
-<%-- 								src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA3sRUmvTTrsDvCJWhqAVC142ehRvCXiTc&q=${acts.eventPlace}"> --%>
-<!-- 							</iframe> -->
-<%-- 						<td><img width="200" height="200" src=" --%>
-<%-- 														<c:url value='/getImage?id=${acts.eventId}&type=act'/>"/> --%>
-<%-- 						<td>${acts.createTime} --%>
-						
-						
-						
-						
-						
-<%-- 						<td><form method="post" action=""> --%>
-<!-- 								<input type="submit" value="評價" /><input type="hidden" -->
-<!-- 									name="eventid" value=""> -->
-<%-- 							</form> --%>
-<!-- 						<td><button type="button" -->
-<%-- 								onclick="window.location.href='index/deleteActivity?getId=${acts.eventId}'">刪除</button> --%>
-						
-<!-- 						<td><button type="button"  -->
-<%-- 								onclick="window.location.href='actdata?getId=${acts.eventId}'">文章修改</button> --%>
-
-							
-							
-							
-							
-
-				</c:forEach>
-			</div>
-    	</div>
-    </section>
-		
-<!-- 		</table> -->
-<!-- 		<br> <a href='addActis'><input type="button" value="新增活動"></a> -->
-		
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
- 		<h5 class="modal-title" id="exampleModalLongTitle" align="center">新  增  活  動</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-         </button>
-      </div>
-			   
-		      <div class="modal-body" style="background-color: #e7eef1;">
-		     <form:form method="post" 
+	<form:form method="post" 
  			modelAttribute="actBean" enctype="multipart/form-data">
+					<form:input type="hidden" path="eventId" />
 				<span style="float:left; " >主 辦 人:</span>
 					<span style="float:left; margin-left:3%;">${actBean.memberId.memberName}</span><br><br>
+<%-- 					<form:input type="hidden" path="memberId" /> --%>
 		     	<span style="float:left;">活 動 名 稱:</span><br>
 					<span style="float:left; margin-left:6%;" ><form:input type="text" path="eventName"/></span><br><br>
 		     	<span style="float:left;">活動類型:</span><br>
@@ -591,21 +411,15 @@ p {
 					<span style="float:left; margin-left:6%;"><form:input type="text" path="budget"  /></span><br><br>
 		     	<span style="float:left;">活動地點:</span><br>
 					<span style="float:left; margin-left:6%;"><form:input type="text" path="eventPlace" /></span><br><br>
-				<span style="float:left;">活動建立時間:</span><br>
-					<span style="float:left; margin-left:6%;"><form:input type="text" path="createTime" id="create" /></span><br><br>
 				<span style="float:left;">活動圖片:</span><br>&emsp;&emsp;&emsp;&emsp;
 					<span style="float:left; margin-left:6%;"><form:input type="file" path="actImage" value="新增圖片" align="right"/></span><br><br>
 		     	
 		     	
 		     	
 		    
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">取 消</button>
-        		   <button type="submit" class="btn btn-primary">新 增</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">刪  除</button>
+        		   <button type="submit" class="btn btn-primary">修 改</button>
 		    	</form:form>
-		      </div>  
-      		</div>
-   		 </div>
- 		 </div>
   
   
  
@@ -616,7 +430,6 @@ p {
   
   
 
-	</div>
 	
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
       <div class="container">
