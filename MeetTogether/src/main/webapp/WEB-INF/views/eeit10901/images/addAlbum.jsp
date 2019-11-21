@@ -44,7 +44,7 @@ li {
 	font-family:monospace;
 }
 body{
-background-color:#FFDDAA;
+background-color:black;
 }
 
 </style>
@@ -102,15 +102,6 @@ background-color:#FFDDAA;
       </div>
     </section>
     
-    <div>
-    	<table>
-    		<tr>
-    			<c:forEach items="${photoCount }" var="photo">
-    				<td><img width=300px height=300px  src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
-    			</c:forEach>
-    	</table>
-    </div>
-    
     
 	<div id="regispage">
 		<div id="registerbox" align="center">
@@ -120,16 +111,11 @@ background-color:#FFDDAA;
 				modelAttribute="albumbean" id='registerForm'>
 				<table>
 					<tr>
-					
-					<td>編號
-				    <td>
-<%-- 				    		</td><form:input type="text" path="pk.memberId" /> --%>
-<!-- 						<td>id -->
-						<td><form:input type="hidden" path="pk.memberId" value="${albumbean.pk.memberId}" />
+						<td>id
+						<td><form:input type="text" path="pk.memberId" />
 					<tr>
-						<td>照片顯示順序
-						<td><form:input type="text" path="status" value="${photoStatus }" />
-<%-- 						<td><form:input type="hidden" path="status" /> --%>
+						<td>status
+						<td><form:input type="text" path="status" />
 					
 					<tr>
 						<td>上傳照片
@@ -138,12 +124,12 @@ background-color:#FFDDAA;
 				<input type="submit" value="submit">
 			</form:form>
 		</div>
-
-<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
-		<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
+		
+		<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
+				<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
-	<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
-		<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
+	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
+	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">新增相簿</a>
 	</div>
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
   <div class="container">
