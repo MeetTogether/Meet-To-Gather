@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -166,6 +167,31 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 			return true;
 		}
 		return false;
+	}
+	@Override
+	public Long checkAlreadyPairs(Integer id) {
+		String hql="SELECT COUNT(p) FROM Pair p WHERE p.pairPk.memberId = ?0 AND p.pairTime > ?1 AND p.pairTime < ?2";
+		   Long result = factory.getCurrentSession().createQuery(hql,Long.class)
+				.setParameter(0, id)
+				.setParameter(1, new Timestamp(getEveryDay6Am(false)))
+				.setParameter(2, new Timestamp(getEveryDay6Am(true))).uniqueResult();
+		return result;
+		
+	}
+	private Long getEveryDay6Am(boolean todayOrNot) {
+		Calendar calendar=Calendar.getInstance();
+		if(calendar.get(Calendar.HOUR)<6) {
+			calendar.add(Calendar.DATE, -1);
+		}
+		if(todayOrNot) {
+			calendar.add(Calendar.DATE, 1);
+		}
+		calendar.set(Calendar.HOUR_OF_DAY, 6);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		System.out.println("現在時間："+calendar.getTime());
+		return calendar.getTimeInMillis();
 	}
 
 }

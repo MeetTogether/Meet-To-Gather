@@ -36,4 +36,6 @@ public interface IPairsService {
 	public List<Integer> findInterestByMemberId(Integer currentUserId);
 	
 	public String findInteretByInterestId(Integer interestId);
+	
+	public Long checkAlreadyPairs(Integer id);
 }

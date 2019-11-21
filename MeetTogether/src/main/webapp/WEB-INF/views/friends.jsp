@@ -167,12 +167,27 @@ function serachMyFriends() {
 				
 				document.getElementById(did).addEventListener("click",function(){
 					var fid = (this.id).substring(3);
-					window.location.href="${pageContext.request.contextPath}/del?fid="+fid;
+					let xhttp = new XMLHttpRequest();
+					xhttp.open("Get",
+							"${pageContext.request.contextPath}/delaj?fid="+fid, true);
+					xhttp.setRequestHeader("Pagram", true);
+					xhttp.send();
+					xhttp.onreadystatechange = function() {
+						if (xhttp.readyState == 4 && xhttp.status == 200) {
+							serachMyFriends();
+						}
+					}
+					
+					
 				});
 				newLi.addEventListener("click",
-						function() {
+						function(e) {
+					console.log(e.target);
+					console.log(this);
+						if (e.target == this){
 							var id = this.id;
-							window.location.href="${pageContext.request.contextPath}//getmember/"+id;
+							window.location.href="${pageContext.request.contextPath}/getmember/"+id;
+						}
 							
 						});
 

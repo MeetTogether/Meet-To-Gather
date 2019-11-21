@@ -38,7 +38,8 @@ public class PairsController {
 	private IPairsService pService;
 	@Autowired
 	private IFriendService fService;
-		
+
+
 	@ModelAttribute("currentUser")
 	public IMember currentUser(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
@@ -63,10 +64,11 @@ public class PairsController {
 	}
 
 	@GetMapping("/insertPairList")
-	public void insertPairList(@ModelAttribute("currentUser") IMember currentUser,
+	public @ResponseBody boolean insertPairList(@ModelAttribute("currentUser") IMember currentUser,
 			@RequestParam("pairid") Integer daterId, @RequestParam("status") Integer status) {
 		pService.likeOrDont(currentUser.getMemberBasic().getMemberId(), daterId, status);
 		fService.addFriendList(currentUser.getMemberBasic().getMemberId(), daterId);
+		return true;
 	}
 
 	@PostMapping(value = "/showPairMember", produces = "application/json;charset=utf-8")
@@ -77,14 +79,14 @@ public class PairsController {
 		pService.sortByDESValue(pService.finalscoreMap(currentUser.getMemberBasic().getMemberCity(),
 				currentUser.getMemberBasic().getMemberId())).forEach((i) -> {
 					IMember member = pService.getMemberById(i);
-					System.out.println(getCondition(sex, city, age1, age2, member));
 					if (getCondition(sex, city, age1, age2, member)) {
 						member.getMemberBasic().setMemberPassword(null);
 						memberlist.add(member);
 					}
 				});
+		System.out.println("今天幾次 ："+pService.checkAlreadyPairs(currentUser.getMemberBasic().getMemberId()));
 		Gson gson = new GsonBuilder().setDateFormat("yyy-MM-dd").create();
-		return gson.toJson(memberlist);
+		return gson.toJson(memberlist.get(0));
 	}
 
 	private Integer getAge(Date birth) {
@@ -101,23 +103,23 @@ public class PairsController {
 		Integer everySex = 3;
 		Integer everyAge1 = 18;
 		Integer everyAge2 = 99;
-		if (sex == everySex && city.equals(everyCity) && age1 == everyAge1 && age2 == everyAge2) 
+		if (sex == everySex && city.equals(everyCity) && age1 == everyAge1 && age2 == everyAge2)
 			return true;
-		if (sex == userSex && city.equals(everyCity) && age1 == everyAge1 && age2 == everyAge2) 
+		if (sex == userSex && city.equals(everyCity) && age1 == everyAge1 && age2 == everyAge2)
 			return true;
-		if (sex == everySex && city.equals(userCity) && age1 == everyAge1 && age2 == everyAge2) 
+		if (sex == everySex && city.equals(userCity) && age1 == everyAge1 && age2 == everyAge2)
 			return true;
-		if (sex == everySex && city.equals(everyCity) && (userAge >= age1 && userAge <= age2)) 
+		if (sex == everySex && city.equals(everyCity) && (userAge >= age1 && userAge <= age2))
 			return true;
-		if (sex == userSex && city.equals(userCity) && age1 == everyAge1 && age2 == everyAge2) 
+		if (sex == userSex && city.equals(userCity) && age1 == everyAge1 && age2 == everyAge2)
 			return true;
-		if (sex == userSex && city.equals(everyCity) && (userAge >= age1 && userAge <= age2)) 
+		if (sex == userSex && city.equals(everyCity) && (userAge >= age1 && userAge <= age2))
 			return true;
-		if (sex == everySex && city.equals(userCity) && (userAge >= age1 && userAge <= age2)) 
+		if (sex == everySex && city.equals(userCity) && (userAge >= age1 && userAge <= age2))
 			return true;
-		if (sex == userSex && city.equals(userCity) && (userAge >= age1 && userAge <= age2)) 
+		if (sex == userSex && city.equals(userCity) && (userAge >= age1 && userAge <= age2))
 			return true;
-	
+
 		return false;
 	}
 
@@ -133,8 +135,9 @@ public class PairsController {
 				os.write(buf, 0, length);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 
 	}
+
 }

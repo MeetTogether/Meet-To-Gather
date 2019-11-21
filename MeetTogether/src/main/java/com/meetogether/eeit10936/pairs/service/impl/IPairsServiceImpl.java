@@ -171,6 +171,12 @@ public class IPairsServiceImpl implements IPairsService {
 		// TODO Auto-generated method stub
 		return pdao.findInteretByInterestId(interestId);
 	}
+	@Transactional
+	@Override
+	public Long checkAlreadyPairs(Integer id) {
+		// TODO Auto-generated method stub
+		return pdao.checkAlreadyPairs(id);
+	}
 
 	
 	
