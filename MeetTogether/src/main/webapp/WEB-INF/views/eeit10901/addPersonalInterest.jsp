@@ -133,11 +133,11 @@ p {
 		</div>
 	</section>
 	<h1 class="mb-3 bread" align="center">請輸入興趣至少三樣</h1>
-<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
-	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
+<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
+		<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
-	<a href="${pageContext.request.contextPath}/addHope" class="nav-link">輸入個人希望條件</a>
-	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
+	<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
+		<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
 	<div style="text-align:center">
 
 	<div style="text-align:center">
