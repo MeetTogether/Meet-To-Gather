@@ -999,8 +999,7 @@ body {
 	height: 20px;
 	cursor: pointer;
 }
-<<<<<<< HEAD
-=======
+
 
 p {
 	margin-bottom: 0;
@@ -1056,16 +1055,17 @@ p {
 					});
 </script>
 </head>
-<<<<<<< HEAD
+
 <body>
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
-=======
+		</nav>
+
 
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
+
 		<div class="container">
 
 			<a class="navbar-brand" href="/MeetTogether/">Meet<span>Together</span></a>
