@@ -1,12 +1,8 @@
 package com.meetogether.eeit10901.service;
 
-import java.sql.Date;
 import java.util.List;
 
-import org.springframework.ui.Model;
-
 import com.meetogether.eeit10901.model.MemberBean;
-import com.meetogether.eeit10927.model.Member;
 
 public interface MemberService {
 

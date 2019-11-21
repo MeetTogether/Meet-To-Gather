@@ -70,6 +70,12 @@ public class IFriendServiceImpl implements IFriendService {
 	public void deleteFriends(Integer id,Integer fid) {
 		dao.deleteFriends(id, fid);
 	}
+	@Transactional
+	@Override
+	public Map<Integer, String> responseList(Integer id) {
+		// TODO Auto-generated method stub
+		return dao.responseList(id);
+	}
 	
 	
 	

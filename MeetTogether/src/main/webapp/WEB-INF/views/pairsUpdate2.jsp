@@ -27,9 +27,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
 <script>
-	function test() {
-		alert("test");
-	}
+	
 	function getage(birth) {
 		let dateNow = new Date().getTime();
 		let birthTime = new Date(birth).getTime();
@@ -335,6 +333,9 @@ td{
 						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item active"><a
 						href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a 
+						href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>					
+					
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/eeit10908/"
 						class="nav-link">活動</a></li>

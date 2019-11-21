@@ -24,4 +24,6 @@ public interface IFriendService {
 	boolean checkResponse(Integer f1id, Integer f2id);
 
 	void deleteFriends(Integer id, Integer fid);
+	
+	Map<Integer, String> responseList(Integer id);
 }

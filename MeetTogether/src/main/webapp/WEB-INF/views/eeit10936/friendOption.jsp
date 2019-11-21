@@ -9,39 +9,49 @@
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function() {
 		formA = document.getElementById("formA");
-		document.getElementById("deleteFriends").addEventListener("click",
-				function() {
-					formA.action = "${pageContext.request.contextPath}/del";
-					formA.submit();
+		if(document.getElementById("deleteFriends")){
+			document.getElementById("deleteFriends").addEventListener("click",
+					function() {
+						formA.action = "${pageContext.request.contextPath}/del";
+						formA.submit();
 
-				});
-		document.getElementById("inviteFriendStatus").addEventListener("click",
-				function() {
-					formA.action = "";
-					formA.submit();
-				});
-		document.getElementById("sure").addEventListener("click", function() {
-			document.getElementById("sureOrRefuse").value="1";
-			formA.action = "";
-			formA.submit();
-		});
-		document.getElementById("refuse").addEventListener("click", function() {
-			document.getElementById("sureOrRefuse").value="2";
-			formA.action = "";
-			formA.submit();
-		});
-		document.getElementById("add").addEventListener("click", function() {
-			formA.action = "${pageContext.request.contextPath}/invite";
-			formA.submit();
-		});
+					});
+		}
+		if(document.getElementById("inviteFriendStatus")){
+			document.getElementById("inviteFriendStatus").addEventListener("click",
+					function() {
+						formA.action = "";
+						formA.submit();
+					});
+			
+		}
+		if(document.getElementById("sure")){
+			document.getElementById("sure").addEventListener("click", function() {
+				document.getElementById("sureOrRefuse").value="1";
+				formA.action = "${pageContext.request.contextPath}/response";
+				formA.submit();
+			});
+		}
+		if(document.getElementById("refuse")){
+			document.getElementById("refuse").addEventListener("click", function() {
+				document.getElementById("sureOrRefuse").value="2";
+				formA.action = "${pageContext.request.contextPath}/response";
+				formA.submit();
+			});
+		}
+		if(document.getElementById("add")){
+			document.getElementById("add").addEventListener("click", function() {
+				formA.action = "${pageContext.request.contextPath}/invite";
+				console.log("${pageContext.request.contextPath}");
+
+				formA.submit();
+			});
+		}
+		
 	})
 </script>
 </head>
 <body>
-
-
-
-
 	<c:choose>
 		<c:when test="${member.memberId == userId}">
 
