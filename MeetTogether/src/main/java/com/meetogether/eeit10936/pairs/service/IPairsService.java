@@ -11,9 +11,9 @@ public interface IPairsService {
 
 	public IMember getMemberById(int id);
 
-	public List<IMember> getAllMember();
+	public List<IMember> getAllMember(Integer currentUserId);
 
-	public Map<Integer, Integer> cityScore(String currentUserCity);
+	public Map<Integer, Integer> cityScore(String currentUserCity,Integer currentUserId);
 
 	public void likeOrDont(Integer currentUserId, Integer daterId, Integer status);
 
@@ -23,7 +23,7 @@ public interface IPairsService {
 
 	public Map<Integer, Integer> memberHopeScore(Integer currentUserId);
 
-	public Map<Integer, Integer> finalscoreMap(String currentUserCity, Integer currentUserId);
+	public Map<Integer, Integer> finalscoreMap(String currentUserCity, Integer currentUserId,List<Integer> pairList);
 
 	public List<Integer> sortByDESValue(Map<Integer, Integer> unsorted);
 
@@ -38,4 +38,7 @@ public interface IPairsService {
 	public String findInteretByInterestId(Integer interestId);
 	
 	public Long checkAlreadyPairs(Integer id);
+	
+	List<Integer> getPaired(Integer id);
+
 }

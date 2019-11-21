@@ -34,4 +34,6 @@ public interface IMemberDao {
 
 	public Long checkAlreadyPairs(Integer id);
 
+	List<Integer> getPaired(Integer id);
+
 }

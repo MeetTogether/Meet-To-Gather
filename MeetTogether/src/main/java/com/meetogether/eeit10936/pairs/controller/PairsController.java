@@ -39,7 +39,6 @@ public class PairsController {
 	@Autowired
 	private IFriendService fService;
 
-
 	@ModelAttribute("currentUser")
 	public IMember currentUser(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
@@ -75,16 +74,26 @@ public class PairsController {
 	public @ResponseBody String showPairMember(@ModelAttribute("currentUser") IMember currentUser,
 			@RequestParam("sex") Integer sex, @RequestParam("city") String city, @RequestParam("age1") Integer age1,
 			@RequestParam("age2") Integer age2, Model model) {
+		Long checkAlreadyPairs = pService.checkAlreadyPairs(currentUser.getMemberBasic().getMemberId());
+		System.out.println("今天幾次 ：" + checkAlreadyPairs);
+		System.out.println("是否為VIP ：" + model.getAttribute("vipstatus"));
+		if (!(boolean) model.getAttribute("vipstatus") && checkAlreadyPairs > 5) {
+			return null;
+		}
 		List<IMember> memberlist = new ArrayList<IMember>();
+		List<Integer> pairList = pService.getPaired(currentUser.getMemberBasic().getMemberId());
 		pService.sortByDESValue(pService.finalscoreMap(currentUser.getMemberBasic().getMemberCity(),
-				currentUser.getMemberBasic().getMemberId())).forEach((i) -> {
+				currentUser.getMemberBasic().getMemberId(), pairList)).forEach((i) -> {
 					IMember member = pService.getMemberById(i);
 					if (getCondition(sex, city, age1, age2, member)) {
 						member.getMemberBasic().setMemberPassword(null);
 						memberlist.add(member);
 					}
 				});
-		System.out.println("今天幾次 ："+pService.checkAlreadyPairs(currentUser.getMemberBasic().getMemberId()));
+
+		if (memberlist.size() == 0) {
+			return null;
+		}
 		Gson gson = new GsonBuilder().setDateFormat("yyy-MM-dd").create();
 		return gson.toJson(memberlist.get(0));
 	}

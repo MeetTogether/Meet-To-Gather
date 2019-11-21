@@ -26,7 +26,6 @@ public class IPairsServiceImpl implements IPairsService {
 	@Autowired
 	@Qualifier("dao")
 	private IMemberDao pdao;
-	
 
 	@Transactional
 	@Override
@@ -36,7 +35,7 @@ public class IPairsServiceImpl implements IPairsService {
 
 	@Transactional
 	@Override
-	public List<IMember> getAllMember() {
+	public List<IMember> getAllMember(Integer currentUserId) {
 		return pdao.findAllMember();
 	}
 
@@ -59,11 +58,17 @@ public class IPairsServiceImpl implements IPairsService {
 
 	@Transactional
 	@Override
-	public Map<Integer, Integer> cityScore(String currentUserCity) {
+	public Map<Integer, Integer> cityScore(String currentUserCity, Integer currentUserId) {
 		int score = 3;
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
 		pdao.findByCity(currentUserCity).forEach((i) -> {
+
 			scoreMap.put(i, score);
+
+		});
+
+		scoreMap.forEach((k, v) -> {
+			System.out.println("cityScore :" + k + " value :" + v);
 		});
 		return scoreMap;
 	}
@@ -75,10 +80,36 @@ public class IPairsServiceImpl implements IPairsService {
 		int score = 3;
 		pdao.findInterestByMemberId(currentUserId).forEach((interestid) -> {
 			pdao.findMemberByInterestId(interestid).forEach((memberid) -> {
+
 				scoreMap.compute(memberid, (k, v) -> (v == null) ? score : scoreMap.get(k) + score);
+
 			});
+
+		});
+		scoreMap.forEach((k, v) -> {
+			System.out.println("interest :" + k + " value :" + v);
 		});
 		return scoreMap;
+	}
+
+	private Integer hscore(IMember member, IMember currentMember) {
+		int score = 0;
+		Math.abs(member.getMemberInfo().getBodyType().equals(currentMember.getMemberHope().getBodyType()) ? score++
+				: score);
+		Math.abs(member.getMemberInfo().getMarriage().equals(currentMember.getMemberHope().getMarriage()) ? score++
+				: score);
+		Math.abs(member.getMemberInfo().getSmoking().equals(currentMember.getMemberHope().getSmoking()) ? score++
+				: score);
+		Math.abs(member.getMemberInfo().getDrink().equals(currentMember.getMemberHope().getDrink()) ? score++ : score);
+		Math.abs(member.getMemberInfo().getEducation().equals(currentMember.getMemberHope().getEducation()) ? score++
+				: score);
+		Math.abs(member.getMemberInfo().getEthnicity().equals(currentMember.getMemberHope().getEthnicity()) ? score++
+				: score);
+		Math.abs(member.getMemberInfo().getReligion().equals(currentMember.getMemberHope().getReligion()) ? score++
+				: score);
+		Math.abs(
+				member.getMemberInfo().getSalary().equals(currentMember.getMemberHope().getSalary()) ? score++ : score);
+		return score;
 	}
 
 	@Transactional
@@ -87,38 +118,20 @@ public class IPairsServiceImpl implements IPairsService {
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
 		IMember currentMember = pdao.findByMemberId(currentUserId);
 		pdao.findAllMember().forEach((member) -> {
-			System.out.println(member.getMemberBasic().getMemberName());
-			System.out.println(member.getMemberHope().getMemberId());
-			System.out.println(member.getMemberInfo().getSmoking());
-			System.out.println(currentMember.getMemberHope().getBodyType());
+			scoreMap.put(member.getMemberBasic().getMemberId(), hscore(member, currentMember));
 
-			int score = 0;
-			Math.abs(member.getMemberInfo().getBodyType().equals(currentMember.getMemberHope().getBodyType()) ? score++
-					: score);
-			Math.abs(member.getMemberInfo().getMarriage().equals(currentMember.getMemberHope().getMarriage()) ? score++
-					: score);
-			Math.abs(member.getMemberInfo().getSmoking().equals(currentMember.getMemberHope().getSmoking()) ? score++
-					: score);
-			Math.abs(member.getMemberInfo().getDrink().equals(currentMember.getMemberHope().getDrink()) ? score++
-					: score);
-			Math.abs(
-					member.getMemberInfo().getEducation().equals(currentMember.getMemberHope().getEducation()) ? score++
-							: score);
-			Math.abs(
-					member.getMemberInfo().getEthnicity().equals(currentMember.getMemberHope().getEthnicity()) ? score++
-							: score);
-			Math.abs(member.getMemberInfo().getReligion().equals(currentMember.getMemberHope().getReligion()) ? score++
-					: score);
-			Math.abs(member.getMemberInfo().getSalary().equals(currentMember.getMemberHope().getSalary()) ? score++
-					: score);
-			scoreMap.put(member.getMemberBasic().getMemberId(), score);
+		});
+
+		scoreMap.forEach((k, v) -> {
+			System.out.println("memberHopeScore :" + k + " value :" + v);
 		});
 		return scoreMap;
 	}
+
 	@Transactional
 	@Override
-	public Map<Integer, Integer> finalscoreMap(String currentUserCity, Integer currentUserId) {
-		Map<Integer, Integer> cityMap = cityScore(currentUserCity);
+	public Map<Integer, Integer> finalscoreMap(String currentUserCity, Integer currentUserId, List<Integer> pairList) {
+		Map<Integer, Integer> cityMap = cityScore(currentUserCity, currentUserId);
 		Map<Integer, Integer> interestMap = interestScore(currentUserId);
 		Map<Integer, Integer> memberHopeMap = memberHopeScore(currentUserId);
 
@@ -130,47 +143,60 @@ public class IPairsServiceImpl implements IPairsService {
 			cityMap.compute(mk, (k, v) -> (v == null) ? mv : v + mv);
 		});
 		cityMap.remove(currentUserId);
+		pairList.forEach((i) -> {
+			cityMap.remove(i);
+		});
+		cityMap.forEach((k, v) -> {
+			System.out.println("finalscoreMap :" + k + " value :" + v);
+		});
 		return cityMap;
 	}
+
 	@Transactional
 	@Override
 	public List<Integer> sortByDESValue(Map<Integer, Integer> unsorted) {
 		LinkedHashMap<Integer, Integer> sortedMap = new LinkedHashMap<>();
+
 		unsorted.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
 				.forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
+
 		return new ArrayList<>(sortedMap.keySet());
 	}
 
 	@Transactional
 	@Override
-	public Blob getPhotosById(Integer id,int status) {
+	public Blob getPhotosById(Integer id, int status) {
 		return pdao.getPhotosById(id, status);
 	}
+
 	@Transactional
 	@Override
 	public boolean checkVip(Integer id) {
 		// TODO Auto-generated method stub
 		return pdao.checkVip(id);
 	}
-	
+
 	@Transactional
 	@Override
-	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate){
+	public IMember findMemberByChoice(Integer id, Integer sex, String city, Date stdate, Date eddate) {
 		return pdao.findMemberByChoice(id, sex, city, stdate, eddate);
-		
+
 	}
+
 	@Transactional
 	@Override
 	public List<Integer> findInterestByMemberId(Integer currentUserId) {
 		// TODO Auto-generated method stub
 		return pdao.findInterestByMemberId(currentUserId);
 	}
+
 	@Transactional
 	@Override
 	public String findInteretByInterestId(Integer interestId) {
 		// TODO Auto-generated method stub
 		return pdao.findInteretByInterestId(interestId);
 	}
+
 	@Transactional
 	@Override
 	public Long checkAlreadyPairs(Integer id) {
@@ -178,6 +204,11 @@ public class IPairsServiceImpl implements IPairsService {
 		return pdao.checkAlreadyPairs(id);
 	}
 
-	
-	
+	@Transactional
+	@Override
+	public List<Integer> getPaired(Integer id) {
+		// TODO Auto-generated method stub
+		return pdao.getPaired(id);
+	}
+
 }

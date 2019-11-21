@@ -36,7 +36,7 @@
 	}
 
 	function myInnerText() {
-		if (members) {
+		
 			document.getElementById("name").innerText = members.mb.memberName;
 			document.getElementById("memberAge").innerText = getage(members.mb.memberBirth);
 			document.getElementById("memberCity").innerText = members.mb.memberCity
@@ -60,15 +60,15 @@
 								document.getElementById("pairImg")
 										.setAttribute("src", srcUrl);
 							});
-		} else {
-			$("#vipModalLong").modal("show");
-		}
+		
+			
+		
 	}
 	function binding() {
 		let like = document.getElementById("like")
 		let dontlike = document.getElementById("dontlike")
 		like.addEventListener("click", function() {
-			pairAjax();
+			
 			url = "${pageContext.request.contextPath}/insertPairList?pairid=" + members.mb.memberId
 					+ "&status=1";
 			console.log(url);
@@ -79,13 +79,14 @@
 			xhttp.onreadystatechange = function(){
 				if(xhttp.readyState == 4 && xhttp.status ==200){
 					serachMyFriends();
+					pairAjax();
 					myInnerText();
 				}
 			}
 			
 		});
 		dontlike.addEventListener("click", function() {
-			pairAjax();
+			
 			url = "${pageContext.request.contextPath}/insertPairList?pairid=" + members.mb.memberId
 					+ "&status=0";
 			console.log(url);
@@ -96,6 +97,7 @@
 			xhttp.onreadystatechange = function(){
 				if(xhttp.readyState == 4 && xhttp.status == 200){
 					serachMyFriends();
+					pairAjax();
 					myInnerText();
 				}
 			}
@@ -112,10 +114,15 @@
 		xhttp.send(getQueryString());
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				members = JSON.parse(xhttp.responseText);
-				console.log(members);
-				myInnerText();
-				binding();
+				if(xhttp.responseText){
+					members = JSON.parse(xhttp.responseText);
+					console.log(members);
+					myInnerText();
+					binding();
+				}else{
+					$("#vipModalLong").modal("show");
+				}
+				
 			}
 		}
 	}
