@@ -12,13 +12,17 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	
+
 <!-- <meta property="og:url" -->
 <%-- 	content="${pageContext.request.contextPath}/eeit10908/ByActivity?${queryString }" /> --%>
 <!-- <meta property="og:type" content="website" /> -->
@@ -76,415 +80,791 @@
 
 
 <style>
-
-button,
-input {
-    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-}
-
-body{
-  font-size: 14px;
-  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-
-}
-
-@font-face {
-  font-family: 'Nucleo Outline';
-  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
-  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot") format("embedded-opentype");
-  src: url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
-  font-weight: normal;
-  font-style: normal;
-
-}
-
-h4,
-h5 {
-    font-weight: 400;
-    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-
-}
-
-body{
-  font-size: 14px;
-  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-
-}
-
-@font-face {
-  font-family: 'Nucleo Outline';
-  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
-  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot") format("embedded-opentype");
-  src: url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
-  font-weight: normal;
-  font-style: normal;
-
-}
-
-h4,
-h5 {
-    font-weight: 400;
-}
-
-a {
-    color: #f96332;
-}
-
-a:hover,
-a:focus {
-    color: #f96332;
-}
-
-h4,
-.h4 {
-    font-size: 1.5em;
-    line-height: 1.45em;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-h5,
-.h5 {
-    font-size: 1.3em;
-    line-height: 1.4em;
-    margin-bottom: 15px;
-}
-
-.title {
-    font-weight: 700;
-    padding-top: 30px;
+button, input {
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
 
 body {
-    color: #2c2c2c;
-    font-size: 14px;
-    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-    overflow-x: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+	font-size: 14px;
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
 
-[data-toggle="collapse"][data-parent="#accordion"] i {
-    -webkit-transition: transform 150ms ease 0s;
-    -moz-transition: transform 150ms ease 0s;
-    -o-transition: transform 150ms ease 0s;
-    -ms-transition: all 150ms ease 0s;
-    transition: transform 150ms ease 0s;
+@font-face {
+	font-family: 'Nucleo Outline';
+	src:
+		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
+	src:
+		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot")
+		format("embedded-opentype");
+	src:
+		url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
+	font-weight: normal;
+	font-style: normal;
 }
 
-[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
-.now-ui-icons {
-    display: inline-block;
-    font: normal normal normal 14px/1 'Nucleo Outline';
-    font-size: inherit;
-    speak: none;
-    text-transform: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-@-webkit-keyframes nc-icon-spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
-}
-
-@-moz-keyframes nc-icon-spin {
-    0% {
-        -moz-transform: rotate(0deg);
-    }
-
-    100% {
-        -moz-transform: rotate(360deg);
-    }
-}
-
-@keyframes nc-icon-spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-.now-ui-icons.arrows-1_minimal-left:before {
-    content: "\ea3a";
-}
-
-.now-ui-icons.arrows-1_minimal-right:before {
-    content: "\ea3b";
-}
-
-img {
-    max-width: 100%;
-    border-radius: 1px;
-}
-
-.carousel-item.active {
-    display: block;
-}
-
-.carousel .carousel-inner {
-    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-    border-radius: 0.1875rem;
-}
-
-.login-page .link {
-    font-size: 10px;
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.section {
-    padding: 70px 0;
-    position: relative;
-    background: #FFFFFF;
-}
-
-[data-background-color="orange"] {
-    background-color: #e95e38;
-}
-
-[data-background-color="black"] {
-    background-color: #2c2c2c;
-}
-
-[data-background-color]:not([data-background-color="gray"]) {
-    color: #FFFFFF;
-}
-
-[data-background-color]:not([data-background-color="gray"]) .title {
-    color: #FFFFFF;
-}
-
-[data-background-color]:not([data-background-color="gray"]) h4,
-[data-background-color]:not([data-background-color="gray"]) h5,
-[data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
-    color: #FFFFFF;
-}
-
-footer{
-    margin-top:50px;
-    color: #555;
-    background: #fff;
-    padding: 25px;
-    font-weight: 300;
-    background: #f7f7f7;
-
-}
-.footer p{
-    margin-bottom: 0;
-}
-footer p a{
-    color: #555;
-    font-weight: 400;
-}
-
-footer p a:hover{
-    color: #e86c42;
-}
-
-}
-
-a {
-    color: #f96332;
-}
-
-a:hover,
-a:focus {
-    color: #f96332;
-}
-
-h4,
-.h4 {
-    font-size: 1.5em;
-    line-height: 1.45em;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-h5,
-.h5 {
-    font-size: 1.3em;
-    line-height: 1.4em;
-    margin-bottom: 15px;
-}
-
-.title {
-    font-weight: 700;
-    padding-top: 30px;
+h4, h5 {
+	font-weight: 400;
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
 
 body {
-    color: #2c2c2c;
-    font-size: 14px;
-    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-    overflow-x: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+	font-size: 14px;
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+
+@font-face {
+	font-family: 'Nucleo Outline';
+	src:
+		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
+	src:
+		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot")
+		format("embedded-opentype");
+	src:
+		url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+
+h4, h5 {
+	font-weight: 400;
+}
+
+a {
+	color: #f96332;
+}
+
+a:hover, a:focus {
+	color: #f96332;
+}
+
+h4, .h4 {
+	font-size: 1.5em;
+	line-height: 1.45em;
+	margin-top: 30px;
+	margin-bottom: 15px;
+}
+
+h5, .h5 {
+	font-size: 1.3em;
+	line-height: 1.4em;
+	margin-bottom: 15px;
+}
+
+.title {
+	font-weight: 700;
+	padding-top: 30px;
+}
+
+body {
+	color: #2c2c2c;
+	font-size: 14px;
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+	overflow-x: hidden;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
 }
 
 [data-toggle="collapse"][data-parent="#accordion"] i {
-    -webkit-transition: transform 150ms ease 0s;
-    -moz-transition: transform 150ms ease 0s;
-    -o-transition: transform 150ms ease 0s;
-    -ms-transition: all 150ms ease 0s;
-    transition: transform 150ms ease 0s;
+	-webkit-transition: transform 150ms ease 0s;
+	-moz-transition: transform 150ms ease 0s;
+	-o-transition: transform 150ms ease 0s;
+	-ms-transition: all 150ms ease 0s;
+	transition: transform 150ms ease 0s;
 }
 
-[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg);
+[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i
+	{
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
 }
-
 
 .now-ui-icons {
-    display: inline-block;
-    font: normal normal normal 14px/1 'Nucleo Outline';
-    font-size: inherit;
-    speak: none;
-    text-transform: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+	display: inline-block;
+	font: normal normal normal 14px/1 'Nucleo Outline';
+	font-size: inherit;
+	speak: none;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
-@-webkit-keyframes nc-icon-spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
+@
+-webkit-keyframes nc-icon-spin { 0% {
+	-webkit-transform: rotate(0deg);
 }
 
-@-moz-keyframes nc-icon-spin {
-    0% {
-        -moz-transform: rotate(0deg);
-    }
+100%
+{
+-webkit-transform
 
-    100% {
-        -moz-transform: rotate(360deg);
-    }
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+    
+
+}
+}
+@
+-moz-keyframes nc-icon-spin { 0% {
+	-moz-transform: rotate(0deg);
 }
 
-@keyframes nc-icon-spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -moz-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        -o-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
+100%
+{
+-moz-transform
 
-    100% {
-        -webkit-transform: rotate(360deg);
-        -moz-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        -o-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+    
+
+}
+}
+@
+keyframes nc-icon-spin { 0% {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
 }
 
+100%
+{
+-webkit-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+-moz-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+-ms-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+-o-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+    
+
+}
+}
 .now-ui-icons.arrows-1_minimal-left:before {
-    content: "\ea3a";
+	content: "\ea3a";
 }
 
 .now-ui-icons.arrows-1_minimal-right:before {
-    content: "\ea3b";
+	content: "\ea3b";
 }
 
 img {
-    max-width: 100%;
-    border-radius: 1px;
+	max-width: 100%;
+	border-radius: 1px;
 }
 
 .carousel-item.active {
-    display: block;
+	display: block;
 }
 
 .carousel .carousel-inner {
-    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-    border-radius: 0.1875rem;
+	box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+	border-radius: 0.1875rem;
 }
 
 .login-page .link {
-    font-size: 10px;
-    color: #FFFFFF;
-    text-decoration: none;
+	font-size: 10px;
+	color: #FFFFFF;
+	text-decoration: none;
 }
 
 .section {
-    padding: 70px 0;
-    position: relative;
-    background: #FFFFFF;
+	padding: 70px 0;
+	position: relative;
+	background: #FFFFFF;
 }
 
 [data-background-color="orange"] {
-    background-color: #e95e38;
+	background-color: #e95e38;
 }
 
 [data-background-color="black"] {
-    background-color: #2c2c2c;
+	background-color: #2c2c2c;
 }
 
-[data-background-color]:not([data-background-color="gray"]) {
-    color: #FFFFFF;
+[
+data-background-color
+]
+:not
+ 
+(
+[
+data-background-color
+=
+"gray"
+]
+ 
+)
+{
+color
+:
+ 
+#FFFFFF
+;
+
+
+}
+[data-background-color]:not ([data-background-color="gray"] ) .title {
+	color: #FFFFFF;
 }
 
-[data-background-color]:not([data-background-color="gray"]) .title {
-    color: #FFFFFF;
+[
+data-background-color
+]
+:not
+ 
+(
+[
+data-background-color
+=
+"gray"
+]
+ 
+)
+h4
+,
+[
+data-background-color
+]
+:not
+
+	
+(
+[
+data-background-color
+=
+"gray"
+]
+ 
+)
+h5
+,
+[
+data-background-color
+]
+:not
+ 
+(
+[
+data-background-color
+=
+"gray"
+]
+
+	
+)
+a
+:not
+ 
+(
+.btn
+ 
+)
+:not
+ 
+(
+.dropdown-item
+ 
+)
+{
+color
+:
+ 
+#FFFFFF
+;
+
+
+}
+footer {
+	margin-top: 50px;
+	color: #555;
+	background: #fff;
+	padding: 25px;
+	font-weight: 300;
+	background: #f7f7f7;
 }
 
-[data-background-color]:not([data-background-color="gray"]) h4,
-[data-background-color]:not([data-background-color="gray"]) h5,
-[data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
-    color: #FFFFFF;
+.footer p {
+	margin-bottom: 0;
 }
 
-footer{
-    margin-top:50px;
-    color: #555;
-    background: #fff;
-    padding: 25px;
-    font-weight: 300;
-    background: #f7f7f7;
-
-}
-.footer p{
-    margin-bottom: 0;
-}
-footer p a{
-    color: #555;
-    font-weight: 400;
+footer p a {
+	color: #555;
+	font-weight: 400;
 }
 
-footer p a:hover{
-    color: #e86c42;
+footer p a:hover {
+	color: #e86c42;
 }
 
+}
+a {
+	color: #f96332;
+}
+
+a:hover, a:focus {
+	color: #f96332;
+}
+
+h4, .h4 {
+	font-size: 1.5em;
+	line-height: 1.45em;
+	margin-top: 30px;
+	margin-bottom: 15px;
+}
+
+h5, .h5 {
+	font-size: 1.3em;
+	line-height: 1.4em;
+	margin-bottom: 15px;
+}
+
+.title {
+	font-weight: 700;
+	padding-top: 30px;
+}
+
+body {
+	color: #2c2c2c;
+	font-size: 14px;
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+	overflow-x: hidden;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"] i {
+	-webkit-transition: transform 150ms ease 0s;
+	-moz-transition: transform 150ms ease 0s;
+	-o-transition: transform 150ms ease 0s;
+	-ms-transition: all 150ms ease 0s;
+	transition: transform 150ms ease 0s;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i
+	{
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.now-ui-icons {
+	display: inline-block;
+	font: normal normal normal 14px/1 'Nucleo Outline';
+	font-size: inherit;
+	speak: none;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@
+-webkit-keyframes nc-icon-spin { 0% {
+	-webkit-transform: rotate(0deg);
+}
+
+100%
+{
+-webkit-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+    
+
+}
+}
+@
+-moz-keyframes nc-icon-spin { 0% {
+	-moz-transform: rotate(0deg);
+}
+
+100%
+{
+-moz-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+    
+
+}
+}
+@
+keyframes nc-icon-spin { 0% {
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+100%
+{
+-webkit-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+-moz-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+-ms-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+-o-transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+        
+
+transform
+
+
+:
+
+ 
+
+rotate
+
+
+(360
+deg
+);
+
+
+    
+
+}
+}
+.now-ui-icons.arrows-1_minimal-left:before {
+	content: "\ea3a";
+}
+
+.now-ui-icons.arrows-1_minimal-right:before {
+	content: "\ea3b";
+}
+
+img {
+	max-width: 100%;
+	border-radius: 1px;
+}
+
+.carousel-item.active {
+	display: block;
+}
+
+.carousel .carousel-inner {
+	box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+	border-radius: 0.1875rem;
+}
+
+.login-page .link {
+	font-size: 10px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.section {
+	padding: 70px 0;
+	position: relative;
+	background: #FFFFFF;
+}
+
+[data-background-color="orange"] {
+	background-color: #e95e38;
+}
+
+[data-background-color="black"] {
+	background-color: #2c2c2c;
+}
+
+[
+data-background-color
+]
+:not
+ 
+(
+[
+data-background-color
+=
+"gray"
+]
+ 
+)
+{
+color
+:
+ 
+#FFFFFF
+;
+
+
+}
+[data-background-color]:not ([data-background-color="gray"] ) .title {
+	color: #FFFFFF;
+}
+
+[
+data-background-color
+]
+:not
+ 
+(
+[
+data-background-color
+=
+"gray"
+]
+ 
+)
+h4
+,
+[
+data-background-color
+]
+:not
+
+	
+(
+[
+data-background-color
+=
+"gray"
+]
+ 
+)
+h5
+,
+[
+data-background-color
+]
+:not
+ 
+(
+[
+data-background-color
+=
+"gray"
+]
+
+	
+)
+a
+:not
+ 
+(
+.btn
+ 
+)
+:not
+ 
+(
+.dropdown-item
+ 
+)
+{
+color
+:
+ 
+#FFFFFF
+;
+
+
+}
+footer {
+	margin-top: 50px;
+	color: #555;
+	background: #fff;
+	padding: 25px;
+	font-weight: 300;
+	background: #f7f7f7;
+}
+
+.footer p {
+	margin-bottom: 0;
+}
+
+footer p a {
+	color: #555;
+	font-weight: 400;
+}
+
+footer p a:hover {
+	color: #e86c42;
+}
 
 body {
 	/* 	background: -webkit-radial-gradient(circle, white, burlywood); */
@@ -619,8 +999,7 @@ body {
 	height: 20px;
 	cursor: pointer;
 }
-<<<<<<< HEAD
-=======
+
 
 p {
 	margin-bottom: 0;
@@ -678,7 +1057,15 @@ p {
 </head>
 
 <body>
+	<nav
+		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+		id="ftco-navbar">
+		</nav>
+
+
+<body>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+
 		<div class="container">
 
 			<a class="navbar-brand" href="/MeetTogether/">Meet<span>Together</span></a>
@@ -752,12 +1139,12 @@ p {
 	<!-- 		<h2>活 動 資 訊</h2>  -->
 	<form:form method="post" modelAttribute="actdata">
 
-<!-- -----fb button----- -->
-<!-- 		<div id="fb-root"></div> -->
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v5.0"></script> -->
-<%-- <H2>${pageContext.request.contextPath}/eeit10908/ByActivity?${queryString }</H2> --%>
-<%-- 		<div class="fb-like" data-href="${pageContext.request.contextPath}/eeit10908/ByActivity?${queryString }" data-width="" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div> --%>
-<!-- 		-----fb button end----- -->
+		<!-- -----fb button----- -->
+		<!-- 		<div id="fb-root"></div> -->
+		<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v5.0"></script> -->
+		<%-- <H2>${pageContext.request.contextPath}/eeit10908/ByActivity?${queryString }</H2> --%>
+		<%-- 		<div class="fb-like" data-href="${pageContext.request.contextPath}/eeit10908/ByActivity?${queryString }" data-width="" data-layout="button_count" data-action="recommend" data-size="large" data-show-faces="true" data-share="true"></div> --%>
+		<!-- 		-----fb button end----- -->
 		<section class="ftco-section ftco-car-details">
 			<div class="container" align="center">
 				<div class="row justify-content-center">
@@ -871,253 +1258,188 @@ p {
 									<li class="nav-item"><a class="nav-link active"
 										id="pills-description-tab" data-toggle="pill"
 										href="#pills-description" role="tab"
-										aria-controls="pills-description" aria-expanded="true">Features</a>
+										aria-controls="pills-description" aria-expanded="true">精選活動</a>
 									</li>
-									<li class="nav-item"><a class="nav-link"
-										id="pills-manufacturer-tab" data-toggle="pill"
-										href="#pills-manufacturer" role="tab"
-										aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
-									</li>
+
 									<li class="nav-item"><a class="nav-link"
 										id="pills-review-tab" data-toggle="pill" href="#pills-review"
-										role="tab" aria-controls="pills-review" aria-expanded="true">Review</a>
+										role="tab" aria-controls="pills-review" aria-expanded="true">評論</a>
 									</li>
 								</ul>
 							</div>
-
-									<div class="row justify-content-center">
-			<div class="col-lg-8 col-md-12">
-
-				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-					<ol class="carousel-indicators">
-					    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-					    <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
-					    <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
-					</ol>
-				  	<div class="carousel-inner" role="listbox">
-				    	<div class="carousel-item active">
-				      		<img class="d-block" src="https://images.unsplash.com/photo-1524654458049-e36be0721fa2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="First slide">
-					  		<div class="carousel-caption d-none d-md-block">
-					  			<h5>Nature, United States</h5>
-					  		</div>
-				    	</div>
-				    	<div class="carousel-item">
-				      		<img class="d-block" src="https://images.unsplash.com/photo-1451903978882-b165bd94e45d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Second slide">
-					  		<div class="carousel-caption d-none d-md-block">
-								<h5>Somewhere Beyond, United States</h5>
-					  		</div>
-				    	</div>
-				    	<div class="carousel-item">
-				      		<img class="d-block" src="https://images.unsplash.com/photo-1492252719637-c7b68468489b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" alt="Third slide">
-					  		<div class="carousel-caption d-none d-md-block">
-						  		<h5>Yellowstone National Park, United States</h5>
-					  		</div>
-				    	</div>
-					</div>
-				  	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-				    	<i class="now-ui-icons arrows-1_minimal-left"></i>
-				  	</a>
-				  	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-				    	<i class="now-ui-icons arrows-1_minimal-right"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-								<!-- -------------------------- -->
-<!-- 														    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab"> -->
-<!-- 														    	<div class="row"> -->
-<!-- 														    		<div class="col-md-4"> -->
-<!-- 														    			<ul class="features"> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>GPS</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Music</li> -->
-<!-- 														    			</ul> -->
-<!-- 														    		</div> -->
-<!-- 														    		<div class="col-md-4"> -->
-<!-- 														    			<ul class="features"> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li> -->
-<!-- 														    				<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Water</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li> -->
-<!-- 														    				<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li> -->
-<!-- 														    			</ul> -->
-<!-- 														    		</div> -->
-<!-- 														    		<div class="col-md-4"> -->
-<!-- 														    			<ul class="features"> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li> -->
-<!-- 														    				<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li> -->
-<!-- 														    			</ul> -->
-<!-- 														    		</div> -->
-<!-- 														    	</div> -->
-<!-- 														    </div> -->
-
-								<div class="tab-pane fade" id="pills-manufacturer"
-									role="tabpanel" aria-labelledby="pills-manufacturer-tab">
-									<p>Even the all-powerful Pointing has no control about the
-										blind texts it is an almost unorthographic life One day
-										however a small line of blind text by the name of Lorem Ipsum
-										decided to leave for the far World of Grammar.</p>
-									<p>When she reached the first hills of the Italic
-										Mountains, she had a last view back on the skyline of her
-										hometown Bookmarksgrove, the headline of Alphabet Village and
-										the subline of her own road, the Line Lane. Pityful a rethoric
-										question ran over her cheek, then she continued her way.</p>
-								</div>
-
-								<div class="tab-pane fade" id="pills-review" role="tabpanel"
-									aria-labelledby="pills-review-tab">
+							<div class="tab-content" id="pills-tabContent" >
+								<div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
 									<div class="row">
-										<div class="col-md-7">
-											<h3 class="head">所有評論</h3>
-											<c:forEach var='reviewBean' items='${review}'>
-												<div class="review d-flex"
-													style="border: 3px #cccccc solid;">
-													<!-- 												<div class="user-img" -->
-													<!-- 													style="background-image: url(images/person_1.jpg)"></div> -->
-													<!--使用者圖片呼叫 -->
-													<%-- 													<img width='50' height='50'src="<c:url value='memberPhoto/${currentUser.memberId}'/>" /> --%>
-													<img height='60'
-														src='${pageContext.request.contextPath}/getImage?type=member&id=${reviewBean.member.memberId}'>
+										<div class="col-lg-8 col-md-12" style="margin:5px auto" >
+											<div id="carouselExampleIndicators" class="carousel slide"
+												data-ride="carousel">
+												<ol class="carousel-indicators">
+													<li data-target="#carouselExampleIndicators"
+														data-slide-to="0" class="active"></li>
+													<li data-target="#carouselExampleIndicators"
+														data-slide-to="1" class=""></li>
+													<li data-target="#carouselExampleIndicators"
+														data-slide-to="2" class=""></li>
+												</ol>
+												<div class="carousel-inner" role="listbox">
 
-													<div class="desc">
-														<h4>
-															<p align="left">
-																<b style='font-size: 16px;'>會員姓名:
-																	${reviewBean.member.memberName}</b>
-															</p>
-														</h4>
-
-
-														<p class="star" align="left">
-															<b style='font-size: 14px;'>星等:
-																${reviewBean.eventStars}</b>
-														</p>
-														<!-- 													<p> -->
-														<%-- 													<input type="hidden" name="eventId"value="${reviewBean.event.eventId} }"> --%>
-														<!-- 													</p> -->
-
-														<p align="left">
-															<b style='font-size: 14px;'>評論:
-																${reviewBean.eventComment}</b>
-														</p>
-
-														<p align="left">
-															<b style='font-size: 14px;'>創建時間:
-																${fn:substring(reviewBean.createTime,0,16)}</b>
-														</p>
-
-														<p align="right">
-															<c:if test="${userId==reviewBean.member.memberId}">
-																<a id=condition
-																	href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />"
-																	class="btn btn-primary"> <span
-																	class="glyphicon-info-sigh glyphicon"></span>編輯資料
-																</a>
-															</c:if>
-														</p>
+													<div class="carousel-item active">
+														<img class="d-block"
+															src="https://images.unsplash.com/photo-1524654458049-e36be0721fa2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+															alt="First slide">
+														<div class="carousel-caption d-none d-md-block">
+															<a
+																href="http://localhost:8080/MeetTogether/ByActivity?getId=10"><h5>Nature,
+																	United States</h5></a>
+														</div>
+													</div>
+													<!-- 				     -->
+													<div class="carousel-item">
+														<img class="d-block"
+															src="https://images.unsplash.com/photo-1451903978882-b165bd94e45d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+															alt="Second slide">
+														<div class="carousel-caption d-none d-md-block">
+															<a
+																href="http://localhost:8080/MeetTogether/ByActivity?getId=14"><h5>Somewhere
+																	Beyond, United States</h5></a>
+														</div>
+													</div>
+													<div class="carousel-item">
+														<img class="d-block"
+															src="https://images.unsplash.com/photo-1492252719637-c7b68468489b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+															alt="Third slide">
+														<div class="carousel-caption d-none d-md-block">
+															<a
+																href="http://localhost:8080/MeetTogether/ByActivity?getId=12"><h5>Yellowstone
+																	National Park, United States</h5></a>
+														</div>
 													</div>
 												</div>
-											</c:forEach>
+												<a class="carousel-control-prev"
+													href="#carouselExampleIndicators" role="button"
+													data-slide="prev"> <i
+													class="now-ui-icons arrows-1_minimal-left"></i>
+												</a> <a class="carousel-control-next"
+													href="#carouselExampleIndicators" role="button"
+													data-slide="next"> <i
+													class="now-ui-icons arrows-1_minimal-right"></i>
+												</a>
+											</div>
 										</div>
-										<div class="col-md-5">
-											<div class="rating-wrap">
-												<h3 class="head">
-													<a
-														href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give
-														a Review</a>
-												</h3>
-												<div class="wrap">
-													<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5</b>
-													<p class="star" align="left">
-														<span> <i class="ion-ios-star"></i> <i
-															class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-															class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-															
+									</div>
+								</div>
 
-														</span> <span> ${five}</span>
-													</p>
-													<p class="star" align="left">
-														<span> <i class="ion-ios-star"></i> <i
-															class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-															class="ion-ios-star"></i> 
-															
+									<div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+										<div class="row">
+											<div class="col-md-7">
+												<h3 class="head">所有評論</h3>
+												<c:forEach var='reviewBean' items='${review}'>
+													<div class="review d-flex"
+														style="border: 3px #cccccc solid;">
+														<!-- 												<div class="user-img" -->
+														<!-- 													style="background-image: url(images/person_1.jpg)"></div> -->
+														<!--使用者圖片呼叫 -->
+														<%-- 													<img width='50' height='50'src="<c:url value='memberPhoto/${currentUser.memberId}'/>" /> --%>
+														<img height='60'
+															src='${pageContext.request.contextPath}/getImage?type=member&id=${reviewBean.member.memberId}'>
 
-														</span> <span>${four}</span>
-													</p>
-													<p class="star" align="left">
-														<span> <i class="ion-ios-star"></i> <i
-															class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-															
-														</span> <span>${three}</span>
-													</p>
-													<p class="star" align="left">
-														<span> <i class="ion-ios-star"></i> <i
-															class="ion-ios-star"></i>
-															
-														</span> <span>${two}</span>
-													</p>
-													<p class="star" align="left">
-														<span> <i class="ion-ios-star"></i> 
-															
-														</span> <span>${one}</span>
-													</p>
+														<div class="desc">
+															<h4>
+																<p align="left">
+																	<b style='font-size: 16px;'>會員姓名:
+																		${reviewBean.member.memberName}</b>
+																</p>
+															</h4>
+
+
+															<p class="star" align="left">
+																<b style='font-size: 14px;'>星等:
+																	${reviewBean.eventStars}</b>
+															</p>
+															<!-- 													<p> -->
+															<%-- 													<input type="hidden" name="eventId"value="${reviewBean.event.eventId} }"> --%>
+															<!-- 													</p> -->
+
+															<p align="left">
+																<b style='font-size: 14px;'>評論:
+																	${reviewBean.eventComment}</b>
+															</p>
+
+															<p align="left">
+																<b style='font-size: 14px;'>創建時間:
+																	${fn:substring(reviewBean.createTime,0,16)}</b>
+															</p>
+
+															<p align="right">
+																<c:if test="${userId==reviewBean.member.memberId}">
+																	<a id=condition
+																		href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />"
+																		class="btn btn-primary"> <span
+																		class="glyphicon-info-sigh glyphicon"></span>編輯資料
+																	</a>
+																</c:if>
+															</p>
+														</div>
+													</div>
+												</c:forEach>
+											</div>
+											<div class="col-md-5">
+												<div class="rating-wrap">
+													<h3 class="head">
+														<a
+															href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give
+															a Review</a>
+													</h3>
+													<div class="wrap">
+														<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5</b>
+														<p class="star" align="left">
+															<span> <i class="ion-ios-star"></i> <i
+																class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+																class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+
+
+															</span> <span> ${five}</span>
+														</p>
+														<p class="star" align="left">
+															<span> <i class="ion-ios-star"></i> <i
+																class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+																class="ion-ios-star"></i>
+
+
+															</span> <span>${four}</span>
+														</p>
+														<p class="star" align="left">
+															<span> <i class="ion-ios-star"></i> <i
+																class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+
+															</span> <span>${three}</span>
+														</p>
+														<p class="star" align="left">
+															<span> <i class="ion-ios-star"></i> <i
+																class="ion-ios-star"></i>
+
+															</span> <span>${two}</span>
+														</p>
+														<p class="star" align="left">
+															<span> <i class="ion-ios-star"></i>
+
+															</span> <span>${one}</span>
+														</p>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 		</section>
-		<!-- 			<table border="1"> -->
-		<!-- 				<tr> -->
-		<!-- 					<td>活動編號 -->
-		<%-- 					<td>${actdata.eventId} --%>
 
-		<!-- 				<tr> -->
-		<!-- 					<td>主辦人編號: -->
-		<%-- 					<td>${actdata.memberId} --%>
-
-		<!-- 				<tr> -->
-		<!-- 					<td>活動名稱: -->
-		<%-- 					<td>${actdata.eventName} --%>
-
-		<!-- 				<tr> -->
-		<!-- 					<td>活動類型: -->
-		<%-- 					<td>${actdata.catbean.eventClass} --%>
-
-		<!-- 				<tr> -->
-		<!-- 					<td>活動開始時間: -->
-		<%-- 					<td>${actdata.eventTime}		 --%>
-		<!-- 				<tr> -->
-		<!-- 					<td>活動參與人數: -->
-		<%-- 					<td>${actdata.groupNum} --%>
-
-		<!-- 				<tr> -->
-		<!-- 					<td>預算: -->
-		<%-- 					<td>${actdata.budget}				 --%>
-		<!-- 				<tr> -->
-		<!-- 					<td>活動地點: -->
-		<%-- 					<td>${actdata.eventPlace} --%>
-		<!-- 				<tr> -->
-		<!-- 					<td>創立時間: -->
-		<%-- 					<td>${actdata.createTime} --%>
-		<!-- 			</table> -->
 	</form:form>
-	<!-- 		<p> -->
-	<!-- 		<div align="center"> -->
-	<!-- 			<input type="button" value="參加" style="margin-right:10px;" > -->
-	<!-- 			<input type="button" onclick="history.back()" value="返回"> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
+
 
 
 
