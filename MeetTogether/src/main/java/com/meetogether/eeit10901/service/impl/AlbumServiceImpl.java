@@ -1,5 +1,6 @@
 package com.meetogether.eeit10901.service.impl;
 
+import java.sql.Blob;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +56,17 @@ public class AlbumServiceImpl implements AlbumService {
 
 	}
 
-}
+	@Transactional
+	@Override
+	public Blob getPhotosById(Integer id,int status) {
+		return album.getPhotosById(id, status);
+	}
+
+	@Transactional
+	@Override
+	public int countMemberPhoto(Integer memberId) {
+		return album.countMemberPhoto(memberId);
+	}
+	}
+
+
