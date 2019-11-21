@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MeetTogether - 註冊會員</title>
+<title>MeetTogether - 會員註冊</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/eeit10927/js/register.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/eeit10927/styles/register.css?t=${time}">
 </head>
 <body>
@@ -133,7 +134,7 @@
 							<tr>
 								<td>縣市
 								<td><form:input type="text" name="memberCity" id="memberCity" path="memberCity" placeholder="請輸入城市　Ex:台北市" autocomplete="off" class="form-control" />
-								<td id="msg_mNickname"></td>
+								<td id="msg_memberCity"></td>
 							<tr>
 								<td>驗證碼
 								<td><form:input type="text" name="mChecksum" id="mChecksum" path="mChecksum" placeholder="請輸入驗證碼" autocomplete="off" />
@@ -144,9 +145,9 @@
 								<td><span id="msg_mPhoto"></span>
 						</table>
 					</div>
-					<input type="submit" value="會員註冊" id="regis"  >
-					<input type="reset" value="重新填寫"  >
-					<a href="${pageContext.request.contextPath}/"><input type="button" value="返回登入頁" id="backToLogin" ></a>
+					<input type="submit" value="會員註冊" class="btn btn-primary py-3 px-4">
+					<input type="reset" value="重新填寫" class="btn btn-primary py-3 px-4">
+					<input type="button" value="返回登入頁" id="backToLogin" class="btn btn-primary py-3 px-4">
 
 				</form:form>
 			</div>

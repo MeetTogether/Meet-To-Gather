@@ -32,5 +32,8 @@ public interface IPairsService {
 	public boolean checkVip(Integer id);
 	
 	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate);
-
+	
+	public List<Integer> findInterestByMemberId(Integer currentUserId);
+	
+	public String findInteretByInterestId(Integer interestId);
 }

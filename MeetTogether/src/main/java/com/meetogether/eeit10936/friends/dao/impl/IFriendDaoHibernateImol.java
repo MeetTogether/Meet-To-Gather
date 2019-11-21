@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10936.friends.dao.IFriendDao;
+import com.meetogether.eeit10936.friends.model.AddFriend;
 import com.meetogether.eeit10936.friends.model.FriendList;
 import com.meetogether.eeit10936.pairs.model.Pair;
 
@@ -19,6 +20,23 @@ import com.meetogether.eeit10936.pairs.model.Pair;
 public class IFriendDaoHibernateImol implements IFriendDao {
 	@Autowired
 	private SessionFactory factory;
+	
+	@Override
+	public void deleteFriends(Integer id,Integer fid) {
+		String hql = "from FriendList f WHERE f.memberId = ?0 AND f.friendId = ?1";
+		FriendList result = factory.getCurrentSession().createQuery(hql,FriendList.class)
+							.setParameter(0, id).setParameter(1, fid).uniqueResult();
+		FriendList result2 = factory.getCurrentSession().createQuery(hql,FriendList.class)
+					.setParameter(0, fid).setParameter(1, id).uniqueResult();
+		
+		if(result!=null) {
+			factory.getCurrentSession().delete(result);
+		}else if(result2!=null) {
+			factory.getCurrentSession().delete(result2);
+		}
+		
+		
+	}
 
 	@Override
 	public List<FriendList> findFriendsById(Integer id) {
@@ -66,5 +84,88 @@ public class IFriendDaoHibernateImol implements IFriendDao {
 		return mp;
 
 	}
+	
+	@Override
+	public void response(Integer f1id,Integer f2id,Integer status) {
+		String hql="FROM AddFriend a WHERE a.f1Id = ?0 AND a.f2Id = ?1";
+		AddFriend result = factory.getCurrentSession().createQuery(hql,AddFriend.class)
+	            .setParameter(0, f2id).setParameter(1, f1id).uniqueResult();
+		if(result!=null) {
+			if(status==1) {
+				addFriendList(f1id, f2id);
+			}
+			result.setF2IdAllow(status);
+			factory.getCurrentSession().update(result);
+			
+		}
+		
+	}
+	@Override
+	public boolean checkAddFriend(Integer f1id,Integer f2id) {
+		String hql="FROM AddFriend a WHERE a.f1Id = ?0 AND a.f2Id = ?1";
+		AddFriend result = factory.getCurrentSession().createQuery(hql,AddFriend.class)
+		            .setParameter(0, f1id).setParameter(1, f2id).uniqueResult();
+		if(result != null) {
+			if(result.getF2IdAllow() == null) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	@Override
+	public boolean checkResponse(Integer f1id,Integer f2id) {
+		String hql2="FROM AddFriend a WHERE a.f1Id = ?0 AND a.f2Id = ?1";
+		AddFriend result4 = factory.getCurrentSession().createQuery(hql2,AddFriend.class)
+	            .setParameter(0, f2id).setParameter(1, f1id).uniqueResult();
+		if(result4 != null) {
+			if(result4.getF2IdAllow() == null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean checkFriendList(Integer f1id,Integer f2id) {
+		String hql = "from FriendList f WHERE f.memberId = ?0 AND f.friendId = ?1";
+		FriendList result = factory.getCurrentSession().createQuery(hql,FriendList.class)
+							.setParameter(0, f1id).setParameter(1, f2id).uniqueResult();
+		FriendList result2 = factory.getCurrentSession().createQuery(hql,FriendList.class)
+					.setParameter(0, f2id).setParameter(1, f1id).uniqueResult();
+		if(result != null || result2 != null) {
+			return true;
+		}
+		return false;
+	}
+	private boolean checkFriend(Integer f1id,Integer f2id) {
+		String hql = "from FriendList f WHERE f.memberId = ?0 AND f.friendId = ?1";
+		FriendList result = factory.getCurrentSession().createQuery(hql,FriendList.class)
+							.setParameter(0, f1id).setParameter(1, f2id).uniqueResult();
+		FriendList result2 = factory.getCurrentSession().createQuery(hql,FriendList.class)
+					.setParameter(0, f2id).setParameter(1, f1id).uniqueResult();
+		String hql2="FROM AddFriend a WHERE a.f1Id = ?0 AND a.f2Id = ?1";
+		AddFriend result3 = factory.getCurrentSession().createQuery(hql2,AddFriend.class)
+		            .setParameter(0, f1id).setParameter(1, f2id).uniqueResult();
+		AddFriend result4 = factory.getCurrentSession().createQuery(hql2,AddFriend.class)
+	            .setParameter(0, f2id).setParameter(1, f1id).uniqueResult();
+		if (result == null && result2 == null) {
+			if (result3 == null && result4 == null) {
+				return false;
+			}
+		}
+		return true;
+	}
 
+	@Override
+	public void invite(Integer f1id,Integer f2id) {		
+		if(!checkFriend(f1id,f2id)) {
+			AddFriend inviteAddFriend=new AddFriend();
+			inviteAddFriend.setF1Id(f1id);
+			inviteAddFriend.setF1IdAllow(1);
+			inviteAddFriend.setF2Id(f2id);
+			factory.getCurrentSession().persist(inviteAddFriend);
+		}
+	}
 }

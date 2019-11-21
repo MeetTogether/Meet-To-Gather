@@ -7,7 +7,7 @@ import com.meetogether.eeit10927.model.Msgreply;
 
 public interface IMsgreplyService {
 	
-void addMsgreply(Msgreply re);
+	void addMsgreply(Msgreply re);
 	
 	List<Msgreply> getAllMsgreply(Integer msgId);
 	
@@ -20,5 +20,7 @@ void addMsgreply(Msgreply re);
 	List<Msglike> findMsglikeByMember(Integer memberId);
 	
 	String findMsglikeByMsgAndMember(Msglike mlike);
+	
+	List<Msglike> findMsglikeByMessage(Integer messageId);
 	
 }

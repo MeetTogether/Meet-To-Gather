@@ -43,148 +43,103 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
 <style>
-/* The radio */
-.radio {
-	display: block;
-	position: relative;
-	padding-left: 30px;
-	margin-bottom: 12px;
-	cursor: pointer;
-	font-size: 20px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none
+body {
+	height: 100vh;
+	padding: 0;
+	margin: 0;
 }
 
-/* Hide the browser's default radio button */
-.radio input {
-	position: absolute;
-	opacity: 0;
-	cursor: pointer;
+.bg {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
-/* Create a custom radio button */
-.checkround {
-	position: absolute;
-	top: 6px;
-	left: 0;
-	height: 20px;
-	width: 20px;
-	background-color: #fff;
-	border-color: #f8204f;
-	border-style: solid;
-	border-width: 2px;
-	border-radius: 50%;
-}
-
-/* When the radio button is checked, add a blue background */
-.radio input:checked ~ .checkround {
-	background-color: #fff;
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkround:after {
+.span_pseudo, .chiller_cb span:before, .chiller_cb span:after {
 	content: "";
+	display: inline-block;
+	background: #fff;
+	width: 0;
+	height: 0.2rem;
 	position: absolute;
+	transform-origin: 0% 0%;
+}
+
+.chiller_cb {
+	position: relative;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+}
+
+.chiller_cb input {
 	display: none;
 }
 
-/* Show the indicator (dot/circle) when checked */
-.radio input:checked ~ .checkround:after {
-	display: block;
+.chiller_cb input:checked ~ span {
+	background: #fd2727;
+	border-color: #fd2727;
 }
 
-/* Style the indicator (dot/circle) */
-.radio .checkround:after {
-	left: 2px;
-	top: 2px;
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background: #f8204f;
+.chiller_cb input:checked ~ span:before {
+	width: 1rem;
+	height: 0.15rem;
+	transition: width 0.1s;
+	transition-delay: 0.3s;
 }
 
-/* The check */
-.check {
-	display: block;
+.chiller_cb input:checked ~ span:after {
+	width: 0.4rem;
+	height: 0.15rem;
+	transition: width 0.1s;
+	transition-delay: 0.2s;
+}
+
+.chiller_cb input:disabled ~ span {
+	background: #ececec;
+	border-color: #dcdcdc;
+}
+
+.chiller_cb input:disabled ~ label {
+	color: #dcdcdc;
+}
+
+.chiller_cb input:disabled ~ label:hover {
+	cursor: default;
+}
+
+.chiller_cb label {
+	padding-left: 2rem;
 	position: relative;
-	padding-left: 25px;
-	margin-bottom: 12px;
-	padding-right: 15px;
+	z-index: 2;
 	cursor: pointer;
-	font-size: 18px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+	margin-bottom: 0;
 }
 
-/* Hide the browser's default checkbox */
-.check input {
+.chiller_cb span {
+	display: inline-block;
+	width: 1.2rem;
+	height: 1.2rem;
+	border: 2px solid #ccc;
 	position: absolute;
-	opacity: 0;
-	cursor: pointer;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-	position: absolute;
-	top: 3px;
 	left: 0;
-	height: 18px;
-	width: 18px;
-	background-color: #fff;
-	border-color: #f8204f;
-	border-style: solid;
-	border-width: 2px;
+	transition: all 0.2s;
+	z-index: 1;
+	box-sizing: content-box;
 }
 
-/* When the checkbox is checked, add a blue background */
-.check input:checked ~ .checkmark {
-	background-color: #fff;
+.chiller_cb span:before {
+	transform: rotate(-55deg);
+	top: 1rem;
+	left: 0.37rem;
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-	content: "";
-	position: absolute;
-	display: none;
-}
-
-/* Show the checkmark when checked */
-.check input:checked ~ .checkmark:after {
-	display: block;
-}
-
-/* Style the checkmark/indicator */
-.check .checkmark:after {
-	left: 5px;
-	top: 1px;
-	width: 5px;
-	height: 10px;
-	border: solid;
-	border-color: #f8204f;
-	border-width: 0 3px 3px 0;
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
-}
-
-.cust-btn {
-	margin-bottom: 10px;
-	background-color: #f8204f;
-	border-width: 2px;
-	border-color: #f8204f;
-	color: #fff;
-}
-
-.cust-btn:hover {
-	border-color: #f8204f;
-	background-color: #fff;
-	color: #f8204f;
-	border-radius: 20px;
-	transform-style: 2s;
+.chiller_cb span:after {
+	transform: rotate(35deg);
+	bottom: 0.35rem;
+	left: 0.2rem;
 }
 </style>
 </head>
@@ -249,76 +204,78 @@
 			</div>
 		</div>
 	</section>
-	<h1 class="mb-3 bread" align="center">請輸入個人興趣</h1>
+	<h1 class="mb-3 bread" align="center">請輸入興趣至少三樣</h1>
 
+	<div style="text-align:center">
 
-
-
-	<div align="center">
-
-
-		<form method="POST"
-			action="${pageContext.request.contextPath}/personalInterest">
-			
-
-			<div class="col-md-12 row">
-				<div class="col-md-6">
-
-						<label class="check ">
-					<input type="checkbox"
-						checked="checked" name="旅遊" value="102"> 旅遊 <span class="checkmark"></span>
-					</label> 
-					<label class="check ">
-					<input type="checkbox" value="103"
-						name="電影"> 電影<span class="checkmark"></span>
-					</label> 
-					<label class="check ">
-					<input type="checkbox" value="104"
-						name="美食"> 美食<span class="checkmark"></span>
-					</label> 
-					<label class="check ">
-					<input type="checkbox" value="105"
-						name="攝影"> 攝影<span class="checkmark"></span>
-					</label>
-					
-				</div>
-				<div class="col-md-6">
-
-					<label class="check ">
-					<input type="checkbox" value="106"
-						name="農藝"> 農藝<span class="checkmark"></span>
-					</label> 
-					
-					<label class="check ">
-					<input type="checkbox" value="108"
-						name="音樂"> 音樂<span class="checkmark"></span>
-					</label> 
-					<label class="check ">
-					<input type="checkbox" value="109"
-						name="閱讀"> 閱讀<span class="checkmark"></span>
-					</label> 
-				
-					<label class="check ">
-					<input type="checkbox" value="107"
-						name="寫程式"> 寫程式<span class="checkmark"></span>
-					</label> 
-					
-				</div>
-
-
-
+	<div style="text-align:center">
+<form method="POST" action="${pageContext.request.contextPath}/personalInterest" style="text-align:center">
+			<div class="chiller_cb" >
+				<input id="myCheckbox1" type="checkbox" value="102" name="Interest1">
+				<label for="myCheckbox1">旅遊</label> <span></span>
 			</div>
+			
+			<div class="chiller_cb">
+				<input id="myCheckbox2" type="checkbox" value="103" name="Interest2">
+				<label for="myCheckbox2">電影 </label> <span></span>
+			</div>
+			
+			<div class="chiller_cb">
+				<input id="myCheckbox3" type="checkbox" value="104" name="Interest3">
+				<label for="myCheckbox3">美食</label> <span></span>
+			</div>
+			<div class="chiller_cb">
+				<input id="myCheckbox4" type="checkbox" value="105" name="Interest4">
+				<label for="myCheckbox4">運動</label> <span></span>
+			</div>
+			<div class="chiller_cb">
+				<input id="myCheckbox5" type="checkbox" value="106" name="Interest5">
+				<label for="myCheckbox5">攝影</label> <span></span>
+			</div>
+			<div class="chiller_cb">
+				<input id="myCheckbox6" type="checkbox" value="107" name="Interest6">
+				<label for="myCheckbox6">農藝</label> <span></span>
+			</div>
+			<div class="chiller_cb">
+				<input id="myCheckbox7" type="checkbox" value="108" name="Interest7">
+				<label for="myCheckbox7">寫程式</label> <span></span>
+			</div>
+			
+			
+				  <input type ="submit"  value="送出" id="add">
+					<input type="reset" value="清除"/>
+				
+				</form>	
+					
+		</div>
+			
+		</div>
+	
 
-			<input type="submit" value="送出" id="add" > <input type="reset"
-				value="清除" />
-		</form>
 
-	</div>
-	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
-	<a href="${pageContext.request.contextPath}/personalInterest"
-		class="nav-link">輸入個人興趣</a>
-	<a href="${pageContext.request.contextPath}/addHope" class="nav-link">輸入個人希望條件</a>
-	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
+	<!-- 	<div align="center"> -->
+
+
+	<%-- 		<form method="POST" action="${pageContext.request.contextPath}/personalInterest" > --%>
+	<!-- 			<table> -->
+	<!-- 				<tr> -->
+
+	<!--                      <td>興趣 -->
+	<!-- 					<td><input type="checkbox" value="102" name="Interest1" />旅遊</td> -->
+	<!--                     <td><input type="checkbox" value="103" name="Interest2" />電影</td> -->
+	<!--                     <td><input type="checkbox" value="104" name="Interest3"/>美食 </td> -->
+	<!--                     <td><input type="checkbox" value="105" name="Interest4" />運動</td> -->
+	<!--                     <td><input type="checkbox" value="106" name="Interest5" />攝影</td> -->
+	<!--                     <td><input type="checkbox" value="107" name="Interest6"/>農藝</td> -->
+	<!--                     <td><input type="checkbox" value="108" name="Interest7"/>寫程式</td> -->
+
+	<!-- 			</table> -->
+
+	<!-- 				<input type ="submit"  value="add" id="add"> -->
+	<!-- 				<input type="reset" value="清除"/> -->
+	<%-- 		</form> --%>
+
+	<!-- 	</div> -->
 
 </body>
 </html>

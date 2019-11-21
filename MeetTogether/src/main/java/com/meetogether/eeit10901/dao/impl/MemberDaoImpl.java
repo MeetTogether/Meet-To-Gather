@@ -1,5 +1,6 @@
 package com.meetogether.eeit10901.dao.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.meetogether.eeit10901.dao.MemberDao;
 import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10908.model.ActBean;
+import com.meetogether.eeit10936.pairs.model.MemberAlbum;
+import com.meetogether.eeit10936.pairs.model.MemberAlbumPk;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -52,11 +55,38 @@ public class MemberDaoImpl implements MemberDao {
 		System.out.println("member Birth: " + member.getMemberBirth());
 		member.setAdminTag(0);
 		member.setDeleteTag(0);
-
 		factory.getCurrentSession().save(member);
 		int memberId = member.getMemberId();
+		System.out.println("dao add memberId: " + memberId);		
 		return memberId;
+	}
+	@Override
+	public void addAlbum(Integer memberId) {
+		System.out.println("dao memberId: " + memberId);
+		MemberBean member = getMemberById(memberId);
+		System.out.println("dao memberName: " + member.getMemberName());
+		MemberAlbumPk mpk=new MemberAlbumPk();
+		mpk.setMemberId(member.getMemberId());
+		mpk.setFileName(member.getFileName());
+		MemberAlbum ma = new MemberAlbum(mpk);
+		ma.setPhoto(member.getPhoto());
+		ma.setDeleteTag(0);
+		ma.setStatus(1);
+		factory.getCurrentSession().save(ma);
+	}
+	
+	@Override
+	public void synchAlbum(Integer memberId) {
+		MemberBean member = getMemberById(memberId);
+		MemberAlbumPk mpk=new MemberAlbumPk();
+		mpk.setMemberId(member.getMemberId());
+		mpk.setFileName("headShot");
+		MemberAlbum ma = new MemberAlbum(mpk);
+		ma.setPhoto(member.getPhoto());
+		ma.setDeleteTag(0);
+		ma.setStatus(1);
 		
+		factory.getCurrentSession().persist(ma);
 		
 	}
 

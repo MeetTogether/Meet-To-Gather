@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MeetTogether - 討論區 - 編輯文章</title>
+<title>MeetTogether - 討論區</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -26,6 +26,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
 .likeBtn, .dislikeBtn, .replyBtn {
 	height: 20px;
@@ -35,16 +37,6 @@ p {
 	margin-bottom: 0;
 }
 .input_tag {
-	height: 52px !important;
-	font-size: 18px;
-	border-radius: 5px;
-	width: 50%;
-	padding: 0.375rem 0.75rem;
-	font-weight: 400;
-	line-height: 1.5;
-	border: 1px solid #ced4da;
-}
-.Vinput_tag {
 	height: 52px !important;
 	font-size: 18px;
 	border-radius: 5px;
@@ -76,24 +68,15 @@ p {
 			var c = confirm('是否確認刪除');
 			console.log(c);
 			if (c) {
-				jQ(this).parent("form#deletePostForm").submit();
+				$(this).parent("form#deletePostForm").submit();
 			} else {
 			}
 		});
 		
-		$("#nverify").click(function() {
-			top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-		});
-		$("#reupload").hide();
-		$("#renewPhoto").click(function() {
-			if ($(this).prop("checked") == false) {
-				$("#reupload").hide();
-			} else if ($(this).prop("checked") == true){
-				$("#reupload").show();
-			}
-		});
+		
 	});
 </script>
+
 </head>
 <body>
 <!-- vip購買 -->
@@ -104,7 +87,7 @@ p {
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -133,7 +116,7 @@ p {
 	<!-- END nav -->
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog03.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -161,98 +144,146 @@ p {
 
 				<!-- 右側文章 -->
 				<div style="width: 66%">
+					
 					<!-- 發文 -->
 					<jsp:include page="../fragment/postMsg.jsp"/>
-
+					
+					
+		            
+		            <div class="col text-center">
+		            	<div class="block-27">
+		            		<ul>
+		            			<c:if test="${pageNo > 1}">
+		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo-1}' />">&lt;</a></li>
+		            			</c:if>
+		            				<li class="active"><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo}' />">${pageNo }</a></li>
+		            			<%-- <c:forEach items="${totalPage}" var="page">
+		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${page}' />">${page }</a></li>
+		            			</c:forEach> --%>
+<%-- 		            			<li class="active"><span>${pageNo }</span></li> --%>
+		            			<c:if test="${pageNo != totalPages}">
+		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo+1}' />">&gt;</a></li>
+		            			</c:if>
+		            		</ul>
+		            		共有${totalCnt }筆&ensp;/&ensp;共${totalPages }頁
+		            	</div>
+		            </div>
+		            
+					
 					<!-- 一則文章 -->
-<%-- 				<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt"> --%>
-<%-- 					<c:set var="mId" value="${msgBean.member.memberId}" /> --%>
+					<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
+						<c:set var="mId" value="${msgBean.member.memberId}" />
 						<div class="col-md-8 order-md-last ftco-animate">
 							<div class="about-author d-flex p-4 bg-light">
+								<div class="bio mr-5">
+									<a
+										href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${msgBean.member.memberId}"><img
+										height='60'
+										src='${pageContext.request.contextPath}/getImage?type=member&id=${msgBean.member.memberId}'></a>
+								</div>
 								<div>
-									<form:form method="POST" action="${pageContext.request.contextPath}/UpdatePostServlet" enctype="multipart/form-data" id="postModify" modelAttribute="msgBean">
-										<table>
-											<tr>
-												<td style="width:11%">文章分類
-												<td><form:select path="mtName" style="width: 100%" class="form-control">
-													<c:forEach var="mt" items="${msgType}">
-														<c:choose>
-														<c:when test="${msgBean.msgType.typeName eq mt.value}">
-															<form:option value="${mt.value}" selected="true" />
-														</c:when>
-														<c:otherwise>
-															<form:option value="${mt.value}" />
-														</c:otherwise>
-														</c:choose>
-													</c:forEach>
-													</form:select>
-											<tr>
-												<td>文章標題
-												<td><form:input type="text" name="msgTitle" id="msgTitle" path="msgTitle" class="form-control" 
-													size="65%" value="${msgBean.msgTitle}" autocomplete="off" />
-													<form:errors path="msgTitle" class="errors"></form:errors>
-											<tr>
-												<td>文章內容
-												<td><c:set var="msgText" value="${msgBean.msgText}"/>
-													<form:textarea rows="7em" cols="65%" name="msgText"  class="form-control"
-														id="msgText" path="msgText" value="${msgText}" />
-													<form:errors path="msgText" class="errors"></form:errors>
-											<tr>
-												<td>上傳照片
-												<td><c:if test="${msgBean.msgPhoto ne null}">
-													 <img
-														height='120px' class="photoshow" 
-														src='${pageContext.request.contextPath}/getImage?id=${msgBean.msgId}&type=message'>
-													</c:if>
-													<label><input type="checkbox" name="renewPhoto" value="renew" id="renewPhoto">重新上傳照片</label>
-													<form:input type="file" name="msgImage" id="reupload" path="msgImage" class="form-control" />
-													<span id="msg_mPhoto"></span>
-											<br>
-											<tr>
-												<td>文章標籤(最多5個)
-												<td><div class="input_fields_wrap_verify">
-													<c:forEach items="${msgBean.msgtag }" var="tags" varStatus="cnt">
-														<div><form:input type="text" path="msgTagName" class="Vinput_tag" value="${tags.tagName}" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field"><span class="icon-remove"></span></a></div>
-														<c:set var="countTag" value="${cnt.count}" />
-													</c:forEach>
-													<input type="hidden" name="tagCnt" id="tagCnt" value="${countTag}">
-													<button class="add_field_button_verify" id="tagButton">增加標籤</button>
-													</div>
-													<script type="text/javascript">
-													jQueryConflict(document).ready(function() {
-														var max_fields = 5;
-														var wrapper_verify = jQueryConflict(".input_fields_wrap_verify");
-														var add_button_verify = jQueryConflict(".add_field_button_verify");
-														
-														var x_verify = document.getElementById("tagCnt").value;
-														console.log(x_verify);
-														jQueryConflict(add_button_verify).click(function(e) {
-															e.preventDefault();
-															if (x_verify < max_fields) {
-																x_verify++;
-																jQueryConflict(wrapper_verify).append('<div><form:input type="text" path="msgTagName" class="Vinput_tag" placeholder="#tag here" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field"><span class="icon-remove"></span></a></div>');
-															}
-														});
-														jQueryConflict(wrapper_verify).on("click", ".remove_field", function(e) {
-															e.preventDefault(); jQueryConflict(this).parent('div').remove(); x_verify--;
-														});
+									<a
+										href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${msgBean.member.memberId}">${msgBean.member.memberName}<span>&emsp;&emsp;</span></a>
+									<c:if test="${userId eq mId}">
+										<form:form method="GET"
+											action="${pageContext.request.contextPath}/ViewPostServlet"
+											style='display: inline;' modelAttribute="messageBean">
+											<form:input type="hidden" value="${msgBean.msgId}"
+												path="msgId" />
+											<input type="submit" value="編輯文章內容" class="reply" />
+										</form:form>
+										<form:form id="deletePostForm" method="post"
+											action="${pageContext.request.contextPath}/DeletePostServlet"
+											style="display: inline;" modelAttribute="messageBean">
+											<form:input type="hidden" value="${msgBean.msgId}"
+												path="msgId" />
+											<input type="button" value="刪除此篇文章" class="reply"
+												id="deletePost">
+										</form:form>
+									</c:if>
+									<p>發文：<fmt:formatDate value="${msgBean.createTime}" pattern="yyyy-MM-dd HH:mm" />
+									<c:if test="${msgBean.updateTime ne null}">
+									&ensp;更新：<fmt:formatDate value="${msgBean.updateTime}" pattern="yyyy-MM-dd HH:mm" />
+									</c:if></p>
+									<a href='${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${msgBean.msgId}'>
+									<span class="icon-chat"></span>&ensp;REPLY(${msgBean.replyCount})</a>&ensp;
+									<c:set var="done" value="false" />
+									<c:forEach items="${mlBeans}" var="mlBean">
+										<c:if test="${mlBean.message.msgId eq msgBean.msgId}">
+											<c:set var="done" value="true" />
+										</c:if>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${!done}">
+											<img
+												src="${pageContext.request.contextPath}/eeit10927/images/dislike.png"
+												id="likeBtn" class="likeBtn">
+										</c:when>
+										<c:otherwise>
+											<img
+												src="${pageContext.request.contextPath}/eeit10927/images/like.png"
+												id="dislikeBtn" class="likeBtn">
+										</c:otherwise>
+									</c:choose>
+									<input type="hidden" id="msgId" name="msgId" value="${msgBean.msgId}">
+									<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onmouseout="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
+									<div id="msgLikeModalLong" style="text-align: center;"></div>
+									<script type="text/javascript">
+										function hideMsgLike(likeObj) {
+											$(likeObj).next().hide();
+										}
+										function showMsgLike(likeObj) {
+											var messageId = $(likeObj).prev('input[name=msgId]').val();
+											console.log("messageId: " + messageId);
+											$.ajax({
+												url:"findMsglikeByMessage",
+												dataType:"JSON",
+												data:{msgId:messageId},
+												success:function(data) {
+													console.log('msg like data: ' + data);
+													var memberInfoSet = "<table>";
+													$.each(data, function(key, value) {
+														memberInfoSet += "<tr><td>";
+														memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
+														memberInfoSet += "<td>"+value;
 													});
-													</script>
-											<br>
-											
-													
-										</table><br>
-										<input type="hidden" value="${msgBean.msgId}" name="msgId" />
-										<input type="hidden" value="${msgBean.member.memberId}" name="mbId" />
-										<input type="submit" value="修改" name="verify" id="verify" class="reply" >
-										<input type="button" value="返回" name="nverity" id="nverify" class="reply" >
-									</form:form>
+													console.log(memberInfoSet);
+													$(likeObj).next().html(memberInfoSet);
+													$(likeObj).next().show();
+												}
+											});
+										}
+									</script>
+								</div>
+							</div>
+							<h2 class="mb-3 mt-5" >
+								<a href="${pageContext.request.contextPath}/SearchPostByType?typeId=${msgBean.msgType.typeId}">[${msgBean.msgType.typeName}]</a>
+								&ensp;${msgBean.msgTitle}
+							</h2>
+							<div style="width:50%; float:left;">
+							<p>${msgBean.msgTextShort}</p>
+							<p>
+								<a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${msgBean.msgId}" class="btn-custom">
+								閱讀更多 <span class="icon-long-arrow-right"></span></a>
+							</div>
+							<div>
+							<c:if test="${msgBean.msgPhoto ne null}">
+								<img height="200px"
+									src='${pageContext.request.contextPath}/getImage?type=message&id=${msgBean.msgId}'>
+							</c:if>
+							</div>
+							
+							<div class="tag-widget post-tag-container mb-5 mt-5">
+								<div class="tagcloud">
+								<c:forEach items="${msgBean.msgtag }" var="tags">
+									<a href="${pageContext.request.contextPath}/getMsgByTagName?tagname=${tags.tagName}" class="tag-cloud-link">${tags.tagName }</a>
+								</c:forEach>
 								</div>
 							</div>
 						<hr>
 						</div>
 						
-<%-- 					</c:forEach> --%>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -286,10 +317,10 @@ p {
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/jquery.timepicker.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
+	
 
 <script>
 	$(document).ready(function() {
@@ -337,21 +368,23 @@ p {
 		
 		let types = document.getElementsByClassName("msgTypeCnt");
 		for (let j = 0; j < types.length; j++) {
-			let typeIdVal = $(types[j]).prev().val();
-			let typeSpanId = 'msgTypeCnt' + (j + 1);
-			console.log('typeIdVal:' + typeIdVal + ', typeSpanId:' + typeSpanId);
-			$.ajax({
-				url : "getMsgTypeCnt",
-				type : "GET",
-				dataType : "JSON",
-				data : {typeId : typeIdVal},
-				success : function(data) {
-					let txt = '(' + data + ')';
-					let txt2 = 'span[id=' + typeSpanId + ']';
-					$(txt2).html(txt);
-					console.log("data: " + data);
-				}
-			});
+// 			$(types[j]).load(function() {
+				let typeIdVal = $(types[j]).prev().val();
+				let typeSpanId = 'msgTypeCnt' + (j + 1);
+				console.log('typeIdVal:' + typeIdVal + ', typeSpanId:' + typeSpanId);
+				$.ajax({
+					url : "getMsgTypeCnt",
+					type : "GET",
+					dataType : "JSON",
+					data : {typeId : typeIdVal},
+					success : function(data) {
+						let txt = '(' + data + ')';
+						let txt2 = 'span[id=' + typeSpanId + ']';
+						$(txt2).html(txt);
+						console.log("data: " + data);
+					}
+				});
+// 			});
 		}
 	});
 	

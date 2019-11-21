@@ -95,5 +95,29 @@ public class FriendController {
 
 		return cService.getRecord(uid, fid);
 	}
+	@RequestMapping("/test/{fid}")
+	public String test(HttpSession session,@PathVariable("fid") Integer fid,Model model) {
+		Integer currentUserId = (Integer)session.getAttribute("userId");
+		model.addAttribute("friendStatus",fService.checkFriendList(currentUserId, fid));
+		model.addAttribute("addFriendsAlready",fService.checkAddFriend(currentUserId, fid));
+		model.addAttribute("responseYet",fService.checkResponse(currentUserId, fid));
+		
+
+		return "eeit10936/test";
+		
+	}
+	@RequestMapping("/del")
+	public String delFriend(Model model,HttpSession session) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		Integer fId=(Integer) model.getAttribute("fid");
+		fService.deleteFriends(userId, fId);
+		return "redirect:/";
+		
+		
+	}
+	
+	
+	
+	
 
 }

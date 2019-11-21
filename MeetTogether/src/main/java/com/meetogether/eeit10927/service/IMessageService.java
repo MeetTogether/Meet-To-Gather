@@ -6,7 +6,7 @@ import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.model.Message;
 
-public interface IMessageService {
+	public interface IMessageService {
 
 	public int add(Message msg);
 	public void delete(Message msg);
@@ -32,9 +32,9 @@ public interface IMessageService {
 	public List<Message> getPopularMsg();
 	public List<Message> getRecentMsg();
 	
-	public int getTotalPages();
-	public long getRecordCounts();
-	public List<Message> getPageMessages();
+	public int getTotalPages(Integer userId);
+	public long getRecordCounts(Integer userId);
+	public List<Message> getPageMessages(Integer userId);
 	
 	public int getPageNo();
 	public void setPageNo(int pageNo);

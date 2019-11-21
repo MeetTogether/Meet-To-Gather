@@ -1,7 +1,6 @@
 package com.meetogether.eeit10901.controller;
 
 import java.sql.Blob;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,22 +25,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.meetogether.eeit10901.model.MemberBean;
+import com.meetogether.eeit10901.service.AlbumService;
 import com.meetogether.eeit10901.service.MemberService;
 import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10908.service.impl.ActService;
-import com.meetogether.eeit10927.model.Member;
 import com.meetogether.eeit10927.service.IMessageService;
+import com.meetogether.eeit10936.friends.service.IFriendService;
+import com.meetogether.eeit10936.pairs.model.MemberAlbum;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
 
 
@@ -68,6 +66,14 @@ public class MemberController {
 	
 	@Autowired
 	IMessageService msgService;
+	
+	@Autowired
+	AlbumService aService;
+	@Autowired
+	private IFriendService fService;
+
+	
+	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMemberLoginForm(Model model, HttpSession session) {
@@ -95,8 +101,10 @@ public class MemberController {
 	@RequestMapping(value = "/upadateInfo/{id}", method = RequestMethod.GET)
 	public String updateByInfoGet(Model model,@PathVariable Integer id)
 			 {
-		model.addAttribute("updateInfo", mservice.getMemberById(id));
-		System.out.println("name:"+ mservice.getMemberById(id).getMemberCity());
+		MemberBean member = mservice.getMemberById(id);
+		System.out.println("編號："+member.getMemberId());
+		model.addAttribute("updateInfo", member);
+		System.out.println("password:"+ mservice.getMemberById(id).getMemberPassword());
 		return "eeit10901/updateMember";
 	}
 
@@ -146,6 +154,18 @@ public class MemberController {
 //		model.addAttribute("vipBean", new VipStatus());
 		return "eeit10901/getMember";
 	}
+	
+	
+	@RequestMapping("/getmember/{fid}")
+	public String getOtherMemberById(Model model, HttpSession session
+										,@PathVariable("fid")Integer fid) {
+		Integer currentUserId = (Integer) session.getAttribute("userId");		
+		model.addAttribute("member", mservice.getMemberById(fid));
+		model.addAttribute("friendStatus",fService.checkFriendList(currentUserId, fid));
+		model.addAttribute("addFriendsAlready",fService.checkAddFriend(currentUserId, fid));
+		model.addAttribute("responseYet",fService.checkResponse(currentUserId, fid));
+		return "eeit10901/getMember";
+	}
 
 //	@RequestMapping(value="/register",method=RequestMethod.POST)
 //	public String addRegister (@ModelAttribute("memberBean") MemberBean mm) {
@@ -162,7 +182,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String addRegister(@ModelAttribute("memberBean") MemberBean member, BindingResult result, Model model,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response, MemberAlbum album) {
 		Map<String, String> errorMsg = new HashMap<String, String>();
 		model.addAttribute("errorMsg", errorMsg);
 		model.addAttribute("vipBean", new VipStatus());
@@ -206,7 +226,8 @@ public class MemberController {
 			return "/eeit10901/register";
 		}
 		if (accCheck == false && captCheck == true) {
-			mservice.add(member);
+			int id=mservice.add(member);
+			mservice.addAlbum(id);
 			request.getSession().setAttribute("userEmail", member.getMemberEmail());
 			request.getSession().setAttribute("userPwd", member.getMemberPassword());
 		}
@@ -245,6 +266,7 @@ public class MemberController {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
+//		mservice.synchAlbum(id);
 
 		return "redirect:registerSuccess";
 	}
@@ -268,5 +290,6 @@ public class MemberController {
 		return "redirect:interestPersonalInfo";
 
 	}
+ 
 
 }

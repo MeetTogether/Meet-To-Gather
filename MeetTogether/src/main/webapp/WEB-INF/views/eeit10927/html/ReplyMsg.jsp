@@ -7,7 +7,7 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<title>MeetTogether</title>
+<title>MeetTogether - 討論區</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -195,8 +195,35 @@ p {
 											id="dislikeBtn" class="likeBtn">
 									</c:otherwise>
 								</c:choose>
-								<input type="hidden" id="msgId" value="${msgBean.msgId}">
-								<span id="likeCnt${cnt.count}">LIKE(${msgBean.likeCount})</span>
+								<input type="hidden" id="msgId" name="msgId" value="${msgBean.msgId}">
+								<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onmouseout="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
+								<div id="msgLikeModalLong" style="text-align: center;"></div>
+								<script type="text/javascript">
+									function hideMsgLike(likeObj) {
+										$(likeObj).next().hide();
+									}
+									function showMsgLike(likeObj) {
+										var messageId = $(likeObj).prev('input[name=msgId]').val();
+										console.log("messageId: " + messageId);
+										$.ajax({
+											url:"findMsglikeByMessage",
+											dataType:"JSON",
+											data:{msgId:messageId},
+											success:function(data) {
+												console.log('msg like data: ' + data);
+												var memberInfoSet = "<table>";
+												$.each(data, function(key, value) {
+													memberInfoSet += "<tr><td>";
+													memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
+													memberInfoSet += "<td>"+value;
+												});
+												console.log(memberInfoSet);
+												$(likeObj).next().html(memberInfoSet);
+												$(likeObj).next().show();
+											}
+										});
+									}
+								</script>
 							</div>
 						</div>
 						<h2 class="mb-3 mt-5" >

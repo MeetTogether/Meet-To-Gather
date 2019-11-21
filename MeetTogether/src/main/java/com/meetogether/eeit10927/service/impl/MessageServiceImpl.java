@@ -15,7 +15,7 @@ import com.meetogether.eeit10927.service.IMessageService;
 @Service
 public class MessageServiceImpl implements IMessageService {
 	
-IMessageDao dao;
+	IMessageDao dao;
 	
 	@Autowired
 	public void setDao(IMessageDao dao) {
@@ -136,20 +136,20 @@ IMessageDao dao;
 
 	@Transactional
 	@Override
-	public int getTotalPages() {
-		return dao.getTotalPages();
+	public int getTotalPages(Integer userId) {
+		return dao.getTotalPages(userId);
 	}
 
 	@Transactional
 	@Override
-	public long getRecordCounts() {
-		return dao.getRecordCounts();
+	public long getRecordCounts(Integer userId) {
+		return dao.getRecordCounts(userId);
 	}
 
 	@Transactional
 	@Override
-	public List<Message> getPageMessages() {
-		return dao.getPageMessages();
+	public List<Message> getPageMessages(Integer userId) {
+		return dao.getPageMessages(userId);
 	}
 
 	@Override

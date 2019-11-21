@@ -167,7 +167,7 @@
 		<table border='1'>
 			<tr>
 			<td  colspan="2">
-				<img style="height: 250px"
+				<img style="height: 450px"
 					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
 </td>
 				<!-- 					<tr bgcolor='#ffad00'> -->
@@ -191,13 +191,12 @@
 				<td>性別</td>
 
 				<td>
-
 						<c:choose>
 							<c:when test="${member.memberSex == 1 }">
-								<option value="1" selected>男</option>
+								男
 							</c:when>
 							<c:otherwise>
-								<option value="0" selected>女</option>
+								女
 							</c:otherwise>
 						</c:choose>
 
@@ -210,7 +209,7 @@
 		<a class="btn btn-secondary" href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改資料</a>
 
 	</div>
-
+<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
 	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>

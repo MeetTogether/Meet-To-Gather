@@ -20,7 +20,6 @@ public class MemberBean implements Serializable {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="memberId")
-	
 	Integer memberId;
 	String memberEmail;
 	String memberPassword;

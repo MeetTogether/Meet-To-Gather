@@ -15,5 +15,7 @@ public interface IMsglikeDao {
 	List<Msglike> findMsglikeByMember(Integer memberId);
 	
 	String findMsglikeByMsgAndMember(Msglike mlike);
+	
+	List<Msglike> findMsglikeByMessage(Integer messageId);
 
 }

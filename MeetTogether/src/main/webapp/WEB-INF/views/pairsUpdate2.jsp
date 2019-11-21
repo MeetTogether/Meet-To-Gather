@@ -7,14 +7,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>配對</title>
+<title>MeetTogether - 交友</title>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-	rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
@@ -30,10 +26,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
-
-
 <script>
-
 	function test() {
 		alert("test");
 	}
@@ -283,18 +276,53 @@
 }
 td{
 	width:125px;
-	border-bottom: 1px solid #ddd;
+/* 	border-bottom: 1px solid #ddd; */
 }
-
+.reply {
+	padding: 5px 10px;
+	background: #ff07295e;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+	width: 45%;
+}
+.reply_n {
+	padding: 5px 10px;
+	background: #ACD6FF;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+	width: 45%;
+}
+.reply_a:hover {
+	color: #fff;
+	/*background: #18e2ebb5;*/
+	background: #fd7e14;
+}
+.reply:hover {
+	color: #fff;
+	background: #FF5151;
+}
+.reply_n:hover {
+	color: #fff;
+	background: #2894FF;
+}
 </style>
 </head>
 <body>
 
+	<!-- nav -->
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -303,40 +331,66 @@ td{
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="#" class="nav-link" id="friendList">交友</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item active"><a
+						href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/eeit10908/"
+						class="nav-link">活動</a></li>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/getmember"
+						class="nav-link">會員資料</a></li>
+					<li class="nav-item"><a class="nav-link"><c:if
+								test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<img style="height: 40px" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+							<img style="height: 40px; border-radius: 50%;"
+								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${empty userId}">
+							<a href="<c:url value='/LoginServlet' />" class="nav-link"
+								data-toggle="modal" data-target="#loginModalLong">登入</a>
 						</c:if></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<!-- END nav -->
+	
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/galaxy.jpg');
-				border: 1px solid black;"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg04.jpg');"
 		data-stellar-background-ratio="0.5">
-	</section>
-	<section class="contact-section" style="border: 1px solid black;">
+		<div class="overlay"></div>
 		<div class="container">
-			<div class="row">
+			<div
+				class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+				<div class="col-md-9 ftco-animate pb-5">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a
+							href="${pageContext.request.contextPath}/">首頁 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>交友 <i
+							class="ion-ios-arrow-forward"></i></span>
+					</p>
+					<h1 class="mb-3 bread">交友</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="ftco-section testimony-section">
+		<div class="container">
+			<div class="row ftco-animate">
 				
-				<!-- 左側文章 -->
-				<div style="width: 55%">
-					<!-- 發文 -->
+				<div style="width: 60%">
 					<div id="Postbox" class="col-md-8 order-md-last ftco-animate">
-						<h2 class="text-center">配對</h2>
+<!-- 						<h2 class="text-center">配對</h2> -->
 						<div class="form-row">
 							<div class="col">
 								<label for="sex">性別</label> 
@@ -378,50 +432,52 @@ td{
 							</div>
 							<div class="col">
 								<p>
-									<label for="age">年齡:</label> <input type="text"
-										id="age" readonly
-										style="border: 0; color: #f6931f; font-weight: bold;">
+									<label for="age">年齡</label>
+									<input type="text" class="form-control" id="age" readonly style="border: 0; color: #f6931f; font-weight: bold;">
 										<input type="hidden" id="age1" value="18">
 										<input type="hidden" id="age2" value="99">
 								</p>
 								<div id="slider-range"></div>
 							</div>
 						</div>
-						<img id="pairImg" class="pairImg" />
-						<table style="width: 500px;height: 50px;">
-							<tr>
-								<td>姓名</td>
-								<td id="name"></td>
-								<td>年齡</td>
-								<td id="memberAge"></td>
-							</tr>
-							<tr>
-								<td>城市</td>
-								<td id="memberCity"></td>
-								<td>興趣</td>
-								<td id="interest"></td>
-							</tr>
-							<tr>
-								<td colspan="2"><input type="button" value="不喜歡" id="dontlike" class="btn btn-info btn-block" /></td>
-								
-								<td colspan="2"><input type="button" value="喜歡" id="like" class="btn btn-danger  btn-block" /></td>
-								
-							</tr>
-						</table>
-						
+						<br>
+						<div style="text-align: center;">
+							<img id="pairImg" class="pairImg" />
+							<div style="width: 500px; margin: auto;">
+							<table align="center">
+								<tr>
+									<td>姓名</td>
+									<td id="name"></td>
+									<td>年齡</td>
+									<td id="memberAge"></td>
+								</tr>
+								<tr>
+									<td>城市</td>
+									<td id="memberCity"></td>
+									<td>興趣</td>
+									<td id="interest"></td>
+								</tr>
+								<tr>
+									<td colspan="2"><input type="button" value="SKIP" id="dontlike" class="reply_n" /></td>
+									
+									<td colspan="2"><input type="button" value="LIKE" id="like" class="reply" /></td>
+									
+								</tr>
+							</table>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!-- .col-md-8 -->
 				<!-- 右側選單 -->
-				<div class="col-md-4 sidebar ftco-animate list-group" style="padding-top: 50px; padding-right: 50px;">
-					<div class="row">
-						<span class="">好友列表</span><br>
-						<input type="text" class="form-control" placeholder="搜尋好友" autocomplete="off" id="serachFriend">
+				<div class="col-md-4 sidebar ftco-animate list-group">
+				<label>好友列表</label>
+<!-- 						<span class="">好友列表</span><br> -->
+						<input type="text" class="form-control" placeholder="搜尋好友，開始聊天" autocomplete="off" id="serachFriend">
 						<div class="sidebar-box ftco-animate" style="padding:0; overflow:scroll; height: 300px;" >
 							<ul class="list-group" id="friends">
 							</ul>						
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -286,9 +286,9 @@ var jQuery_1_12_4 = $.noConflict();
 					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
 </td>
 				
-			<tr>
-				<td>編號
-				<td>${updateInfo.memberId}</td>
+			
+				<form:input type="hidden" path="memberId" value="${updateInfo.memberId}"  />
+				
 			<tr>
 				<td>mail
 				<td><form:input  path="memberEmail" value="${updateInfo.memberEmail}"  /></td>
@@ -326,7 +326,7 @@ var jQuery_1_12_4 = $.noConflict();
 		<input type="submit" value="確認修改">
 		</form:form>
 	</div>
-
+<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 		<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
 	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>

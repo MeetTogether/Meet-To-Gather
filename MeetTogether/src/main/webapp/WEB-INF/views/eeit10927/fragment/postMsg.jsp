@@ -56,16 +56,10 @@
 				}
 				</script>
 				<td><div class="input_fields_wrap">
-
-			
-
 						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;<button class="add_field_button">增加標籤</button></div>
-
 					</div>
 				<script type="text/javascript">
-
 				jQueryConflict(document).ready(function() {
-
 						var max_fields = 5;
 						var wrapper = jQueryConflict(".input_fields_wrap");
 						var add_button = jQueryConflict(".add_field_button");
@@ -75,11 +69,9 @@
 							e.preventDefault();
 							if (x < max_fields) {
 								x++;
-<
 								let inputId = 'msgTagName' + x.toString();
 								console.log('inputId: ' + inputId);
-								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field">Remove</a></div>';
-
+								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field"><span class="icon-remove"></span></a></div>';
 								jQueryConflict(wrapper).append(appendContent);
 							}
 						});
@@ -88,12 +80,9 @@
 						});
 						
 						
-
-
 						/* let tags = document.getElementsByClassName("input_tag");
 						for (let t = 0; t < tags.length; t++) {
 							jQueryConflict(tags[t]).on("focus", function() {
-
 								jQueryConflict(tags[t]).autocomplete({
 									source: function(request, response) {
 										jQueryConflict.ajax({

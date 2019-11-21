@@ -87,6 +87,11 @@ public class IPairsServiceImpl implements IPairsService {
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
 		IMember currentMember = pdao.findByMemberId(currentUserId);
 		pdao.findAllMember().forEach((member) -> {
+			System.out.println(member.getMemberBasic().getMemberName());
+			System.out.println(member.getMemberHope().getMemberId());
+			System.out.println(member.getMemberInfo().getSmoking());
+			System.out.println(currentMember.getMemberHope().getBodyType());
+
 			int score = 0;
 			Math.abs(member.getMemberInfo().getBodyType().equals(currentMember.getMemberHope().getBodyType()) ? score++
 					: score);
@@ -127,7 +132,7 @@ public class IPairsServiceImpl implements IPairsService {
 		cityMap.remove(currentUserId);
 		return cityMap;
 	}
-
+	@Transactional
 	@Override
 	public List<Integer> sortByDESValue(Map<Integer, Integer> unsorted) {
 		LinkedHashMap<Integer, Integer> sortedMap = new LinkedHashMap<>();
@@ -154,5 +159,19 @@ public class IPairsServiceImpl implements IPairsService {
 		return pdao.findMemberByChoice(id, sex, city, stdate, eddate);
 		
 	}
+	@Transactional
+	@Override
+	public List<Integer> findInterestByMemberId(Integer currentUserId) {
+		// TODO Auto-generated method stub
+		return pdao.findInterestByMemberId(currentUserId);
+	}
+	@Transactional
+	@Override
+	public String findInteretByInterestId(Integer interestId) {
+		// TODO Auto-generated method stub
+		return pdao.findInteretByInterestId(interestId);
+	}
+
+	
 	
 }
