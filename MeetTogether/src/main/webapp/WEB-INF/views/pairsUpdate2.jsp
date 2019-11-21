@@ -68,7 +68,6 @@
 		let like = document.getElementById("like")
 		let dontlike = document.getElementById("dontlike")
 		like.addEventListener("click", function() {
-			
 			url = "${pageContext.request.contextPath}/insertPairList?pairid=" + members.mb.memberId
 					+ "&status=1";
 			console.log(url);
@@ -101,6 +100,7 @@
 					myInnerText();
 				}
 			}
+			
 		});
 	}
 
@@ -208,8 +208,6 @@
 	}
 
 	function serachMyFriends() {
-		del();
-
 		var fName = document.getElementById("serachFriend").value;
 		let xhttp = new XMLHttpRequest();
 		xhttp.open("Get",
@@ -219,6 +217,7 @@
 		xhttp.send();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				del();
 				serachFriends = JSON.parse(xhttp.responseText);
 				console.log(serachFriends);
 				for(let serachfriend of serachFriends){

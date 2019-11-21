@@ -117,6 +117,10 @@ public class IPairsServiceImpl implements IPairsService {
 	public Map<Integer, Integer> memberHopeScore(Integer currentUserId) {
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
 		IMember currentMember = pdao.findByMemberId(currentUserId);
+		if(currentMember.getMemberHope()==null) {
+			scoreMap.put(currentUserId, 0);
+			return scoreMap;
+		}
 		pdao.findAllMember().forEach((member) -> {
 			scoreMap.put(member.getMemberBasic().getMemberId(), hscore(member, currentMember));
 
@@ -143,9 +147,12 @@ public class IPairsServiceImpl implements IPairsService {
 			cityMap.compute(mk, (k, v) -> (v == null) ? mv : v + mv);
 		});
 		cityMap.remove(currentUserId);
-		pairList.forEach((i) -> {
-			cityMap.remove(i);
-		});
+		if(pairList!=null) {
+			pairList.forEach((i) -> {
+				cityMap.remove(i);
+			});
+		}
+		
 		cityMap.forEach((k, v) -> {
 			System.out.println("finalscoreMap :" + k + " value :" + v);
 		});
