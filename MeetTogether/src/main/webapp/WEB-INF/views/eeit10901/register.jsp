@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MeetTogether - 註冊會員</title>
+<title>MeetTogether - 會員註冊</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/eeit10927/js/register.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/eeit10927/styles/register.css?t=${time}">
 </head>
 <body>
@@ -133,7 +134,7 @@
 							<tr>
 								<td>縣市
 								<td><form:input type="text" name="memberCity" id="memberCity" path="memberCity" placeholder="請輸入城市　Ex:台北市" autocomplete="off" class="form-control" />
-								<td id="msg_mNickname"></td>
+								<td id="msg_memberCity"></td>
 							<tr>
 								<td>驗證碼
 								<td><form:input type="text" name="mChecksum" id="mChecksum" path="mChecksum" placeholder="請輸入驗證碼" autocomplete="off" />
@@ -144,9 +145,9 @@
 								<td><span id="msg_mPhoto"></span>
 						</table>
 					</div>
-					<input type="submit" value="會員註冊" id="regis"  >
-					<input type="reset" value="重新填寫"  >
-					<a href="${pageContext.request.contextPath}/"><input type="button" value="返回登入頁" id="backToLogin" ></a>
+					<input type="submit" value="會員註冊" class="btn btn-primary py-3 px-4">
+					<input type="reset" value="重新填寫" class="btn btn-primary py-3 px-4">
+					<input type="button" value="返回登入頁" id="backToLogin" class="btn btn-primary py-3 px-4">
 
 				</form:form>
 			</div>
@@ -188,48 +189,7 @@
 	<script src="js/main.js"></script>
 
 
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4">
-          <h2 class="ftco-heading-2">About MeetTogether</h2>
-          <p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4 ml-md-5">
-          <h2 class="ftco-heading-2">Information</h2>
-          <ul class="list-unstyled">
-            <li><a href="${pageContext.request.contextPath}/" class="py-2 d-block">首頁</a></li>
-            <li><a href="${pageContext.request.contextPath}/pairs/" class="py-2 d-block">交友</a></li>
-            <li><a href="${pageContext.request.contextPath}/eeit10908/" class="py-2 d-block">活動</a></li>
-            <li><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="py-2 d-block">討論區</a></li>
-            <li><a href="${pageContext.request.contextPath}/getmember" class="py-2 d-block">會員資料</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4">
-        	<h2 class="ftco-heading-2">Have a Questions?</h2>
-        	<div class="block-23 mb-3">
-           <ul>
-             <li><span class="icon icon-map-marker"></span><span class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-             <li><a href="#"><span class="icon icon-phone"></span><span class="text">02 6631 6666</span></a></li>
-             <li><a href="#"><span class="icon icon-envelope"></span><span class="text">109meettogether@gmail.com</span></a></li>
-           </ul>
-         </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+
 
 
 </body>

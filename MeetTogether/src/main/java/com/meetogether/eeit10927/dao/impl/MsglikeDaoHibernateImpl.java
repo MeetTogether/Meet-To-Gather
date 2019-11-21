@@ -100,5 +100,14 @@ public class MsglikeDaoHibernateImpl implements IMsglikeDao {
 		List<Msglike> list = factory.getCurrentSession().createQuery(hql).setParameter(0, memberId).getResultList();
 		return list;
 	}
+	
+	// ok 已確認需使用
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Msglike> findMsglikeByMessage(Integer messageId) {
+		String hql = "from Msglike WHERE msgId = ?0 AND deleteTag = 0";
+		List<Msglike> list = factory.getCurrentSession().createQuery(hql).setParameter(0, messageId).getResultList();
+		return list;
+	}
 
 }
