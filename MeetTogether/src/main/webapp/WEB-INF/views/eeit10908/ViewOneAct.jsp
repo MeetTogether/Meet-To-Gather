@@ -150,9 +150,6 @@ body {
 	height: 20px;
 	cursor: pointer;
 }
-p {
-	margin-bottom: 0;
-}
 </style>
 
 <script>
@@ -201,8 +198,8 @@ jQuery_1_12_4(document).ready(
 
 <nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
-		<div class="container">
+		id="ftco-navbar"> 
+		<div class="container">	
 			<a class="navbar-brand" href="/MeetTogether/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
@@ -214,12 +211,14 @@ jQuery_1_12_4(document).ready(
 				<ul class="navbar-nav ml-auto">
 <%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="/MeetTogether/pairs/" class="nav-link">交友</a></li>
 					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
-					<li class="nav-item "><a
+					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+					
+					
 					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
@@ -228,6 +227,7 @@ jQuery_1_12_4(document).ready(
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -245,10 +245,10 @@ jQuery_1_12_4(document).ready(
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>討論區 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動內容 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">討論區</h1>
+					<h1 class="mb-3 bread">活動內容</h1>
 				</div>
 			</div>
 		</div>
