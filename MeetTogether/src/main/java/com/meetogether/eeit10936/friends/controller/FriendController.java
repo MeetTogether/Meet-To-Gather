@@ -106,16 +106,26 @@ public class FriendController {
 		return "eeit10936/test";
 		
 	}
-	@RequestMapping("/del")
-	public String delFriend(Model model,HttpSession session) {
+	@RequestMapping(value = "/del",method = RequestMethod.GET)
+	public String delFriend(HttpSession session,@RequestParam("fid")Integer fid) {
 		Integer userId = (Integer)session.getAttribute("userId");
-		Integer fId=(Integer) model.getAttribute("fid");
-		fService.deleteFriends(userId, fId);
+		fService.deleteFriends(userId, fid);
 		return "redirect:/";
-		
-		
 	}
 	
+	@RequestMapping(value = "/invite",method = RequestMethod.GET)
+	public String inviteFriend(HttpSession session,@RequestParam("fid")Integer fid) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		fService.invite(userId, fid);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/invite",method = RequestMethod.GET)
+	public String inviteFriend(HttpSession session,@RequestParam("fid")Integer fid,@RequestParam("sureOrRefuse") Integer sureOrRefuse ) {
+		Integer userId = (Integer)session.getAttribute("userId");
+		fService.response(f1id, f2id, status);
+		return "redirect:/";
+	}
 	
 	
 	

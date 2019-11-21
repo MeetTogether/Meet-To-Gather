@@ -132,7 +132,7 @@ public class IPairsServiceImpl implements IPairsService {
 		cityMap.remove(currentUserId);
 		return cityMap;
 	}
-
+	@Transactional
 	@Override
 	public List<Integer> sortByDESValue(Map<Integer, Integer> unsorted) {
 		LinkedHashMap<Integer, Integer> sortedMap = new LinkedHashMap<>();
@@ -159,5 +159,19 @@ public class IPairsServiceImpl implements IPairsService {
 		return pdao.findMemberByChoice(id, sex, city, stdate, eddate);
 		
 	}
+	@Transactional
+	@Override
+	public List<Integer> findInterestByMemberId(Integer currentUserId) {
+		// TODO Auto-generated method stub
+		return pdao.findInterestByMemberId(currentUserId);
+	}
+	@Transactional
+	@Override
+	public String findInteretByInterestId(Integer interestId) {
+		// TODO Auto-generated method stub
+		return pdao.findInteretByInterestId(interestId);
+	}
+
+	
 	
 }
