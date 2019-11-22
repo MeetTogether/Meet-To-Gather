@@ -11,6 +11,7 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <title>MeetTogether</title>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -44,6 +45,8 @@
 	href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet"
 	href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style2.css">
 <style type="text/css">
 body {
 	background-color: #e7eef1;
@@ -246,8 +249,7 @@ body {
 	var VisibleMenu = ''; // 記錄目前顯示的子選單的 ID
 
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js">
-</script>
-<script>
+
 	$(document).ready(function() {
 		$("#eventComment").blur(checkEmptyE);
 	});
@@ -263,40 +265,19 @@ body {
 		}
 	}
 </script>
+<script type="text/javascript">
+	function wordsTotal() {
 
+		var total = document.getElementById('userInput').value.length;
+
+		document.getElementById('display').innerHTML = total;
+
+	}
+</script>
 </head>
 <body>
 
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
 
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-					<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
-					<li class="nav-item active"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/LogoutServlet"
-						class="nav-link">登出</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- END nav -->
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
 		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
@@ -333,15 +314,14 @@ body {
 
 
 					<form:form method='POST' modelAttribute="reviewBean"
-						class='bg-light p-5 contact-form  '>
+						class='bg-light p-5 contact-form '>
 
 						<h2>評論此活動</h2>
 						<div class="form-group" style="font-size: 16px; color: black;">
 							<label>會員ID</label>
 						</div>
 						<div class="form-group">
-							<%-- 							<input type="text" class="form-control" value=${userId } --%>
-							<!-- 								readonly="readonly"> -->
+
 							<form:input path="mbId" value="${userId}" type='hidden'
 								class='form:input-large' />
 						</div>
@@ -351,19 +331,11 @@ body {
 							<form:input path="mbId" value="${userName}" type='hidden'
 								class='form:input-large' />
 						</div>
-<!-- 						<div> -->
-<%-- 							<form:input path="eventId" type="hidden" name="eventId" --%>
-<%--  								value="${eventId}"></form:input> --%>
-<%-- 							<input  type="hidden" name="eventId" value="${reviewBean.eventId}"></input> --%>
-<!-- 						</div> -->
 
-						<!-- 選擇評分 -->
 						<div class="form-group">
 							<label for="exampleFormControlSelect1">請選擇您的評分</label>
-
 							<form:select path="eventStars" id="exampleFormControlSelect1"
 								name="rate">
-
 								<form:option value="1">1</form:option>
 								<form:option value="2">2</form:option>
 								<form:option value="3">3</form:option>
@@ -376,19 +348,17 @@ body {
 							<label>分享你的活動評論</label>
 						</div>
 						<div class="form-group">
-							<form:textarea path="eventComment" id="eventComment" cols="50"
-								rows="5" style="border: 1px black solid;"></form:textarea>
+							<form:textarea  placeholder="輸入您對此活動的想法吧!"  path="eventComment"
+								id="eventComment" cols="50" rows="5"
+								style="border: 1px black solid;"></form:textarea>
+							
 							<td><span id="msg_eventComment" class='msgWrong'></span>
 						</div>
-
-
 
 						<div class="form-group">
 							<input class="form-group" type="submit" value="送出評論"
 								class="btn btn-primary py-3 px-5" />
-
 						</div>
-
 					</form:form>
 
 
@@ -397,68 +367,15 @@ body {
 
 			</div>
 			<!-- row End -->
-
 		</div>
 		<!-- container End -->
-
 	</section>
 
 
 	<hr
 		style="height: 1px; border: none; color: #333; background-color: #333;">
 
-
-	<footer class="ftco-footer ftco-bg-dark ftco-section">
-		<div class="container">
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About MeetTogether</h2>
-						<p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-						<ul
-							class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-instagram"></span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Information</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">首頁</a></li>
-							<li><a href="#" class="py-2 d-block">交友</a></li>
-							<li><a href="#" class="py-2 d-block">活動</a></li>
-							<li><a href="#" class="py-2 d-block">討論區</a></li>
-							<li><a href="#" class="py-2 d-block">會員資料</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Have a Questions?</h2>
-						<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span
-									class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span
-										class="text">02 6631 6666</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span
-										class="text">info@iiiedu.org.tw</span></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</footer>
-
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
 
 	<div id="ftco-loader" class="show fullscreen">
 		<svg class="circular" width="48px" height="48px">

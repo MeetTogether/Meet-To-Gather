@@ -79,9 +79,26 @@ public class ActDaoImpl implements ActDao {
 	@Override
 	public void updateActivity(ActBean act) {
 		Session session = factory.getCurrentSession();
+		 String hql = "from ActBean WHERE eventId = ?0";
+		ActBean result = (ActBean) session.createQuery(hql).setParameter(0, act.getEventId()).uniqueResult();
+		System.out.println("actID :"+act.getEventId());
+		
+		
+		result.setEventName(act.getEventName());
+		result.setEventTime(act.getEventTime());
+		result.setActContent(act.getActContent());
+		result.setGroupNum(act.getGroupNum());
+		result.setBudget(act.getBudget());
+		result.setEventPlace(act.getEventPlace());
+		result.setActPhoto(act.getActPhoto());
+	
 		CatBean cb=getCatById(act.getEventCat());
-		act.setCatbean(cb);
-		session.update(act);
+		
+		result.setEventCat(cb.getEventCat());
+		
+		
+		
+//		session.update(act);
 		
 	}
 

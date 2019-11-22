@@ -176,11 +176,11 @@
 
 
 	</div>
-<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
-	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
+<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
+		<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
-	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
-	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
+	<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
+		<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
 <footer class="ftco-footer ftco-bg-dark ftco-section">
   <div class="container">
     <div class="row mb-5">
@@ -199,11 +199,11 @@
         <div class="ftco-footer-widget mb-4 ml-md-5">
           <h2 class="ftco-heading-2">Information</h2>
           <ul class="list-unstyled">
-            <li><a href="${pageContext.request.contextPath}/" class="py-2 d-block">首頁</a></li>
-            <li><a href="${pageContext.request.contextPath}/pairs/" class="py-2 d-block">交友</a></li>
-            <li><a href="${pageContext.request.contextPath}/eeit10908/" class="py-2 d-block">活動</a></li>
-            <li><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="py-2 d-block">討論區</a></li>
-            <li><a href="${pageContext.request.contextPath}/getmember" class="py-2 d-block">會員資料</a></li>
+       <li> <a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
+		 <li><a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
+	 <li><a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
+	 <li><a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
+		 <li><a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
           </ul>
         </div>
       </div>

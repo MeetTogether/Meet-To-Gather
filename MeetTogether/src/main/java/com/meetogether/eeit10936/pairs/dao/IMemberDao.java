@@ -32,4 +32,8 @@ public interface IMemberDao {
 	
 	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate);
 
+	public Long checkAlreadyPairs(Integer id);
+
+	List<Integer> getPaired(Integer id);
+
 }

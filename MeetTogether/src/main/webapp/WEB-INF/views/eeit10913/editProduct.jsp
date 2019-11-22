@@ -243,48 +243,10 @@ body {
 
 </head>
 <body>
-<!-- 	<div id="dialog-confirm" title="升級為VIP會員"> -->
-<!-- 		<span style="float: left; margin: 12px 12px 20px 0;"> <img -->
-<%-- 			src="${pageContext.request.contextPath}/eeit10927/images/upgrade.jpg" --%>
-<!-- 			style="width: 370px; margin: auto;"> -->
-<!-- 		</span> <br> Upgrade 1: 每日新增好友數20名！<br> Upgrade 2: 新增討論區文章匯出功能！<br> -->
-<!-- 		<br> -->
-<%-- 		<form:form modelAttribute="vipBean" method="POST" action="./VipBuy"> --%>
-<%-- 			<form:input type="hidden" path="mbId" value="${userId}" /> --%>
-<!-- 			<input type="submit" value="前往付款" class="reply"> -->
-<%-- 		</form:form> --%>
-<!-- 	</div> -->
 
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="/">Meet<span>Together</span></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
 
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-					<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">活動</a></li>
-					<li class="nav-item active"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/LogoutServlet"
-						class="nav-link">登出</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- END nav -->
+	<link rel="stylesheet"
+		href="${pageContext.request.contextPath}/css/style2.css">
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
 		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
@@ -305,113 +267,61 @@ body {
 			</div>
 		</div>
 	</section>
-
-<!-- 	<a href='/products'><input type="button" value="返回"></a> -->
-	<div align="center">
-		<h2>評論資訊</h2>
-		<form:form method="post" modelAttribute="editProduct">
-			<table border="1">
-			<tr>
-				<td>會員名
-				<td>
-				<p class="star">
-					<b style='font-size: 16px;'>${editProduct.member.memberName}</b><form:input type="hidden" path="member.memberName"
-							value="${editProduct.member.memberName}" />
-				</p>
-				<p class="star">
-				<form:input type="hidden" path="member.memberId"
-							value="${editProduct.member.memberId}" />
-				</p>
-				<p>
-				<form:input type="hidden"  path="event.eventId" value="${reviewBean.event.eventId}"></form:input>
-				</p>
-				<tr>
-					<!-- 				path抓reviewBean裡的值,value抓表單已有的值 -->
-					<td>評論編號
-					<td>	<b style='font-size: 16px;'>${editProduct.reviewId}</b><form:input type="hidden" path="reviewId"
-							value="${editProduct.reviewId}" />
-						<p>
-				<tr>
-					<td>活動評論:
-				<td><%-- 	<form:input type="text" path="eventComment" --%>
-<%-- 							value="${editProduct.eventComment}" /> --%>
-							<form:textarea path="eventComment" id="eventComment" cols="50"
-								rows="5" style="border: 1px black solid;" value="${editProduct.eventComment}" ></form:textarea>
-						<p>
-				<tr>
-					<td>星等:
-					<td>
-<%-- 					<form:input type="text" path="eventStars" --%>
-<%-- 							value="${editProduct.eventStars}" /> --%>
-
-							<form:select path="eventStars" id="exampleFormControlSelect1"
-								name="rate" value="${editProduct.eventStars}">
-
-								<form:option value="1">1</form:option>
-								<form:option value="2">2</form:option>
-								<form:option value="3">3</form:option>
-								<form:option value="4">4</form:option>
-								<form:option value="5">5</form:option>
-							</form:select>
-						
-						<p>
-						
-			</table>
-			<input type="submit" value="送出" />
-		</form:form>
-	</div>
-	<br>
-
-<footer class="ftco-footer ftco-bg-dark ftco-section">
+	<section>
 		<div class="container">
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">About MeetTogether</h2>
-						<p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-						<ul
-							class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-twitter"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-facebook"></span></a></li>
-							<li class="ftco-animate"><a href="#"><span
-									class="icon-instagram"></span></a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">Information</h2>
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">首頁</a></li>
-							<li><a href="#" class="py-2 d-block">交友</a></li>
-							<li><a href="#" class="py-2 d-block">活動</a></li>
-							<li><a href="#" class="py-2 d-block">討論區</a></li>
-							<li><a href="#" class="py-2 d-block">會員資料</a></li>
-						</ul>
-					</div>
-				</div>
+			<div class="row">
+				<div class="col-lg-2 col"></div>
+				<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
+					<!-- 	<a href='/products'><input type="button" value="返回"></a> -->
+					<div >
 
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">Have a Questions?</h2>
-						<div class="block-23 mb-3">
-							<ul>
-								<li><span class="icon icon-map-marker"></span><span
-									class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-								<li><a href="#"><span class="icon icon-phone"></span><span
-										class="text">02 6631 6666</span></a></li>
-								<li><a href="#"><span class="icon icon-envelope"></span><span
-										class="text">info@iiiedu.org.tw</span></a></li>
-							</ul>
-						</div>
+						<form:form method="post" modelAttribute="editProduct"
+							class='bg-light p-5 contact-form  '>
+							<h2 >更改我的評論</h2>
+							<%-- 	會員名  --%>
+							<div class="form-group">
+								<input class="form-control"
+									value=${editProduct.member.memberName } readonly="readonly">
+								<form:input type="hidden" path="member.memberName"
+									value="${editProduct.member.memberName}" />
+							</div>
+							<form:input type="hidden"  path="event.eventId" value="${reviewBean.event.eventId}"></form:input>
+							<%-- 	會員名 END --%>
+							<%-- 	活動評論 --%>
+							<div class="form-group">
+								<label>活動評論</label>
+							</div>
+							<div class="form-group">
+								<form:textarea path="eventComment" id="eventComment" cols="50"
+									rows="5" style="border: 1px black solid;"
+									value="${editProduct.eventComment}"></form:textarea>
+							</div>
+							<%-- 	活動評論 END --%>
+							<%-- 	星等 --%>
+							<div class="form-group">
+							<label>星等</label>
+							<form:select path="eventStars" id="exampleFormControlSelect1"
+											name="rate" value="${editProduct.eventStars}">
+
+											<form:option value="1">1</form:option>
+											<form:option value="2">2</form:option>
+											<form:option value="3">3</form:option>
+											<form:option value="4">4</form:option>
+											<form:option value="5">5</form:option>
+										</form:select>
+							</div>
+							<%-- 	星等END --%>
+							<input type="submit" value="送出" />
+						</form:form>
 					</div>
 				</div>
 			</div>
-
 		</div>
-	</footer>
+	</section>
+	<!-- 	*********************************************** -->
+	<br>
+
+	<jsp:include page="/WEB-INF/views/footer.jsp" />
 
 	<div id="ftco-loader" class="show fullscreen">
 		<svg class="circular" width="48px" height="48px">

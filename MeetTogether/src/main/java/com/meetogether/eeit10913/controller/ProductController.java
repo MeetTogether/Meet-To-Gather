@@ -31,41 +31,43 @@ public class ProductController {
 
 //	活動的service
 	ActService service1;
+
 	@Autowired
 	public void setService1(ActService service1) {
 		this.service1 = service1;
 	}
+
 //  評論的service
 	ProductService service;
+
 	@Autowired
 	public void setService(ProductService service) {
 		this.service = service;
 	}
-
 
 //新增方法
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String getaddReview(Model model, HttpServletRequest request) {
 		System.out.println("========================@RequestMapping(\"/addProduct\")==========GET==============");
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-		System.out.println("userId ===================  "+userId);
+		System.out.println("userId ===================  " + userId);
 		ReviewBean rb = new ReviewBean();
-		System.out.println("rb ===================  "+rb);
-		
-		
-		System.out.println("rb.getEventId() ==========GET===========  "+rb.getEventId());
-		
+		System.out.println("rb ===================  " + rb);
+
+		System.out.println("rb.getEventId() ==========GET===========  " + rb.getEventId());
+
 //		model.addAttribute("event",service1.getActivityById(actId));
 		model.addAttribute("reviewBean", rb);
 		return "eeit10913/addProduct";
 	}
 
 	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-	public String abc(@ModelAttribute("reviewBean") ReviewBean rb, 
-			@RequestParam(value = "eventId") Integer eventId, Model model) {
-		
+	public String abc(@ModelAttribute("reviewBean") ReviewBean rb, @RequestParam(value = "eventId") Integer eventId,
+			Model model) {
+		rb.setEventComment(rb.getEventComment().replace("\n", "<br/>"));
+
 		rb.setEventId(eventId);
-		
+		System.out.println("rb.getEventComment()" + rb.getEventComment());
 		int eventId2 = service.add(rb);
 		List<ReviewBean> list = service.selectALLByEventId(eventId);
 		model.addAttribute("reviewBean", list);
@@ -77,17 +79,22 @@ public class ProductController {
 		Integer four = 0;
 		Integer five = 0;
 		int avgEventStar = 0;
-	
+
 		for (ReviewBean rb2 : list) {
 			// totalEventStar = totalEventStar + reviewBean.getEventStars();
 			totalEventStar += rb.getEventStars();
-			if(rb2.getEventStars()==1)++one;
-			else if(rb2.getEventStars()==2)++two;
-			else if(rb2.getEventStars()==3)++three;
-			else if(rb2.getEventStars()==4)++four;
-			else if(rb2.getEventStars()==5)++five;
+			if (rb2.getEventStars() == 1)
+				++one;
+			else if (rb2.getEventStars() == 2)
+				++two;
+			else if (rb2.getEventStars() == 3)
+				++three;
+			else if (rb2.getEventStars() == 4)
+				++four;
+			else if (rb2.getEventStars() == 5)
+				++five;
 			else {
-				System.out.println("Exception ==== rb.getEventStars() ===== "+rb2.getEventStars());
+				System.out.println("Exception ==== rb.getEventStars() ===== " + rb2.getEventStars());
 			}
 		}
 		avgEventStar = totalEventStar / reviewSize;
@@ -146,13 +153,5 @@ public class ProductController {
 //		// return "eeit10913/products";
 //		return "eeit10913/products2";
 //	}
-	
-	 
-
-	
-	
-	
-
-
 
 }

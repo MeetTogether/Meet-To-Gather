@@ -40,9 +40,9 @@ public class FriendController {
 	public @ResponseBody List<FriendListUnread> showFriendList(HttpSession session, Model model) {
 		Integer currentUserId = (Integer) session.getAttribute("userId");
 		List<FriendList> fList = fService.findFriendsById(currentUserId);
-		List<FriendListUnread> lflu =new ArrayList<FriendListUnread>();
+		List<FriendListUnread> lflu = new ArrayList<FriendListUnread>();
 		fList.forEach((i) -> {
-			FriendListUnread flu =new FriendListUnread();
+			FriendListUnread flu = new FriendListUnread();
 			String memberName = null;
 			Integer memberIdInteger = null;
 			if (i.getMemberId().equals(currentUserId)) {
@@ -60,28 +60,30 @@ public class FriendController {
 		return lflu;
 
 	}
+
 	@GetMapping(value = "/showFriendListByName", produces = "application/json;charset=utf-8")
-	public @ResponseBody List<FriendListUnread> showFriendListByName(@RequestParam(value = "fName",required = true,defaultValue = "") String fName,
-																HttpSession session, Model model){
+	public @ResponseBody List<FriendListUnread> showFriendListByName(
+			@RequestParam(value = "fName", required = true, defaultValue = "") String fName, HttpSession session,
+			Model model) {
 		Integer currentUserId = (Integer) session.getAttribute("userId");
-		List<FriendListUnread> lflu =new ArrayList<FriendListUnread>();
-		Map<Integer, String> mp = fService.findFriendsByName(currentUserId,fName);
+		List<FriendListUnread> lflu = new ArrayList<FriendListUnread>();
+		Map<Integer, String> mp = fService.findFriendsByName(currentUserId, fName);
 		mp.forEach((k, v) -> {
-			FriendListUnread friendListUnread =new FriendListUnread();
+			FriendListUnread friendListUnread = new FriendListUnread();
 			friendListUnread.setId(k);
 			friendListUnread.setName(v);
 			friendListUnread.setUnRead(cService.getUnreadMsg(currentUserId.toString(), k.toString()));
 			lflu.add(friendListUnread);
 		});
-		
+
 		return lflu;
-				
+
 	}
 
 	@RequestMapping(value = "/chat/{friendId}", method = RequestMethod.GET)
 	public String chat(Model model, @PathVariable("friendId") Integer fid, HttpSession session) {
 		MemberBean mb = mbService.getMemberById(fid);
-		model.addAttribute("friendName",mb.getMemberName());
+		model.addAttribute("friendName", mb.getMemberName());
 		model.addAttribute("friendId", fid);
 		if (session.getAttribute("userId") == null) {
 			return "redirect:/";
@@ -95,29 +97,65 @@ public class FriendController {
 
 		return cService.getRecord(uid, fid);
 	}
+
 	@RequestMapping("/test/{fid}")
-	public String test(HttpSession session,@PathVariable("fid") Integer fid,Model model) {
-		Integer currentUserId = (Integer)session.getAttribute("userId");
-		model.addAttribute("friendStatus",fService.checkFriendList(currentUserId, fid));
-		model.addAttribute("addFriendsAlready",fService.checkAddFriend(currentUserId, fid));
-		model.addAttribute("responseYet",fService.checkResponse(currentUserId, fid));
-		
+	public String test(HttpSession session, @PathVariable("fid") Integer fid, Model model) {
+		Integer currentUserId = (Integer) session.getAttribute("userId");
+		model.addAttribute("friendStatus", fService.checkFriendList(currentUserId, fid));
+		model.addAttribute("addFriendsAlready", fService.checkAddFriend(currentUserId, fid));
+		model.addAttribute("responseYet", fService.checkResponse(currentUserId, fid));
 
 		return "eeit10936/test";
-		
+
 	}
-	@RequestMapping("/del")
-	public String delFriend(Model model,HttpSession session) {
-		Integer userId = (Integer)session.getAttribute("userId");
-		Integer fId=(Integer) model.getAttribute("fid");
-		fService.deleteFriends(userId, fId);
+
+	@RequestMapping(value = "/del", method = RequestMethod.GET)
+	public String delFriend(HttpSession session, @RequestParam("fid") Integer fid) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		fService.deleteFriends(userId, fid);
 		return "redirect:/";
-		
-		
 	}
-	
-	
-	
-	
+	@RequestMapping(value = "/delaj", method = RequestMethod.GET)
+	public @ResponseBody boolean delFriendAJ(HttpSession session, @RequestParam("fid") Integer fid) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		fService.deleteFriends(userId, fid);
+		return true;
+	}
+
+	@RequestMapping(value = "/invite", method = RequestMethod.GET)
+	public String inviteFriend(HttpSession session, @RequestParam("fid") Integer fid) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		fService.invite(userId, fid);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/response", method = RequestMethod.GET)
+	public String inviteFriend(HttpSession session, @RequestParam("fid") Integer fid,
+			@RequestParam("sureOrRefuse") Integer sureOrRefuse) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		fService.response(userId, fid, sureOrRefuse);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/friends")
+	public String friendjsp(HttpSession session) {
+		if(session.getAttribute("userId")==null) {
+			return "redirect:/";
+		}
+		return "friends";
+
+	}
+
+	@GetMapping(value = "/respAjax", produces = "application/json;charset=utf-8")
+	public @ResponseBody Map<Integer, String> respAjax(HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		return fService.responseList(userId);
+	}
+	@GetMapping("/yon")
+	public void yON(HttpSession session,
+			@RequestParam("yon")Integer yon,@RequestParam("fid") Integer fid) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		fService.response(userId, fid, yon);
+	}
 
 }

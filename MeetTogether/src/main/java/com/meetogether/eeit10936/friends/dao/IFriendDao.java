@@ -25,6 +25,8 @@ public interface IFriendDao {
 
 	void deleteFriends(Integer id, Integer fid);
 
+	Map<Integer, String> responseList(Integer id);
+
 	
 
 

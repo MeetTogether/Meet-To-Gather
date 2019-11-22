@@ -193,6 +193,7 @@ $(document).ready(function() {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>					
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>

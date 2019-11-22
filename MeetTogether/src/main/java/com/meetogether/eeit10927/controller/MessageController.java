@@ -109,6 +109,7 @@ public class MessageController {
 //			return "eeit10927/html/forum";
 //		}
 //		String rootDirectory = "C:/temp/images/";
+		System.out.println("messageBean11111"+message.getMsgText());
 		MultipartFile msgImage = message.getMsgImage();
 		String originalFilename = msgImage.getOriginalFilename();
 		String ext = "";
