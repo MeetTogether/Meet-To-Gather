@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ import com.meetogether.eeit10908.model.ActBean;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.MsgType;
 import com.meetogether.eeit10927.model.Msglike;
+import com.meetogether.eeit10927.model.Msgreply;
 import com.meetogether.eeit10927.model.Msgtag;
 import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10927.service.IMsgTypeService;
@@ -383,6 +385,28 @@ public class MessageController {
 			msgTagMap.put(tag.getTagName(), 1);
 		}
 		return msgTagMap;
+	}
+	
+	// 以Pdf格式顯示單筆Message資料
+	@RequestMapping(value = "message/{memberId}/{messageId}.pdf", method = RequestMethod.GET, produces = "application/pdf")
+	public String showSingleMessagePDF(Model model, 
+			@PathVariable(value = "memberId") Integer memberId, 
+			@PathVariable(value = "messageId") Integer messageId) {
+		Message msg = msgService.getMsgByMsgId(messageId);
+		model.addAttribute("Message", msg);
+		List<Msgreply> result1 = mlService.getAllMsgreply(messageId);
+		model.addAttribute("MessageReply", result1);
+		List<Msglike> result2 = mlService.findMsglikeByMessage(messageId);
+		model.addAttribute("MessageLike", result2);
+		return "message/showSingleMessage";
+	}
+	
+	// 以Pdf格式顯示Member的所有Message資料
+//	@RequestMapping(value = "message/{memberId}.pdf", method = RequestMethod.GET, produces = "application/pdf")
+	public String showAllMessagesPDF(@PathVariable Integer memberId, Model model) {
+		List<Message> result = msgService.getUserMessage(memberId);
+		model.addAttribute("Message", result);
+		return "message/showAllMessages";
 	}
 	
 }
