@@ -180,7 +180,7 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 
 	private Long getEveryDay6Am(boolean todayOrNot) {
 		Calendar calendar = Calendar.getInstance();
-		if (calendar.get(Calendar.HOUR) < 6) {
+		if (calendar.get(Calendar.HOUR_OF_DAY) < 5) {
 			calendar.add(Calendar.DATE, -1);
 		}
 		if (todayOrNot) {
