@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix ="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>MeetTogether - 討論區</title>
+<title>MeetTogether - 個人相簿</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -26,55 +27,78 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
-.likeBtn, .dislikeBtn, .replyBtn {
-	height: 20px;
-	cursor: pointer;
-}
-p {
-	margin-bottom: 0;
-}
-.input_tag {
-	height: 52px !important;
-	font-size: 18px;
-	border-radius: 5px;
-	width: 50%;
-	padding: 0.375rem 0.75rem;
-	font-weight: 400;
-	line-height: 1.5;
-	border: 1px solid #ced4da;
-}
+        .block {
+            width: 380PX;
+            display: block;
+            cursor: pointer;
+        }
+    
+        .none {
+            display: none;
+        }
+    
+        .field {
+            width: 380PX;
+            margin: 0 auto;
+            border-radius: 20PX;
+        }
+    
+        .legend {
+            text-align: center;
+            font-size: larger
+        }
+    
+        .ads {
+            margin: 3PX 2PX;
+            width: 60PX;
+            height: 60PX;
+        }
+    
+        .adsborder {
+            margin: 3PX 2PX;
+            width: 60PX;
+            height: 60PX;
+            border: 3px solid #ffc300;
+        }
+    
+        .pdiv {
+            width: 380PX;
+            text-align: center;
+        }
+    
+        .control {
+            margin-left: 30px;
+            margin-right: 30px;
+            width: 40px;
+            -webkit-filter: grayscale(1);
+        }
 </style>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#Postbox").hide();
-		$("#Postbutton").click(function() {
-			$("#Postbox").toggle("blind"); /* 展開發文表單 */
-			/* $('html,body').animate({
-				scrollTop : 0
-			}); 返回到頁面頂端 */
-		});
-		$("#ViewMyPost").click(
-			function() {
-				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
-			});
-		$("#ViewAllPost").click(
-			function() {
-				top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-			});
-		$("input#deletePost").click(function() {
-			var c = confirm('是否確認刪除');
-			console.log(c);
-			if (c) {
-				$(this).parent("form#deletePostForm").submit();
-			} else {
-			}
-		});
-		
-		
-	});
+$(document).ready(function() {
+	run();
+	var Imgs = document.querySelectorAll('img.block, img.none');
+	var num = Imgs.length;
+	console.log('num: ' + num);
+	var count = 0;
+	function autoRun() {
+		for (var i = 0; i < num; i++) {
+			console.log(Imgs[i]);
+			Imgs[i].css('display', 'none');
+		}
+		if (count < num)
+			count++;
+		else
+			count = 0;
+		Imgs[count].css('display', 'block');
+	}
+	function run() {
+		myInterval = window.setInterval(autoRun, 5000);
+	}
+});
 </script>
-
 </head>
 <body>
 <!-- vip購買 -->
@@ -114,7 +138,7 @@ p {
 	<!-- END nav -->
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10901/images/mt14.webp');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10901/images/mt11.webp');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -127,35 +151,75 @@ p {
 								class="ion-ios-arrow-forward"></i></a></span> <span>討論區 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">討論區</h1>
+					
 				</div>
 			</div>
 		</div>
 	</section>
-		<h2 align="center">興趣</h2>
-		
-	<div style="width:200px">
-	<p>
+    <h1 class="mb-3 bread" >選擇一張照片上傳</h1>
+    
+     <fieldset class="field">
+        <legend class="legend">${userName}</legend>
+        <div class="pdiv">
+          	<c:forEach items="${photoCount }" var="photo">
+    			<hr><img id="imgPhoto" class="block" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
+    		</c:forEach>
+        </div>
+    
+        <div class="pdiv">
+            <img id="idback" class="control"  src="${pageContext.request.contextPath}/eeit10901/images/back.png">
+            <img id="idpauseplay" class="control" src="${pageContext.request.contextPath}/eeit10901/images/pause.png">
+            <img id="idnext" class="control" src="${pageContext.request.contextPath}/eeit10901/images/next.png">
+        </div>
+    </fieldset>
+    
+    
+    
+    
+    
+<!--     <div> -->
+<!--     	<table> -->
+<!--     		<tr> -->
+<%--     			<c:forEach items="${photoCount }" var="photo"> --%>
+<%--     				<td><img width=300px height=300px  src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/> --%>
+<%--     			</c:forEach> --%>
+<!--     	</table> -->
+<!--     </div> -->
+    
+    
+	<div id="regispage">
+		<div id="registerbox" align="center">
+			<h2>新增照片</h2>
+			<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
+			<form:form enctype="multipart/form-data" method="POST"
+				modelAttribute="albumbean" id='registerForm'>
+				<table>
+					<tr>
+					
+					<td>編號
+				    <td>
+<%-- 				    		</td><form:input type="text" path="pk.memberId" /> --%>
+<!-- 						<td>id -->
+						<td><form:input type="hidden" path="pk.memberId" value="${albumbean.pk.memberId}" />
+					<tr>
+						<td>配對照片顯示順序
+						<td><form:input type="text" path="status" value="${photoStatus }" />
+<%-- 						<td><form:input type="hidden" path="status" /> --%>
+					
+					<tr>
+						<td>上傳照片
+						<td><form:input type="file" path="albumImage" />
+				</table>
+				<input type="submit" value="submit">
+			</form:form>
+		</div>
+
 <a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
 		<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
 	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
 	<a href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
 		<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
-	</p>
 	</div>
-
-	<div class="form-group">
-<form:form modelAttribute="interest" method="get" >
-<table width="400px" border="1" align="center">
-<c:forEach var="interest" items="${interests }">
-	<tr bgcolor="#FFDDAA">
-		<td>${interest}</td>
-	</tr>
-</c:forEach>
-</table>
-</form:form>
-</div>
-
 	<footer class="ftco-footer ftco-bg-dark ftco-section">
   <div class="container">
     <div class="row mb-5">

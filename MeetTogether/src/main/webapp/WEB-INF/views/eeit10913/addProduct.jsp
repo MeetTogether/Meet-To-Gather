@@ -45,6 +45,8 @@
 	href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet"
 	href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style2.css">
 <style type="text/css">
 body {
 	background-color: #e7eef1;
@@ -275,8 +277,7 @@ body {
 </head>
 <body>
 
-	<link rel="stylesheet"
-		href="${pageContext.request.contextPath}/css/style2.css">
+
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
 		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
@@ -306,21 +307,21 @@ body {
 	</section>
 
 	<section>
-		<div class="container" >
+		<div class="container">
 			<div class="row">
 				<div class="col-lg-2 col"></div>
-				<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex" >
+				<div class="col-lg-4 col-md-6 mt-0 mt-md-5 d-flex">
 
 
 					<form:form method='POST' modelAttribute="reviewBean"
-						class='bg-light p-5 contact-form ' >
+						class='bg-light p-5 contact-form '>
 
 						<h2>評論此活動</h2>
 						<div class="form-group" style="font-size: 16px; color: black;">
 							<label>會員ID</label>
 						</div>
 						<div class="form-group">
-			
+
 							<form:input path="mbId" value="${userId}" type='hidden'
 								class='form:input-large' />
 						</div>
@@ -330,7 +331,7 @@ body {
 							<form:input path="mbId" value="${userName}" type='hidden'
 								class='form:input-large' />
 						</div>
-			
+
 						<div class="form-group">
 							<label for="exampleFormControlSelect1">請選擇您的評分</label>
 							<form:select path="eventStars" id="exampleFormControlSelect1"
@@ -347,10 +348,10 @@ body {
 							<label>分享你的活動評論</label>
 						</div>
 						<div class="form-group">
-							<form:textarea onkeyup="wordsTotal()" path="eventComment"
+							<form:textarea placeholder="輸入您對此活動的想法吧!"  path="eventComment"
 								id="eventComment" cols="50" rows="5"
 								style="border: 1px black solid;"></form:textarea>
-							字數統計：<span id="display">0</span>
+							
 							<td><span id="msg_eventComment" class='msgWrong'></span>
 						</div>
 
@@ -371,7 +372,8 @@ body {
 	</section>
 
 
-	<hr style="height: 1px; border: none; color: #333; background-color: #333;">
+	<hr
+		style="height: 1px; border: none; color: #333; background-color: #333;">
 
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
 
