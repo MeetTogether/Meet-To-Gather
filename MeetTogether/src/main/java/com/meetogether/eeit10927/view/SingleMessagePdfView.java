@@ -3,9 +3,11 @@ package com.meetogether.eeit10927.view;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,10 +34,9 @@ import com.meetogether.eeit10927.service.IMsgreplyService;
 import com.meetogether.eeit10927.viewresolver.AbstractITextPdfView;
 
 public class SingleMessagePdfView extends AbstractITextPdfView {
-//	@Autowired
-//	IMsgreplyService mrService;
 	
-	final String fontPath = "c:\\windows\\fonts\\kaiu.ttf";
+//	final String fontPath = "c:\\windows\\fonts\\kaiu.ttf";
+	final String fontPath = "c:\\windows\\fonts\\msjh.ttc,0";
 	BaseFont bfChinese;
 	Font titleFont;
 
@@ -83,11 +84,11 @@ public class SingleMessagePdfView extends AbstractITextPdfView {
 		// cell 1 使用者名稱
 		String memberName = "發文者: " + m.getMember().getMemberName();
 		// cell 2 發文時間;更新時間
-		String createTime = m.getCreateTimeFormat();
-		String updateTime = m.getUpdateTimeFormat();
+		String createTime = m.getCreateTime().toString().substring(0, 16);
+		Date updateTime = m.getUpdateTime();
 		String msgTime = "";
-		if (updateTime.length() > 0) {
-			msgTime = "發文時間: " + createTime + "; 更新時間: " + updateTime; 
+		if (updateTime != null) {
+			msgTime = "發文時間: " + createTime + "; 更新時間: " + updateTime.toString().substring(0, 16); 
 		} else {
 			msgTime = "發文時間: " + createTime;
 		}
@@ -101,26 +102,29 @@ public class SingleMessagePdfView extends AbstractITextPdfView {
 		
 		// cell 6 文章tag
 		List<Msgtag> tags = m.getMsgtag();
-		String tagNames = "文章TAG: ";
+		String tagNames = "文章TAG:\n";
 		for (Msgtag tag : tags) {
 			tagNames = tagNames + tag.getTagName() + " ";
 		}
-		// cell 7 文章按讚人
+		// cell 7文章按讚人暱稱
 		StringBuilder stringBuilder2 = new StringBuilder();
-		stringBuilder2.append("按讚會員: \n");
+		stringBuilder2.append("按讚會員:\n\t");
 		for (Msglike onelike : like) {
 			stringBuilder2.append(onelike.getMember().getMemberName());
-			stringBuilder2.append("\n");
+			stringBuilder2.append("\n\t");
 		}
 		String msgLikeCnt = stringBuilder2.toString();
 		
 		// cell 8 文章留言
 		StringBuilder stringBuilder1 = new StringBuilder();
-		stringBuilder1.append("回覆留言內容: \n");
+		stringBuilder1.append("留言內容:\n");
 		for (Msgreply oneReply : reply) {
 			stringBuilder1.append(oneReply.getMember().getMemberName());
-			stringBuilder1.append(": \t");
+			stringBuilder1.append(": ");
 			stringBuilder1.append(oneReply.getReplyText());
+			stringBuilder1.append("(");
+			stringBuilder1.append(oneReply.getCreateTime().toString().substring(0, 16));
+			stringBuilder1.append(")");
 			stringBuilder1.append("\n");
 		}
 		String replyContent = stringBuilder1.toString();
@@ -143,34 +147,59 @@ public class SingleMessagePdfView extends AbstractITextPdfView {
 	private void setTableHeading(Map<String, Object> model, PdfPTable table, String[] title) {
 		Message m =  (Message) model.get("Message");
 		
-		int[] cellColspan = { 5, 5, 5, 3, 2, 3, 2, 5 };
+		int[] cellColspan = { 5, 5, 5, 5, 5, 3, 2, 5 };
 //		table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 //		table.getDefaultCell().setVerticalAlignment(Element.ALIGN_MIDDLE);
 		table.getDefaultCell().setBackgroundColor(BaseColor.WHITE);
-		table.getDefaultCell().setBorderColor(BaseColor.LIGHT_GRAY);
+		table.getDefaultCell().setBorderColor(BaseColor.WHITE);
 		BaseColor color = new BaseColor(224, 224, 224);
 		table.getDefaultCell().setBackgroundColor(color);
 		for(int n = 1; n <= title.length; n++) {
+			String imgAddress = "D:/temp/NoImage.png";
+			Image image;
 			if (n == 5) {
-//				String imgAddress = "D:\\temp\\noface.jpg";
-				Image image;
 				try {
 					Blob msgPhoto = m.getMsgPhoto();
-					int blobLength = (int) msgPhoto.length();  
-					byte[] blobAsBytes = msgPhoto.getBytes(1, blobLength);
-					image = Image.getInstance(blobAsBytes);
-					image.scaleToFit(240, 72);
-					PdfPCell cell5 = new PdfPCell(image);
-					cell5.setColspan(cellColspan[n - 1]);
-					cell5.setPaddingBottom(8F);
-					cell5.setPaddingTop(8F);
-					cell5.setPaddingLeft(8F);
-					table.addCell(cell5);
+					if (msgPhoto != null) {
+						int blobLength = (int) msgPhoto.length();  
+						byte[] blobAsBytes = msgPhoto.getBytes(1, blobLength);
+						image = Image.getInstance(blobAsBytes);
+						image.scaleToFit(400, 300);
+						PdfPCell cell5 = new PdfPCell(image);
+						cell5.setColspan(cellColspan[n - 1]);
+						cell5.setPaddingBottom(8F);
+						cell5.setPaddingTop(8F);
+						cell5.setPaddingLeft(8F);
+						cell5.setHorizontalAlignment(Element.ALIGN_MIDDLE);
+						table.addCell(cell5);
+					}
 				} catch (BadElementException | IOException | SQLException e) {
 					e.printStackTrace();
 				}
 				continue;
 			}
+//			if (n == 7) {
+//				try {
+//					Blob memberPhoto = m.getMember().getPhoto();
+//					if (memberPhoto == null) {
+//						image = Image.getInstance(imgAddress);
+//					} else {
+//						int memberImgLength = (int) memberPhoto.length();
+//						byte[] blobAsBytes = memberPhoto.getBytes(1, memberImgLength);
+//						image = Image.getInstance(blobAsBytes);
+//					}
+//					image.scaleToFit(50, 50);
+//					PdfPCell cell7 = new PdfPCell(image);
+//					cell7.setColspan(cellColspan[n - 1]);
+//					cell7.setPaddingBottom(8F);
+//					cell7.setPaddingTop(8F);
+//					cell7.setPaddingLeft(8F);
+//					table.addCell(cell7);
+//				} catch (SQLException | BadElementException | IOException e) {
+//					e.printStackTrace();
+//				}
+//				
+//			}
 			PdfPCell cell = new PdfPCell();
 			cell.setPaddingBottom(8F);
 			cell.setBackgroundColor(BaseColor.WHITE);

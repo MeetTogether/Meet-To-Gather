@@ -181,6 +181,16 @@ p {
 										<input type="button" value="刪除此篇文章" class="reply"
 											id="deletePost">
 									</form:form>
+									<c:choose>
+										<c:when test="${vipTag eq true }">
+											<a href="${pageContext.request.contextPath}/message/${msgBean.member.memberId}/${msgBean.msgId}.pdf">
+											<input type="button" value="匯出文章" class="reply" id="exportPost"></a>
+										</c:when>
+										<c:otherwise>
+											<a data-toggle="modal" data-target="#vipModalLong">
+											<input type="button" value="匯出文章" class="reply" id="exportPost"></a>
+										</c:otherwise>
+									</c:choose>
 								</c:if>
 								<p>發文：<fmt:formatDate value="${msgBean.createTime}" pattern="yyyy-MM-dd HH:mm" />
 								<c:if test="${msgBean.updateTime ne null}">
@@ -204,7 +214,7 @@ p {
 									</c:otherwise>
 								</c:choose>
 								<input type="hidden" id="msgId" name="msgId" value="${msgBean.msgId}">
-								<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onmouseout="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
+								<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onclick="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
 								<div id="msgLikeModalLong" style="text-align: center;"></div>
 								<script type="text/javascript">
 									function hideMsgLike(likeObj) {
@@ -223,7 +233,7 @@ p {
 												$.each(data, function(key, value) {
 													memberInfoSet += "<tr><td>";
 													memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
-													memberInfoSet += "<td>"+value;
+													memberInfoSet += "<td><a href='${pageContext.request.contextPath}/getmember/"+key+"'>"+value+"</a>";
 												});
 												console.log(memberInfoSet);
 												$(likeObj).next().html(memberInfoSet);

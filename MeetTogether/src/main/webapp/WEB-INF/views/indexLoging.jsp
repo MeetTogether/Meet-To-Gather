@@ -43,18 +43,7 @@
 .reply {
 	padding: 5px 10px;
 	background: #ff07295e;
-	color: #000000;
-	text-transform: uppercase;
-	font-size: 14px;
-	letter-spacing: .1em;
-	font-weight: 400;
-	border-radius: 4px;
-	width: 45%;
-}
-.reply_n {
-	padding: 5px 10px;
-	background: #ACD6FF;
-	color: #000000;
+	color: black;
 	text-transform: uppercase;
 	font-size: 14px;
 	letter-spacing: .1em;
@@ -68,12 +57,12 @@
 	background: #fd7e14;
 }
 .reply:hover {
-	color: #fff;
+	color: white;
 	background: #FF5151;
 }
-.reply_n:hover {
-	color: #fff;
-	background: #2894FF;
+.reply:visited {
+	color: black;
+	background: #FF5151;
 }
 .testimony-wrap{
 	/*background: #ff00000f;*/
@@ -366,7 +355,7 @@ $(document).ready(function() {
 											<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">送出好友邀請</a>&ensp;&ensp;
 										</c:when>
 										<c:otherwise>
-											<a href="###" class="reply">送出好友邀請</a>
+											<a href="invite?fid=${newMember.memberId }" class="reply">送出好友邀請</a>
 										</c:otherwise>
 									</c:choose>
 									</p>
@@ -459,7 +448,7 @@ $(document).ready(function() {
 								</div>
 							</div>
 							
-							<h3 class="heading mt-2">${popMsg.msgTitle }</h3>
+							<h3 class="heading mt-2"><a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}">${popMsg.msgTitle }</a></h3>
 							<p>${popMsg.msgTextShort }
 							<p>
 							<c:choose>
