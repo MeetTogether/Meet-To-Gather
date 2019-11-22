@@ -36,15 +36,15 @@
 	}
 
 	function myInnerText() {
-		if (members[num]) {
-			document.getElementById("name").innerText = members[num].mb.memberName;
-			document.getElementById("memberAge").innerText = getage(members[num].mb.memberBirth);
-			document.getElementById("memberCity").innerText = members[num].mb.memberCity
+		
+			document.getElementById("name").innerText = members.mb.memberName;
+			document.getElementById("memberAge").innerText = getage(members.mb.memberBirth);
+			document.getElementById("memberCity").innerText = members.mb.memberCity
 					.trim();
-			document.getElementById("interest").innerText = members[num].mil;
+			document.getElementById("interest").innerText = members.mil;
 			var i = 1;
 			var srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
-					+ members[num].mb.memberId + "/" + i;
+					+ members.mb.memberId + "/" + i;
 			document.getElementById("pairImg").setAttribute("src", srcUrl);
 			document
 					.getElementById("pairImg")
@@ -56,38 +56,51 @@
 								vip ? i > 5 ? i = 1 : i = i : i > 3 ? i = 1
 										: i = i;
 								srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
-										+ members[num].mb.memberId + "/" + i;
+										+ members.mb.memberId + "/" + i;
 								document.getElementById("pairImg")
 										.setAttribute("src", srcUrl);
 							});
-		} else {
-			//window.location.href = "./noMore";
-		}
+		
+			
+		
 	}
 	function binding() {
 		let like = document.getElementById("like")
 		let dontlike = document.getElementById("dontlike")
 		like.addEventListener("click", function() {
-			url = "insertPairList?pairid=" + members[num].mb.memberId
+			url = "${pageContext.request.contextPath}/insertPairList?pairid=" + members.mb.memberId
 					+ "&status=1";
 			console.log(url);
 			let xhttp = new XMLHttpRequest();
 			xhttp.open("Get", url, true);
 			xhttp.setRequestHeader("Pragma", true);
 			xhttp.send();
-			num++;
-			myInnerText();
+			xhttp.onreadystatechange = function(){
+				if(xhttp.readyState == 4 && xhttp.status ==200){
+					serachMyFriends();
+					pairAjax();
+					myInnerText();
+				}
+			}
+			
 		});
 		dontlike.addEventListener("click", function() {
-			url = "insertPairList?pairid=" + members[num].mb.memberId
+			
+			url = "${pageContext.request.contextPath}/insertPairList?pairid=" + members.mb.memberId
 					+ "&status=0";
 			console.log(url);
 			let xhttp = new XMLHttpRequest();
 			xhttp.open("Get", url, true);
 			xhttp.setRequestHeader("Pragma", true);
 			xhttp.send();
-			num++;
-			myInnerText();
+			xhttp.onreadystatechange = function(){
+				if(xhttp.readyState == 4 && xhttp.status == 200){
+					serachMyFriends();
+					pairAjax();
+					myInnerText();
+				}
+			}
+			
 		});
 	}
 
@@ -101,11 +114,15 @@
 		xhttp.send(getQueryString());
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				members = JSON.parse(xhttp.responseText);
-				console.log(members);
-				num = 0;
-				myInnerText();
-				binding();
+				if(xhttp.responseText){
+					members = JSON.parse(xhttp.responseText);
+					console.log(members);
+					myInnerText();
+					binding();
+				}else{
+					$("#vipModalLong").modal("show");
+				}
+				
 			}
 		}
 	}
@@ -191,8 +208,6 @@
 	}
 
 	function serachMyFriends() {
-		del();
-
 		var fName = document.getElementById("serachFriend").value;
 		let xhttp = new XMLHttpRequest();
 		xhttp.open("Get",
@@ -202,6 +217,7 @@
 		xhttp.send();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				del();
 				serachFriends = JSON.parse(xhttp.responseText);
 				console.log(serachFriends);
 				for(let serachfriend of serachFriends){
@@ -384,6 +400,8 @@ td{
 			</div>
 		</div>
 	</section>
+	<!--VIP -->
+	<jsp:include page="/WEB-INF/views/vip_div.jsp"/>
 	
 	<section class="ftco-section testimony-section">
 		<div class="container">

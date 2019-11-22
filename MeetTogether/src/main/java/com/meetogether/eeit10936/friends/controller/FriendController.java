@@ -115,6 +115,12 @@ public class FriendController {
 		fService.deleteFriends(userId, fid);
 		return "redirect:/";
 	}
+	@RequestMapping(value = "/delaj", method = RequestMethod.GET)
+	public @ResponseBody boolean delFriendAJ(HttpSession session, @RequestParam("fid") Integer fid) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		fService.deleteFriends(userId, fid);
+		return true;
+	}
 
 	@RequestMapping(value = "/invite", method = RequestMethod.GET)
 	public String inviteFriend(HttpSession session, @RequestParam("fid") Integer fid) {

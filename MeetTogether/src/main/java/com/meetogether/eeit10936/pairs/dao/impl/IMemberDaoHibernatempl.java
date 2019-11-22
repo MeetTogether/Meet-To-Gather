@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -50,29 +51,29 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		TypedQuery<IMember> query = factory.getCurrentSession()
 				.createQuery("SELECT NEW com.meetogether.eeit10936.pairs.model.MemberModel(mb,mh,mi) "
 						+ "From MemberBean mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
-						+ "JOIN MemberInfo mi ON mb.memberId = mi.memberId", IMember.class);
+						+ "JOIN MemberInfo mi ON mb.memberId = mi.memberId ", IMember.class);
 		List<IMember> list = query.getResultList();
 		return list;
 	}
+
 	@Override
-	public IMember findMemberByChoice(Integer id,Integer sex,String city,Date stdate,Date eddate) {
+	public IMember findMemberByChoice(Integer id, Integer sex, String city, Date stdate, Date eddate) {
 		List<String> interList = new ArrayList<String>();
-		String hql="SELECT NEW com.meetogether.eeit10936.pairs.model.MemberModel(mb,mh,mi) "
-					+ "From MemberBean mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
-					+"JOIN MemberInfo mi ON mb.memberId = mi.memberId WHERE mb.memberId = ?0 ";
+		String hql = "SELECT NEW com.meetogether.eeit10936.pairs.model.MemberModel(mb,mh,mi) "
+				+ "From MemberBean mb JOIN MemberHope mh ON mb.memberId = mh.memberId "
+				+ "JOIN MemberInfo mi ON mb.memberId = mi.memberId WHERE mb.memberId = ?0 ";
 		if (sex != null)
 			hql += "AND mb.memberSex = ?1 ";
 		if (city != null)
 			hql += "AND mb.memberCity = ?2 ";
 		if (stdate != null)
 			hql += "AND mb.memberBirth BETWEEN ?3 AND ?4";
-		
-		TypedQuery<IMember> query = factory.getCurrentSession()
-									.createQuery(hql , IMember.class).setParameter(0, id);
-		
-		if(sex != null || city != null || stdate != null)
+
+		TypedQuery<IMember> query = factory.getCurrentSession().createQuery(hql, IMember.class).setParameter(0, id);
+
+		if (sex != null || city != null || stdate != null)
 			query.setParameter(1, sex).setParameter(2, city).setParameter(3, stdate).setParameter(4, eddate);
-		
+
 		IMember member = query.getSingleResult();
 		findInterestByMemberId(id).forEach((i) -> {
 			interList.add(findInteretByInterestId(i));
@@ -80,8 +81,6 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		member.setMemberInterestList(interList);
 		return member;
 	}
-	
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -147,12 +146,13 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 	}
 
 	@Override
-	public Blob getPhotosById(Integer id,int status) {
-		
-		 MemberAlbum result = factory.getCurrentSession()
-				.createQuery("FROM MemberAlbum ma WHERE ma.pk.memberId = ?1 AND ma.deleteTag =?2 AND ma.status = ?3", MemberAlbum.class)
+	public Blob getPhotosById(Integer id, int status) {
+
+		MemberAlbum result = factory.getCurrentSession()
+				.createQuery("FROM MemberAlbum ma WHERE ma.pk.memberId = ?1 AND ma.deleteTag =?2 AND ma.status = ?3",
+						MemberAlbum.class)
 				.setParameter(1, id).setParameter(2, 0).setParameter(3, status).uniqueResult();
-		
+
 		return result.getPhoto();
 	}
 
@@ -166,6 +166,46 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Long checkAlreadyPairs(Integer id) {
+		String hql = "SELECT COUNT(p) FROM Pair p WHERE p.pairPk.memberId = ?0 AND p.pairTime > ?1 AND p.pairTime < ?2";
+		Long result = factory.getCurrentSession().createQuery(hql, Long.class).setParameter(0, id)
+				.setParameter(1, new Timestamp(getEveryDay6Am(false)))
+				.setParameter(2, new Timestamp(getEveryDay6Am(true))).uniqueResult();
+		return result;
+
+	}
+
+	private Long getEveryDay6Am(boolean todayOrNot) {
+		Calendar calendar = Calendar.getInstance();
+		if (calendar.get(Calendar.HOUR) < 6) {
+			calendar.add(Calendar.DATE, -1);
+		}
+		if (todayOrNot) {
+			calendar.add(Calendar.DATE, 1);
+		}
+		calendar.set(Calendar.HOUR_OF_DAY, 6);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		System.out.println("現在時間：" + calendar.getTime());
+		return calendar.getTimeInMillis();
+	}
+
+	@Override
+	public List<Integer> getPaired(Integer id) {
+		String hql = "SELECT p.pairPk.pairMemberId FROM Pair p WHERE p.pairPk.memberId =?0";
+		List<Integer> list = factory.getCurrentSession().createQuery(hql, Integer.class).setParameter(0, id)
+				.getResultList();
+		if (list.size() == 0) {
+			return null;
+		}
+		list.forEach((i)->{
+			System.out.println(i);
+		});
+		return list;
 	}
 
 }
