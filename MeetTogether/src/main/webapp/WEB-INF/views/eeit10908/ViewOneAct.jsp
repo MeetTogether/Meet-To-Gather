@@ -31,7 +31,7 @@
 <!-- <meta property="og:image" -->
 <!-- 	content="https://www.your-domain.com/path/image.jpg" /> -->
 
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
@@ -1057,17 +1057,11 @@ p {
 </head>
 
 <body>
+	
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
-		</nav>
-
-
-<body>
-	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-
-		<div class="container">
-
+		id="ftco-navbar"> 
+		<div class="container">	
 			<a class="navbar-brand" href="/MeetTogether/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
@@ -1077,30 +1071,23 @@ p {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-
-
-					<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
+<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="/MeetTogether/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
 					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">交友</a></li>
-					<li class="nav-item active"><a href="/MeetTogether/eeit10908"
-						class="nav-link">活動</a></li>
-					<li class="nav-item "><a
-
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
-
-					<li class="nav-item"><a class="nav-link"><c:if
-								test="${!empty userId}">${userName}
-
+					
+					
+					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img style="height: 40px; border-radius: 50%;"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 					
 				</ul>
@@ -1120,7 +1107,7 @@ p {
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>活動內容 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動表 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
 					<h1 class="mb-3 bread">活動內容</h1>
@@ -1356,15 +1343,13 @@ p {
 																<b style='font-size: 14px;'>星等:
 																	${reviewBean.eventStars}</b>
 															</p>
-															<!-- 													<p> -->
-															<%-- 													<input type="hidden" name="eventId"value="${reviewBean.event.eventId} }"> --%>
-															<!-- 													</p> -->
+															<br>
 
 															<p align="left">
 																<b style='font-size: 14px;'>評論:
 																	${reviewBean.eventComment}</b>
 															</p>
-
+															<br>
 															<p align="left">
 																<b style='font-size: 14px;'>創建時間:
 																	${fn:substring(reviewBean.createTime,0,16)}</b>
@@ -1391,7 +1376,7 @@ p {
 															a Review</a>
 													</h3>
 													<div class="wrap">
-														<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5</b>
+														<b style="font-size: 25px" >目前平均分數: ${avgEventStar}/5分</b>
 														<p class="star" align="left">
 															<span> <i class="ion-ios-star"></i> <i
 																class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i

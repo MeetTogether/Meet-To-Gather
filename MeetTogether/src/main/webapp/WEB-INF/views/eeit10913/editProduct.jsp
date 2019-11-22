@@ -285,6 +285,7 @@ body {
 								<form:input type="hidden" path="member.memberName"
 									value="${editProduct.member.memberName}" />
 							</div>
+							<form:input type="hidden"  path="event.eventId" value="${reviewBean.event.eventId}"></form:input>
 							<%-- 	會員名 END --%>
 							<%-- 	活動評論 --%>
 							<div class="form-group">
