@@ -348,7 +348,7 @@ body {
 							<label>分享你的活動評論</label>
 						</div>
 						<div class="form-group">
-							<form:textarea placeholder="輸入您對此活動的想法吧!"  path="eventComment"
+							<form:textarea  placeholder="輸入您對此活動的想法吧!"  path="eventComment"
 								id="eventComment" cols="50" rows="5"
 								style="border: 1px black solid;"></form:textarea>
 							
