@@ -99,16 +99,24 @@ jQueryConflict(document).ready(function() {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
 					<li class="nav-item active"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${empty userId}">
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>

@@ -96,10 +96,6 @@ $(document).ready(function() {
 	autoRun();
 	run();
 	showModal();
-	function clickact(myObj){
-		 myObj.innerHTML="已參加";
-		 console.log(myObj);
-	}
 	var num = 0;
 	function autoRun() {
 		for (var i = 1; i <= 7; i++) {
@@ -193,12 +189,16 @@ $(document).ready(function() {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>					
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
@@ -359,24 +359,14 @@ $(document).ready(function() {
 									style="background-image: url(${pageContext.request.contextPath}/getImage?id=${newMember.memberId}&type=member)"></div>
 								<div class="text pt-4">
 									<p class="name">${newMember.memberName }</p>
-									<p class="mb-4">Far far away, behind the word mountains,
-										far from the countries Vokalia and Consonantia, there live the
-										blind texts.</p>
-									<p class="d-flex mb-0 d-block">
+									<p class="mb-4">居住城市：${newMember.memberCity }<br>生日：${newMember.memberBirth }</p>
+									<p style="text-align: center;">
 									<c:choose>
 										<c:when test="${userId eq null }">
-											<a href="###" class="reply_n" data-toggle="modal" data-target="#loginModalLong">SKIP</a>&ensp;&ensp;
+											<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">送出好友邀請</a>&ensp;&ensp;
 										</c:when>
 										<c:otherwise>
-											<a href="###" class="reply_n">SKIP</a>&ensp;&ensp;
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${userId eq null }">
-											<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">LIKE</a>&ensp;&ensp;
-										</c:when>
-										<c:otherwise>
-											<a href="###" class="reply">LIKE</a>
+											<a href="###" class="reply">送出好友邀請</a>
 										</c:otherwise>
 									</c:choose>
 									</p>
@@ -410,15 +400,7 @@ $(document).ready(function() {
 								<a href="#">${acts.eventName}</a>
 							</h2>
 							<span>scheduled time<br>${acts.eventTime}</span>
-							<p class="d-flex mb-0 d-block">
-								<c:choose>
-									<c:when test="${userId eq null }">
-										<a href="###" class="reply_a" data-toggle="modal" data-target="#loginModalLong">參加活動</a>&ensp;&ensp;
-									</c:when>
-									<c:otherwise>
-										<a href="###" class="reply_a" id="joinact" onclick="clickact(this)">參加活動</a>&ensp;&ensp;
-									</c:otherwise>
-								</c:choose>
+							<p style="text-align: center;">
 								<c:choose>
 									<c:when test="${userId eq null }">
 										<a href="###" class="reply_a" data-toggle="modal" data-target="#loginModalLong">活動細節</a>&ensp;&ensp;

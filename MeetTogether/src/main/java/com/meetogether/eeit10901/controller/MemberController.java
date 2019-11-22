@@ -79,7 +79,7 @@ public class MemberController {
 	public String getMemberLoginForm(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
 			model.addAttribute("memberBean", new MemberBean());
-			List<ActBean> beans = actService.getAllAct();	
+			List<ActBean> beans = msgService.getPopActivity();
 			model.addAttribute("actBeanList", beans);
 			List<MemberBean> memberBeans = msgService.getNewMember();
 			model.addAttribute("newMembers", memberBeans);

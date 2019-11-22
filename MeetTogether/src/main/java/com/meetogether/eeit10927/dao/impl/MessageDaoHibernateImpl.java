@@ -459,7 +459,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		List<MemberBean> list = new ArrayList<>();
 		String hql = "from MemberBean order by createTime desc";
 		list = factory.getCurrentSession().createQuery(hql)
-				.setMaxResults(5)
+				.setMaxResults(10)
 				.getResultList();
 		return list;
 	}
@@ -470,7 +470,7 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		List<ActBean> list = new ArrayList<>();
 		String hql = "from ActBean order by createTime desc";
 		list = factory.getCurrentSession().createQuery(hql)
-				.setMaxResults(8)
+				.setMaxResults(4)
 				.getResultList();
 		return list;
 	}
