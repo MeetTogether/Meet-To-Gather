@@ -205,7 +205,7 @@ p {
 	
 		
 	
-		 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${pageContext.request.contextPath}/eeit10901/images/mt8.jpg' );" data-stellar-background-ratio="0.5">
+		 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg06.jpg' );" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
