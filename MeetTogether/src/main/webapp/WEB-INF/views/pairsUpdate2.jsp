@@ -118,7 +118,6 @@
 					members = JSON.parse(xhttp.responseText);
 					console.log(members);
 					myInnerText();
-					binding();
 				}else{
 					$("#vipModalLong").modal("show");
 				}
@@ -260,6 +259,7 @@
 
 	document.addEventListener("DOMContentLoaded", function() {
 		pairAjax();
+		binding();
 		friendAjax();
 		document.getElementById("sex").addEventListener("change", function() {
 			pairAjax();
