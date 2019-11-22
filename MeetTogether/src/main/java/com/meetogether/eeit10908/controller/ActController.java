@@ -242,7 +242,7 @@ public class ActController {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 	    ActBean aa = new ActBean();
 	    
-	    aa.setGroupNum("9");
+	    aa.setGroupNum(9);
 	    model.addAttribute("actBean", aa); 
 	    return "/eeit10908/";
 	}
@@ -281,14 +281,15 @@ public class ActController {
 	
 	
 	@RequestMapping(value = "/index/deleteActivity")
-	public String delete(@RequestParam("getId") int ActId) {
+	public String delete(HttpServletRequest request) {
+		int ActId = Integer.parseInt(request.getParameter("getId"));
 		 service.deleteActivity(ActId);
 
 		 return "redirect:/eeit10908";
 	}
 	
 	@RequestMapping(value = "/index/index/deleteActivity")
-	public String deletes(@RequestParam("getId") int ActId) {
+	public String deletes(@RequestParam(value = "getId") int ActId) {
 		 service.deleteActivity(ActId);
 
 		 return "redirect:/eeit10908";
@@ -524,6 +525,8 @@ public class ActController {
 	    return "/eeit10908/Updatethisact";
 	}
 
+
+
 	@RequestMapping(value = "/actdata", method = RequestMethod.POST)
 	public String updateActByIdForm(@ModelAttribute("actBean") ActBean aa
 			) {
@@ -545,21 +548,22 @@ public class ActController {
 				e.printStackTrace();
 				throw new RuntimeException("檔案上傳發生異常: " + e.getMessage());
 			}
+			System.out.println("5544332211");
+			service.updateActivity(aa);
+			savedFilename = "Message-" + aa.getEventId() + "-" + String.valueOf(System.currentTimeMillis()) + ext;
+			service.updateActImageFilename(aa.getEventId(), savedFilename);
+		}else {
+			System.out.println("1122334455");
+			service.updatenoImageActivity(aa);
 		}
 		System.out.println(aa.getEventId());
-		System.out.println(aa.getMemberId());
 		System.out.println(aa.getEventName());
 		System.out.println(aa.getEventCat());
 		System.out.println(aa.getEventTime());
 		System.out.println(aa.getEventPlace());
 		System.out.println(aa.getBudget());
-		
-		service.updateActivity(aa);
-		
-		if (originalFilename.length() > 0) {
-			savedFilename = "Message-" + aa.getEventId() + "-" + String.valueOf(System.currentTimeMillis()) + ext;
-			service.updateActImageFilename(aa.getEventId(), savedFilename);
-		}
+		System.out.println( aa.getActImage());
+			
 		return "redirect:/eeit10908";
 	}
 	
@@ -613,6 +617,8 @@ public class ActController {
 		ActBean eventBean = service.getActivityById(id);
 		actJ.setMemberbean(member);
 		actJ.setEventBean(eventBean);
+//		service.addJoinPerson(id);
+		service.addJoinPerson(eventBean);
 		service.addActJoin(actJ);
 		return "redirect:/eeit10908";
     }

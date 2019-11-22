@@ -427,26 +427,72 @@ p {
     					<div class="text p-4 text-center">
     						<h2 class="mb-0"><a href="ByActivity?getId=${acts.eventId}">${acts.eventName}</a></h2>
     						<span>scheduled start time:${acts.eventTime}</span>
-    						
+
     						<c:set var="done" value="false" />
-    						
+  							<c:set var="dones" value="false" />
+							<c:set var="join" value="false"/>
+							<c:if test="${acts.groupNum eq acts.actjoinPeople}">
+								<c:set var="join" value="true"/>
+							</c:if>
+
     						<c:forEach items="${ActJoinBeans}" var="ActJoinBean">
 								<c:if test="${acts.eventId eq ActJoinBean.eventBean.eventId}">    						
     								<c:set var="done" value="true" />	
     							</c:if>
     						</c:forEach>
+    						 <form:form method="post" 
+ 							modelAttribute="actBean">
+							<c:if test="${acts.memberId.memberId eq actBean.memberId.memberId}">    						
+    								<c:set var="dones" value="true" />	
+    						</c:if>
+							</form:form>
     						
     						
     						<c:choose>
     						<c:when  test="${done}">
-    							<p class="d-flex mb-0 d-block"><a href="javascript:void(0)" 
-								class="btn btn-black btn-outline-black mr-1 isDisabled" id="joinacts" >已參加</a>
+    							<c:choose>
+    							<c:when  test="${dones}">
+    							<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/actdata?getId=${acts.eventId}" 
+								class="btn btn-black btn-outline-black mr-1" >活 動 修 改</a>
+					
+    							
+    							</c:when>
+    							<c:otherwise>
+							 		<p class="d-flex mb-0 d-block"><a href="javascript:void(0)" 
+										class="btn btn-black btn-outline-black mr-1 isDisabled" id="joinacts" >已參加</a>
+    							</c:otherwise>
+    							</c:choose>
     						</c:when>
   						
     						
     						<c:otherwise>
-								<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/JoinAct?getActId=${acts.eventId}" 
-								class="btn btn-black btn-outline-black mr-1" id="joinact" onload="clickact(this)">參加活動</a> 
+    							<c:choose>
+    							<c:when  test="${dones}">
+    							<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/actdata?getId=${acts.eventId}" 
+								class="btn btn-black btn-outline-black mr-1" >活 動 修 改</a>
+					
+    							
+    							</c:when>
+    							<c:otherwise>
+    								
+    								
+    								<c:choose>
+    								<c:when test="${join}">
+    										<p class="d-flex mb-0 d-block"><a href="javascript:void(0)" 
+											class="btn btn-black btn-outline-black mr-1 isDisabled" id="joinacts" >人數已滿</a>
+    								</c:when>
+    								
+    								<c:otherwise>
+							 		<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/JoinAct?getActId=${acts.eventId}" 
+										class="btn btn-black btn-outline-black mr-1" id="joinact" onload="clickact(this)">參加活動</a> 
+							 		
+							 		</c:otherwise>
+							 		
+							 		</c:choose>
+							 		
+    							</c:otherwise>
+    							</c:choose>
+								
     						</c:otherwise>
     						</c:choose>
     						
@@ -455,40 +501,13 @@ p {
     						
     						
     						
-    						<c:set var="dones" value="false" />
     						
-							 <form:form method="post" 
- 							modelAttribute="actBean">
-							<c:if test="${acts.memberId.memberId eq actBean.memberId.memberId}">    						
-    								<c:set var="dones" value="true" />	
-    						</c:if>
-							</form:form>
+    						
+							
     						
     						
     						
-    						<c:choose>
-    						<c:when  test="${dones}">
-    							
-<!--     							<a  class="btn btn-black btn-outline-black ml-1" data-target="#exampleModalLong">活動修改</a><p> -->
-    							<br>
-    							
-<!--     							<button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleUpdate"  > -->
-<!--   								活動修改 -->
-<!-- 								</button> -->
-<%-- 								<p class="d-flex mb-0 d-block"><a href="${pageContext.request.contextPath}/actdata?getId=${acts.eventId}" --%>
-<!-- 								class="btn btn-black btn-outline-black mr-1" >活 動 修 改</a> -->
-								<p class="d-flex mb-0 d-block">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/actdata?getId=${acts.eventId}" 
-								class="btn btn-black btn-outline-black mr-1" >活 動 修 改</a>
-								
-  								
-  							
-    						</c:when>
-  						
     						
-    						<c:otherwise>
-							 
-    						</c:otherwise>
-    						</c:choose>
     						
     						
     						

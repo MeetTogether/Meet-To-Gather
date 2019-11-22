@@ -20,6 +20,8 @@ public interface ActService {
 	
 	void updateActivity(ActBean act);
 	
+	void updatenoImageActivity(ActBean act);
+	
 	public ActBean getActivityById(int actId);
 	
 	public List<ActBean> getActivityByCat(int catId);
@@ -29,4 +31,6 @@ public interface ActService {
     public void addActJoin(ActJoinBean actJ);
     
     public List<ActJoinBean> CheckJoinPersons(Integer memberId);
+    
+    public void addJoinPerson(ActBean abean);
 }

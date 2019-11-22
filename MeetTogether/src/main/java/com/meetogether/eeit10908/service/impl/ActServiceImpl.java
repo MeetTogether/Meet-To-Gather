@@ -97,4 +97,18 @@ public class ActServiceImpl implements ActService {
 		return custDao.CheckJoinPerson(memberId);
 	}
 
+
+	@Override
+	public void updatenoImageActivity(ActBean act) {
+		custDao.updateActivityNoimage(act);
+		
+	}
+
+
+	@Override
+	public void addJoinPerson(ActBean aBean) {
+		custDao.addActJoinPeoson(aBean);
+		
+	}
+
 }

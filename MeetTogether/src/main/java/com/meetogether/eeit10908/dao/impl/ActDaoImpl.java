@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +47,7 @@ public class ActDaoImpl implements ActDao {
 		Session session = factory.getCurrentSession();
 		CatBean cb =getCatById(activity.getEventCat());
 		activity.setCatbean(cb);
+		activity.setActjoinPeople(0);
 		session.save(activity);
 	}
 
@@ -91,15 +93,31 @@ public class ActDaoImpl implements ActDao {
 		result.setBudget(act.getBudget());
 		result.setEventPlace(act.getEventPlace());
 		result.setActPhoto(act.getActPhoto());
-	
 		CatBean cb=getCatById(act.getEventCat());
 		
 		result.setEventCat(cb.getEventCat());
 		
 		
+	}
+	
+	@Override
+	public void updateActivityNoimage(ActBean act) {
+		Session session = factory.getCurrentSession();
+		 String hql = "from ActBean WHERE eventId = ?0";
+		ActBean result = (ActBean) session.createQuery(hql).setParameter(0, act.getEventId()).uniqueResult();
 		
-//		session.update(act);
+		result.setEventName(act.getEventName());
+		result.setEventTime(act.getEventTime());
+		result.setActContent(act.getActContent());
+		result.setGroupNum(act.getGroupNum());
+		result.setBudget(act.getBudget());
+		result.setEventPlace(act.getEventPlace());
+		CatBean cb=getCatById(act.getEventCat());
 		
+		result.setEventCat(cb.getEventCat());
+		
+		
+
 	}
 
 	@Override
@@ -141,6 +159,32 @@ public class ActDaoImpl implements ActDao {
 		List<ActJoinBean> list = factory.getCurrentSession().createQuery(hql).setParameter(0, memberId).getResultList();
 		return list;
 	}
+
+
+
+	@Override
+	public void addActJoinPeoson(ActBean aBean) {
+
+
+//		String hql = "UPDATE ActBean SET actjoinPeople =?1 WHERE eventId =?0";
+//		
+//
+//		Query query = session.createQuery(hql);
+//		      query.setParameter(0, actId);
+//		      query.setParameter(1, aBean.getActjoinPeople()+1);
+//		      System.out.println(aBean.getActjoinPeople()+1+"*/*/*//////");
+//		      query.executeUpdate();
+	     Session session = factory.getCurrentSession();
+		 String hql = "from ActBean WHERE eventId = ?0";
+		 ActBean result = (ActBean) session.createQuery(hql).setParameter(0, aBean.getEventId()).uniqueResult();
+
+		 result.setActjoinPeople(1);
+		 System.out.println(result.getActjoinPeople()+"=======");
+		 System.out.println(result.getEventId());
+
+	}
+
+	
 	
 	
 	
