@@ -59,7 +59,8 @@ public class PairsController {
 		if (model.getAttribute("currentUser") == null) {
 			return "redirect:/";
 		}
-		if (currentUser.getMemberHope() == null) {
+		IMember m=currentUser;
+		if (m.getMemberHope() == null) {
 			model.addAttribute("noMemberHope", true);
 		}
 		return "pairsUpdate2";
