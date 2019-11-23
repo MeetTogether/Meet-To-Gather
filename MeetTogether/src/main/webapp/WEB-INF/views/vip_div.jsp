@@ -13,7 +13,7 @@
 	      	<h3 style="text-align: center;">VIP專屬福利</h3>
 	      	<h6 style="text-align: center; color: red;">NT$149/月</h6>
 	      	<div style="text-align: center;">
-				√&ensp;個人相簿空間擴大為&ensp;<span style="color: red;">5</span>張！<br>
+				√&ensp;個人相簿空間<span style="color: red;">擴大</span><br>
 				√&ensp;每日可配對<span style="color: red;">無限制</span><br>
 				√&ensp;增加討論區文章<span style="color: red;">匯出</span>功能！<br><br>
 	      	</div>
