@@ -57,6 +57,12 @@ function YoN(yn,fid){
 			"${pageContext.request.contextPath}/yon?yon="+yn+"&fid="+fid, true);
 	xhttp.setRequestHeader("Pagram", true);
 	xhttp.send();
+	xhttp.onreadystatechange = function () {
+		if(xhttp.readyState == 4 && xhttp.status == 200){
+			serachMyFriends();
+		}
+		
+	}
 }
 
 function responseAjax(){
@@ -68,7 +74,7 @@ function responseAjax(){
 	xhttp.onreadystatechange = function(){
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 			responseFriends = JSON.parse(xhttp.responseText);
-			console.log(responseFriends);
+			console.log("好友邀請："+responseFriends);
 			for(var k in responseFriends) {
 				   console.log(k, responseFriends[k]);
 				   var newLi = document.createElement("li");
@@ -104,13 +110,14 @@ function responseAjax(){
 						var fid = (this.id).substring(3);
 						YoN(1,fid);
 						document.getElementById(rsi).remove();
-					});
+						});
 					
 					
 					document.getElementById(rid).addEventListener("click",function(){
 						var fid = (this.id).substring(3);
 						YoN(0,fid);
 						document.getElementById(rsi).remove();
+						serachMyFriends();
 					});
 
 				}
@@ -134,7 +141,7 @@ function serachMyFriends() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 			serachFriends = JSON.parse(xhttp.responseText);
-			console.log(serachFriends);
+			console.log("好友：" + serachFriends);
 			for(let serachfriend of serachFriends){
 				
 				var newLi = document.createElement("li");
@@ -188,7 +195,6 @@ function serachMyFriends() {
 							var id = this.id;
 							window.location.href="${pageContext.request.contextPath}/getmember/"+id;
 						}
-							
 						});
 
 			}
@@ -198,6 +204,8 @@ function serachMyFriends() {
 document.addEventListener("DOMContentLoaded", function() {
 	serachMyFriends();
 	responseAjax();
+	
+	
 	document.getElementById("serachFriend").addEventListener("change",
 			function() {
 				serachMyFriends();
@@ -278,8 +286,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	<div class="container">
 		<label>好友要求</label>
-		<div class="" style="padding: 20px; overflow: scroll; height: 300px;">
-			<ul class="" id="responsefriends">
+		<div class="" style="padding: 20px; overflow: scroll; height: 100px;">
+			<ul class="list-group" id="responsefriends">
 			</ul>
 		</div>
 
@@ -291,7 +299,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		<input type="text" class="" placeholder="搜尋好友，開始聊天" autocomplete="off"
 			id="serachFriend">
 		<div class="" style="padding: 20px; overflow: scroll; height: 300px;">
-			<ul class="" id="friends">
+			<ul class="list-group" id="friends">
 			</ul>
 		</div>
 	</div>

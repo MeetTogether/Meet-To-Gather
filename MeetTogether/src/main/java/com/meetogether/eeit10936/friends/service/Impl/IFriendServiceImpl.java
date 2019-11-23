@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meetogether.eeit10936.chat.dao.ChatMsgRedisDao;
 import com.meetogether.eeit10936.friends.dao.IFriendDao;
 import com.meetogether.eeit10936.friends.model.FriendList;
 import com.meetogether.eeit10936.friends.service.IFriendService;
@@ -15,6 +16,8 @@ import com.meetogether.eeit10936.friends.service.IFriendService;
 public class IFriendServiceImpl implements IFriendService {
 	@Autowired
 	private IFriendDao dao;
+	@Autowired
+	private ChatMsgRedisDao cDao;
 
 	@Transactional
 	@Override
@@ -68,6 +71,7 @@ public class IFriendServiceImpl implements IFriendService {
 	@Transactional
 	@Override
 	public void deleteFriends(Integer id,Integer fid) {
+		cDao.delMsg(id, fid);
 		dao.deleteFriends(id, fid);
 	}
 	@Transactional
