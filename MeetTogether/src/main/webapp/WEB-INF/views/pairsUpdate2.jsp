@@ -42,24 +42,13 @@
 			document.getElementById("memberCity").innerText = members.mb.memberCity
 					.trim();
 			document.getElementById("interest").innerText = members.mil;
-			var i = 1;
 			var srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
-					+ members.mb.memberId + "/" + i;
+					+ members.mb.memberId + "/1" ;
 			document.getElementById("pairImg").setAttribute("src", srcUrl);
-			document
-					.getElementById("pairImg")
-					.addEventListener(
-							"click",
-							function() {
-								var vip = ${vipstatus};
-								i++;
-								vip ? i > 5 ? i = 1 : i = i : i > 3 ? i = 1
-										: i = i;
-								srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
-										+ members.mb.memberId + "/" + i;
-								document.getElementById("pairImg")
-										.setAttribute("src", srcUrl);
-							});
+			document.getElementById("getAlbum").addEventListener("click",function(){
+				countAlbum(members.mb.memberId);
+			});
+			
 		
 			
 		
@@ -114,12 +103,16 @@
 		xhttp.send(getQueryString());
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				if(xhttp.responseText){
-					members = JSON.parse(xhttp.responseText);
+				var verstr = xhttp.responseText;
+				console.log(verstr);
+				if(verstr != "notVip" && verstr != "noCompare"){
+					members = JSON.parse(verstr);
 					console.log(members);
 					myInnerText();
-				}else{
+				}else if(verstr == "notVip"){
 					$("#vipModalLong").modal("show");
+				}else if(verstr == "noCompare"){
+					$("#noCompareModalLong").modal("show");
 				}
 				
 			}
@@ -153,7 +146,28 @@
 		let xhttp = new XMLHttpRequest();
 		xhttp.open("Get", "${pageContext.request.contextPath}/chat/del?" + url, true);
 		xhttp.setRequestHeader("Pragma", true);
+		xhttp.send();	
+	}
+	function countAlbum(id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.open("Get", "${pageContext.request.contextPath}/countAlbum/" + id, true);
+		xhttp.setRequestHeader("Pragma", true);
 		xhttp.send();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var countPh = parseInt(xhttp.response)+1;
+				console.log(countPh);
+				var j;
+				for(j = 1 ;j < countPh ; j++){
+					var albumsrc = "/MeetTogether/memberPhoto/"+ id + "/" + j ;
+					var albumimg = document.createElement("img");
+					albumimg.setAttribute("src", albumsrc);
+					albumimg.setAttribute("style", "width:370px; margin:auto;");
+					document.getElementById("here").appendChild(albumimg);
+					}
+				$("#albumModalLong").modal("show");
+				}
+		}
 		
 	}
 
@@ -258,6 +272,10 @@
 	}
 
 	document.addEventListener("DOMContentLoaded", function() {
+		var noMemberHope = "${noMemberHope}";
+	    if(noMemberHope){
+			$("#memberModalLong").modal("show");
+	    }
 		pairAjax();
 		binding();
 		friendAjax();
@@ -400,8 +418,15 @@ td{
 			</div>
 		</div>
 	</section>
+	
 	<!--VIP -->
 	<jsp:include page="/WEB-INF/views/vip_div.jsp"/>
+	<!--NOMEMBERHOPE -->
+	<jsp:include page="/WEB-INF/views/NoMemberHope.jsp"/>
+	<!--NOCOMPARE -->
+	<jsp:include page="/WEB-INF/views/NoCompare.jsp"/>
+	<!--NOCOMPARE -->
+	<jsp:include page="/WEB-INF/views/showalbum.jsp"/>
 	
 	<section class="ftco-section testimony-section">
 		<div class="container">
@@ -463,6 +488,7 @@ td{
 						<div style="text-align: center;">
 							<img id="pairImg" class="pairImg" />
 							<div style="width: 500px; margin: auto;">
+							<input type="button" value="檢視相簿" id="getAlbum" class="reply" />
 							<table align="center">
 								<tr>
 									<td>姓名</td>

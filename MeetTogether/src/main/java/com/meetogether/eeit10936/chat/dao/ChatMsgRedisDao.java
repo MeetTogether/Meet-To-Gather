@@ -103,5 +103,12 @@ public class ChatMsgRedisDao {
 			jedis.close();
 		}
 	}
+	
+	public void delMsg(Integer to,Integer from) {
+		String key = getKey(from, to);
+		Jedis jedis = jedisPool.getResource();
+		jedis.del(key);
+		jedis.close();
+	}
 
 }

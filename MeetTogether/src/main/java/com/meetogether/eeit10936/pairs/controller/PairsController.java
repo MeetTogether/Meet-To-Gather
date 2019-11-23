@@ -55,9 +55,13 @@ public class PairsController {
 	}
 
 	@RequestMapping("/pairs")
-	public String pair(Model model) {
+	public String pair(Model model, @ModelAttribute("currentUser") IMember currentUser) {
 		if (model.getAttribute("currentUser") == null) {
 			return "redirect:/";
+		}
+		IMember m=currentUser;
+		if (m.getMemberHope() == null) {
+			model.addAttribute("noMemberHope", true);
 		}
 		return "pairsUpdate2";
 	}
@@ -77,9 +81,10 @@ public class PairsController {
 		Long checkAlreadyPairs = pService.checkAlreadyPairs(currentUser.getMemberBasic().getMemberId());
 		System.out.println("今天幾次 ：" + checkAlreadyPairs);
 		System.out.println("是否為VIP ：" + model.getAttribute("vipstatus"));
-		if (!(boolean) model.getAttribute("vipstatus") && checkAlreadyPairs > 5) {
-			return null;
+		if (!(boolean) model.getAttribute("vipstatus") && checkAlreadyPairs > 4) {
+			return "notVip";
 		}
+
 		List<IMember> memberlist = new ArrayList<IMember>();
 		List<Integer> pairList = pService.getPaired(currentUser.getMemberBasic().getMemberId());
 		pService.sortByDESValue(pService.finalscoreMap(currentUser.getMemberBasic().getMemberCity(),
@@ -92,7 +97,7 @@ public class PairsController {
 				});
 
 		if (memberlist.size() == 0) {
-			return null;
+			return "noCompare";
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyy-MM-dd").create();
 		return gson.toJson(memberlist.get(0));
@@ -146,7 +151,13 @@ public class PairsController {
 		} catch (Exception e) {
 
 		}
-
 	}
+	
+	@GetMapping("/countAlbum/{id}")
+	public @ResponseBody Integer countAlbum(@PathVariable("id") Integer id) {
+		return Math.toIntExact(pService.countAlbum(id));
+		
+	}
+	
 
 }

@@ -103,7 +103,11 @@ public class IFriendDaoHibernateImol implements IFriendDao {
 	            .setParameter(0, f2id).setParameter(1, f1id).uniqueResult();
 		if(result!=null) {
 			if(status==1) {
-				addFriendList(f1id, f2id);
+				FriendList fl = new FriendList();
+				fl.setMemberId(f1id);
+				fl.setFriendId(f2id);
+				fl.setFriendStatus(1);
+				factory.getCurrentSession().persist(fl);
 			}
 			result.setF2IdAllow(status);
 			factory.getCurrentSession().update(result);
