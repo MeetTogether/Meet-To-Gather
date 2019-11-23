@@ -207,5 +207,23 @@ public class MessageServiceImpl implements IMessageService {
 		return dao.getPopActivity();
 	}
 
+	@Transactional
+	@Override
+	public int getTotalPages() {
+		return dao.getTotalPages();
+	}
+
+	@Transactional
+	@Override
+	public long getRecordCounts() {
+		return dao.getRecordCounts();
+	}
+
+	@Transactional
+	@Override
+	public List<Message> getPageMessages() {
+		return dao.getPageMessages();
+	}
+
 
 }

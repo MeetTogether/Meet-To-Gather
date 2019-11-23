@@ -44,5 +44,9 @@ import com.meetogether.eeit10927.model.Message;
 	
 	public List<MemberBean> getNewMember();
 	public List<ActBean> getPopActivity();
+	
+	public int getTotalPages();
+	public long getRecordCounts();
+	public List<Message> getPageMessages();
 
 }

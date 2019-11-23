@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.meetogether.eeit10908.model.ActBean;
@@ -42,8 +43,8 @@ import com.meetogether.eeit10936.pairs.model.VipStatus;
 @Controller
 public class MessageController {
 	
-	int recordsPerPage = 2;
 	List<Message> list = null;
+	int recordsPerPage = 2;
 	
 	ServletContext context;
 	@Autowired
@@ -85,30 +86,55 @@ public class MessageController {
 			return "redirect:/";
 		}
 		
-		String url = "";
-		url = request.getScheme() + "://" + request.getServerName() + ":"
-				+ request.getServerPort() + request.getContextPath()
-				+ request.getServletPath();
-//		System.out.println("--------------present url: " + url);
-		
 		// 空messageBean給postMsg.jsp
 		Message msg = new Message();
 		model.addAttribute("messageBean", msg);
 		// 空messageTypeBean給分類查詢
 		model.addAttribute("msgTypeBean", new MsgType());
-		
 		// 查到的msgLike和空的msgLikeBean給forum.jsp
 		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
 		model.addAttribute("mlBeans", mlBeans);
 		Msglike msgLike = new Msglike();
 		model.addAttribute("msgLike", msgLike);
-		
+		// user的vip到期時間
 		Timestamp endTime = vipService.vipEndTime(userId);
 		if (endTime != null) {
 			session.setAttribute("vipEndTime", endTime);
 		}
 		
-		return "forward:/DisplayPageMessage";
+		// 取得頁數
+		String pageNoStr = request.getParameter("pageNo");
+		int pageNo = 1;
+		if (pageNoStr == null) {
+			pageNo = 1;
+		} else {
+			try {
+				pageNo = Integer.parseInt(pageNoStr.trim());
+			} catch (NumberFormatException e) {
+				pageNo = 1;
+			}
+		}
+		
+		msgService.setPageNo(pageNo);
+		msgService.setRecordsPerPage(recordsPerPage);
+		model.addAttribute("pageNo", pageNo);
+		int totalPages = msgService.getTotalPages();
+		List<Integer> totalPage = new ArrayList<Integer>();
+		for (int i = 1; i <= totalPages; i++) {
+			totalPage.add(i);
+		}
+		System.out.println("-----------totalPage: " + totalPage);
+		model.addAttribute("totalPages", msgService.getTotalPages());
+		model.addAttribute("totalPage", totalPage);
+		// 查到的messageBean給forum.jsp
+		list = msgService.getPageMessages();
+		model.addAttribute("msgBeans", list);
+		// 把總筆數、頁數傳給forum.jsp
+		list = msgService.getAllMessageActive();
+		int totalCounts = list.size();
+		model.addAttribute("totalCnt", totalCounts);
+		
+		return "eeit10927/html/forum";
 	}
 	
 	@RequestMapping(value = "/PostServlet", method = RequestMethod.POST)
@@ -171,10 +197,10 @@ public class MessageController {
 		// 空messageTypeBean給分類查詢
 		model.addAttribute("msgTypeBean", new MsgType());
 
-		list = msgService.getPageMessages(userId);
+		list = msgService.getPageMessages(memberId);
 		model.addAttribute("msgBeans", list);
 		
-		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
+		List<Msglike> mlBeans = mlService.findMsglikeByMember(memberId);
 		model.addAttribute("mlBeans", mlBeans);
 		Msglike msgLike = new Msglike();
 		model.addAttribute("msgLike", msgLike);
@@ -190,7 +216,7 @@ public class MessageController {
 		msgService.setPageNo(pageNo);
 		msgService.setRecordsPerPage(recordsPerPage);
 		model.addAttribute("pageNo", pageNo);
-		int totalPages = msgService.getTotalPages(userId);
+		int totalPages = msgService.getTotalPages(memberId);
 		model.addAttribute("totalPages", totalPages);
 		List<Integer> totalPage = new ArrayList<Integer>();
 		for (int i = 1; i <= totalPages; i++) {
@@ -198,7 +224,7 @@ public class MessageController {
 		}
 		model.addAttribute("totalPage", totalPage);
 		// 把總筆數、頁數傳給forumMember.jsp
-		List<Message> allMemberMsgs = msgService.getUserMessage(userId);
+		List<Message> allMemberMsgs = msgService.getUserMessage(memberId);
 		int totalCounts = allMemberMsgs.size();
 		model.addAttribute("totalCnt", totalCounts);
 		
@@ -327,6 +353,7 @@ public class MessageController {
 				pageNo = 1;
 			}
 		}
+		
 		msgService.setPageNo(pageNo);
 		msgService.setRecordsPerPage(recordsPerPage);
 //		list = msgService.getPageMessages();
@@ -424,6 +451,60 @@ public class MessageController {
 		List<Message> result = msgService.getUserMessage(memberId);
 		model.addAttribute("Message", result);
 		return "message/showAllMessages";
+	}
+	
+	@RequestMapping(value = "/GetPostPageServlet", method = RequestMethod.GET)
+	public @ResponseBody List<Message> GetPostPageServlet(Model model, HttpServletRequest request, HttpSession session) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		// 空messageBean給postMsg.jsp
+		Message msg = new Message();
+		model.addAttribute("messageBean", msg);
+		// 空messageTypeBean給分類查詢
+		model.addAttribute("msgTypeBean", new MsgType());
+		// 查到的msgLike和空的msgLikeBean給forum.jsp
+		List<Msglike> mlBeans = mlService.findMsglikeByMember(userId);
+		model.addAttribute("mlBeans", mlBeans);
+		Msglike msgLike = new Msglike();
+		model.addAttribute("msgLike", msgLike);
+		// user的vip到期時間
+		Timestamp endTime = vipService.vipEndTime(userId);
+		if (endTime != null) {
+			session.setAttribute("vipEndTime", endTime);
+		}
+		
+		// 取得頁數
+		String pageNoStr = request.getParameter("pageNo");
+		int pageNo = 1;
+		if (pageNoStr == null) {
+			pageNo = 1;
+		} else {
+			try {
+				pageNo = Integer.parseInt(pageNoStr.trim());
+			} catch (NumberFormatException e) {
+				pageNo = 1;
+			}
+		}
+		
+		msgService.setPageNo(pageNo);
+		msgService.setRecordsPerPage(recordsPerPage);
+		model.addAttribute("pageNo", pageNo);
+		int totalPages = msgService.getTotalPages();
+		List<Integer> totalPage = new ArrayList<Integer>();
+		for (int i = 1; i <= totalPages; i++) {
+			totalPage.add(i);
+		}
+		System.out.println("-----------totalPage: " + totalPage);
+		model.addAttribute("totalPages", msgService.getTotalPages());
+		model.addAttribute("totalPage", totalPage);
+		// 查到的messageBean給forum.jsp
+		list = msgService.getPageMessages();
+		model.addAttribute("msgBeans", list);
+		// 把總筆數、頁數傳給forum.jsp
+		list = msgService.getAllMessageActive();
+		int totalCounts = list.size();
+		model.addAttribute("totalCnt", totalCounts);
+		
+		return list;
 	}
 	
 }
