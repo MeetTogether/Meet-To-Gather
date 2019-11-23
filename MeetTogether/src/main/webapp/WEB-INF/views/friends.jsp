@@ -93,12 +93,14 @@ function responseAjax(){
 					var sid ="rsb"+k;
 					sureBt.setAttribute("id",sid);
 					sureBt.setAttribute("type","button");
+					sureBt.setAttribute("class","reply_n");
 					sureBt.setAttribute("value","確定");
 					
 					var refuseBt = document.createElement("input");
 					var rid ="rrb"+k;
 					refuseBt.setAttribute("id",rid);
 					refuseBt.setAttribute("type","button");
+					refuseBt.setAttribute("class","reply");
 					refuseBt.setAttribute("value","拒絕");
 					
 					document.getElementById("responsefriends").appendChild(newLi);
@@ -165,6 +167,7 @@ function serachMyFriends() {
 				var did ="del"+serachfriend.id;
 				delBt.setAttribute("id",did);
 				delBt.setAttribute("type","button");
+				delBt.setAttribute("class","reply");
 				delBt.setAttribute("value","刪除好友");
 				
 				document.getElementById("friends").appendChild(newLi);
@@ -214,6 +217,53 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 </script>
+<style type="text/css">
+.fimg {
+	float: right;
+	max-width: 40px;
+	max-height: 100%;
+	width: 100%;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+/* 	border-bottom: 1px solid #ddd; */
+
+.reply {
+	padding: 5px 10px;
+	background: #ff07295e;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+	width: 45%;
+}
+.reply_n {
+	padding: 5px 10px;
+	background: #ACD6FF;
+	color: #000000;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+	width: 45%;
+}
+.reply_a:hover {
+	color: #fff;
+	/*background: #18e2ebb5;*/
+	background: #fd7e14;
+}
+.reply:hover {
+	color: #fff;
+	background: #FF5151;
+}
+.reply_n:hover {
+	color: #fff;
+	background: #2894FF;
+}
+</style>
 </head>
 <body>
 	<nav
@@ -233,8 +283,8 @@ document.addEventListener("DOMContentLoaded", function() {
 						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item active"><a 
-						href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>					
+					<li class="nav-item active"><a
+						href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/eeit10908/"
 						class="nav-link">活動</a></li>
@@ -283,29 +333,28 @@ document.addEventListener("DOMContentLoaded", function() {
 			</div>
 		</div>
 	</section>
+	<section>
+		<div class="container">
+						<label>好友要求</label>
+						<div class=""
+							style="padding: 20px; overflow: scroll; height: 100px;">
+							<ul class="list-group" id="responsefriends">
+							</ul>
+						</div>
 
-	<div class="container">
-		<label>好友要求</label>
-		<div class="" style="padding: 20px; overflow: scroll; height: 100px;">
-			<ul class="list-group" id="responsefriends">
-			</ul>
-		</div>
+						<label>好友列表</label>
+						<!-- 						<span class="">好友列表</span><br> -->
+						<input type="text" class="" placeholder="搜尋好友，開始聊天"
+							autocomplete="off" id="serachFriend">
+						<div class=""
+							style="padding: 20px; overflow: scroll; height: 300px;">
+							<ul class="list-group" id="friends">
+							</ul>
+						</div>
+					</div>
+			
 
-
-
-
-		<label>好友列表</label>
-		<!-- 						<span class="">好友列表</span><br> -->
-		<input type="text" class="" placeholder="搜尋好友，開始聊天" autocomplete="off"
-			id="serachFriend">
-		<div class="" style="padding: 20px; overflow: scroll; height: 300px;">
-			<ul class="list-group" id="friends">
-			</ul>
-		</div>
-	</div>
-
+	</section>
 	<jsp:include page="/WEB-INF/views/footer.jsp" />
-
-
 </body>
 </html>
