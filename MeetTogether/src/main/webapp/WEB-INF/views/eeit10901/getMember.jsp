@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix ="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>MeetTogether - 討論區</title>
+<title>MeetTogether - 會員資料</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -30,58 +30,86 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
-.likeBtn, .dislikeBtn, .replyBtn {
-	height: 20px;
-	cursor: pointer;
-}
 p {
 	margin-bottom: 0;
 }
-.input_tag {
-	height: 52px !important;
-	font-size: 18px;
-	border-radius: 5px;
-	width: 50%;
-	padding: 0.375rem 0.75rem;
+.reply {
+	padding: 5px 10px;
+	background: #ACD6FF;
+	color: black;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
 	font-weight: 400;
-	line-height: 1.5;
-	border: 1px solid #ced4da;
+	border-radius: 4px;
+}
+.reply:hover {
+	color: white;
+	background: #2894FF;
+}
+.reply_n {
+	padding: 5px 10px;
+	background: #ff07295e;
+	color: black;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: .1em;
+	font-weight: 400;
+	border-radius: 4px;
+}
+.reply_n:hover {
+	color: white;
+	background: #FF5151;
 }
 </style>
 <script type="text/javascript">
-jQueryConflict = $.noConflict();
-jQueryConflict(document).ready(function() {
-	jQueryConflict("#Postbox").hide();
-	jQueryConflict("#Postbutton").click(function() {
-		jQueryConflict("#Postbox").toggle("blind"); /* 展開發文表單 */
-			/* $('html,body').animate({
-				scrollTop : 0
-			}); 返回到頁面頂端 */
-		});
-	jQueryConflict("#ViewMyPost").click(
-			function() {
-				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}&pageNo=1";
-			});
-	jQueryConflict("#ViewAllPost").click(
-			function() {
-				top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-			});
-	jQueryConflict("input#deletePost").click(function() {
-			var c = confirm('是否確認刪除');
-			console.log(c);
-			if (c) {
-				jQueryConflict(this).parent("form#deletePostForm").submit();
-			} else {
-			}
-		});
-	
-	});
-</script>
+	document.addEventListener("DOMContentLoaded", function() {
+		formA = document.getElementById("formA");
+		if(document.getElementById("deleteFriends")){
+			document.getElementById("deleteFriends").addEventListener("click",
+					function() {
+						formA.action = "${pageContext.request.contextPath}/del";
+						formA.submit();
 
+					});
+		}
+		if(document.getElementById("inviteFriendStatus")){
+			document.getElementById("inviteFriendStatus").addEventListener("click",
+					function() {
+						formA.action = "";
+						formA.submit();
+					});
+			
+		}
+		if(document.getElementById("sure")){
+			document.getElementById("sure").addEventListener("click", function() {
+				document.getElementById("sureOrRefuse").value="1";
+				formA.action = "${pageContext.request.contextPath}/response";
+				formA.submit();
+			});
+		}
+		if(document.getElementById("refuse")){
+			document.getElementById("refuse").addEventListener("click", function() {
+				document.getElementById("sureOrRefuse").value="2";
+				formA.action = "${pageContext.request.contextPath}/response";
+				formA.submit();
+			});
+		}
+		if(document.getElementById("add")){
+			document.getElementById("add").addEventListener("click", function() {
+				formA.action = "${pageContext.request.contextPath}/invite";
+				console.log("${pageContext.request.contextPath}");
+
+				formA.submit();
+			});
+		}
+		
+	})
+</script>
 </head>
 <body>
-<!-- vip購買 -->
-<jsp:include page="/WEB-INF/views/vip_div.jsp"/>
+	<!-- vip購買 -->
+	<jsp:include page="/WEB-INF/views/vip_div.jsp" />
 
 	<!-- nav -->
 	<nav
@@ -99,16 +127,23 @@ jQueryConflict(document).ready(function() {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
-					<li class="nav-item active"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+							<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${empty userId}">
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong">登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -117,7 +152,7 @@ jQueryConflict(document).ready(function() {
 	<!-- END nav -->
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog03.jpg');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg04.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -127,120 +162,113 @@ jQueryConflict(document).ready(function() {
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>討論區 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>會員資料 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">討論區</h1>
+					<h1 class="mb-3 bread">會員資料</h1>
 				</div>
 			</div>
 		</div>
 	</section>
-	<div align=center>
-		<h2>個人基本資料</h2>
 
-		<table border='1'>
-			<tr>
-			<td  colspan="2">
-				<img style="height: 450px"
-					src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}' />
-</td>
-				<!-- 					<tr bgcolor='#ffad00'> -->
-			<tr>
-				<td>編號
-				<td>${member.memberId}</td>
-			<tr>
-				<td>mail
-				<td>${member.memberEmail}</td>
-<!-- 			<tr> -->
-<!-- 				<td>密碼 -->
-<%-- 				<td><input type="password" value="${member.memberPassword}" --%>
-<!-- 					disabled="true"></td> -->
-			<tr>
-				<td>暱稱
-				<td>${member.memberName}</td>
-			<tr>
-				<td>生日
-				<td>${member.memberBirth}</td>
-			<tr>
-				<td>性別</td>
+	<section class="ftco-section ftco-degree-bg">
+		<div class="row block-9 justify-content-center mb-5">
+			<div class="col-md-8 mb-md-5" align="center">
+			<jsp:include page="/WEB-INF/views/eeit10936/friendOption.jsp" /><br>
+				<div style="width: 30%; float: left;">
+					<c:choose>
+						<c:when test="${member.memberId == userId}">
+							<a class="nav-link"
+								href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改會員資料</a>
+							<a id="bookmark1"
+								href="${pageContext.request.contextPath}/memberInterest"
+								class="nav-link">個人興趣</a>
+							<a href="${pageContext.request.contextPath}/personalInterest"
+								class="nav-link">輸入個人興趣</a>
+							<a href="${pageContext.request.contextPath}/personal"
+								class="nav-link">輸入個人喜好</a>
+							<a href="${pageContext.request.contextPath}/addHope"
+								class="nav-link">輸入個人希望條件</a>
+							<a href="${pageContext.request.contextPath}/addAlbum"
+								class="nav-link">相簿</a>
+	
+						</c:when>
+					</c:choose>
+				</div>
+				<div style="width: 60%;">
+					<table>
+						<tr>
+							<td rowspan="5"><img style="width: 400px"
+								src='${pageContext.request.contextPath}/getImage?type=member&id=${member.memberId}' />
+							</td>
+<!-- 						<tr> -->
+<!-- 							<td>編號 -->
+<%-- 							<td>${member.memberId}</td> --%>
+<!-- 						<tr> -->
+							<td style="text-align: center; width: 150px; font-weight: bolder;">Email
+							<td>${member.memberEmail}</td>
+							<!-- 			<tr> -->
+							<!-- 				<td>密碼 -->
+							<%-- 				<td><input type="password" value="${member.memberPassword}" --%>
+							<!-- 					disabled="true"></td> -->
+						<tr>
+							<td style="text-align: center; width: 150px; font-weight: bolder;">暱稱
+							<td>${member.memberName}</td>
+						<tr>
+							<td style="text-align: center; width: 150px; font-weight: bolder;">生日
+							<td>${member.memberBirth}</td>
+						<tr>
+							<td style="text-align: center; width: 150px; font-weight: bolder;">性別</td>
 
-				<td>
-						<c:choose>
-							<c:when test="${member.memberSex == 1 }">
+							<td><c:choose>
+									<c:when test="${member.memberSex == 1 }">
 								男
 							</c:when>
-							<c:otherwise>
+									<c:otherwise>
 								女
 							</c:otherwise>
-						</c:choose>
+								</c:choose></td>
+						<tr>
+							<td style="text-align: center; width: 150px; font-weight: bolder;">居住地
+							<td>${member.memberCity}</td>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- footer引入 -->
+	<jsp:include page="/WEB-INF/views/footer.jsp"/>
 
 
-				</td>
-			<tr>
-				<td>縣市
-				<td>${member.memberCity}</td>
-		</table>
-		<c:choose>
-			<c:when test="${member.memberId == userId}">
-				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改資料</a>
-			</c:when>
-		</c:choose>
+	<!-- loader -->
+	<div id="ftco-loader" class="show fullscreen">
+		<svg class="circular" width="48px" height="48px">
+			<circle class="path-bg" cx="24" cy="24" r="22" fill="none"
+				stroke-width="4" stroke="#eeeeee" />
+			<circle class="path" cx="24" cy="24" r="22" fill="none"
+				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
-	<jsp:include page="/WEB-INF/views/eeit10936/friendOption.jsp"/>
 
-	<c:choose>
-			<c:when test="${member.memberId == userId}">
-		
 
-	<a id="bookmark1" href="${pageContext.request.contextPath}/memberInterest" class="nav-link">個人興趣</a>
-	<a href="${pageContext.request.contextPath}/personal" class="nav-link">輸入個人喜好</a>
-	<a href="${pageContext.request.contextPath}/personalInterest" class="nav-link">輸入個人興趣</a>
-	<a href="${pageContext.request.contextPath}/addHope"class="nav-link">輸入個人希望條件</a>
-	<a href="${pageContext.request.contextPath}/addAlbum" class="nav-link">相簿</a>
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/aos.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.animateNumber.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.timepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scrollax.min.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="${pageContext.request.contextPath}/js/google-map.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	
-		</c:when>
-	</c:choose>
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4">
-          <h2 class="ftco-heading-2">About MeetTogether</h2>
-          <p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4 ml-md-5">
-          <h2 class="ftco-heading-2">Information</h2>
-          <ul class="list-unstyled">
-            <li><a href="${pageContext.request.contextPath}/" class="py-2 d-block">首頁</a></li>
-            <li><a href="${pageContext.request.contextPath}/pairs/" class="py-2 d-block">交友</a></li>
-            <li><a href="${pageContext.request.contextPath}/eeit10908/" class="py-2 d-block">活動</a></li>
-            <li><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="py-2 d-block">討論區</a></li>
-            <li><a href="${pageContext.request.contextPath}/getmember" class="py-2 d-block">會員資料</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4">
-        	<h2 class="ftco-heading-2">Have a Questions?</h2>
-        	<div class="block-23 mb-3">
-           <ul>
-             <li><span class="icon icon-map-marker"></span><span class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-             <li><a href="#"><span class="icon icon-phone"></span><span class="text">02 6631 6666</span></a></li>
-             <li><a href="#"><span class="icon icon-envelope"></span><span class="text">109meettogether@gmail.com</span></a></li>
-           </ul>
-         </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
 </body>
 </html>
