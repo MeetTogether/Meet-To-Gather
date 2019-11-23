@@ -286,7 +286,7 @@
 
 .pairImg {
 	height: 300px;
-	width: 500px;
+	/*width: 500px;*/
 }
 td{
 	width:125px;

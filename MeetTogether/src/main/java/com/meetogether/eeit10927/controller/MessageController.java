@@ -2,6 +2,7 @@ package com.meetogether.eeit10927.controller;
 
 import java.io.File;
 import java.sql.Blob;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import com.meetogether.eeit10927.service.IMessageService;
 import com.meetogether.eeit10927.service.IMsgTypeService;
 import com.meetogether.eeit10927.service.IMsgreplyService;
 import com.meetogether.eeit10927.service.IMsgtagService;
+import com.meetogether.eeit10927.service.IVipStatusService;
 import com.meetogether.eeit10927.validate.MessageValidator;
 import com.meetogether.eeit10936.pairs.model.VipStatus;
 
@@ -71,9 +74,12 @@ public class MessageController {
 	public void setMtagService(IMsgtagService mtagService) {
 		this.mtagService = mtagService;
 	}
+	
+	@Autowired
+	IVipStatusService vipService;
 
 	@RequestMapping(value = "/GetAllPostServlet", method = RequestMethod.GET)
-	public String getAllMessage(Model model, HttpServletRequest request) {
+	public String getAllMessage(Model model, HttpServletRequest request, HttpSession session) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
 		if (userId == null) {
 			return "redirect:/";
@@ -96,6 +102,11 @@ public class MessageController {
 		model.addAttribute("mlBeans", mlBeans);
 		Msglike msgLike = new Msglike();
 		model.addAttribute("msgLike", msgLike);
+		
+		Timestamp endTime = vipService.vipEndTime(userId);
+		if (endTime != null) {
+			session.setAttribute("vipEndTime", endTime);
+		}
 		
 		return "forward:/DisplayPageMessage";
 	}
@@ -150,7 +161,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/GetUserPostServlet", method = RequestMethod.GET)
-	public String getUserMessage(Model model, HttpServletRequest request, 
+	public String getUserMessage(Model model, HttpServletRequest request, HttpSession session, 
 			@RequestParam(value = "memberId") Integer memberId
 			) {
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
@@ -190,6 +201,11 @@ public class MessageController {
 		List<Message> allMemberMsgs = msgService.getUserMessage(userId);
 		int totalCounts = allMemberMsgs.size();
 		model.addAttribute("totalCnt", totalCounts);
+		
+		Timestamp endTime = vipService.vipEndTime(userId);
+		if (endTime != null) {
+			session.setAttribute("vipEndTime", endTime);
+		}
 		
 		return "eeit10927/html/forumMember";
 	}
