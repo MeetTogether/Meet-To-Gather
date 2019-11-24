@@ -60,6 +60,11 @@ public interface IMessageDao {
 	public void setTotalPages(int totalPages);
 	
 	public List<MemberBean> getNewMember();
+	public List<MemberBean> getNewMember(int userId);
 	public List<ActBean> getPopActivity();
+	
+	public int getTotalPages();
+	public long getRecordCounts();
+	public List<Message> getPageMessages();
 	
 }

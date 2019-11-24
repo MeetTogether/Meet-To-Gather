@@ -36,4 +36,6 @@ public interface IMemberDao {
 
 	List<Integer> getPaired(Integer id);
 
+	Long countAlbum(Integer id);
+
 }

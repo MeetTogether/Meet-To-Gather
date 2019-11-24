@@ -77,19 +77,21 @@ public class MemberController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMemberLoginForm(Model model, HttpSession session) {
+
+		int userId = 0;
 		if (session.getAttribute("userId") != null) {
+			userId = (Integer) session.getAttribute("userId");
 			model.addAttribute("memberBean", new MemberBean());
-			List<ActBean> beans = actService.getAllAct();	
+			List<ActBean> beans = msgService.getPopActivity();
 			model.addAttribute("actBeanList", beans);
-			List<MemberBean> memberBeans = msgService.getNewMember();
+			List<MemberBean> memberBeans = fService.getNewMemberIfLogin(userId);
 			model.addAttribute("newMembers", memberBeans);
 			List<com.meetogether.eeit10927.model.Message> msgBeans = msgService.getPopularMsg();
 			model.addAttribute("popMsgs", msgBeans);
 			return "indexLoging";
 		}
-		MemberBean member = new MemberBean();
-		model.addAttribute("memberBean", member);
-		List<ActBean> beans = actService.getAllAct();	
+		model.addAttribute("memberBean", new MemberBean());
+		List<ActBean> beans = msgService.getPopActivity();	
 		model.addAttribute("actBeanList", beans);
 		List<MemberBean> memberBeans = msgService.getNewMember();
 		model.addAttribute("newMembers", memberBeans);

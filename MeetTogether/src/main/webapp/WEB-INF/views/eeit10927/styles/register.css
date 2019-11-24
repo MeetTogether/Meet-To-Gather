@@ -74,6 +74,7 @@ a:visited {
 }
 
 /* ===== 註冊form register.jsp ===== */
+
 input[type=email], input[type=password], input[type=text], select {
   width: 95%;
   padding: 8px 8px;
@@ -92,7 +93,7 @@ input[type=file] {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
+/*
 input[type=button], input[type=reset], button {
   width: 25%;
   background-color: #2894ff;
@@ -107,7 +108,7 @@ input[type=button], input[type=reset], button {
 input[type=button]:hover, input[type=reset]:hover {
   background-color: #84c1ff;
 }
-
+*/
 
 /* ===== index.jsp, register.jsp 檢核輸入錯誤時 ===== */
 .msgWrong {

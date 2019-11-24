@@ -13,8 +13,8 @@
 	      	<h3 style="text-align: center;">VIP專屬福利</h3>
 	      	<h6 style="text-align: center; color: red;">NT$149/月</h6>
 	      	<div style="text-align: center;">
-				√&ensp;個人相簿空間擴大為&ensp;<span style="color: red;">5</span>張！<br>
-				√&ensp;每日新增好友數增加<span style="color: red;">20</span>名！<br>
+				√&ensp;個人相簿空間<span style="color: red;">擴大</span><br>
+				√&ensp;每日可配對<span style="color: red;">無限制</span><br>
 				√&ensp;增加討論區文章<span style="color: red;">匯出</span>功能！<br><br>
 	      	</div>
 			<div style="text-align: center;">
@@ -22,7 +22,7 @@
 			</div>
 			<br>
 			<div style="text-align: center;">
-				<form method="POST" action="./VipBuy">
+				<form method="POST" action="${pageContext.request.contextPath}/VipBuy">
 					<input type="hidden" name="mbId" value="${userId}" />
 					<input type="submit" value="立刻升級!" class="btn py-3 px-4 btn-primary">
 				</form>

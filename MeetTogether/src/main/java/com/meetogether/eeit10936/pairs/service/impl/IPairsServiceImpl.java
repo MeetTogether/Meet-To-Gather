@@ -222,5 +222,11 @@ public class IPairsServiceImpl implements IPairsService {
 		// TODO Auto-generated method stub
 		return pdao.getPaired(id);
 	}
+	@Transactional
+	@Override
+	public Long countAlbum(Integer id) {
+		// TODO Auto-generated method stub
+		return pdao.countAlbum(id);
+	}
 
 }

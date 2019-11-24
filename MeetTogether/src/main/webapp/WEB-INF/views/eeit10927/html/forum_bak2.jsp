@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix ="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
@@ -48,33 +49,33 @@ p {
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#Postbox").hide();
-		$("#Postbutton").click(function() {
-			$("#Postbox").toggle("blind"); /* 展開發文表單 */
+jQueryConflict = $.noConflict();
+jQueryConflict(document).ready(function() {
+	jQueryConflict("#Postbox").hide();
+	jQueryConflict("#Postbutton").click(function() {
+		jQueryConflict("#Postbox").toggle("blind"); /* 展開發文表單 */
 			/* $('html,body').animate({
 				scrollTop : 0
 			}); 返回到頁面頂端 */
 		});
-		$("#ViewMyPost").click(
+	jQueryConflict("#ViewMyPost").click(
 			function() {
-				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
+				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}&pageNo=1";
 			});
-		$("#ViewAllPost").click(
+	jQueryConflict("#ViewAllPost").click(
 			function() {
 				top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
 			});
-		$("input#deletePost").click(function() {
+	jQueryConflict("input#deletePost").click(function() {
 			var c = confirm('是否確認刪除');
 			console.log(c);
 			if (c) {
-				$(this).parent("form#deletePostForm").submit();
+				jQueryConflict(this).parent("form#deletePostForm").submit();
 			} else {
 			}
 		});
-		
-		
-	});
+	
+});
 </script>
 
 </head>
@@ -150,32 +151,34 @@ p {
 				<jsp:include page="../fragment/sidebar_left.jsp"/>
 
 				<!-- 右側文章 -->
-				<div style="width: 66%">
+				<div id="msgContent" style="width: 66%">
 					
 					<!-- 發文 -->
 					<jsp:include page="../fragment/postMsg.jsp"/>
 					
-					
-		            
-		            <div class="col text-center">
+					<div class="col text-center">
 		            	<div class="block-27">
 		            		<ul>
 		            			<c:if test="${pageNo > 1}">
-		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo-1}' />">&lt;</a></li>
+		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo-1}' />">&lt;</a></li>
 		            			</c:if>
-		            				<li class="active"><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo}' />">${pageNo }</a></li>
-		            			<%-- <c:forEach items="${totalPage}" var="page">
-		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${page}' />">${page }</a></li>
-		            			</c:forEach> --%>
-<%-- 		            			<li class="active"><span>${pageNo }</span></li> --%>
+		            			<c:forEach items="${totalPage}" var="page">
+		            				<c:choose>
+		            					<c:when test="${page eq pageNo }">
+				            				<li class="active"><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
+		            					</c:when>
+		            					<c:otherwise>
+		            						<li><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
+		            					</c:otherwise>
+		            				</c:choose>
+		            			</c:forEach>
 		            			<c:if test="${pageNo != totalPages}">
-		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo+1}' />">&gt;</a></li>
+		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo+1}' />">&gt;</a></li>
 		            			</c:if>
 		            		</ul>
-		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁
+<%-- 		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁 --%>
 		            	</div>
 		            </div>
-		            
 					
 					<!-- 一則文章 -->
 					<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
@@ -247,29 +250,33 @@ p {
 									<div id="msgLikeModalLong" style="text-align: center;"></div>
 									<script type="text/javascript">
 										function hideMsgLike(likeObj) {
-											$(likeObj).next().hide();
+											jQueryConflict(likeObj).next().hide();
 										}
+// 									jQueryConflict(".likeNumber").mouseout(function() {
+// 										jQueryConflict("#msgLikeModalLong").hide();
+// 									});
 										function showMsgLike(likeObj) {
-											var messageId = $(likeObj).prev('input[name=msgId]').val();
+											var messageId = jQueryConflict(likeObj).prev('input[name=msgId]').val();
 											console.log("messageId: " + messageId);
-											$.ajax({
+											jQueryConflict.ajax({
 												url:"findMsglikeByMessage",
 												dataType:"JSON",
 												data:{msgId:messageId},
 												success:function(data) {
 													console.log('msg like data: ' + data);
 													var memberInfoSet = "<table>";
-													$.each(data, function(key, value) {
+													jQueryConflict.each(data, function(key, value) {
 														memberInfoSet += "<tr><td>";
 														memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
 														memberInfoSet += "<td><a href='${pageContext.request.contextPath}/getmember/"+key+"'>"+value+"</a>";
 													});
 													console.log(memberInfoSet);
-													$(likeObj).next().html(memberInfoSet);
-													$(likeObj).next().show();
+													jQueryConflict(likeObj).next().html(memberInfoSet);
+													jQueryConflict(likeObj).next().show();
 												}
 											});
 										}
+										
 									</script>
 								</div>
 							</div>
@@ -340,18 +347,18 @@ p {
 	
 
 <script>
-	$(document).ready(function() {
+jQueryConflict(document).ready(function() {
 		let imgs = document.getElementsByClassName("likeBtn");
 		for (let i = 0; i < imgs.length; i++) {
 			let imgId = 'likeBtn' + i;
-			$(imgs[i]).click(function() {
+			jQueryConflict(imgs[i]).click(function() {
 				let msgIdVal = $(this).next().val();
 				let spanId = 'likeCnt' + (i + 1);
 				console.log('msgIdVal:' + msgIdVal + ', spanId:' + spanId + ', userId:' + ${userId});
 				let info = $(this).attr("id");
 				console.log(info);
 				if (info == 'likeBtn') {
-					$.ajax({
+					jQueryConflict.ajax({
 						url : "LikeMsgServlet",
 						type : "GET",
 						dataType : "JSON",
@@ -359,13 +366,13 @@ p {
 						success : function(data) {
 							let txt = 'LIKE(' + data + ')';
 							let txt2 = 'span[id=' + spanId + ']';
-							$(txt2).html(txt);
+							jQueryConflict(txt2).html(txt);
 							console.log("data: " + data);
-							$(imgs[i]).attr("id","dislikeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/like.png");
+							jQueryConflict(imgs[i]).attr("id","dislikeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/like.png");
 						}
 					});
 				} else {
-					$.ajax({
+					jQueryConflict.ajax({
 						url : "DislikeMsgServlet",
 						type : "GET",
 						dataType : "JSON",
@@ -373,9 +380,9 @@ p {
 						success : function(data) {
 							let txt = 'LIKE(' + data + ')';
 							let txt2 = 'span[id=' + spanId + ']';
-							$(txt2).html(txt);
+							jQueryConflict(txt2).html(txt);
 							console.log("data: " + data);
-							$(imgs[i]).attr("id","likeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/dislike.png");
+							jQueryConflict(imgs[i]).attr("id","likeBtn").attr("src","${pageContext.request.contextPath}/eeit10927/images/dislike.png");
 						}
 					});
 				}
@@ -389,7 +396,7 @@ p {
 				let typeIdVal = $(types[j]).prev().val();
 				let typeSpanId = 'msgTypeCnt' + (j + 1);
 				console.log('typeIdVal:' + typeIdVal + ', typeSpanId:' + typeSpanId);
-				$.ajax({
+				jQueryConflict.ajax({
 					url : "getMsgTypeCnt",
 					type : "GET",
 					dataType : "JSON",
@@ -397,7 +404,7 @@ p {
 					success : function(data) {
 						let txt = '(' + data + ')';
 						let txt2 = 'span[id=' + typeSpanId + ']';
-						$(txt2).html(txt);
+						jQueryConflict(txt2).html(txt);
 						console.log("data: " + data);
 					}
 				});

@@ -77,7 +77,7 @@
 </head>
 
 <body>
-	<h2>${userId}</h2>
+	<h2>${friendName}</h2>
 	<input type="hidden" id="me" value="${userId}">
 	<div id="txtContainer"></div>
 	<div style="background: whitesmoke !important" class="container">

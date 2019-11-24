@@ -75,7 +75,7 @@ jQueryConflict(document).ready(function() {
 			}
 		});
 	
-	});
+});
 </script>
 
 </head>
@@ -99,16 +99,23 @@ jQueryConflict(document).ready(function() {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
 					<li class="nav-item active"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${empty userId}">
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -144,10 +151,34 @@ jQueryConflict(document).ready(function() {
 				<jsp:include page="../fragment/sidebar_left.jsp"/>
 
 				<!-- 右側文章 -->
-				<div style="width: 66%">
+				<div id="msgContent" style="width: 66%">
 					
 					<!-- 發文 -->
 					<jsp:include page="../fragment/postMsg.jsp"/>
+					
+					<div class="col text-center">
+		            	<div class="block-27">
+		            		<ul>
+		            			<c:if test="${pageNo > 1}">
+		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo-1}' />">&lt;</a></li>
+		            			</c:if>
+		            			<c:forEach items="${totalPage}" var="page">
+		            				<c:choose>
+		            					<c:when test="${page eq pageNo }">
+				            				<li class="active"><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
+		            					</c:when>
+		            					<c:otherwise>
+		            						<li><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
+		            					</c:otherwise>
+		            				</c:choose>
+		            			</c:forEach>
+		            			<c:if test="${pageNo != totalPages}">
+		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo+1}' />">&gt;</a></li>
+		            			</c:if>
+		            		</ul>
+<%-- 		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁 --%>
+		            	</div>
+		            </div>
 					
 					<!-- 一則文章 -->
 					<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
@@ -179,6 +210,16 @@ jQueryConflict(document).ready(function() {
 											<input type="button" value="刪除此篇文章" class="reply"
 												id="deletePost">
 										</form:form>
+										<c:choose>
+											<c:when test="${vipTag eq true }">
+												<a href="${pageContext.request.contextPath}/message/${msgBean.member.memberId}/${msgBean.msgId}.pdf">
+												<input type="button" value="匯出文章" class="reply" id="exportPost"></a>
+											</c:when>
+											<c:otherwise>
+												<a data-toggle="modal" data-target="#vipModalLong">
+												<input type="button" value="匯出文章" class="reply" id="exportPost"></a>
+											</c:otherwise>
+										</c:choose>
 									</c:if>
 									<p>發文：<fmt:formatDate value="${msgBean.createTime}" pattern="yyyy-MM-dd HH:mm" />
 									<c:if test="${msgBean.updateTime ne null}">
@@ -207,36 +248,7 @@ jQueryConflict(document).ready(function() {
 									<input type="hidden" id="msgId" name="msgId" value="${msgBean.msgId}">
 									<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onclick="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
 									<div id="msgLikeModalLong" style="text-align: center;"></div>
-									<script type="text/javascript">
-										function hideMsgLike(likeObj) {
-											jQueryConflict(likeObj).next().hide();
-										}
-// 									jQueryConflict(".likeNumber").mouseout(function() {
-// 										jQueryConflict("#msgLikeModalLong").hide();
-// 									});
-										function showMsgLike(likeObj) {
-											var messageId = jQueryConflict(likeObj).prev('input[name=msgId]').val();
-											console.log("messageId: " + messageId);
-											jQueryConflict.ajax({
-												url:"findMsglikeByMessage",
-												dataType:"JSON",
-												data:{msgId:messageId},
-												success:function(data) {
-													console.log('msg like data: ' + data);
-													var memberInfoSet = "<table>";
-													jQueryConflict.each(data, function(key, value) {
-														memberInfoSet += "<tr><td>";
-														memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
-														memberInfoSet += "<td>"+value;
-													});
-													console.log(memberInfoSet);
-													jQueryConflict(likeObj).next().html(memberInfoSet);
-													jQueryConflict(likeObj).next().show();
-												}
-											});
-										}
-										
-									</script>
+									
 								</div>
 							</div>
 							<h2 class="mb-3 mt-5" >
@@ -270,6 +282,33 @@ jQueryConflict(document).ready(function() {
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			function hideMsgLike(likeObj) {
+				jQueryConflict(likeObj).next().hide();
+			}
+			function showMsgLike(likeObj) {
+				var messageId = jQueryConflict(likeObj).prev('input[name=msgId]').val();
+				console.log("messageId: " + messageId);
+				jQueryConflict.ajax({
+					url:"findMsglikeByMessage",
+					dataType:"JSON",
+					data:{msgId:messageId},
+					success:function(data) {
+						console.log('msg like data: ' + data);
+						var memberInfoSet = "<table>";
+						jQueryConflict.each(data, function(key, value) {
+							memberInfoSet += "<tr><td>";
+							memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
+							memberInfoSet += "<td><a href='${pageContext.request.contextPath}/getmember/"+key+"'>"+value+"</a>";
+						});
+						console.log(memberInfoSet);
+						jQueryConflict(likeObj).next().html(memberInfoSet);
+						jQueryConflict(likeObj).next().show();
+					}
+				});
+			}
+			
+		</script>
 
 	</section>
 	<!-- .section -->

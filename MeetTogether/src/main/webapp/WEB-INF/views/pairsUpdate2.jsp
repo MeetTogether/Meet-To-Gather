@@ -42,24 +42,13 @@
 			document.getElementById("memberCity").innerText = members.mb.memberCity
 					.trim();
 			document.getElementById("interest").innerText = members.mil;
-			var i = 1;
 			var srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
-					+ members.mb.memberId + "/" + i;
+					+ members.mb.memberId + "/1" ;
 			document.getElementById("pairImg").setAttribute("src", srcUrl);
-			document
-					.getElementById("pairImg")
-					.addEventListener(
-							"click",
-							function() {
-								var vip = ${vipstatus};
-								i++;
-								vip ? i > 5 ? i = 1 : i = i : i > 3 ? i = 1
-										: i = i;
-								srcUrl = "${pageContext.request.contextPath}/memberPhoto/"
-										+ members.mb.memberId + "/" + i;
-								document.getElementById("pairImg")
-										.setAttribute("src", srcUrl);
-							});
+			document.getElementById("getAlbum").addEventListener("click",function(){
+				countAlbum(members.mb.memberId);
+			});
+			
 		
 			
 		
@@ -114,13 +103,16 @@
 		xhttp.send(getQueryString());
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				if(xhttp.responseText){
-					members = JSON.parse(xhttp.responseText);
+				var verstr = xhttp.responseText;
+				console.log(verstr);
+				if(verstr != "notVip" && verstr != "noCompare"){
+					members = JSON.parse(verstr);
 					console.log(members);
 					myInnerText();
-					binding();
-				}else{
+				}else if(verstr == "notVip"){
 					$("#vipModalLong").modal("show");
+				}else if(verstr == "noCompare"){
+					$("#noCompareModalLong").modal("show");
 				}
 				
 			}
@@ -154,7 +146,32 @@
 		let xhttp = new XMLHttpRequest();
 		xhttp.open("Get", "${pageContext.request.contextPath}/chat/del?" + url, true);
 		xhttp.setRequestHeader("Pragma", true);
+		xhttp.send();	
+	}
+	function countAlbum(id){
+		let xhttp = new XMLHttpRequest();
+		xhttp.open("Get", "${pageContext.request.contextPath}/countAlbum/" + id, true);
+		xhttp.setRequestHeader("Pragma", true);
 		xhttp.send();
+		xhttp.onreadystatechange = function() {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var delalbum = document.getElementById("here");
+				while (delalbum.firstChild) {
+					delalbum.removeChild(delalbum.firstChild);
+				}
+				var countPh = parseInt(xhttp.response)+1;
+				console.log(countPh);
+				var j;
+				for(j = 1 ;j < countPh ; j++){
+					var albumsrc = "/MeetTogether/memberPhoto/"+ id + "/" + j ;
+					var albumimg = document.createElement("img");
+					albumimg.setAttribute("src", albumsrc);
+					albumimg.setAttribute("style", "width:370px; margin:auto;");
+					document.getElementById("here").appendChild(albumimg);
+					}
+				$("#albumModalLong").modal("show");
+				}
+		}
 		
 	}
 
@@ -259,7 +276,12 @@
 	}
 
 	document.addEventListener("DOMContentLoaded", function() {
+		var noMemberHope = "${noMemberHope}";
+	    if(noMemberHope){
+			$("#memberModalLong").modal("show");
+	    }
 		pairAjax();
+		binding();
 		friendAjax();
 		document.getElementById("sex").addEventListener("change", function() {
 			pairAjax();
@@ -286,7 +308,7 @@
 
 .pairImg {
 	height: 300px;
-	width: 500px;
+	/*width: 500px;*/
 }
 td{
 	width:125px;
@@ -345,35 +367,25 @@ td{
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item active"><a
-						href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item"><a 
-						href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>					
-					
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/eeit10908/"
-						class="nav-link">活動</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/getmember"
-						class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if
-								test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item active"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img style="height: 40px; border-radius: 50%;"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${empty userId}">
-							<a href="<c:url value='/LoginServlet' />" class="nav-link"
-								data-toggle="modal" data-target="#loginModalLong">登入</a>
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -382,7 +394,7 @@ td{
 	<!-- END nav -->
 	
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg04.jpg');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg11.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -400,8 +412,15 @@ td{
 			</div>
 		</div>
 	</section>
+	
 	<!--VIP -->
 	<jsp:include page="/WEB-INF/views/vip_div.jsp"/>
+	<!--NOMEMBERHOPE -->
+	<jsp:include page="/WEB-INF/views/NoMemberHope.jsp"/>
+	<!--NOCOMPARE -->
+	<jsp:include page="/WEB-INF/views/NoCompare.jsp"/>
+	<!--NOCOMPARE -->
+	<jsp:include page="/WEB-INF/views/showalbum.jsp"/>
 	
 	<section class="ftco-section testimony-section">
 		<div class="container">
@@ -417,7 +436,7 @@ td{
 									class="form-control" id="sex">
 									<option value="3">全部</option>
 									<option value="1">男</option>
-									<option value="2">女</option>
+									<option value="0">女</option>
 								</select>
 							</div>
 							<div class="col">
@@ -463,6 +482,7 @@ td{
 						<div style="text-align: center;">
 							<img id="pairImg" class="pairImg" />
 							<div style="width: 500px; margin: auto;">
+							<input type="button" value="檢視相簿" id="getAlbum" class="reply" />
 							<table align="center">
 								<tr>
 									<td>姓名</td>

@@ -1,5 +1,6 @@
 package com.meetogether.eeit10936.friends.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +104,11 @@ public class IFriendDaoHibernateImol implements IFriendDao {
 	            .setParameter(0, f2id).setParameter(1, f1id).uniqueResult();
 		if(result!=null) {
 			if(status==1) {
-				addFriendList(f1id, f2id);
+				FriendList fl = new FriendList();
+				fl.setMemberId(f1id);
+				fl.setFriendId(f2id);
+				fl.setFriendStatus(1);
+				factory.getCurrentSession().persist(fl);
 			}
 			result.setF2IdAllow(status);
 			factory.getCurrentSession().update(result);
@@ -204,8 +209,18 @@ public class IFriendDaoHibernateImol implements IFriendDao {
 			});
 			
 		}
-		
 		return map;
-		
+	}
+	@Override
+	public List<MemberBean> getNewMemberIfLogin(Integer id) {
+		List<MemberBean> list = new ArrayList<>();
+		String hql = "from MemberBean m "
+				+ "WHERE NOT m.memberId IN(SELECT a.f2Id FROM AddFriend a WHERE a.f1Id = ?0) "
+				+ "AND NOT m.memberId IN(SELECT f.friendId FROM FriendList f WHERE f.memberId = ?0) "
+				+ "AND NOT m.memberId IN(SELECT f.memberId FROM FriendList f WHERE f.friendId = ?0) order by createTime desc";
+		list = factory.getCurrentSession().createQuery(hql,MemberBean.class)
+				.setParameter(0, id).setMaxResults(10)
+				.getResultList();
+		return list;
 	}
 }

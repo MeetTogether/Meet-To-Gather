@@ -83,12 +83,13 @@ public class VipStatusController {
 	}
 	
 	@RequestMapping(value = "/VipPaySuccess", method=RequestMethod.GET)
-	public String vipUpgradeSuccess(Model model, HttpSession session,
+	public String vipUpgradeSuccess(Model model, HttpSession session, HttpServletRequest request ,
 			@RequestParam(value = "MerchantTradeNo") String MerchantTradeNo) {
+		Integer userId = (Integer) request.getSession().getAttribute("userId");
 //		System.out.println("--------MerchantTradeNo: " + MerchantTradeNo);
 		vipService.vipUpgradeSuccess(MerchantTradeNo);
 		session.setAttribute("vipTag", true);
-		return "forward:/";
+		return "forward:/GetUserPostServlet?memberId=" + userId + "&pageNo=1";
 	}
 	
 
