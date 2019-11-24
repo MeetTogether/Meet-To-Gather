@@ -341,26 +341,32 @@ $(document).ready(function() {
 				<div class="col-md-12">
 					<div class="carousel-testimony owl-carousel ftco-owl">
 					<c:forEach var='newMember' items="${newMembers}">
-						<div class="item">
-							<div class="testimony-wrap text-center py-4 pb-5">
-								<div class="user-img mb-4"
-									style="background-image: url(${pageContext.request.contextPath}/getImage?id=${newMember.memberId}&type=member)"></div>
-								<div class="text pt-4">
-									<p class="name"><a href="${pageContext.request.contextPath}/getmember/${newMember.memberId }">${newMember.memberName }</a></p>
-									<p class="mb-4">居住城市：${newMember.memberCity }<br>生日：${newMember.memberBirth }</p>
-									<p style="text-align: center;">
-									<c:choose>
-										<c:when test="${userId eq null }">
-											<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">送出好友邀請</a>&ensp;&ensp;
-										</c:when>
-										<c:otherwise>
-											<a href="invite?fid=${newMember.memberId }" class="reply">送出好友邀請</a>
-										</c:otherwise>
-									</c:choose>
-									</p>
+						<c:choose>
+							<c:when test="${newMember.memberId == userId }">
+							</c:when>
+							<c:otherwise>
+								<div class="item">
+									<div class="testimony-wrap text-center py-4 pb-5">
+										<div class="user-img mb-4"
+											style="background-image: url(${pageContext.request.contextPath}/getImage?id=${newMember.memberId}&type=member)"></div>
+										<div class="text pt-4">
+											<p class="name"><a href="${pageContext.request.contextPath}/getmember/${newMember.memberId }">${newMember.memberName }</a></p>
+											<p class="mb-4">居住城市：${newMember.memberCity }<br>生日：${newMember.memberBirth }</p>
+											<p style="text-align: center;">
+											<c:choose>
+												<c:when test="${userId eq null }">
+													<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">送出好友邀請</a>&ensp;&ensp;
+												</c:when>
+												<c:otherwise>
+													<a href="invite?fid=${newMember.memberId }" class="reply">送出好友邀請</a>
+												</c:otherwise>
+											</c:choose>
+											</p>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 					</div>
 				</div>
