@@ -159,13 +159,11 @@ function serachMyFriends() {
 				newLi.setAttribute("id", serachfriend.id);
 				newLi.setAttribute("class","list-group-item d-flex justify-content-between align-items-center");
 				var newLiContent = document.createTextNode(serachfriend.name);
-				newLi.appendChild(newLiContent);
+				
 				
 				var newSpan = document.createElement("span");
-				newSpan.setAttribute("class","badge badge-primary badge-pill");
-				if(serachfriend.unRead){
-				var newSpanContent = document.createTextNode(serachfriend.unRead);
-				newSpan.appendChild(newSpanContent);}
+				newSpan.setAttribute("class","icon-wechat");
+				
 				
 				var imgsrc = "/MeetTogether/getImage?type=member&id=" + serachfriend.id;
 				var friendimg = document.createElement("img");
@@ -180,8 +178,10 @@ function serachMyFriends() {
 				delBt.setAttribute("value","刪除好友");
 				
 				document.getElementById("friends").appendChild(newLi);
-				newLi.appendChild(newSpan);
+				
 				newLi.appendChild(friendimg);
+				newLi.appendChild(newLiContent);
+				newLi.appendChild(newSpan);
 				newLi.appendChild(delBt);
 				
 				document.getElementById(did).addEventListener("click",function(){
@@ -201,13 +201,19 @@ function serachMyFriends() {
 				});
 				newLi.addEventListener("click",
 						function(e) {
-					console.log(e.target);
-					console.log(this);
-						if (e.target == this){
+						if (e.target != delBt && e.target != newSpan){
 							var id = this.id;
 							window.location.href="${pageContext.request.contextPath}/getmember/"+id;
 						}
 						});
+				newSpan.addEventListener("click",function(){
+					
+					window
+					.open(
+							"${pageContext.request.contextPath}/chat/" + serachfriend.id,
+							"_blank",
+							"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+				});
 
 			}
 		}
