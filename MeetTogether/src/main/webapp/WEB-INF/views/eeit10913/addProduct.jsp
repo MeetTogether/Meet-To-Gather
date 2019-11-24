@@ -318,7 +318,7 @@ body {
 
 						<h2>評論此活動</h2>
 						<div class="form-group" style="font-size: 16px; color: black;">
-							<label>會員ID</label>
+							<label>會員姓名</label>
 						</div>
 						<div class="form-group">
 

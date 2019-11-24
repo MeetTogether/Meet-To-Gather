@@ -280,7 +280,7 @@ body {
 							<h2 >更改我的評論</h2>
 							<%-- 	會員名  --%>
 							<div class="form-group">
-								<input class="form-control"
+								會員姓名<input class="form-control"
 									value=${editProduct.member.memberName } readonly="readonly">
 								<form:input type="hidden" path="member.memberName"
 									value="${editProduct.member.memberName}" />
