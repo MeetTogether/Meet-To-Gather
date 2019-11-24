@@ -346,7 +346,7 @@ $(document).ready(function() {
 								<div class="user-img mb-4"
 									style="background-image: url(${pageContext.request.contextPath}/getImage?id=${newMember.memberId}&type=member)"></div>
 								<div class="text pt-4">
-									<p class="name">${newMember.memberName }</p>
+									<p class="name"><a href="${pageContext.request.contextPath}/getmember/${newMember.memberId }">${newMember.memberName }</a></p>
 									<p class="mb-4">居住城市：${newMember.memberCity }<br>生日：${newMember.memberBirth }</p>
 									<p style="text-align: center;">
 									<c:choose>
@@ -431,7 +431,7 @@ $(document).ready(function() {
 											<a href="#" data-toggle="modal" data-target="#loginModalLong"><span class="icon-person"></span>${popMsg.member.memberName}</a>
 										</c:when>
 										<c:otherwise>
-											<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${popMsg.member.memberId}"><span class="icon-person"></span>${popMsg.member.memberName}</a>
+											<a href="${pageContext.request.contextPath}/getmember/${popMsg.member.memberId}"><span class="icon-person"></span>${popMsg.member.memberName}</a>
 										</c:otherwise>
 									</c:choose>
 								</div>

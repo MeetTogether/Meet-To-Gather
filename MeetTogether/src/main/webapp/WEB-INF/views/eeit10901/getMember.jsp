@@ -108,6 +108,7 @@ p {
 </script>
 </head>
 <body>
+
 	<!-- vip購買 -->
 	<jsp:include page="/WEB-INF/views/vip_div.jsp" />
 
@@ -174,6 +175,7 @@ p {
 	<section class="ftco-section ftco-degree-bg">
 		<div class="row block-9 justify-content-center mb-5">
 			<div class="col-md-8 mb-md-5" align="center">
+			<h2>會員資料</h2>
 			<jsp:include page="/WEB-INF/views/eeit10936/friendOption.jsp" /><br>
 				<div style="width: 30%; float: left;">
 					<c:choose>
@@ -184,13 +186,13 @@ p {
 								href="${pageContext.request.contextPath}/memberInterest"
 								class="nav-link">個人興趣</a>
 							<a href="${pageContext.request.contextPath}/personalInterest"
-								class="nav-link">輸入個人興趣</a>
+								class="nav-link">編輯個人興趣</a>
 							<a href="${pageContext.request.contextPath}/personal"
-								class="nav-link">輸入個人喜好</a>
+								class="nav-link">編輯個人資訊</a>
 							<a href="${pageContext.request.contextPath}/addHope"
-								class="nav-link">輸入個人希望條件</a>
+								class="nav-link">編輯配對希望條件</a>
 							<a href="${pageContext.request.contextPath}/addAlbum"
-								class="nav-link">相簿</a>
+								class="nav-link">個人相簿</a>
 	
 						</c:when>
 					</c:choose>
@@ -198,7 +200,7 @@ p {
 				<div style="width: 60%;">
 					<table>
 						<tr>
-							<td rowspan="5"><img style="width: 400px"
+							<td rowspan="5"><img style="width: 300px"
 								src='${pageContext.request.contextPath}/getImage?type=member&id=${member.memberId}' />
 							</td>
 <!-- 						<tr> -->
