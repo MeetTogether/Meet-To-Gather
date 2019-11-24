@@ -47,18 +47,7 @@
         font-size: larger
     }
 
-    .ads {
-        margin: 3PX 2PX;
-        width: 60PX;
-        height: 60PX;
-    }
-
-    .adsborder {
-        margin: 3PX 2PX;
-        width: 60PX;
-        height: 60PX;
-        border: 3px solid #ffc300;
-    }
+   
 
     .pdiv {
         width: 380PX;
@@ -74,40 +63,29 @@
 </style>
 <script> 
 
-    let adImgs, adsImgs,count=0,flag=true,t;            
-    
+    let adImgs, adsImgs,count=0,flag=true,t;
+    let photoCount="${photoCountInt}";
+    photoCount = parseInt(photoCount);
     document.addEventListener("DOMContentLoaded",function(){
         adImgs=document.querySelectorAll("img.block,img.none");
-        // alert(adImgs.length);
-        adsImgs=document.querySelectorAll("img.ads,img.adsborder");
-        // alert(adsImgs.length);
         document.getElementById("idpauseplay").addEventListener("click",pauseplayf);
         document.getElementById("idback").addEventListener("click",backf);
         document.getElementById("idnext").addEventListener("click",nextf);
     });
     
     function show(){
-        for (var i = 0; i < adImgs.size; i++) {
-        	if (i == count) {
-        		adImgs[count].className="block";
-                adsImgs[count].className="ads";
-        	}
-        	adImgs[i].className="none";
-            adsImgs[i].className="adsborder";
-        }
+    	adImgs[count].className="none";
         count++;
-        if(count>4)count=0;
-        //adImgs[count].className="block";
-        //adsImgs[count].className="adsborder";            
+        
+        if(count>=photoCount)count=0;
+        adImgs[count].className="block";
     }
     t=window.setInterval(show,1500);
     function backf(){
         adImgs[count].className="none";
-        adsImgs[count].className="ads";
         count--;
-        if(count<0)count=4;
+        if(count<0)count=photoCount-1;
         adImgs[count].className="block";
-        adsImgs[count].className="adsborder";    
     }
     function pauseplayf(){
         if(flag){
@@ -210,7 +188,15 @@
 				    <fieldset class="field">
 				        <div class="pdiv">
 				          	<c:forEach items="${photoCount }" var="photo">
-			    				<img class="block" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
+				          		<c:choose>
+				          			<c:when test="${photo == 1 }">
+				          				<img class="block" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
+				          			</c:when>
+				          			<c:otherwise>
+				          				<img class="none" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
+				          			</c:otherwise>
+				          		</c:choose>
+			    				
 			    			</c:forEach>
 				        </div>
 				    
