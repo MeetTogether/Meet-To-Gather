@@ -194,11 +194,17 @@ public class MessageServiceImpl implements IMessageService {
 	public int getMsgCntByType(Integer typeId) {
 		return dao.getMsgCntByType(typeId);
 	}
-
+	
 	@Transactional
 	@Override
 	public List<MemberBean> getNewMember() {
 		return dao.getNewMember();
+	}
+
+	@Transactional
+	@Override
+	public List<MemberBean> getNewMember(int userId) {
+		return dao.getNewMember(userId);
 	}
 
 	@Transactional

@@ -501,13 +501,25 @@ public class MessageDaoHibernateImpl implements IMessageDao {
 		}
 		return list;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MemberBean> getNewMember() {
 		List<MemberBean> list = new ArrayList<>();
-		String hql = "from MemberBean order by createTime desc";
-		list = factory.getCurrentSession().createQuery(hql)
+		String hql1 = "from MemberBean order by createTime desc";
+		list = factory.getCurrentSession().createQuery(hql1)
+				.setMaxResults(10)
+				.getResultList();
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> getNewMember(int userId) {
+		List<MemberBean> list = new ArrayList<>();
+		String hql2 = "from MemberBean m WHERE NOT m.memberId = ANY(SELECT a.f2Id FROM AddFriend a WHERE a.f1Id = ?0)  order by createTime desc";
+		list = factory.getCurrentSession().createQuery(hql2)
+				.setParameter(0, userId)
 				.setMaxResults(10)
 				.getResultList();
 		return list;
