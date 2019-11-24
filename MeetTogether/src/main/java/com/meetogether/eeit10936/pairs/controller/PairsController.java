@@ -55,12 +55,13 @@ public class PairsController {
 	}
 
 	@RequestMapping("/pairs")
-	public String pair(Model model, @ModelAttribute("currentUser") IMember currentUser) {
+	public String pair(Model model, HttpSession session) {
 		if (model.getAttribute("currentUser") == null) {
 			return "redirect:/";
 		}
-		IMember m=currentUser;
-		if (m.getMemberHope() == null) {
+		Integer userId=(Integer) session.getAttribute("userId");
+		IMember member = pService.getMemberById(userId);
+		if (member.getMemberHope() == null) {
 			model.addAttribute("noMemberHope", true);
 		}
 		return "pairsUpdate2";

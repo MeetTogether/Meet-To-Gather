@@ -155,6 +155,10 @@
 		xhttp.send();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
+				var delalbum = document.getElementById("here");
+				while (delalbum.firstChild) {
+					delalbum.removeChild(delalbum.firstChild);
+				}
 				var countPh = parseInt(xhttp.response)+1;
 				console.log(countPh);
 				var j;
