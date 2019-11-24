@@ -112,6 +112,7 @@ function responseAjax(){
 						var fid = (this.id).substring(3);
 						YoN(1,fid);
 						document.getElementById(rsi).remove();
+						serachMyFriends();
 						});
 					
 					
@@ -121,6 +122,14 @@ function responseAjax(){
 						document.getElementById(rsi).remove();
 						serachMyFriends();
 					});
+					
+					newLi.addEventListener("click",
+							function(e) {
+						
+							if (e.target != sureBt && e.target != refuseBt){
+								window.location.href="${pageContext.request.contextPath}/getmember/"+k;
+							}
+							});
 
 				}
 		}

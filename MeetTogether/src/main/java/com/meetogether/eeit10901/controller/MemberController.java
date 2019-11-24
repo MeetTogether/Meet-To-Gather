@@ -77,11 +77,12 @@ public class MemberController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMemberLoginForm(Model model, HttpSession session) {
-		if (session.getAttribute("userId") != null) {
+		Integer currentUserId=(Integer) session.getAttribute("userId");
+		if ( currentUserId != null) {
 			model.addAttribute("memberBean", new MemberBean());
 			List<ActBean> beans = msgService.getPopActivity();
 			model.addAttribute("actBeanList", beans);
-			List<MemberBean> memberBeans = msgService.getNewMember();
+			List<MemberBean> memberBeans = fService.getNewMemberIfLogin(currentUserId);
 			model.addAttribute("newMembers", memberBeans);
 			List<com.meetogether.eeit10927.model.Message> msgBeans = msgService.getPopularMsg();
 			model.addAttribute("popMsgs", msgBeans);

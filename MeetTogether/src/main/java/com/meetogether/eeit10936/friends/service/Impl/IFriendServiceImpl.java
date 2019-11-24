@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10936.chat.dao.ChatMsgRedisDao;
 import com.meetogether.eeit10936.friends.dao.IFriendDao;
 import com.meetogether.eeit10936.friends.model.FriendList;
@@ -79,6 +80,12 @@ public class IFriendServiceImpl implements IFriendService {
 	public Map<Integer, String> responseList(Integer id) {
 		// TODO Auto-generated method stub
 		return dao.responseList(id);
+	}
+	@Transactional
+	@Override
+	public List<MemberBean> getNewMemberIfLogin(Integer id) {
+		// TODO Auto-generated method stub
+		return dao.getNewMemberIfLogin(id);
 	}
 	
 	
