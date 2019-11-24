@@ -85,6 +85,7 @@ public class FriendController {
 		MemberBean mb = mbService.getMemberById(fid);
 		model.addAttribute("friendName", mb.getMemberName());
 		model.addAttribute("friendId", fid);
+		model.addAttribute("friendName",mbService.getMemberById(fid).getMemberName());
 		if (session.getAttribute("userId") == null) {
 			return "redirect:/";
 		}
@@ -152,10 +153,11 @@ public class FriendController {
 		return fService.responseList(userId);
 	}
 	@GetMapping("/yon")
-	public void yON(HttpSession session,
+	public @ResponseBody boolean yON(HttpSession session,
 			@RequestParam("yon")Integer yon,@RequestParam("fid") Integer fid) {
 		Integer userId = (Integer) session.getAttribute("userId");
 		fService.response(userId, fid, yon);
+		return true;
 	}
 
 }

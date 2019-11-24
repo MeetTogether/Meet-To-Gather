@@ -98,16 +98,23 @@ p {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
 					<li class="nav-item active"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						</c:if></li>
+					<li class="nav-item"><c:if test="${empty userId}">
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -165,7 +172,7 @@ p {
 		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo+1}' />">&gt;</a></li>
 		            			</c:if>
 		            		</ul>
-		            		共有${totalCnt }筆&ensp;/&ensp;共${totalPages }頁
+		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁
 		            	</div>
 		            </div>
 		            
@@ -200,6 +207,16 @@ p {
 											<input type="button" value="刪除此篇文章" class="reply"
 												id="deletePost">
 										</form:form>
+										<c:choose>
+											<c:when test="${vipTag eq true }">
+												<a href="${pageContext.request.contextPath}/message/${msgBean.member.memberId}/${msgBean.msgId}.pdf">
+												<input type="button" value="匯出文章" class="reply" id="exportPost"></a>
+											</c:when>
+											<c:otherwise>
+												<a data-toggle="modal" data-target="#vipModalLong">
+												<input type="button" value="匯出文章" class="reply" id="exportPost"></a>
+											</c:otherwise>
+										</c:choose>
 									</c:if>
 									<p>發文：<fmt:formatDate value="${msgBean.createTime}" pattern="yyyy-MM-dd HH:mm" />
 									<c:if test="${msgBean.updateTime ne null}">
@@ -226,7 +243,7 @@ p {
 										</c:otherwise>
 									</c:choose>
 									<input type="hidden" id="msgId" name="msgId" value="${msgBean.msgId}">
-									<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onmouseout="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
+									<span id="likeCnt${cnt.count}" class="likeNumber" onmouseover="showMsgLike(this)" onclick="hideMsgLike(this)">LIKE(${msgBean.likeCount})</span>
 									<div id="msgLikeModalLong" style="text-align: center;"></div>
 									<script type="text/javascript">
 										function hideMsgLike(likeObj) {
@@ -245,7 +262,7 @@ p {
 													$.each(data, function(key, value) {
 														memberInfoSet += "<tr><td>";
 														memberInfoSet += "<img style='height: 40px; border-radius: 50%;' src='${pageContext.request.contextPath}/getImage?type=member&id="+key+"'>";
-														memberInfoSet += "<td>"+value;
+														memberInfoSet += "<td><a href='${pageContext.request.contextPath}/getmember/"+key+"'>"+value+"</a>";
 													});
 													console.log(memberInfoSet);
 													$(likeObj).next().html(memberInfoSet);

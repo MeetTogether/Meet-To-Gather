@@ -3,6 +3,7 @@ package com.meetogether.eeit10936.friends.service;
 import java.util.List;
 import java.util.Map;
 
+import com.meetogether.eeit10901.model.MemberBean;
 import com.meetogether.eeit10936.friends.model.FriendList;
 
 public interface IFriendService {
@@ -26,4 +27,6 @@ public interface IFriendService {
 	void deleteFriends(Integer id, Integer fid);
 	
 	Map<Integer, String> responseList(Integer id);
+	
+	public List<MemberBean> getNewMemberIfLogin(Integer id);
 }

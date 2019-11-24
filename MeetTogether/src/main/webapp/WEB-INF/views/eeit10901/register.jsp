@@ -9,8 +9,6 @@
 <title>MeetTogether - 註冊會員</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/open-iconic-bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
@@ -30,6 +28,17 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script	src="${pageContext.request.contextPath}/eeit10927/js/register.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/eeit10927/styles/register.css?t=${time}">
+<style type="text/css">
+.regisButton {
+  background-color: #fc983c;
+  color: white;
+  padding: 8px 8px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
 
@@ -47,32 +56,25 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/eeit10908/"
-						class="nav-link">活動</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/getmember"
-						class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if
-								test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img style="height: 40px; border-radius: 50%;"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
-					<li class="nav-item"><c:if test="${empty userId}">
-							<a href="<c:url value='/LoginServlet' />" class="nav-link"
-								data-toggle="modal" data-target="#loginModalLong">登入</a>
+					<li class="nav-item active"><c:if test="${empty userId}">
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -166,7 +168,7 @@
 										<option value="金門縣">金門縣</option>
 										<option value="連江縣">連江縣</option>
 								</form:select>
-								<td id="msg_mNickname"></td>
+								<td id="msg_memberCity"></td>
 								
 								
 							<tr>
@@ -179,9 +181,9 @@
 								<td><span id="msg_mPhoto"></span>
 						</table>
 					</div>
-					<input type="submit" value="會員註冊" id="regis"  >
-					<input type="reset" value="重新填寫"  >
-					<a href="${pageContext.request.contextPath}/"><input type="button" value="返回登入頁" id="backToLogin" ></a>
+					<input type="submit" value="會員註冊" class="regisButton" >
+					<input type="reset" value="重新填寫" class="regisButton" >
+					<a href="${pageContext.request.contextPath}/"><input type="button" value="返回登入頁" class="regisButton" ></a>
 
 				</form:form>
 			</div>
@@ -222,49 +224,6 @@
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
 
-
-<footer class="ftco-footer ftco-bg-dark ftco-section">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4">
-          <h2 class="ftco-heading-2">About MeetTogether</h2>
-          <p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-          <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4 ml-md-5">
-          <h2 class="ftco-heading-2">Information</h2>
-          <ul class="list-unstyled">
-            <li><a href="${pageContext.request.contextPath}/" class="py-2 d-block">首頁</a></li>
-            <li><a href="${pageContext.request.contextPath}/pairs/" class="py-2 d-block">交友</a></li>
-            <li><a href="${pageContext.request.contextPath}/eeit10908/" class="py-2 d-block">活動</a></li>
-            <li><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="py-2 d-block">討論區</a></li>
-            <li><a href="${pageContext.request.contextPath}/getmember" class="py-2 d-block">會員資料</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="col-md">
-        <div class="ftco-footer-widget mb-4">
-        	<h2 class="ftco-heading-2">Have a Questions?</h2>
-        	<div class="block-23 mb-3">
-           <ul>
-             <li><span class="icon icon-map-marker"></span><span class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-             <li><a href="#"><span class="icon icon-phone"></span><span class="text">02 6631 6666</span></a></li>
-             <li><a href="#"><span class="icon icon-envelope"></span><span class="text">109meettogether@gmail.com</span></a></li>
-           </ul>
-         </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
 
 
 </body>

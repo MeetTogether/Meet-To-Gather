@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.meetogether.eeit10901.service.MemberService;
+import com.meetogether.eeit10936.friends.model.FriendList;
+import com.meetogether.eeit10936.friends.service.IFriendService;
 import com.meetogether.eeit10936.pairs.dao.IMemberDao;
 import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.model.Pair;
@@ -26,6 +29,11 @@ public class IPairsServiceImpl implements IPairsService {
 	@Autowired
 	@Qualifier("dao")
 	private IMemberDao pdao;
+	
+	@Autowired
+	private MemberService mService;
+	@Autowired
+	private IFriendService fService;
 
 	@Transactional
 	@Override
@@ -62,9 +70,11 @@ public class IPairsServiceImpl implements IPairsService {
 		int score = 3;
 		Map<Integer, Integer> scoreMap = new HashMap<Integer, Integer>();
 		pdao.findByCity(currentUserCity).forEach((i) -> {
-
 			scoreMap.put(i, score);
 
+		});
+		mService.selectALL().forEach((i)->{
+			scoreMap.compute(i.getMemberId(), (k, v) -> (v == null) ? 0 : scoreMap.get(k));
 		});
 
 		scoreMap.forEach((k, v) -> {
@@ -80,9 +90,7 @@ public class IPairsServiceImpl implements IPairsService {
 		int score = 3;
 		pdao.findInterestByMemberId(currentUserId).forEach((interestid) -> {
 			pdao.findMemberByInterestId(interestid).forEach((memberid) -> {
-
 				scoreMap.compute(memberid, (k, v) -> (v == null) ? score : scoreMap.get(k) + score);
-
 			});
 
 		});
@@ -94,6 +102,7 @@ public class IPairsServiceImpl implements IPairsService {
 
 	private Integer hscore(IMember member, IMember currentMember) {
 		int score = 0;
+		
 		Math.abs(member.getMemberInfo().getBodyType().equals(currentMember.getMemberHope().getBodyType()) ? score++
 				: score);
 		Math.abs(member.getMemberInfo().getMarriage().equals(currentMember.getMemberHope().getMarriage()) ? score++
@@ -152,6 +161,15 @@ public class IPairsServiceImpl implements IPairsService {
 				cityMap.remove(i);
 			});
 		}
+		List<FriendList> fList = fService.findFriendsById(currentUserId);
+		fList.forEach((i) -> {
+			if (i.getMemberId().equals(currentUserId)) {
+				cityMap.remove(i.getFriendId());
+			}else {
+				cityMap.remove(i.getMemberId());
+			}
+			
+		});
 		
 		cityMap.forEach((k, v) -> {
 			System.out.println("finalscoreMap :" + k + " value :" + v);
@@ -216,6 +234,12 @@ public class IPairsServiceImpl implements IPairsService {
 	public List<Integer> getPaired(Integer id) {
 		// TODO Auto-generated method stub
 		return pdao.getPaired(id);
+	}
+	@Transactional
+	@Override
+	public Long countAlbum(Integer id) {
+		// TODO Auto-generated method stub
+		return pdao.countAlbum(id);
 	}
 
 }

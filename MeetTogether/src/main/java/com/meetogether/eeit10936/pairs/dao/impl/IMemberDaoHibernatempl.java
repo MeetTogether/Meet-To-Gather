@@ -180,7 +180,7 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 
 	private Long getEveryDay6Am(boolean todayOrNot) {
 		Calendar calendar = Calendar.getInstance();
-		if (calendar.get(Calendar.HOUR) < 6) {
+		if (calendar.get(Calendar.HOUR_OF_DAY) < 5) {
 			calendar.add(Calendar.DATE, -1);
 		}
 		if (todayOrNot) {
@@ -202,10 +202,19 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		if (list.size() == 0) {
 			return null;
 		}
-		list.forEach((i)->{
+		list.forEach((i) -> {
 			System.out.println(i);
 		});
 		return list;
+	}
+
+	@Override
+	public Long countAlbum(Integer id) {
+		String hql = "SELECT COUNT(m) FROM MemberAlbum m WHERE m.pk.memberId = ?0 AND m.status IS NOT NULL";
+		Long result = factory.getCurrentSession().createQuery(hql, Long.class).setParameter(0, id)
+				.uniqueResult();
+		return result;
+
 	}
 
 }

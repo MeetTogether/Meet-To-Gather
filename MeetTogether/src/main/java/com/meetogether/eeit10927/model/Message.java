@@ -37,6 +37,32 @@ import com.meetogether.eeit10901.model.MemberBean;
 @DynamicUpdate
 public class Message implements Serializable {
 
+	public Message(String msgTitle, String msgText, Blob msgPhoto, String createTimeFormat, String updateTimeFormat,
+			Integer likeCount, Integer replyCount, MemberBean member, MsgType msgType, List<Msglike> msglike,
+			List<Msgreply> msgreply, List<Msgtag> msgtag) {
+		super();
+		this.msgTitle = msgTitle;
+		this.msgText = msgText;
+		this.msgPhoto = msgPhoto;
+		this.createTimeFormat = createTimeFormat;
+		this.updateTimeFormat = updateTimeFormat;
+		this.likeCount = likeCount;
+		this.replyCount = replyCount;
+		this.member = member;
+		this.msgType = msgType;
+		this.msglike = msglike;
+		this.msgreply = msgreply;
+		this.msgtag = msgtag;
+	}
+	// new Message(createTime, msgTitle, msgText, replyCount);
+	public Message(String msgTitle, String msgText, String createTimeFormat, Integer replyCount) {
+		super();
+		this.msgTitle = msgTitle;
+		this.msgText = msgText;
+		this.createTimeFormat = createTimeFormat;
+		this.replyCount = replyCount;
+	}
+
 	private static final long serialVersionUID = 1L;
 	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
 	
@@ -66,8 +92,8 @@ public class Message implements Serializable {
 	private MsgType msgType;
 	private Integer mtId;
 	private String mtName;
-	private Set<Msglike> msglike = new LinkedHashSet<>();
-	private Set<Msgreply> msgreply = new LinkedHashSet<>();
+	private List<Msglike> msglike = new ArrayList<>();
+	private List<Msgreply> msgreply = new ArrayList<>();
 	private List<Msgtag> msgtag = new ArrayList<>();
 	private List<String> msgTagName;
 
@@ -221,20 +247,20 @@ public class Message implements Serializable {
 	}
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "message")
-	public Set<Msglike> getMsglike() {
+	public List<Msglike> getMsglike() {
 		return msglike;
 	}
 
-	public void setMsglike(Set<Msglike> msglike) {
+	public void setMsglike(List<Msglike> msglike) {
 		this.msglike = msglike;
 	}
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "message")
-	public Set<Msgreply> getMsgreply() {
+	public List<Msgreply> getMsgreply() {
 		return msgreply;
 	}
 
-	public void setMsgreply(Set<Msgreply> msgreply) {
+	public void setMsgreply(List<Msgreply> msgreply) {
 		this.msgreply = msgreply;
 	}
 	
@@ -258,7 +284,10 @@ public class Message implements Serializable {
 
 	@Transient
 	public String getUpdateTimeFormat() {
-		return sdf1.format(updateTime);
+		if (updateTime == null)
+			return "";
+		else
+			return sdf1.format(updateTime);
 	}
 
 	public void setUpdateTimeFormat(String updateTimeFormat) {

@@ -43,18 +43,7 @@
 .reply {
 	padding: 5px 10px;
 	background: #ff07295e;
-	color: #000000;
-	text-transform: uppercase;
-	font-size: 14px;
-	letter-spacing: .1em;
-	font-weight: 400;
-	border-radius: 4px;
-	width: 45%;
-}
-.reply_n {
-	padding: 5px 10px;
-	background: #ACD6FF;
-	color: #000000;
+	color: black;
 	text-transform: uppercase;
 	font-size: 14px;
 	letter-spacing: .1em;
@@ -68,12 +57,12 @@
 	background: #fd7e14;
 }
 .reply:hover {
-	color: #fff;
+	color: white;
 	background: #FF5151;
 }
-.reply_n:hover {
-	color: #fff;
-	background: #2894FF;
+.reply:visited {
+	color: black;
+	background: #FF5151;
 }
 .testimony-wrap{
 	/*background: #ff00000f;*/
@@ -96,10 +85,6 @@ $(document).ready(function() {
 	autoRun();
 	run();
 	showModal();
-	function clickact(myObj){
-		 myObj.innerHTML="已參加";
-		 console.log(myObj);
-	}
 	var num = 0;
 	function autoRun() {
 		for (var i = 1; i <= 7; i++) {
@@ -193,12 +178,15 @@ $(document).ready(function() {
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>					
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
@@ -353,36 +341,32 @@ $(document).ready(function() {
 				<div class="col-md-12">
 					<div class="carousel-testimony owl-carousel ftco-owl">
 					<c:forEach var='newMember' items="${newMembers}">
-						<div class="item">
-							<div class="testimony-wrap text-center py-4 pb-5">
-								<div class="user-img mb-4"
-									style="background-image: url(${pageContext.request.contextPath}/getImage?id=${newMember.memberId}&type=member)"></div>
-								<div class="text pt-4">
-									<p class="name">${newMember.memberName }</p>
-									<p class="mb-4">Far far away, behind the word mountains,
-										far from the countries Vokalia and Consonantia, there live the
-										blind texts.</p>
-									<p class="d-flex mb-0 d-block">
-									<c:choose>
-										<c:when test="${userId eq null }">
-											<a href="###" class="reply_n" data-toggle="modal" data-target="#loginModalLong">SKIP</a>&ensp;&ensp;
-										</c:when>
-										<c:otherwise>
-											<a href="###" class="reply_n">SKIP</a>&ensp;&ensp;
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${userId eq null }">
-											<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">LIKE</a>&ensp;&ensp;
-										</c:when>
-										<c:otherwise>
-											<a href="###" class="reply">LIKE</a>
-										</c:otherwise>
-									</c:choose>
-									</p>
+						<c:choose>
+							<c:when test="${newMember.memberId == userId }">
+							</c:when>
+							<c:otherwise>
+								<div class="item">
+									<div class="testimony-wrap text-center py-4 pb-5">
+										<div class="user-img mb-4"
+											style="background-image: url(${pageContext.request.contextPath}/getImage?id=${newMember.memberId}&type=member)"></div>
+										<div class="text pt-4">
+											<p class="name"><a href="${pageContext.request.contextPath}/getmember/${newMember.memberId }">${newMember.memberName }</a></p>
+											<p class="mb-4">居住城市：${newMember.memberCity }<br>生日：${newMember.memberBirth }</p>
+											<p style="text-align: center;">
+											<c:choose>
+												<c:when test="${userId eq null }">
+													<a href="###" class="reply" data-toggle="modal" data-target="#loginModalLong">送出好友邀請</a>&ensp;&ensp;
+												</c:when>
+												<c:otherwise>
+													<a href="invite?fid=${newMember.memberId }" class="reply">送出好友邀請</a>
+												</c:otherwise>
+											</c:choose>
+											</p>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 					</div>
 				</div>
@@ -410,15 +394,7 @@ $(document).ready(function() {
 								<a href="#">${acts.eventName}</a>
 							</h2>
 							<span>scheduled time<br>${acts.eventTime}</span>
-							<p class="d-flex mb-0 d-block">
-								<c:choose>
-									<c:when test="${userId eq null }">
-										<a href="###" class="reply_a" data-toggle="modal" data-target="#loginModalLong">參加活動</a>&ensp;&ensp;
-									</c:when>
-									<c:otherwise>
-										<a href="###" class="reply_a" id="joinact" onclick="clickact(this)">參加活動</a>&ensp;&ensp;
-									</c:otherwise>
-								</c:choose>
+							<p style="text-align: center;">
 								<c:choose>
 									<c:when test="${userId eq null }">
 										<a href="###" class="reply_a" data-toggle="modal" data-target="#loginModalLong">活動細節</a>&ensp;&ensp;
@@ -461,7 +437,7 @@ $(document).ready(function() {
 											<a href="#" data-toggle="modal" data-target="#loginModalLong"><span class="icon-person"></span>${popMsg.member.memberName}</a>
 										</c:when>
 										<c:otherwise>
-											<a href="${pageContext.request.contextPath}/GetUserPostServlet?memberId=${popMsg.member.memberId}"><span class="icon-person"></span>${popMsg.member.memberName}</a>
+											<a href="${pageContext.request.contextPath}/getmember/${popMsg.member.memberId}"><span class="icon-person"></span>${popMsg.member.memberName}</a>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -477,7 +453,7 @@ $(document).ready(function() {
 								</div>
 							</div>
 							
-							<h3 class="heading mt-2">${popMsg.msgTitle }</h3>
+							<h3 class="heading mt-2"><a href="${pageContext.request.contextPath}/GetAllReMsgServlet?msgId=${popMsg.msgId}">${popMsg.msgTitle }</a></h3>
 							<p>${popMsg.msgTextShort }
 							<p>
 							<c:choose>

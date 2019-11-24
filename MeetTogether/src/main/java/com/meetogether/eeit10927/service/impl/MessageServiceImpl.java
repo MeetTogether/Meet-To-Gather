@@ -194,7 +194,7 @@ public class MessageServiceImpl implements IMessageService {
 	public int getMsgCntByType(Integer typeId) {
 		return dao.getMsgCntByType(typeId);
 	}
-
+	
 	@Transactional
 	@Override
 	public List<MemberBean> getNewMember() {
@@ -203,8 +203,32 @@ public class MessageServiceImpl implements IMessageService {
 
 	@Transactional
 	@Override
+	public List<MemberBean> getNewMember(int userId) {
+		return dao.getNewMember(userId);
+	}
+
+	@Transactional
+	@Override
 	public List<ActBean> getPopActivity() {
 		return dao.getPopActivity();
+	}
+
+	@Transactional
+	@Override
+	public int getTotalPages() {
+		return dao.getTotalPages();
+	}
+
+	@Transactional
+	@Override
+	public long getRecordCounts() {
+		return dao.getRecordCounts();
+	}
+
+	@Transactional
+	@Override
+	public List<Message> getPageMessages() {
+		return dao.getPageMessages();
 	}
 
 

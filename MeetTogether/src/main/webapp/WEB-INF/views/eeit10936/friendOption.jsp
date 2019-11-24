@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function() {
 		formA = document.getElementById("formA");
@@ -50,8 +46,7 @@
 		
 	})
 </script>
-</head>
-<body>
+<div>
 	<c:choose>
 		<c:when test="${member.memberId == userId}">
 
@@ -62,7 +57,7 @@
 				<input type="hidden" value="${member.memberId}" name="fid"/>
 				<c:choose>
 					<c:when test="${friendStatus }">
-						<input type="button" value="刪除好友" id="deleteFriends">
+						<input type="button" value="取消好友連結" id="deleteFriends" class="reply">
 					</c:when>
 					<c:otherwise>
 						<c:choose>
@@ -71,11 +66,11 @@
 							</c:when>
 							<c:when test="${responseYet }">
 								<input type="hidden" value="1" id="sureOrRefuse" name="sureOrRefuse">
-								<input type="button" value="確定" id="sure">
-								<input type="button" value="拒絕" id="refuse">
+								<input type="button" value="接受對方的好友邀請" id="sure" class="reply_n">
+								<input type="button" value="拒絕對方的好友邀請" id="refuse" class="reply">
 							</c:when>
 							<c:otherwise>
-								<input type="button" value="邀請好友" id="add">
+								<input type="button" value="送出好友邀請" id="add" class="reply_n">
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>
@@ -83,7 +78,4 @@
 			</form>
 		</c:otherwise>
 	</c:choose>
-
-
-</body>
-</html>
+</div>

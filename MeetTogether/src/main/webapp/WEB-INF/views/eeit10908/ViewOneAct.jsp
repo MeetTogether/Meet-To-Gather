@@ -1383,7 +1383,7 @@ p {
 																class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 
 
-															</span> <span> ${five}</span>
+															</span> <span> ${five}個評論</span>
 														</p>
 														<p class="star" align="left">
 															<span> <i class="ion-ios-star"></i> <i
@@ -1391,24 +1391,24 @@ p {
 																class="ion-ios-star"></i>
 
 
-															</span> <span>${four}</span>
+															</span> <span>${four}個評論</span>
 														</p>
 														<p class="star" align="left">
 															<span> <i class="ion-ios-star"></i> <i
 																class="ion-ios-star"></i> <i class="ion-ios-star"></i>
 
-															</span> <span>${three}</span>
+															</span> <span>${three}個評論</span>
 														</p>
 														<p class="star" align="left">
 															<span> <i class="ion-ios-star"></i> <i
 																class="ion-ios-star"></i>
 
-															</span> <span>${two}</span>
+															</span> <span>${two}個評論</span>
 														</p>
 														<p class="star" align="left">
 															<span> <i class="ion-ios-star"></i>
 
-															</span> <span>${one}</span>
+															</span> <span>${one}個評論</span>
 														</p>
 													</div>
 												</div>

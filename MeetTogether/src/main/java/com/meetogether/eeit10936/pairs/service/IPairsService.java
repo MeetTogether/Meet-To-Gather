@@ -40,5 +40,7 @@ public interface IPairsService {
 	public Long checkAlreadyPairs(Integer id);
 	
 	List<Integer> getPaired(Integer id);
+	
+	Long countAlbum(Integer id);
 
 }

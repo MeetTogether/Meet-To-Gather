@@ -86,7 +86,7 @@ public class MsgtagDaoHibernateImpl implements IMsgtagDao {
 	@Override
 	public List<Msgtag> getMsgtagByQuery(String query) {
 		String hql = "from Msgtag where deleteTag = 'False' and tagName like ?0";
-		String tagQuery = query + "%";
+		String tagQuery = "%" + query + "%";
 		List<Msgtag> tags = (List<Msgtag>) factory.getCurrentSession().createQuery(hql)
 				.setParameter(0, tagQuery).getResultList();
 		Map<String, Integer> tagMap = new HashMap<String, Integer>();
