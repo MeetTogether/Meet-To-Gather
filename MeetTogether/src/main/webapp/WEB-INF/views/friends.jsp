@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	responseAjax();
 	
 	
-	document.getElementById("serachFriend").addEventListener("change",
+	document.getElementById("serachFriend").addEventListener("keyup",
 			function() {
 				serachMyFriends();
 			});

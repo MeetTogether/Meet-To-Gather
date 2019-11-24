@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.meetogether.eeit10901.service.MemberService;
+import com.meetogether.eeit10936.friends.model.FriendList;
+import com.meetogether.eeit10936.friends.service.IFriendService;
 import com.meetogether.eeit10936.pairs.dao.IMemberDao;
 import com.meetogether.eeit10936.pairs.model.IMember;
 import com.meetogether.eeit10936.pairs.model.Pair;
@@ -30,6 +32,8 @@ public class IPairsServiceImpl implements IPairsService {
 	
 	@Autowired
 	private MemberService mService;
+	@Autowired
+	private IFriendService fService;
 
 	@Transactional
 	@Override
@@ -157,6 +161,15 @@ public class IPairsServiceImpl implements IPairsService {
 				cityMap.remove(i);
 			});
 		}
+		List<FriendList> fList = fService.findFriendsById(currentUserId);
+		fList.forEach((i) -> {
+			if (i.getMemberId().equals(currentUserId)) {
+				cityMap.remove(i.getFriendId());
+			}else {
+				cityMap.remove(i.getMemberId());
+			}
+			
+		});
 		
 		cityMap.forEach((k, v) -> {
 			System.out.println("finalscoreMap :" + k + " value :" + v);
