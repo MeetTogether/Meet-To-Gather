@@ -436,7 +436,7 @@ td{
 									class="form-control" id="sex">
 									<option value="3">全部</option>
 									<option value="1">男</option>
-									<option value="2">女</option>
+									<option value="0">女</option>
 								</select>
 							</div>
 							<div class="col">
