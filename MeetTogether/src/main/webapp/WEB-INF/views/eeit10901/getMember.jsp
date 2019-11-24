@@ -175,14 +175,14 @@ p {
 	<section class="ftco-section ftco-degree-bg">
 		<div class="row block-9 justify-content-center mb-5">
 			<div class="col-md-8 mb-md-5" align="center">
-			<h2>會員資料</h2>
+			<h2 id="bookmark1">會員資料</h2>
 			<jsp:include page="/WEB-INF/views/eeit10936/friendOption.jsp" /><br>
 				<div style="width: 30%; float: left;">
 					<c:choose>
 						<c:when test="${member.memberId == userId}">
 							<a class="nav-link"
 								href="${pageContext.request.contextPath}/upadateInfo/${member.memberId}">修改會員資料</a>
-							<a id="bookmark1"
+							<a 
 								href="${pageContext.request.contextPath}/memberInterest"
 								class="nav-link">個人興趣</a>
 							<a href="${pageContext.request.contextPath}/personalInterest"
