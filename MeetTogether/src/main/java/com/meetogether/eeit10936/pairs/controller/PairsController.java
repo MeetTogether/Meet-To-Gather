@@ -42,8 +42,7 @@ public class PairsController {
 	@ModelAttribute("currentUser")
 	public IMember currentUser(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
-			Integer id = (Integer) session.getAttribute("userId");
-			model.addAttribute("vipstatus", pService.checkVip(id));
+			Integer id = (Integer) session.getAttribute("userId");			
 			return pService.getMemberById(id);
 		}
 		return null;
@@ -59,7 +58,9 @@ public class PairsController {
 		if (model.getAttribute("currentUser") == null) {
 			return "redirect:/";
 		}
+		
 		Integer userId=(Integer) session.getAttribute("userId");
+		model.addAttribute("vipstatus", pService.checkVip(userId));
 		IMember member = pService.getMemberById(userId);
 		if (member.getMemberHope() == null) {
 			model.addAttribute("noMemberHope", true);
