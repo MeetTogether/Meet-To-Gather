@@ -618,8 +618,9 @@ public class ActController {
 		actJ.setMemberbean(member);
 		actJ.setEventBean(eventBean);
 //		service.addJoinPerson(id);
-		service.addJoinPerson(eventBean);
+		
 		service.addActJoin(actJ);
+		service.addJoinPerson(eventBean);
 		return "redirect:/eeit10908";
     }
 	

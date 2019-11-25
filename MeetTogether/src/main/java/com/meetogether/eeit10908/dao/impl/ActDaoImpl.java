@@ -114,6 +114,7 @@ public class ActDaoImpl implements ActDao {
 		result.setEventPlace(act.getEventPlace());
 		CatBean cb=getCatById(act.getEventCat());
 		
+		
 		result.setEventCat(cb.getEventCat());
 		
 		
@@ -178,7 +179,7 @@ public class ActDaoImpl implements ActDao {
 		 String hql = "from ActBean WHERE eventId = ?0";
 		 ActBean result = (ActBean) session.createQuery(hql).setParameter(0, aBean.getEventId()).uniqueResult();
 
-		 result.setActjoinPeople(1);
+		 result.setActjoinPeople(aBean.getActjoinPeople()+1);
 		 System.out.println(result.getActjoinPeople()+"=======");
 		 System.out.println(result.getEventId());
 

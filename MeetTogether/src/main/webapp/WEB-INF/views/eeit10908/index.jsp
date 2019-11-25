@@ -331,14 +331,15 @@ p {
 <%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
 					<li class="nav-item"><a href="/MeetTogether/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>	
 					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">會員資料</a></li>
+<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li> --%>
 					
 					
-					<li class="nav-item"><a class="nav-link"><c:if test="${!empty userId}">${userName}
+					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/getmember"><c:if test="${!empty userId}">${userName}
 						</c:if></a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
