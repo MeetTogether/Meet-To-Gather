@@ -163,10 +163,10 @@ jQueryConflict(document).ready(function() {
 								class='form:input-large' />
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" value=${userName }
-								readonly="readonly">
-							<form:input path="mbId" value="${userName}" type='hidden'
-								class='form:input-large' />
+<%-- 							<input type="text" class="form-control" value=${userName } --%>
+<!-- 								readonly="readonly"> -->
+							<form:input path="mbId"   value="${userName}" type='text' readonly="true"
+								class='form-control' />
 						</div>
 
 						<div class="form-group">
