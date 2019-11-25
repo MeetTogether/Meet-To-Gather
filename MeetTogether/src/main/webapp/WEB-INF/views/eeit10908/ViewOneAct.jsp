@@ -1,37 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<title>MeetTogether - 新增活動評論</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- <meta property="og:url" -->
-<%-- 	content="${pageContext.request.contextPath}/eeit10908/ByActivity?${queryString }" /> --%>
-<!-- <meta property="og:type" content="website" /> -->
-<!-- <meta property="og:title" content="meettogether" /> -->
-<!-- <meta property="og:description" content="給這個活動按個讚吧" /> -->
-<!-- <meta property="og:image" -->
-<!-- 	content="https://www.your-domain.com/path/image.jpg" /> -->
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
 	rel="stylesheet">
@@ -60,1009 +40,500 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+	href="${pageContext.request.contextPath}/css/style2.css">
 <link rel="stylesheet"
-	href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-	integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
-	crossorigin="anonymous">
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<link rel="stylesheet" type="text/css"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
-<title>活 動 細 節</title>
-<meta name="viewport"
-	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-
-
-
-<style>
-button, input {
-	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-}
-
-body {
-	font-size: 14px;
-	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-}
-
-@font-face {
-	font-family: 'Nucleo Outline';
-	src:
-		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
-	src:
-		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot")
-		format("embedded-opentype");
-	src:
-		url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
-	font-weight: normal;
-	font-style: normal;
-}
-
-h4, h5 {
-	font-weight: 400;
-	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-}
-
-body {
-	font-size: 14px;
-	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-}
-
-@font-face {
-	font-family: 'Nucleo Outline';
-	src:
-		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
-	src:
-		url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot")
-		format("embedded-opentype");
-	src:
-		url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
-	font-weight: normal;
-	font-style: normal;
-}
-
-h4, h5 {
-	font-weight: 400;
-}
-
-a {
-	color: #f96332;
-}
-
-a:hover, a:focus {
-	color: #f96332;
-}
-
-h4, .h4 {
-	font-size: 1.5em;
-	line-height: 1.45em;
-	margin-top: 30px;
-	margin-bottom: 15px;
-}
-
-h5, .h5 {
-	font-size: 1.3em;
-	line-height: 1.4em;
-	margin-bottom: 15px;
-}
-
-.title {
-	font-weight: 700;
-	padding-top: 30px;
-}
-
-body {
-	color: #2c2c2c;
-	font-size: 14px;
-	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-	overflow-x: hidden;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-}
-
-[data-toggle="collapse"][data-parent="#accordion"] i {
-	-webkit-transition: transform 150ms ease 0s;
-	-moz-transition: transform 150ms ease 0s;
-	-o-transition: transform 150ms ease 0s;
-	-ms-transition: all 150ms ease 0s;
-	transition: transform 150ms ease 0s;
-}
-
-[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i
-	{
-	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-	-webkit-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
-	transform: rotate(180deg);
-}
-
-.now-ui-icons {
-	display: inline-block;
-	font: normal normal normal 14px/1 'Nucleo Outline';
-	font-size: inherit;
-	speak: none;
-	text-transform: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-@
--webkit-keyframes nc-icon-spin { 0% {
-	-webkit-transform: rotate(0deg);
-}
-
-100%
-{
--webkit-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-    
-
-}
-}
-@
--moz-keyframes nc-icon-spin { 0% {
-	-moz-transform: rotate(0deg);
-}
-
-100%
-{
--moz-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-    
-
-}
-}
-@
-keyframes nc-icon-spin { 0% {
-	-webkit-transform: rotate(0deg);
-	-moz-transform: rotate(0deg);
-	-ms-transform: rotate(0deg);
-	-o-transform: rotate(0deg);
-	transform: rotate(0deg);
-}
-
-100%
-{
--webkit-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
--moz-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
--ms-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
--o-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-    
-
-}
-}
-.now-ui-icons.arrows-1_minimal-left:before {
-	content: "\ea3a";
-}
-
-.now-ui-icons.arrows-1_minimal-right:before {
-	content: "\ea3b";
-}
-
-img {
-	max-width: 100%;
-	border-radius: 1px;
-}
-
-.carousel-item.active {
-	display: block;
-}
-
-.carousel .carousel-inner {
-	box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-	border-radius: 0.1875rem;
-}
-
-.login-page .link {
-	font-size: 10px;
-	color: #FFFFFF;
-	text-decoration: none;
-}
-
-.section {
-	padding: 70px 0;
-	position: relative;
-	background: #FFFFFF;
-}
-
-[data-background-color="orange"] {
-	background-color: #e95e38;
-}
-
-[data-background-color="black"] {
-	background-color: #2c2c2c;
-}
-
-[
-data-background-color
-]
-:not
- 
-(
-[
-data-background-color
-=
-"gray"
-]
- 
-)
-{
-color
-:
- 
-#FFFFFF
-;
-
-
-}
-[data-background-color]:not ([data-background-color="gray"] ) .title {
-	color: #FFFFFF;
-}
-
-[
-data-background-color
-]
-:not
- 
-(
-[
-data-background-color
-=
-"gray"
-]
- 
-)
-h4
-,
-[
-data-background-color
-]
-:not
-
-	
-(
-[
-data-background-color
-=
-"gray"
-]
- 
-)
-h5
-,
-[
-data-background-color
-]
-:not
- 
-(
-[
-data-background-color
-=
-"gray"
-]
-
-	
-)
-a
-:not
- 
-(
-.btn
- 
-)
-:not
- 
-(
-.dropdown-item
- 
-)
-{
-color
-:
- 
-#FFFFFF
-;
-
-
-}
-footer {
-	margin-top: 50px;
-	color: #555;
-	background: #fff;
-	padding: 25px;
-	font-weight: 300;
-	background: #f7f7f7;
-}
-
-.footer p {
-	margin-bottom: 0;
-}
-
-footer p a {
-	color: #555;
-	font-weight: 400;
-}
-
-footer p a:hover {
-	color: #e86c42;
-}
-
-}
-a {
-	color: #f96332;
-}
-
-a:hover, a:focus {
-	color: #f96332;
-}
-
-h4, .h4 {
-	font-size: 1.5em;
-	line-height: 1.45em;
-	margin-top: 30px;
-	margin-bottom: 15px;
-}
-
-h5, .h5 {
-	font-size: 1.3em;
-	line-height: 1.4em;
-	margin-bottom: 15px;
-}
-
-.title {
-	font-weight: 700;
-	padding-top: 30px;
-}
-
-body {
-	color: #2c2c2c;
-	font-size: 14px;
-	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
-	overflow-x: hidden;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-}
-
-[data-toggle="collapse"][data-parent="#accordion"] i {
-	-webkit-transition: transform 150ms ease 0s;
-	-moz-transition: transform 150ms ease 0s;
-	-o-transition: transform 150ms ease 0s;
-	-ms-transition: all 150ms ease 0s;
-	transition: transform 150ms ease 0s;
-}
-
-[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i
-	{
-	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-	-webkit-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
-	transform: rotate(180deg);
-}
-
-.now-ui-icons {
-	display: inline-block;
-	font: normal normal normal 14px/1 'Nucleo Outline';
-	font-size: inherit;
-	speak: none;
-	text-transform: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-@
--webkit-keyframes nc-icon-spin { 0% {
-	-webkit-transform: rotate(0deg);
-}
-
-100%
-{
--webkit-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-    
-
-}
-}
-@
--moz-keyframes nc-icon-spin { 0% {
-	-moz-transform: rotate(0deg);
-}
-
-100%
-{
--moz-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-    
-
-}
-}
-@
-keyframes nc-icon-spin { 0% {
-	-webkit-transform: rotate(0deg);
-	-moz-transform: rotate(0deg);
-	-ms-transform: rotate(0deg);
-	-o-transform: rotate(0deg);
-	transform: rotate(0deg);
-}
-
-100%
-{
--webkit-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
--moz-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
--ms-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
--o-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-        
-
-transform
-
-
-:
-
- 
-
-rotate
-
-
-(360
-deg
-);
-
-
-    
-
-}
-}
-.now-ui-icons.arrows-1_minimal-left:before {
-	content: "\ea3a";
-}
-
-.now-ui-icons.arrows-1_minimal-right:before {
-	content: "\ea3b";
-}
-
-img {
-	max-width: 100%;
-	border-radius: 1px;
-}
-
-.carousel-item.active {
-	display: block;
-}
-
-.carousel .carousel-inner {
-	box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
-	border-radius: 0.1875rem;
-}
-
-.login-page .link {
-	font-size: 10px;
-	color: #FFFFFF;
-	text-decoration: none;
-}
-
-.section {
-	padding: 70px 0;
-	position: relative;
-	background: #FFFFFF;
-}
-
-[data-background-color="orange"] {
-	background-color: #e95e38;
-}
-
-[data-background-color="black"] {
-	background-color: #2c2c2c;
-}
-
-[
-data-background-color
-]
-:not
- 
-(
-[
-data-background-color
-=
-"gray"
-]
- 
-)
-{
-color
-:
- 
-#FFFFFF
-;
-
-
-}
-[data-background-color]:not ([data-background-color="gray"] ) .title {
-	color: #FFFFFF;
-}
-
-[
-data-background-color
-]
-:not
- 
-(
-[
-data-background-color
-=
-"gray"
-]
- 
-)
-h4
-,
-[
-data-background-color
-]
-:not
-
-	
-(
-[
-data-background-color
-=
-"gray"
-]
- 
-)
-h5
-,
-[
-data-background-color
-]
-:not
- 
-(
-[
-data-background-color
-=
-"gray"
-]
-
-	
-)
-a
-:not
- 
-(
-.btn
- 
-)
-:not
- 
-(
-.dropdown-item
- 
-)
-{
-color
-:
- 
-#FFFFFF
-;
-
-
-}
-footer {
-	margin-top: 50px;
-	color: #555;
-	background: #fff;
-	padding: 25px;
-	font-weight: 300;
-	background: #f7f7f7;
-}
-
-.footer p {
-	margin-bottom: 0;
-}
-
-footer p a {
-	color: #555;
-	font-weight: 400;
-}
-
-footer p a:hover {
-	color: #e86c42;
-}
-
-body {
-	/* 	background: -webkit-radial-gradient(circle, white, burlywood); */
-	/* 	background: -o-radial-gradient(circle, white, burlywood); */
-	/* 	background: -moz-radial-gradient(circle, white, burlywood); */
-	/* 	background: radial-gradient(circle, white, burlywood); */
-	background-color: #e7eef1;
-	font-family: 微軟正黑體;
-}
-
-.point {
-	cursor: pointer;
-}
-
-.hero-wrap {
-	width: 100%;
-	height: 300px;
-	position: inherit;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: top center;
-}
-
-.hero-wrap .overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	content: '';
-	opacity: .4;
-	background: #000000;
-	height: 300px;
-}
-
-@media ( max-width : 991.98px) {
-	.hero-wrap {
-		height: 450px;
-	}
-	.hero-wrap .overlay {
-		height: 450px;
-	}
-}
-
-.hero-wrap.hero-wrap-2 {
-	height: 300px !important;
-	position: relative;
-}
-
-.hero-wrap.hero-wrap-2 .overlay {
-	width: 100%;
-	opacity: .05;
-	height: 300px;
-}
-
-.hero-wrap.hero-wrap-2 .slider-text {
-	height: 300px !important;
-}
-
-.ftco-section {
-	padding: 2em 0;
-	position: relative;
-}
-
-@media ( max-width : 767.98px) {
-	.ftco-section {
-		padding: 2em 0;
-	}
-} /* 留言左側section與上方距離，原為6em */
-.mt-5, .my-5 {
-	margin-top: 1em !important;
-} /* 發文單篇與上方距離，原為3rem */
-.reply {
-	padding: 5px 10px;
-	background: #e6e6e6;
-	color: #000000;
-	text-transform: uppercase;
-	font-size: 11px;
-	letter-spacing: .1em;
-	font-weight: 400;
-	border-radius: 4px;
-}
-
-.carousel .carousel-control-prev .material-icons {
-	z-index: 5;
-	display: inline-block;
-	font-size: 50px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 50px;
-	margin: auto;
-}
-
-.carousel .carousel-control-next .material-icons {
-	z-index: 5;
-	display: inline-block;
-	font-size: 50px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 50px;
-	margin: auto;
-}
-
-.reply:hover {
-	color: #fff;
-	background: black;
-}
-
-.col-md-8 {
-	-webkit-box-flex: 0;
-	-ms-flex: 0 0 95%;
-	flex: 0 0 95%;
-	max-width: 95%;
-}
-
-.MemberPic {
-	border-radius: 50%;
-	height: 30px;
-	margin: 8px 5px;
-	display: inline-flex;
-	align-items: center;
-	float: left;
-}
-
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style type="text/css">
 .likeBtn, .dislikeBtn, .replyBtn {
 	height: 20px;
 	cursor: pointer;
 }
 
-
 p {
 	margin-bottom: 0;
 }
->>>>>>> branch 'branch1106' of https://github.com/MeetTogether/Meet-To-Gather.git
+
+.input_tag {
+	height: 52px !important;
+	font-size: 18px;
+	border-radius: 5px;
+	width: 50%;
+	padding: 0.375rem 0.75rem;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid #ced4da;
+}
+button,
+input {
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+
+body{
+  font-size: 14px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+}
+
+@font-face {
+  font-family: 'Nucleo Outline';
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot") format("embedded-opentype");
+  src: url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+h4,
+h5 {
+    font-weight: 400;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+}
+
+body{
+  font-size: 14px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+
+}
+
+@font-face {
+  font-family: 'Nucleo Outline';
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot");
+  src: url("https://github.com/creativetimofficial/now-ui-kit/blob/master/assets/fonts/nucleo-outline.eot") format("embedded-opentype");
+  src: url("https://raw.githack.com/creativetimofficial/now-ui-kit/master/assets/fonts/nucleo-outline.woff2");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+h4,
+h5 {
+    font-weight: 400;
+}
+
+a {
+    color: #f96332;
+}
+
+a:hover,
+a:focus {
+    color: #f96332;
+}
+
+h4,
+.h4 {
+    font-size: 1.5em;
+    line-height: 1.45em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h5,
+.h5 {
+    font-size: 1.3em;
+    line-height: 1.4em;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-weight: 700;
+    padding-top: 30px;
+}
+
+body {
+    color: #2c2c2c;
+    font-size: 14px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"] i {
+    -webkit-transition: transform 150ms ease 0s;
+    -moz-transition: transform 150ms ease 0s;
+    -o-transition: transform 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: transform 150ms ease 0s;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Nucleo Outline';
+    font-size: inherit;
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@-webkit-keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes nc-icon-spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.now-ui-icons.arrows-1_minimal-left:before {
+    content: "\ea3a";
+}
+
+.now-ui-icons.arrows-1_minimal-right:before {
+    content: "\ea3b";
+}
+
+img {
+    max-width: 100%;
+    border-radius: 1px;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.carousel .carousel-inner {
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 0.1875rem;
+}
+
+.login-page .link {
+    font-size: 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.section {
+    padding: 70px 0;
+    position: relative;
+    background: #FFFFFF;
+}
+
+[data-background-color="orange"] {
+    background-color: #e95e38;
+}
+
+[data-background-color="black"] {
+    background-color: #2c2c2c;
+}
+
+[data-background-color]:not([data-background-color="gray"]) {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) .title {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) h4,
+[data-background-color]:not([data-background-color="gray"]) h5,
+[data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
+    color: #FFFFFF;
+}
+
+footer{
+    margin-top:50px;
+    color: #555;
+    background: #fff;
+    padding: 25px;
+    font-weight: 300;
+    background: #f7f7f7;
+
+}
+.footer p{
+    margin-bottom: 0;
+}
+footer p a{
+    color: #555;
+    font-weight: 400;
+}
+
+footer p a:hover{
+    color: #e86c42;
+}
+
+}
+
+a {
+    color: #f96332;
+}
+
+a:hover,
+a:focus {
+    color: #f96332;
+}
+
+h4,
+.h4 {
+    font-size: 1.5em;
+    line-height: 1.45em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h5,
+.h5 {
+    font-size: 1.3em;
+    line-height: 1.4em;
+    margin-bottom: 15px;
+}
+
+.title {
+    font-weight: 700;
+    padding-top: 30px;
+}
+
+body {
+    color: #2c2c2c;
+    font-size: 14px;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    overflow-x: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"] i {
+    -webkit-transition: transform 150ms ease 0s;
+    -moz-transition: transform 150ms ease 0s;
+    -o-transition: transform 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: transform 150ms ease 0s;
+}
+
+[data-toggle="collapse"][data-parent="#accordion"][aria-expanded="true"] i {
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+.now-ui-icons {
+    display: inline-block;
+    font: normal normal normal 14px/1 'Nucleo Outline';
+    font-size: inherit;
+    speak: none;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@-webkit-keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes nc-icon-spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes nc-icon-spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.now-ui-icons.arrows-1_minimal-left:before {
+    content: "\ea3a";
+}
+
+.now-ui-icons.arrows-1_minimal-right:before {
+    content: "\ea3b";
+}
+
+img {
+    max-width: 100%;
+    border-radius: 1px;
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.carousel .carousel-inner {
+    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 0.1875rem;
+}
+
+.login-page .link {
+    font-size: 10px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.section {
+    padding: 70px 0;
+    position: relative;
+    background: #FFFFFF;
+}
+
+[data-background-color="orange"] {
+    background-color: #e95e38;
+}
+
+[data-background-color="black"] {
+    background-color: #2c2c2c;
+}
+
+[data-background-color]:not([data-background-color="gray"]) {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) .title {
+    color: #FFFFFF;
+}
+
+[data-background-color]:not([data-background-color="gray"]) h4,
+[data-background-color]:not([data-background-color="gray"]) h5,
+[data-background-color]:not([data-background-color="gray"]) a:not(.btn):not(.dropdown-item) {
+    color: #FFFFFF;
+}
+
+footer{
+    margin-top:50px;
+    color: #555;
+    background: #fff;
+    padding: 25px;
+    font-weight: 300;
+    background: #f7f7f7;
+
+}
+.footer p{
+    margin-bottom: 0;
+}
+footer p a{
+    color: #555;
+    font-weight: 400;
+}
+
+footer p a:hover{
+    color: #e86c42;
+}
+
 </style>
-
-<script>
-	var jQuery_1_12_4 = $.noConflict();
-
-	jQuery_1_12_4(document)
+<script type="text/javascript">
+	jQueryConflict = $.noConflict();
+	jQueryConflict(document)
 			.ready(
 					function() {
-						jQuery_1_12_4("#Postbox").hide();
-						jQuery_1_12_4("#Postbutton").click(function() {
-							jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
+						jQueryConflict("#Postbox").hide();
+						jQueryConflict("#Postbutton").click(function() {
+							jQueryConflict("#Postbox").toggle("blind"); /* 展開發文表單 */
 							/* $('html,body').animate({
 								scrollTop : 0
 							}); 返回到頁面頂端 */
 						});
-						jQuery_1_12_4("#ViewMyPost")
+						jQueryConflict("#ViewMyPost")
 								.click(
 										function() {
-											top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
+											top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}&pageNo=1";
 										});
-						jQuery_1_12_4("#ViewAllPost")
+						jQueryConflict("#ViewAllPost")
 								.click(
 										function() {
 											top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
 										});
-						jQuery_1_12_4("input#deletePost")
+						jQueryConflict("input#deletePost")
 								.click(
 										function() {
 											var c = confirm('是否確認刪除');
 											console.log(c);
 											if (c) {
-												jQuery_1_12_4(this).parent(
+												jQueryConflict(this).parent(
 														"form#deletePostForm")
 														.submit();
 											} else {
 											}
 										});
 
-						jQuery_1_12_4("#dialog-confirm").hide();
-						jQuery_1_12_4("#vipBuyButton").click(function() {
-							jQuery_1_12_4("#dialog-confirm").dialog({
-								resizable : false,
-								height : "auto",
-								width : 420,
-								modal : true,
-							});
-						});
 					});
 </script>
-</head>
 
+</head>
 <body>
-	
+	<!-- vip購買 -->
+	<jsp:include page="/WEB-INF/views/vip_div.jsp" />
+
+	<!-- nav -->
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar"> 
-		<div class="container">	
-			<a class="navbar-brand" href="/MeetTogether/">Meet<span>Together</span></a>
+		id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">Meet<span>Together</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -1071,26 +542,36 @@ p {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="/MeetTogether/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>	
-					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/eeit10908/"
+						class="nav-link">活動</a></li>
 					<li class="nav-item"><a
 						href="${pageContext.request.contextPath}/GetAllPostServlet"
 						class="nav-link">討論區</a></li>
-<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li> --%>
-					
-					
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/getmember"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a
+						href="${pageContext.request.contextPath}/getmember"
+						class="nav-link"> <c:if test="${vipTag eq true }">
+								<span class="icon-diamond"></span>
+							</c:if> <c:if test="${!empty userId}">${userName}
+						</c:if>
+					</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+							<img style="height: 40px; border-radius: 50%;"
+								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
-					
+					<li class="nav-item"><c:if test="${empty userId}">
+							<a href="<c:url value='/LoginServlet' />" class="nav-link"
+								data-toggle="modal" data-target="#loginModalLong">登入/註冊</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>
@@ -1098,7 +579,7 @@ p {
 	<!-- END nav -->
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/blog00.jpg');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/write.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -1108,7 +589,7 @@ p {
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>活動表 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
 					<h1 class="mb-3 bread">活動內容</h1>
@@ -1157,7 +638,8 @@ p {
 									</div>
 									<div class="text">
 										<h3 class="heading mb-0 pl-3">
-											主 辦 人 <span><a href="${pageContext.request.contextPath}/getmember/${actdata.memberId.memberId}">${actdata.memberId.memberName}</a></span>
+											主 辦 人 <span><a
+												href="${pageContext.request.contextPath}/getmember/${actdata.memberId.memberId}">${actdata.memberId.memberName}</a></span>
 										</h3>
 									</div>
 								</div>
@@ -1255,10 +737,11 @@ p {
 									</li>
 								</ul>
 							</div>
-							<div class="tab-content" id="pills-tabContent" >
-								<div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-description"
+									role="tabpanel" aria-labelledby="pills-description-tab">
 									<div class="row">
-										<div class="col-lg-8 col-md-12" style="margin:5px auto" >
+										<div class="col-lg-8 col-md-12" style="margin: 5px auto">
 											<div id="carouselExampleIndicators" class="carousel slide"
 												data-ride="carousel">
 												<ol class="carousel-indicators">
@@ -1317,111 +800,112 @@ p {
 									</div>
 								</div>
 
-									<div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
-										<div class="row">
-											<div class="col-md-7">
-												<h3 class="head">所有評論</h3>
-												<c:forEach var='reviewBean' items='${review}'>
-													<div class="review d-flex"
-														style="border: 3px #cccccc solid;">
-														<!-- 												<div class="user-img" -->
-														<!-- 													style="background-image: url(images/person_1.jpg)"></div> -->
-														<!--使用者圖片呼叫 -->
-														<%-- 													<img width='50' height='50'src="<c:url value='memberPhoto/${currentUser.memberId}'/>" /> --%>
-														<img height='60'
-															src='${pageContext.request.contextPath}/getImage?type=member&id=${reviewBean.member.memberId}'>
+								<div class="tab-pane fade" id="pills-review" role="tabpanel"
+									aria-labelledby="pills-review-tab">
+									<div class="row">
+										<div class="col-md-7">
+											<h3 class="head">所有評論</h3>
+											<c:forEach var='reviewBean' items='${review}'>
+												<div class="review d-flex"
+													style="border: 3px #cccccc solid;">
+													<!-- 												<div class="user-img" -->
+													<!-- 													style="background-image: url(images/person_1.jpg)"></div> -->
+													<!--使用者圖片呼叫 -->
+													<%-- 													<img width='50' height='50'src="<c:url value='memberPhoto/${currentUser.memberId}'/>" /> --%>
+													<img height='60'
+														src='${pageContext.request.contextPath}/getImage?type=member&id=${reviewBean.member.memberId}'>
 
-														<div class="desc">
-															<h4>
-																<p align="left">
-																	<b style='font-size: 16px;'>會員姓名:
-																		<a href="${pageContext.request.contextPath}/getmember/${reviewBean.member.memberId}">${reviewBean.member.memberName}</a></b>
-																</p>
-															</h4>
-
-
-															<p class="star" align="left">
-																<b style='font-size: 14px;'>星等:
-																	${reviewBean.eventStars}</b>
-															</p>
-															<br>
-
+													<div class="desc">
+														<h4>
 															<p align="left">
-																<b style='font-size: 14px;'>評論:
-																	${reviewBean.eventComment}</b>
+																<b style='font-size: 16px;'>會員姓名: <a
+																	href="${pageContext.request.contextPath}/getmember/${reviewBean.member.memberId}">${reviewBean.member.memberName}</a></b>
 															</p>
-															<br>
-															<p align="left">
-																<b style='font-size: 14px;'>創建時間:
-																	${fn:substring(reviewBean.createTime,0,16)}</b>
-															</p>
+														</h4>
 
-															<p align="right">
-																<c:if test="${userId==reviewBean.member.memberId}">
-																	<a id=condition
-																		href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />"
-																		class="btn btn-primary"> <span
-																		class="glyphicon-info-sigh glyphicon"></span>編輯資料
-																	</a>
-																</c:if>
-															</p>
-														</div>
-													</div>
-												</c:forEach>
-											</div>
-											<div class="col-md-5">
-												<div class="rating-wrap">
-													<h3 class="head">
-														<a
-															href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give
-															a Review</a>
-													</h3>
-													<div class="wrap">
-														<b style="font-size: 25px" >目前平均分數: ${avgEventStar}/5分</b>
+
 														<p class="star" align="left">
-															<span> <i class="ion-ios-star"></i> <i
-																class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-																class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-
-
-															</span> <span> ${five}個評論</span>
+															<b style='font-size: 14px;'>星等:
+																${reviewBean.eventStars}</b>
 														</p>
-														<p class="star" align="left">
-															<span> <i class="ion-ios-star"></i> <i
-																class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
-																class="ion-ios-star"></i>
+														<br>
 
-
-															</span> <span>${four}個評論</span>
+														<p align="left">
+															<b style='font-size: 14px;'>評論:
+																${reviewBean.eventComment}</b>
 														</p>
-														<p class="star" align="left">
-															<span> <i class="ion-ios-star"></i> <i
-																class="ion-ios-star"></i> <i class="ion-ios-star"></i>
-
-															</span> <span>${three}個評論</span>
+														<br>
+														<p align="left">
+															<b style='font-size: 14px;'>創建時間:
+																${fn:substring(reviewBean.createTime,0,16)}</b>
 														</p>
-														<p class="star" align="left">
-															<span> <i class="ion-ios-star"></i> <i
-																class="ion-ios-star"></i>
 
-															</span> <span>${two}個評論</span>
-														</p>
-														<p class="star" align="left">
-															<span> <i class="ion-ios-star"></i>
-
-															</span> <span>${one}個評論</span>
+														<p align="right">
+															<c:if test="${userId==reviewBean.member.memberId}">
+																<a id=condition
+																	href="<spring:url value='/editProduct?reviewId=${reviewBean.reviewId}' />"
+																	class="btn btn-primary"> <span
+																	class="glyphicon-info-sigh glyphicon"></span>編輯資料
+																</a>
+															</c:if>
 														</p>
 													</div>
+												</div>
+											</c:forEach>
+										</div>
+										<div class="col-md-5">
+											<div class="rating-wrap">
+												<h3 class="head">
+													<a
+														href="${pageContext.request.contextPath}/addProduct?eventId=${actdata.eventId}">Give
+														a Review</a>
+												</h3>
+												<div class="wrap">
+													<b style="font-size: 25px">目前平均分數: ${avgEventStar}/5分</b>
+													<p class="star" align="left">
+														<span> <i class="ion-ios-star"></i> <i
+															class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+															class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+
+
+														</span> <span> ${five}個評論</span>
+													</p>
+													<p class="star" align="left">
+														<span> <i class="ion-ios-star"></i> <i
+															class="ion-ios-star"></i> <i class="ion-ios-star"></i> <i
+															class="ion-ios-star"></i>
+
+
+														</span> <span>${four}個評論</span>
+													</p>
+													<p class="star" align="left">
+														<span> <i class="ion-ios-star"></i> <i
+															class="ion-ios-star"></i> <i class="ion-ios-star"></i>
+
+														</span> <span>${three}個評論</span>
+													</p>
+													<p class="star" align="left">
+														<span> <i class="ion-ios-star"></i> <i
+															class="ion-ios-star"></i>
+
+														</span> <span>${two}個評論</span>
+													</p>
+													<p class="star" align="left">
+														<span> <i class="ion-ios-star"></i>
+
+														</span> <span>${one}個評論</span>
+													</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 							</div>
+
 						</div>
 					</div>
 				</div>
+			</div>
 		</section>
 
 	</form:form>
