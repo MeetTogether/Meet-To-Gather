@@ -94,7 +94,7 @@ function responseAjax(){
 					sureBt.setAttribute("id",sid);
 					sureBt.setAttribute("type","button");
 					sureBt.setAttribute("class","reply_n");
-					sureBt.setAttribute("value","確定");
+					sureBt.setAttribute("value","接受");
 					
 					var refuseBt = document.createElement("input");
 					var rid ="rrb"+k;
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	letter-spacing: .1em;
 	font-weight: 400;
 	border-radius: 4px;
-	width: 45%;
+	width: 15%;
 }
 .reply_n {
 	padding: 5px 10px;
@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	letter-spacing: .1em;
 	font-weight: 400;
 	border-radius: 4px;
-	width: 45%;
+	width: 15%;
 }
 .reply_a:hover {
 	color: #fff;
@@ -294,34 +294,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item active"><a
-						href="${pageContext.request.contextPath}/friends" class="nav-link">好友</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/eeit10908/"
-						class="nav-link">活動</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">討論區</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/getmember"
-						class="nav-link">會員資料</a></li>
-					<li class="nav-item"><a class="nav-link"><c:if
-								test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item active"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<img style="height: 40px; border-radius: 50%;"
-								src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
-							<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
+						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${empty userId}">
-							<a href="<c:url value='/LoginServlet' />" class="nav-link"
-								data-toggle="modal" data-target="#loginModalLong">登入</a>
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
 			</div>
@@ -330,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<!-- END nav -->
 
 	<section class="hero-wrap hero-wrap-2 js-fullheight"
-		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg04.jpg');"
+		style="background-image: url('${pageContext.request.contextPath}/eeit10927/images/bg09.jpg');"
 		data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
@@ -340,36 +331,69 @@ document.addEventListener("DOMContentLoaded", function() {
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>交友 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>好友紀錄 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">交友</h1>
+					<h1 class="mb-3 bread">好友紀錄</h1>
 				</div>
 			</div>
 		</div>
 	</section>
+	
 	<section>
 		<div class="container">
-						<label>好友要求</label>
-						<div class=""
-							style="padding: 20px; overflow: scroll; height: 100px;">
-							<ul class="list-group" id="responsefriends">
-							</ul>
-						</div>
+			<label>好友要求</label>
+			<div class=""
+				style="padding: 20px; overflow: scroll; height: 100px;">
+				<ul class="list-group" id="responsefriends">
+				</ul>
+			</div>
 
-						<label>好友列表</label>
-						<!-- 						<span class="">好友列表</span><br> -->
-						<input type="text" class="" placeholder="搜尋好友，開始聊天"
-							autocomplete="off" id="serachFriend">
-						<div class=""
-							style="padding: 20px; overflow: scroll; height: 300px;">
-							<ul class="list-group" id="friends">
-							</ul>
-						</div>
-					</div>
-			
-
+			<label>好友列表</label>
+			<!-- 						<span class="">好友列表</span><br> -->
+			<input type="text" class="" placeholder="搜尋好友，開始聊天"
+				autocomplete="off" id="serachFriend">
+			<div class=""
+				style="padding: 20px; overflow: scroll; height: 300px;">
+				<ul class="list-group" id="friends">
+				</ul>
+			</div>
+		</div>
 	</section>
-	<jsp:include page="/WEB-INF/views/footer.jsp" />
+	<jsp:include page="/WEB-INF/views/footer.jsp"/>
+
+
+
+	<!-- loader -->
+	<div id="ftco-loader" class="show fullscreen">
+		<svg class="circular" width="48px" height="48px">
+			<circle class="path-bg" cx="24" cy="24" r="22" fill="none"
+				stroke-width="4" stroke="#eeeeee" />
+			<circle class="path" cx="24" cy="24" r="22" fill="none"
+				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
+	</div>
+
+
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/aos.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.animateNumber.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.timepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/scrollax.min.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="${pageContext.request.contextPath}/js/google-map.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="${pageContext.request.contextPath}/js/slider.js"></script>
+
 </body>
 </html>

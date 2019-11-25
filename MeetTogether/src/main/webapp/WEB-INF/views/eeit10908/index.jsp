@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<title>活 動 列 表</title>
+<title>MeetTogether - 活動</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -35,9 +35,7 @@
 	content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title> 活 動 總 表 </title>
 
-<meta charset="UTF-8">
 <script>
  	function getTodayDate() {
  		var fullDate = new Date();
@@ -95,48 +93,7 @@
 	 console.log(myObj);
  }
  
-
- 
- var jQuery_1_12_4 = $.noConflict();
-	
-	jQuery_1_12_4(document).ready(
-		function() {
-			jQuery_1_12_4("#Postbox").hide();
-			jQuery_1_12_4("#Postbutton").click(function() {
-				jQuery_1_12_4("#Postbox").toggle("blind"); /* 展開發文表單 */
-				/* $('html,body').animate({
-					scrollTop : 0
-				}); 返回到頁面頂端 */
-			});
-			jQuery_1_12_4("#ViewMyPost").click(
-				function() {
-					top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
-				});
-			jQuery_1_12_4("#ViewAllPost").click(
-				function() {
-					top.location.href = "${pageContext.request.contextPath}/GetAllPostServlet";
-				});
-			jQuery_1_12_4("input#deletePost").click(function() {
-				var c = confirm('是否確認刪除');
-				console.log(c);
-				if (c) {
-					jQuery_1_12_4(this).parent("form#deletePostForm").submit();
-				} else {
-				}
-			});
-			
-			jQuery_1_12_4("#dialog-confirm").hide();
-			jQuery_1_12_4("#vipBuyButton").click(function() {
-				jQuery_1_12_4("#dialog-confirm").dialog({
-					resizable : false,
-					height : "auto",
-					width : 420,
-					modal : true,
-				});
-		    });
-		});
-	
- </script>
+</script>
 <style type="text/css">
 body {
 /* 	background: -webkit-radial-gradient(ellipse, white, aqua); */
@@ -328,26 +285,26 @@ p {
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/register" class="nav-link">註冊</a></li> --%>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link">首頁</a></li>
-					<li class="nav-item"><a href="/MeetTogether/pairs/" class="nav-link">交友</a></li>
-					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>	
-					<li class="nav-item active"><a href="/MeetTogether/eeit10908" class="nav-link">活動</a></li>
-					<li class="nav-item"><a
-						href="${pageContext.request.contextPath}/GetAllPostServlet"
-						class="nav-link">討論區</a></li>
-<%-- 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">會員資料</a></li> --%>
-					
-					
-					<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/getmember"><c:if test="${!empty userId}">${userName}
-						</c:if></a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
+					<li class="nav-item active"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
+						</c:if>
+						<c:if test="${!empty userId}">${userName}
+						</c:if>
+						</a></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
 						</c:if></li>
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
-					
+					<li class="nav-item"><c:if test="${empty userId}">
+						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
+						</c:if></li>
 				</ul>
 			</div>
 		</div>
@@ -365,10 +322,10 @@ p {
 					<p class="breadcrumbs">
 						<span class="mr-2"><a
 							href="${pageContext.request.contextPath}/">首頁 <i
-								class="ion-ios-arrow-forward"></i></a></span> <span>活動表 <i
+								class="ion-ios-arrow-forward"></i></a></span> <span>活動 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">活動清單</h1>
+					<h1 class="mb-3 bread">活動</h1>
 				</div>
 			</div>
 		</div>
@@ -638,49 +595,7 @@ p {
 
 	</div>
 	
-	<footer class="ftco-footer ftco-bg-dark ftco-section">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">About MeetTogether</h2>
-              <p>MeetTogether創造認識新朋友的機會，讓更多人有機會看見彼此，從線上好友的聊天互動、參與活動實際面對面、抒發心情與瀏覽文章建立一段段友誼</p>
-              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Information</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">首頁</a></li>
-                <li><a href="#" class="py-2 d-block">交友</a></li>
-                <li><a href="#" class="py-2 d-block">活動</a></li>
-                <li><a href="#" class="py-2 d-block">討論區</a></li>
-                <li><a href="#" class="py-2 d-block">會員資料</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">106台北市大安區復興南路一段390號 2,3號15樓</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">02 6631 6666</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@iiiedu.org.tw</span></a></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </footer>
+	<jsp:include page="/WEB-INF/views/footer.jsp"/>
     
   
 
