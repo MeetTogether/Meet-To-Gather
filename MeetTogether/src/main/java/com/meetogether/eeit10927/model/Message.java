@@ -127,7 +127,11 @@ public class Message implements Serializable {
 	}
 	@Transient
 	public String getMsgTextShort() {
-		return msgTextShort;
+		if (msgText.length() < 50) {
+			return msgText;
+		} else {
+			return msgText.substring(0, 50);
+		}
 	}
 
 	public void setMsgTextShort(String msgTextShort) {
