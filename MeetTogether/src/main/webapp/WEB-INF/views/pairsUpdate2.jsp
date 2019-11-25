@@ -289,7 +289,7 @@
 		document.getElementById("city").addEventListener("change", function() {
 			pairAjax();
 		});
-		document.getElementById("serachFriend").addEventListener("change",
+		document.getElementById("serachFriend").addEventListener("keyup",
 				function() {
 					serachMyFriends();
 				});

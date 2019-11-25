@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Blob;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,6 @@ import javax.persistence.Transient;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.meetogether.eeit10901.model.MemberBean;
-import com.meetogether.eeit10927.model.Member;
 
 @Entity
 @Table(name="eventList")
@@ -34,12 +34,13 @@ public class ActBean implements Serializable {
 	String eventName;
 	Integer eventCat;
 	String eventTime;
-	String groupNum;
+	Integer groupNum;
 	Integer budget;
 	String eventPlace;
 	String createTime;
 	String actContent;
-//	private MemberBean memberId;
+
+	Integer actjoinPeople;
 	
 	
 
@@ -52,7 +53,14 @@ public class ActBean implements Serializable {
 //	public void setMember(MemberBean member) {
 //		this.memberId = member;
 //	}
+    
 
+	public Integer getActjoinPeople() {
+		return actjoinPeople;
+	}
+	public void setActjoinPeople(Integer actjoinPeople) {
+		this.actjoinPeople = actjoinPeople;
+	}
 	private String actFilename;
 	private Blob actPhoto;
 	@Transient
@@ -124,10 +132,10 @@ public class ActBean implements Serializable {
 	public void setEventTime(String eventTime) {
 		this.eventTime = eventTime;
 	}
-	public String getGroupNum() {
+	public Integer getGroupNum() {
 		return groupNum;
 	}
-	public void setGroupNum(String groupNum) {
+	public void setGroupNum(Integer groupNum) {
 		this.groupNum = groupNum;
 	}
 	public Integer getBudget() {
@@ -150,7 +158,7 @@ public class ActBean implements Serializable {
 	}
 	
 	public ActBean(Integer eventId, MemberBean memberId, String eventName, Integer eventCat, String eventTime,
-			String groupNum, Integer budget, String eventPlace, String createTime, CatBean catbean) {
+			Integer groupNum, Integer budget, String eventPlace, String createTime, CatBean catbean) {
 		super();
 		this.eventId = eventId;
 		this.memberId = memberId;

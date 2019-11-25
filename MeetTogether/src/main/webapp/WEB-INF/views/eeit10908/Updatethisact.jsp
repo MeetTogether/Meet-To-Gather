@@ -376,7 +376,7 @@ p {
 	
 					
 	<form:form method="post" 
- 			modelAttribute="actBean" enctype="multipart/form-data">
+ 			modelAttribute="actBean" enctype="multipart/form-data" style="display:inline">
 					<form:input type="hidden" path="eventId" />
 				<span style="float:left; " >主 辦 人:</span>
 					<span style="float:left; margin-left:3%;">${actBean.memberId.memberName}</span><br><br>
@@ -417,9 +417,12 @@ p {
 		     	
 		     	
 		    
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">刪  除</button>
-        		   <button type="submit" class="btn btn-primary">修 改</button>
+        		        <span>&emsp;&emsp;&emsp;&emsp;</span><button type="submit" class="btn btn-primary">修 改</button><span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
 		    	</form:form>
+		        <form method="get" action="${pageContext.request.contextPath}/index/deleteActivity" style="display:inline">
+		        	<input type="hidden" value="${actBean.eventId}" name="getId" >
+		        		<button type="submit" class="btn btn-secondary" data-dismiss="modal">刪  除</button>
+		        </form>
   
   
  

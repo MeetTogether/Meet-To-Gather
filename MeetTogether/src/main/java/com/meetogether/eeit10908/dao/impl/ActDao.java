@@ -22,6 +22,8 @@ public interface ActDao {
 	
 	void updateActivity(ActBean act);
 	
+	void updateActivityNoimage(ActBean act);
+	
 	public ActBean getActivityById(int actId);
 	
 	public List<ActBean> getActivityByCat(int catId);
@@ -32,4 +34,6 @@ public interface ActDao {
 	public void addActJoinx(ActJoinBean actJ);
 	
 	public List<ActJoinBean> CheckJoinPerson(Integer memberId);
+	
+	public void addActJoinPeoson(ActBean aBean);
 }
