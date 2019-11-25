@@ -170,7 +170,7 @@ p {
 		    });
 		});
 </script>
-<meta http-equiv="refresh" content="2;url=${pageContext.request.contextPath}/">
+<%-- <meta http-equiv="refresh" content="2;url=${pageContext.request.contextPath}/"> --%>
 </head>
 <body>
 <div id="dialog-confirm" title="升級為VIP會員">

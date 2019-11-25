@@ -26,32 +26,38 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style2.css">
 <style>        
     .block {
-        width: 300PX;
+        height:: 450px;
+        width: 380px;
         display: block;
         cursor: pointer;
-        margin: auto;
+		margin: auto;
     }
 
     .none {
         display: none;
+        height:: 450PX;
+        width: 380px;
     }
 
     .field {
-        width: 380PX;
+       height:: 450PX;
+       /*         width: 380PX; */
         margin: 0 auto;
         border-radius: 20PX;
     }
 
     .legend {
-        text-align: center;
+      text-align: left;
+/*         text-align: center; */
         font-size: larger
     }
 
    
 
     .pdiv {
-        width: 380PX;
-        text-align: center;
+    height:: 450PX
+/*         width: 380PX; */
+         text-align: center;
     }
 
     .control {
@@ -91,11 +97,11 @@
         if(flag){
             flag=false;
             window.clearInterval(t);
-            document.getElementById("idpauseplay").src="images/play.png";
+            document.getElementById("idpauseplay").src="${pageContext.request.contextPath}/eeit10901/images/play.png";
         }else{
             flag=true;
             t=window.setInterval(show,1500);
-            document.getElementById("idpauseplay").src="images/pause.png";
+            document.getElementById("idpauseplay").src="${pageContext.request.contextPath}/eeit10901/images/pause.png";
         }
     }
     function nextf(){
@@ -190,10 +196,10 @@
 				          	<c:forEach items="${photoCount }" var="photo">
 				          		<c:choose>
 				          			<c:when test="${photo == 1 }">
-				          				<img class="block" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
+				          				<img class="block" style="width: 600px; height: 380px" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
 				          			</c:when>
 				          			<c:otherwise>
-				          				<img class="none" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
+				          				<img class="none" style="width: 600px; height: 380px" src="${pageContext.request.contextPath}/memberPhoto/${userId}/${photo}"/>
 				          			</c:otherwise>
 				          		</c:choose>
 			    				
@@ -206,24 +212,24 @@
 				            <img id="idnext" class="control" src="${pageContext.request.contextPath}/eeit10901/images/next.png">
 				        </div>
 				    </fieldset>
-    
+    <br>
 					<div id="regispage">
 						<div id="registerbox" align="center">
-							<h2>新增照片</h2>
+<!-- 							<h2>新增照片</h2> -->
 							<font size="1" color="#FF0000">${errorMsg.errTitle}</font>
 							<form:form enctype="multipart/form-data" method="POST"
 								modelAttribute="albumbean" id='registerForm'>
 								<form:input type="hidden" path="pk.memberId" value="${albumbean.pk.memberId}" />
 									<table>
 										<tr>
-											<td>配對照片顯示順序
-											<td><form:input type="text" path="status" value="${photoStatus }" />
+											<td style = "display:none">配對照片顯示順序
+											<td style = "display:none"><form:input type="text" path="status" value="${photoStatus }" />
 										<tr>
 											<td>上傳照片
 											<td><form:input type="file" path="albumImage" />
 									</table>
 								<br>
-								<input type="submit" value="上傳">
+								<input type="submit" value="上傳" >
 							</form:form>
 						</div>
 					</div>
