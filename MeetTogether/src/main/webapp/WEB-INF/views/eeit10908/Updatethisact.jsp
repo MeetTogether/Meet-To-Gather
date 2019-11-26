@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/flaticon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <%-- 	<link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap.min.css'> --%>
 	<link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap-datetimepicker.min.css'>
 <%-- 	<link rel="stylesheet" href='${pageContext.request.contextPath}/eeit10908/assets/css/bootstrap.min.css'> --%>
@@ -89,11 +90,6 @@
 	 $('.mdb-select').materialSelect();
 	 });
  
- function clickact(myObj){
- 	 alert("活動報名成功");
-	 myObj.innerHTML="已參加";
-	 console.log(myObj);
- }
  
 
  
@@ -308,6 +304,14 @@ p {
   text-decoration: none;
   pointer-events：none;
 }
+.bodys{
+
+	background: -webkit-radial-gradient(ellipse, white, lavender);
+	background: -o-radial-gradient(ellipse, white, lavender);
+	background: -moz-radial-gradient(ellipse, white, lavender);
+	background: radial-gradient(ellipse, white, lavender);
+
+}
 </style>
 
 
@@ -367,30 +371,43 @@ p {
 								class="ion-ios-arrow-forward"></i></a></span> <span>活動表 <i
 							class="ion-ios-arrow-forward"></i></span>
 					</p>
-					<h1 class="mb-3 bread">活動清單</h1>
+					<h1 class="mb-3 bread">活動修改</h1>
 				</div>
 			</div>
 		</div>
 	</section>
-
 	
+				
 					
-	<form:form method="post" 
+
+
+<div>&emsp;</div>
+<section>
+		<div class="container"  >
+			<div class="row">
+				<div class="col-lg-4 col"></div>
+				<div class="col-lg-4 col-md-10 mt-0 mt-md-8 d-flex bodys" style="border:5px #FFFFFF solid;">
+					<!-- 	<a href='/products'><input type="button" value="返回"></a> -->
+					<div >
+
+						<form:form method="post" 
  			modelAttribute="actBean" enctype="multipart/form-data" style="display:inline">
 					<form:input type="hidden" path="eventId" />
-				<span style="float:left; " >主 辦 人:</span>
-					<span style="float:left; margin-left:3%;">${actBean.memberId.memberName}</span><br><br>
+				<span  >主 辦 人:</span>
+					<span >${actBean.memberId.memberName}</span><br><br>
 <%-- 					<form:input type="hidden" path="memberId" /> --%>
-		     	<span style="float:left;">活 動 名 稱:</span><br>
-					<span style="float:left; margin-left:6%;" ><form:input type="text" path="eventName"/></span><br><br>
-		     	<span style="float:left;">活動類型:</span><br>
-				<span style="float:left; margin-left:6%;"><form:select path="eventCat">
+		     	<span >活 動 名 稱:</span><br>
+					<span ><form:input type="text" path="eventName" style="width:330px;"/></span><br><br>
+		     	<span >活動類型:</span><br>
+				<span ><div class="dropdown"><form:select path="eventCat" class="btn dropbtn" style="width:170px;">
+							<div class="dropdown-content">
 							<form:option value="-1" label="請選擇" />
 							<form:options items="${catList}" />
-						</form:select></span><br><br>
-				<span style="float:left;">活動開始時間:</span><br>
+							</div>
+						</form:select></div></span><br><br>
+				<span >活動開始時間:</span><br>
 
-						<div class="input-group date form_datetime col-md-8"							
+						<div class="input-group date form_datetime col-md-12"							
 							data-date-format="yyyy-mm-dd - HH:ii p"
 							data-link-field="dtp_input1">
 							<form:input class="form-control" type="text" path="eventTime" />
@@ -399,34 +416,35 @@ p {
 								class="input-group-addon"><span
 								class="glyphicon glyphicon-th"></span></span>
 						</div><br>
-			           <span style="float:left;">活動內容:</span><br>
-					<span style="float:left; margin-left:6%;"><form:textarea type="textarea" path="actContent"  style="width:300px;height:100px;" ></form:textarea></span><br>
+			           <span >活動內容:</span><br>
+					<span ><form:textarea type="textarea" path="actContent"   cols="40" rows="4"></form:textarea></span><br>
 		     	
-						
-		     	<br><br><br>
-		     	<span style="float:left;">活動參與人數:</span><br>
-					<span style="float:left; margin-left:6%;"><form:input type="text" path="groupNum" value="" /></span><br><br>
+
+		     	<br><span >活動參與人數:</span><br>
+					<span ><form:input type="text" path="groupNum" value="" /></span><br><br>
 		     	
-		     	<span style="float:left;">預算:</span><br>
-					<span style="float:left; margin-left:6%;"><form:input type="text" path="budget"  /></span><br><br>
-		     	<span style="float:left;">活動地點:</span><br>
-					<span style="float:left; margin-left:6%;"><form:input type="text" path="eventPlace" /></span><br><br>
-				<span style="float:left;">活動圖片:</span><br>&emsp;&emsp;&emsp;&emsp;
-					<span style="float:left; margin-left:6%;"><form:input type="file" path="actImage" value="新增圖片" align="right"/></span><br><br>
+		     	<span >預算:</span><br>
+					<span ><form:input type="text" path="budget"  /></span><br><br>
+		     	<span >活動地點:</span><br>
+					<span ><form:input type="text" path="eventPlace" /></span><br><br>
+				<span >活動圖片:</span><br>&emsp;&emsp;&emsp;&emsp;
+					<span ><form:input type="file" path="actImage" value="新增圖片" align="right"/></span><br><br>
 		     	
 		     	
 		     	
 		    
-        		        <span>&emsp;&emsp;&emsp;&emsp;</span><button type="submit" class="btn btn-primary">修 改</button><span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+        		       <br>&emsp;&emsp;&emsp;<button type="submit" class="btn btn-primary">修 改</button><span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
 		    	</form:form>
 		        <form method="get" action="${pageContext.request.contextPath}/index/deleteActivity" style="display:inline">
 		        	<input type="hidden" value="${actBean.eventId}" name="getId" >
-		        		<button type="submit" class="btn btn-secondary" data-dismiss="modal">刪  除</button>
+		        		<button type="submit" class="btn btn-secondary" data-dismiss="modal">刪  除</button><div>&emsp;</div>
 		        </form>
-  
-  
- 
-  
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+	</section>
 <!--   ---------------------------------------- -->
   
   
