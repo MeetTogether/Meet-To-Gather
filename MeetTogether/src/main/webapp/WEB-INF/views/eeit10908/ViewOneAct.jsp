@@ -714,7 +714,7 @@ footer p a:hover{
 				</div>
 
 				<h3>活動內容</h3>
-				<div>${actdata.actContent}</div>
+				<div style="font-size:30px; text-align:justify; ">${actdata.actContent}</div><br>
 				<p>
 				<h3>google地點</h3>
 				<iframe width="1000" height="500" style="border: 0"

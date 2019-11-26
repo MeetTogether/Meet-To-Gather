@@ -77,9 +77,7 @@ public class IPairsServiceImpl implements IPairsService {
 			scoreMap.compute(i.getMemberId(), (k, v) -> (v == null) ? 0 : scoreMap.get(k));
 		});
 
-		scoreMap.forEach((k, v) -> {
-			System.out.println("cityScore :" + k + " value :" + v);
-		});
+		
 		return scoreMap;
 	}
 
@@ -94,9 +92,7 @@ public class IPairsServiceImpl implements IPairsService {
 			});
 
 		});
-		scoreMap.forEach((k, v) -> {
-			System.out.println("interest :" + k + " value :" + v);
-		});
+		
 		return scoreMap;
 	}
 
@@ -135,9 +131,7 @@ public class IPairsServiceImpl implements IPairsService {
 
 		});
 
-		scoreMap.forEach((k, v) -> {
-			System.out.println("memberHopeScore :" + k + " value :" + v);
-		});
+		
 		return scoreMap;
 	}
 
@@ -171,9 +165,7 @@ public class IPairsServiceImpl implements IPairsService {
 			
 		});
 		
-		cityMap.forEach((k, v) -> {
-			System.out.println("finalscoreMap :" + k + " value :" + v);
-		});
+	
 		return cityMap;
 	}
 
