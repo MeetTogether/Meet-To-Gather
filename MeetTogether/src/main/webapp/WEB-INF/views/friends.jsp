@@ -125,9 +125,12 @@ function responseAjax(){
 					
 					newLi.addEventListener("click",
 							function(e) {
-								
+					
+						
 						if (e.target == this){
-							window.location.href="${pageContext.request.contextPath}/getmember/"+k;
+							var id=(this.id).substring(2);
+							console.log(id);
+							window.location.href="${pageContext.request.contextPath}/getmember/"+id;
 						}
 						});
 
