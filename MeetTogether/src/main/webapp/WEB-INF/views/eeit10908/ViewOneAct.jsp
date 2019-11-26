@@ -147,6 +147,7 @@ h5,
     font-size: 1.3em;
     line-height: 1.4em;
     margin-bottom: 15px;
+    color:#FFFFFF;
 }
 
 .title {
@@ -244,7 +245,7 @@ img {
 }
 
 .carousel .carousel-inner {
-    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 10px 25px 0px #FFFFFF;
     border-radius: 0.1875rem;
 }
 
@@ -755,34 +756,30 @@ footer p a:hover{
 												<div class="carousel-inner" role="listbox">
 
 													<div class="carousel-item active">
-														<img class="d-block"
-															src="https://images.unsplash.com/photo-1524654458049-e36be0721fa2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-															alt="First slide">
+														<img class="d-block" 
+															src="${pageContext.request.contextPath}/images/FotoJet.jpg">
 														<div class="carousel-caption d-none d-md-block">
 															<a
-																href="http://localhost:8080/MeetTogether/ByActivity?getId=10"><h5>Nature,
-																	United States</h5></a>
+																href="http://localhost:8080/MeetTogether/ByActivity?getId=6"><h5>柴犬狗狗來聚會</h5></a>
 														</div>
 													</div>
 													<!-- 				     -->
 													<div class="carousel-item">
 														<img class="d-block"
-															src="https://images.unsplash.com/photo-1451903978882-b165bd94e45d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+															src="${pageContext.request.contextPath}/images/joker.jpg"
 															alt="Second slide">
 														<div class="carousel-caption d-none d-md-block">
 															<a
-																href="http://localhost:8080/MeetTogether/ByActivity?getId=14"><h5>Somewhere
-																	Beyond, United States</h5></a>
+																href="http://localhost:8080/MeetTogether/ByActivity?getId=5"><h5>小丑電影賞析會</h5></a>
 														</div>
 													</div>
 													<div class="carousel-item">
 														<img class="d-block"
-															src="https://images.unsplash.com/photo-1492252719637-c7b68468489b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+															src="${pageContext.request.contextPath}/images/newyork.jpg"
 															alt="Third slide">
 														<div class="carousel-caption d-none d-md-block">
 															<a
-																href="http://localhost:8080/MeetTogether/ByActivity?getId=12"><h5>Yellowstone
-																	National Park, United States</h5></a>
+																href="http://localhost:8080/MeetTogether/ByActivity?getId=2"><h5>紐約自由行</h5></a>
 														</div>
 													</div>
 												</div>
