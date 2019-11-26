@@ -185,6 +185,17 @@ public class ActDaoImpl implements ActDao {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ActJoinBean> getAllActJoinPeople() {
+		Session session = factory.getCurrentSession();
+		String hql ="FROM ActJoinBean";
+		List<ActJoinBean> list = new ArrayList<>();
+		list = session.createQuery(hql).getResultList();
+		
+		return list;
+	}
+
 	
 	
 	

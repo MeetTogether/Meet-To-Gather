@@ -484,7 +484,14 @@ footer p a{
 footer p a:hover{
     color: #e86c42;
 }
+.bodys{
 
+	background: -webkit-radial-gradient(ellipse, white, mediumslateblue);
+	background: -o-radial-gradient(ellipse, white, mediumslateblue);
+	background: -moz-radial-gradient(ellipse, white, mediumslateblue);
+	background: radial-gradient(ellipse, white, mediumslateblue);
+
+}
 </style>
 <script type="text/javascript">
 	jQueryConflict = $.noConflict();
@@ -656,7 +663,7 @@ footer p a:hover{
 									</div>
 									<div class="text">
 										<h3 class="heading mb-0 pl-3">
-											活動開始時間 <span>${actdata.eventTime}</span>
+											活動開始時間 <span style="font-size:15px;">${actdata.eventTime}</span>
 										</h3>
 									</div>
 								</div>
@@ -688,7 +695,7 @@ footer p a:hover{
 									</div>
 									<div class="text">
 										<h3 class="heading mb-0 pl-3">
-											天氣 <span>晴天</span>
+											已參加人數 <span>${actdata.actjoinPeople}</span>
 										</h3>
 									</div>
 								</div>
@@ -712,11 +719,57 @@ footer p a:hover{
 						</div>
 					</div>
 				</div>
-
+				<h3>已參加者</h3>
+			<section class="ftco-section">	
+				<div class="container">
+					<div class="row">
+					
+					<c:set var="done" value="false" />
+					
+					<c:forEach var='actjoins' items="${actjoinBean}">
+						<div class="col-md-4">
+    						<div class="car-wrap ftco-animate">
+								   						
+    							
+   
+    							
+    							
+    							<c:if test="${actdata.eventId eq actjoins.eventBean.eventId}">
+									<c:set var="done" value="true"/>
+								</c:if>
+										
+										
+													
+								<c:choose>
+    							<c:when test="${done}">			
+										<span>
+										<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
+										<a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+										${actjoins.memberbean.memberName}</a></span>	
+								</c:when>
+								
+								</c:choose>		
+								
+												
+						
+								
+							</div>
+						</div>
+							
+					
+					</c:forEach>
+					
+					
+					
+					
+					</div>
+				</div>
+			</section>	
+				
 				<h3>活動內容</h3>
-				<div style="font-size:30px; text-align:justify; ">${actdata.actContent}</div><br>
+				<div style="font-size:20px; text-align:justify; ">${actdata.actContent}</div><br>
 				<p>
-				<h3>google地點</h3>
+				<h3>google活動地點</h3>
 				<iframe width="1000" height="500" style="border: 0"
 					src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA3sRUmvTTrsDvCJWhqAVC142ehRvCXiTc&q=${actdata.eventPlace}">
 					--%> </iframe>
@@ -828,7 +881,7 @@ footer p a:hover{
 														<br>
 
 														<p align="left">
-															<b style='font-size: 14px;'>評論:
+															<b style='font-size: 14px; ' >評論:
 																${reviewBean.eventComment}</b>
 														</p>
 														<br>
