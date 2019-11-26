@@ -56,7 +56,7 @@
 				}
 				</script>
 				<td><div class="input_fields_wrap">
-						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;<button class="add_field_button">增加標籤</button></div>
+						<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" autocomplete="false" />&ensp;&ensp;<button class="add_field_button">增加標籤</button></div>
 					</div>
 				<script type="text/javascript">
 				jQueryConflict(document).ready(function() {
@@ -71,7 +71,7 @@
 								x++;
 								let inputId = 'msgTagName' + x.toString();
 								console.log('inputId: ' + inputId);
-								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field"><span class="icon-remove"></span></a></div>';
+								var appendContent = '<div><form:input type="text" path="msgTagName" placeholder="#tag here" class="input_tag" onclick="getTag(this)" autocomplete="false" />&ensp;&ensp;<a href="#" class="remove_field"><span class="icon-remove"></span></a></div>';
 								jQueryConflict(wrapper).append(appendContent);
 							}
 						});

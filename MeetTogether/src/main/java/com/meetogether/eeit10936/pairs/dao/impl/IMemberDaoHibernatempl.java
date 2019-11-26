@@ -190,7 +190,6 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
-		System.out.println("現在時間：" + calendar.getTime());
 		return calendar.getTimeInMillis();
 	}
 
@@ -202,9 +201,6 @@ public class IMemberDaoHibernatempl implements IMemberDao {
 		if (list.size() == 0) {
 			return null;
 		}
-		list.forEach((i) -> {
-			System.out.println(i);
-		});
 		return list;
 	}
 

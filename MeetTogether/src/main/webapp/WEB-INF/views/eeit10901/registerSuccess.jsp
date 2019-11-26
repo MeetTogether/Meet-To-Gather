@@ -47,7 +47,7 @@
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/pairs/" class="nav-link">交友</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/friends" class="nav-link">好友紀錄</a></li>					
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/eeit10908/" class="nav-link">活動</a></li>
-					<li class="nav-item active"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
+					<li class="nav-item"><a href="${pageContext.request.contextPath}/GetAllPostServlet" class="nav-link">討論區</a></li>
 					<li class="nav-item"><a href="${pageContext.request.contextPath}/getmember" class="nav-link">
 						<c:if test="${vipTag eq true }"><span class="icon-diamond"></span>
 						</c:if>
@@ -60,7 +60,7 @@
 					<li class="nav-item"><c:if test="${!empty userId}">
 						<a href="<c:url value='/LogoutServlet'  />" class="nav-link">登出</a>
 						</c:if></li>
-					<li class="nav-item"><c:if test="${empty userId}">
+					<li class="nav-item active"><c:if test="${empty userId}">
 						<a href="<c:url value='/LoginServlet' />" class="nav-link" data-toggle="modal" data-target="#loginModalLong" >登入/註冊</a>
 						</c:if></li>
 				</ul>
@@ -93,7 +93,7 @@
 	<section class="ftco-section ftco-degree-bg">
 		<div class="container">
 			<div class="row">
-				<div style="text-align: center;">
+				<div style="text-align: center; margin: auto;">
 					<h2>歡迎加入MeetTogether，請至註冊Email確認驗證信。</h2>
 				</div>
 			</div>
