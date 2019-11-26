@@ -10,4 +10,6 @@ public interface IMsgreplyDao {
 	
 	public List<Msgreply> getAllMsgreply(Integer msgId);
 	
+	public List<Msgreply> getMsgReplySta(Integer memberId);
+	
 }

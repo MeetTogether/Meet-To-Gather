@@ -13,6 +13,7 @@ import com.meetogether.eeit10927.dao.IMessageDao;
 import com.meetogether.eeit10927.dao.IMsglikeDao;
 import com.meetogether.eeit10927.model.Message;
 import com.meetogether.eeit10927.model.Msglike;
+import com.meetogether.eeit10927.model.Msgreply;
 
 @Repository
 public class MsglikeDaoHibernateImpl implements IMsglikeDao {
@@ -107,6 +108,14 @@ public class MsglikeDaoHibernateImpl implements IMsglikeDao {
 	public List<Msglike> findMsglikeByMessage(Integer messageId) {
 		String hql = "from Msglike WHERE msgId = ?0 AND deleteTag = 0";
 		List<Msglike> list = factory.getCurrentSession().createQuery(hql).setParameter(0, messageId).getResultList();
+		return list;
+	}
+	
+	@Override
+	public List<Msglike> getMsgLikeSta(Integer memberId) {
+		String hql = "from Msglike WHERE msgId IN (SELECT msgId from Message WHERE memberId = ?0)";
+		List<Msglike> list = factory.getCurrentSession().createQuery(hql, Msglike.class)
+									.setParameter(0, memberId).getResultList();
 		return list;
 	}
 

@@ -156,30 +156,6 @@ jQueryConflict(document).ready(function() {
 					<!-- 發文 -->
 					<jsp:include page="../fragment/postMsg.jsp"/>
 					
-					<div class="col text-center">
-		            	<div class="block-27">
-		            		<ul>
-		            			<c:if test="${pageNo > 1}">
-		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo-1}' />">&lt;</a></li>
-		            			</c:if>
-		            			<c:forEach items="${totalPage}" var="page">
-		            				<c:choose>
-		            					<c:when test="${page eq pageNo }">
-				            				<li class="active"><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
-		            					</c:when>
-		            					<c:otherwise>
-		            						<li><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
-		            					</c:otherwise>
-		            				</c:choose>
-		            			</c:forEach>
-		            			<c:if test="${pageNo != totalPages}">
-		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo+1}' />">&gt;</a></li>
-		            			</c:if>
-		            		</ul>
-<%-- 		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁 --%>
-		            	</div>
-		            </div>
-					
 					<!-- 一則文章 -->
 					<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 						<c:set var="mId" value="${msgBean.member.memberId}" />
@@ -279,6 +255,31 @@ jQueryConflict(document).ready(function() {
 						</div>
 						
 					</c:forEach>
+					
+					<div class="col text-center">
+		            	<div class="block-27">
+		            		<ul>
+		            			<c:if test="${pageNo > 1}">
+		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo-1}' />">&lt;</a></li>
+		            			</c:if>
+		            			<c:forEach items="${totalPage}" var="page">
+		            				<c:choose>
+		            					<c:when test="${page eq pageNo }">
+				            				<li class="active"><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
+		            					</c:when>
+		            					<c:otherwise>
+		            						<li><a href="<c:url value='GetAllPostServlet?pageNo=${page}' />">${page }</a></li>
+		            					</c:otherwise>
+		            				</c:choose>
+		            			</c:forEach>
+		            			<c:if test="${pageNo != totalPages}">
+		            				<li><a href="<c:url value='GetAllPostServlet?pageNo=${pageNo+1}' />">&gt;</a></li>
+		            			</c:if>
+		            		</ul>
+<%-- 		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁 --%>
+		            	</div>
+		            </div>
+					
 				</div>
 			</div>
 		</div>

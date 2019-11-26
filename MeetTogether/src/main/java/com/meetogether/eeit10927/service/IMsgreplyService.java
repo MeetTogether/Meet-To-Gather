@@ -23,4 +23,8 @@ public interface IMsgreplyService {
 	
 	List<Msglike> findMsglikeByMessage(Integer messageId);
 	
+	List<Msgreply> getMsgReplySta(Integer memberId);
+	
+	List<Msglike> getMsgLikeSta(Integer memberId);
+	
 }
