@@ -111,7 +111,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/upadateInfo/{id}", method = RequestMethod.POST)
-	public String updateByInfo(@ModelAttribute("updateInfo") MemberBean m, Model model) {
+	public String updateByInfo(@ModelAttribute("updateInfo") MemberBean m, Model model, HttpSession session) {
 		System.out.println("編號"+m.getMemberId());
 		System.out.println("email"+m.getMemberEmail());
 		System.out.println("密碼"+m.getMemberPassword());
@@ -129,7 +129,7 @@ public class MemberController {
 	
 //		model.addAttribute("vipBean", new VipStatus());
 		model.addAttribute("member", mservice.getMemberById(m.getMemberId()));
-		
+		session.setAttribute("userName", m.getMemberName());
 	
 		return "eeit10901/getMember";
 	}

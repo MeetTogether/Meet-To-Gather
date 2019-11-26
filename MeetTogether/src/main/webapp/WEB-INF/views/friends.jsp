@@ -125,11 +125,11 @@ function responseAjax(){
 					
 					newLi.addEventListener("click",
 							function(e) {
-						
-							if (e.target != sureBt && e.target != refuseBt){
-								window.location.href="${pageContext.request.contextPath}/getmember/"+k;
-							}
-							});
+								
+						if (e.target == this){
+							window.location.href="${pageContext.request.contextPath}/getmember/"+k;
+						}
+						});
 
 				}
 		}
@@ -201,7 +201,7 @@ function serachMyFriends() {
 				});
 				newLi.addEventListener("click",
 						function(e) {
-						if (e.target != delBt && e.target != newSpan){
+						if (e.target == this){
 							var id = this.id;
 							window.location.href="${pageContext.request.contextPath}/getmember/"+id;
 						}
