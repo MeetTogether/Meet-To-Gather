@@ -92,6 +92,14 @@
 	 myObj.innerHTML="已參加";
 	 console.log(myObj);
  }
+ function onedata(){
+	 
+	 document.getElementById("eventName").value='2019台北寵物節 毛孩聖誕城';
+	 document.getElementById("eventContent").value='PetTalk 連續三年主辦台北寵物節，響應台北市「動物友善空間計畫」理念，讓寵物和飼主能健康生活逍遙遊。我們將在「 12月21日」於台北市信義廣場、舉辦盛大的寵物市集活動「2019台北寵物節 毛孩友善聖誕城」。活動規劃寵物星光大道、趣味競賽活動、寵物健康講座、寵物野餐音樂晚會等。本活動與獸醫師公會及台北市動保處共同舉辦，是年末最盛大一場寵物市集活動。';
+	 document.getElementById("eventNum").value='1';
+	 document.getElementById("eventBud").value='235581';
+	 document.getElementById("eventPlace").value='台灣台北市信義區信義路五段11號';
+ }
  
 </script>
 <style type="text/css">
@@ -265,6 +273,7 @@ p {
   text-decoration: none;
   pointer-events：none;
 }
+
 </style>
 
 
@@ -331,6 +340,8 @@ p {
 		</div>
 	</section>
 
+
+
 	
 					
 	<div>&nbsp;</div>
@@ -384,7 +395,7 @@ p {
     					</div>
     					<div class="text p-4 text-center">
     						<h2 class="mb-0"><a href="ByActivity?getId=${acts.eventId}">${acts.eventName}</a></h2>
-    						<span>scheduled start time:${acts.eventTime}</span>
+    						<span>&emsp;&emsp;&emsp;scheduled start time:&emsp;&emsp;&emsp;${acts.eventTime}</span>
 
     						<c:set var="done" value="false" />
   							<c:set var="dones" value="false" />
@@ -539,7 +550,7 @@ p {
 				<span style="float:left; " >主 辦 人:</span>
 					<span style="float:left; margin-left:3%;">${actBean.memberId.memberName}</span><br><br>
 		     	<span style="float:left;">活 動 名 稱:</span><br>
-					<span style="float:left; margin-left:6%;" ><form:input type="text" path="eventName"/></span><br><br>
+					<span style="float:left; margin-left:6%;" ><form:input type="text" path="eventName" id="eventName"/></span><br><br>
 		     	<span style="float:left;">活動類型:</span><br>
 				<span style="float:left; margin-left:6%;"><form:select path="eventCat">
 							<form:option value="-1" label="請選擇" />
@@ -557,17 +568,17 @@ p {
 								class="glyphicon glyphicon-th"></span></span>
 						</div><br>
 			           <span style="float:left;">活動內容:</span><br>
-					<span style="float:left; margin-left:6%;"><form:textarea type="textarea" path="actContent"  style="width:300px;height:100px;" ></form:textarea></span><br>
+					<span style="float:left; margin-left:6%;"><form:textarea type="textarea" path="actContent"  style="width:300px;height:100px;" id="eventContent"></form:textarea></span><br>
 		     	
 						
 		     	<br><br><br>
 		     	<span style="float:left;">活動參與人數:</span><br>
-					<span style="float:left; margin-left:6%;"><form:input type="text" path="groupNum" value="" /></span><br><br>
+					<span style="float:left; margin-left:6%;"><form:input type="text" path="groupNum" value="" id="eventNum"/></span><br><br>
 		     	
 		     	<span style="float:left;">預算:</span><br>
-					<span style="float:left; margin-left:6%;"><form:input type="text" path="budget"  /></span><br><br>
+					<span style="float:left; margin-left:6%;"><form:input type="text" path="budget"  id="eventBud"/></span><br><br>
 		     	<span style="float:left;">活動地點:</span><br>
-					<span style="float:left; margin-left:6%;"><form:input type="text" path="eventPlace" /></span><br><br>
+					<span style="float:left; margin-left:6%;"><form:input type="text" path="eventPlace" id="eventPlace" /></span><br><br>
 				<span style="float:left;">活動建立時間:</span><br>
 					<span style="float:left; margin-left:6%;"><form:input type="text" path="createTime" id="create" /></span><br><br>
 				<span style="float:left;">活動圖片:</span><br>&emsp;&emsp;&emsp;&emsp;
@@ -578,6 +589,7 @@ p {
 		    
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">取 消</button>
         		   <button type="submit" class="btn btn-primary">新 增</button>
+        		   	<button type="button" class="btn btn-primary" onclick="onedata()">一 鍵</button>
 		    	</form:form>
 		      </div>  
       		</div>

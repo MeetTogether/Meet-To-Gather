@@ -300,6 +300,7 @@ public class ActController {
 		System.out.println("--------------+++------------");
 		System.out.println("===============================================ByActivity==========================================");
 		model.addAttribute("actdata",service.getActivityById(id));
+		model.addAttribute("actjoinBean",service.getAllActJoinPeople());
 		ActBean actbean= service.getActivityById(id);
 		System.out.println("actbean.getEventId() =============================== "+actbean.getEventId());
 		List<ReviewBean> list = pService.selectALLByEventId(actbean.getEventId());
@@ -355,6 +356,7 @@ public class ActController {
 		System.out.println("--------------+++------------");
 		System.out.println("===============================================ByActivity2==========================================");
 		model.addAttribute("actdata",service.getActivityById(id));
+		model.addAttribute("actjoinBean",service.getAllActJoinPeople());
 		ActBean actbean= service.getActivityById(id);
 		System.out.println("actbean.getEventId() =============================== "+actbean.getEventId());
 		List<ReviewBean> list = pService.selectALLByEventId(actbean.getEventId());
@@ -407,6 +409,7 @@ public class ActController {
 		System.out.println("--------------+++------------");
 		System.out.println("===============================================ByActivity3==========================================");
 		model.addAttribute("queryString",request.getQueryString());
+		model.addAttribute("actjoinBean",service.getAllActJoinPeople());
 		model.addAttribute("actdata",service.getActivityById(id));
 //		ActBean aa = new ActBean();
 	   // model.addAttribute("actdata", aa); 
@@ -465,6 +468,7 @@ public class ActController {
 		System.out.println("--------------+++------------");
 		System.out.println("===============================================ByActivity4==========================================");
 		model.addAttribute("actdata",service.getActivityById(id));
+		model.addAttribute("actjoinBean",service.getAllActJoinPeople());
 		ActBean actbean= service.getActivityById(id);
 		System.out.println("actbean.getEventId() =============================== "+actbean.getEventId());
 		List<ReviewBean> list = pService.selectALLByEventId(actbean.getEventId());
