@@ -110,17 +110,17 @@ function responseAjax(){
 					
 					document.getElementById(sid).addEventListener("click",function(){
 						var fid = (this.id).substring(3);
+						rsi ="rs"+fid;
 						YoN(1,fid);
 						document.getElementById(rsi).remove();
-						serachMyFriends();
 						});
 					
 					
 					document.getElementById(rid).addEventListener("click",function(){
 						var fid = (this.id).substring(3);
+						rsi ="rs"+fid;
 						YoN(0,fid);
 						document.getElementById(rsi).remove();
-						serachMyFriends();
 					});
 					
 					newLi.addEventListener("click",
