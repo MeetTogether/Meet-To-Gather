@@ -10,7 +10,7 @@
 	         </button>
 	      </div>
 	      <div class="modal-body" style="background-color: #e7eef1;">
-	      	<h3 style="text-align: center;">查無此條件</h3>
+	      	<h3 style="text-align: center;">無符合條件的對象</h3>
 	      	<div style="text-align: center;">
 				√&ensp;試著放寬要求條件<br><br>
 	      	</div>
