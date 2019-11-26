@@ -273,10 +273,10 @@ p {
 		              <ul class="comment-list">
 		                <li class="comment">
 		                  <div class="vcard bio">
-		                    <img src='${pageContext.request.contextPath}/getImage?type=member&id=${reBean.member.memberId}'>
+		                    <a href="${pageContext.request.contextPath}/getmember/${reBean.member.memberId}"><img src='${pageContext.request.contextPath}/getImage?type=member&id=${reBean.member.memberId}'></a>
 		                  </div>
 		                  <div class="comment-body">
-		                    <h3>${reBean.member.memberName}</h3>
+		                    <h3><a href="${pageContext.request.contextPath}/getmember/${reBean.member.memberId}">${reBean.member.memberName}</a></h3>
 		                    <span class="meta">${reBean.createTime}</span>
 		                    <p>${reBean.replyText}</p>
 		                  </div>

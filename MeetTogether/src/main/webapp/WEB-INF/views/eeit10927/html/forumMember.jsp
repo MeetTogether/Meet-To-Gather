@@ -155,28 +155,6 @@ p {
 					<!-- 發文 -->
 					<jsp:include page="../fragment/postMsg.jsp"/>
 					
-					
-		            
-		            <div class="col text-center">
-		            	<div class="block-27">
-		            		<ul>
-		            			<c:if test="${pageNo > 1}">
-		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo-1}' />">&lt;</a></li>
-		            			</c:if>
-		            				<li class="active"><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo}' />">${pageNo }</a></li>
-		            			<%-- <c:forEach items="${totalPage}" var="page">
-		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${page}' />">${page }</a></li>
-		            			</c:forEach> --%>
-<%-- 		            			<li class="active"><span>${pageNo }</span></li> --%>
-		            			<c:if test="${pageNo != totalPages}">
-		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo+1}' />">&gt;</a></li>
-		            			</c:if>
-		            		</ul>
-		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁
-		            	</div>
-		            </div>
-		            
-					
 					<!-- 一則文章 -->
 					<c:forEach items="${msgBeans}" var="msgBean" varStatus="cnt">
 						<c:set var="mId" value="${msgBean.member.memberId}" />
@@ -301,6 +279,26 @@ p {
 						</div>
 						
 					</c:forEach>
+					
+					<div class="col text-center">
+		            	<div class="block-27">
+		            		<ul>
+		            			<c:if test="${pageNo > 1}">
+		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo-1}' />">&lt;</a></li>
+		            			</c:if>
+		            				<li class="active"><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo}' />">${pageNo }</a></li>
+		            			<%-- <c:forEach items="${totalPage}" var="page">
+		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${page}' />">${page }</a></li>
+		            			</c:forEach> --%>
+<%-- 		            			<li class="active"><span>${pageNo }</span></li> --%>
+		            			<c:if test="${pageNo != totalPages}">
+		            				<li><a href="<c:url value='GetUserPostServlet?memberId=${msgBean.member.memberId}&pageNo=${pageNo+1}' />">&gt;</a></li>
+		            			</c:if>
+		            		</ul>
+		            		共有${totalCnt }篇文章&ensp;/&ensp;共${totalPages }頁
+		            	</div>
+		            </div>
+					
 				</div>
 			</div>
 		</div>

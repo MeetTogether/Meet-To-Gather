@@ -61,4 +61,12 @@ public class MsgreplyDaoHibernateImpl implements IMsgreplyDao {
 		return (List<Msgreply>) factory.getCurrentSession().createQuery(hql).setParameter(0, msgId).getResultList();
 	}
 	
+	@Override
+	public List<Msgreply> getMsgReplySta(Integer memberId) {
+		String hql = "from Msgreply WHERE msgId IN (SELECT msgId from Message WHERE memberId = ?0)";
+		List<Msgreply> list = factory.getCurrentSession().createQuery(hql, Msgreply.class)
+									.setParameter(0, memberId).getResultList();
+		return list;
+	}
+	
 }
