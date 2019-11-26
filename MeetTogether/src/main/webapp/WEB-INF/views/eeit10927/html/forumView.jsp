@@ -237,7 +237,7 @@ p {
 															e.preventDefault();
 															if (x_verify < max_fields) {
 																x_verify++;
-																jQueryConflict(wrapper_verify).append('<div><form:input type="text" path="msgTagName" class="Vinput_tag" placeholder="#tag here" onclick="getTag(this)" />&ensp;&ensp;<a href="#" class="remove_field"><span class="icon-remove"></span></a></div>');
+																jQueryConflict(wrapper_verify).append('<div><form:input type="text" path="msgTagName" class="Vinput_tag" placeholder="#tag here" onclick="getTag(this)" autocomplete="false" />&ensp;&ensp;<a href="#" class="remove_field"><span class="icon-remove"></span></a></div>');
 															}
 														});
 														jQueryConflict(wrapper_verify).on("click", ".remove_field", function(e) {
