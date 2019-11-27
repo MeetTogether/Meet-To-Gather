@@ -446,7 +446,7 @@ td{
 									<option value="everyCity">全部</option>
 									<option value="基隆市">基隆市</option>
 									<option value="台北市">台北市</option>
-									<option value="台北縣">台北縣</option>
+									<option value="新北市">新北市</option>
 									<option value="桃園縣">桃園市</option>
 									<option value="新竹市">新竹市</option>
 									<option value="新竹縣">新竹縣</option>

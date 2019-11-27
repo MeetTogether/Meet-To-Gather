@@ -743,8 +743,8 @@ footer p a:hover{
 								<c:choose>
     							<c:when test="${done}">			
 										<span>
-										<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${userId}'>
-										<a href="${pageContext.request.contextPath}/getmember" class="nav-link">
+										<img style="height: 40px; border-radius: 50%;" src='${pageContext.request.contextPath}/getImage?type=member&id=${actjoins.memberbean.memberId}'>
+										<a href="${pageContext.request.contextPath}/getmember/${actjoins.memberbean.memberId}" class="nav-link">
 										${actjoins.memberbean.memberName}</a></span>	
 								</c:when>
 								

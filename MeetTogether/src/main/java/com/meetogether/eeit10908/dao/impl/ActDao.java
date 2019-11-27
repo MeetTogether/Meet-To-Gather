@@ -37,5 +37,5 @@ public interface ActDao {
 	
 	public void addActJoinPeoson(ActBean aBean);
 	
-	List<ActJoinBean> getAllActJoinPeople();
+	List<ActJoinBean> getAllActJoinPeople(Integer eventId);
 }
