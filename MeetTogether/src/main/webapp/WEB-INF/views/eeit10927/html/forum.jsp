@@ -60,7 +60,7 @@ jQueryConflict(document).ready(function() {
 		});
 	jQueryConflict("#ViewMyPost").click(
 			function() {
-				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}&pageNo=1";
+				top.location.href = "${pageContext.request.contextPath}/GetUserPostServlet?memberId=${userId}";
 			});
 	jQueryConflict("#ViewAllPost").click(
 			function() {

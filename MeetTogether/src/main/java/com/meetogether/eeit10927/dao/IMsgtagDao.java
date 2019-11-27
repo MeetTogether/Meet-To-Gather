@@ -15,6 +15,8 @@ public interface IMsgtagDao {
 
 	List<Msgtag> getAllMsgtag();
 	
+	public Map<String, Integer> getAllMsgtagByCnt();
+	
 	List<Message> getMsgByTagName(String tagName);
 	
 	void deleteMsgTagByMsgId(Integer msgId);

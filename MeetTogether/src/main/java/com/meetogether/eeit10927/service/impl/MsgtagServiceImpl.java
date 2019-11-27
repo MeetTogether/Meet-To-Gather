@@ -58,4 +58,10 @@ public class MsgtagServiceImpl implements IMsgtagService {
 		return tagDao.getMsgtagByQuery(query);
 	}
 
+	@Transactional
+	@Override
+	public Map<String, Integer> getAllMsgtagByCnt() {
+		return tagDao.getAllMsgtagByCnt();
+	}
+
 }

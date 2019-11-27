@@ -431,6 +431,14 @@ public class MessageController {
 		return msgTagMap;
 	}
 	
+	
+	public Map<String, Integer> getMsgTagByCnt() {
+		Map<String, Integer> msgTagMap = new HashMap<>();
+		msgTagMap = mtagService.getAllMsgtagByCnt();
+		System.out.println("msgTagMap: " + msgTagMap);
+		return msgTagMap;
+	}
+	
 	// 以Pdf格式顯示單筆Message資料
 	@RequestMapping(value = "message/{memberId}/{messageId}.pdf", method = RequestMethod.GET, produces = "application/pdf")
 	public String showSingleMessagePDF(Model model, 

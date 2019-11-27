@@ -20,5 +20,7 @@ public interface IMsgtagService {
 	void deleteMsgTagByMsgId(Integer msgId);
 	
 	List<Msgtag> getMsgtagByQuery(String query);
+	
+	public Map<String, Integer> getAllMsgtagByCnt();
 
 }
