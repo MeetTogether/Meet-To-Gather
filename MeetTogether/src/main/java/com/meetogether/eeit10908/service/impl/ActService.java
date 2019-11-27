@@ -34,5 +34,5 @@ public interface ActService {
     
     public void addJoinPerson(ActBean abean);
     
-    List<ActJoinBean> getAllActJoinPeople();
+    List<ActJoinBean> getAllActJoinPeople(Integer eventId);
 }

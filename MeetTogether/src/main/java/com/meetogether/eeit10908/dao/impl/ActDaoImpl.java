@@ -187,11 +187,12 @@ public class ActDaoImpl implements ActDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ActJoinBean> getAllActJoinPeople() {
+	public List<ActJoinBean> getAllActJoinPeople(Integer eventId) {
 		Session session = factory.getCurrentSession();
-		String hql ="FROM ActJoinBean";
+		String hql ="FROM ActJoinBean WHERE eventId = ?0";
 		List<ActJoinBean> list = new ArrayList<>();
-		list = session.createQuery(hql).getResultList();
+		list = session.createQuery(hql).setParameter(0, eventId)
+				.getResultList();
 		
 		return list;
 	}

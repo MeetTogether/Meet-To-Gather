@@ -64,7 +64,6 @@ public class ChatMsgRedisDao {
 				Gson gson = new GsonBuilder().create();
 				jedis.lpush(key, gson.toJson(msg));
 				recordListFromRedis = jedis.lrange(key, 0, 5);
-				setUnreadMsg(to.toString(),from.toString());
 			}
 			Gson gson =new Gson();
 			recordListFromRedis.forEach((i)->{

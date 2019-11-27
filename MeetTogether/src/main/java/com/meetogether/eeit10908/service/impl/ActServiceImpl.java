@@ -113,8 +113,8 @@ public class ActServiceImpl implements ActService {
 
 
 	@Override
-	public List<ActJoinBean> getAllActJoinPeople() {
-		return custDao.getAllActJoinPeople();
+	public List<ActJoinBean> getAllActJoinPeople(Integer eventId) {
+		return custDao.getAllActJoinPeople(eventId);
 	}
 
 }
