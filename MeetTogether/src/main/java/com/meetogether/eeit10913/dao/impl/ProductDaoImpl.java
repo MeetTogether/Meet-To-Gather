@@ -118,7 +118,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<ReviewBean> selectALLByEventId(Integer eventId) {
 		System.out.println("eventId================="+eventId);
-		String hql = "FROM ReviewBean where eventId = ?0";
+		String hql = "FROM ReviewBean where eventId = ?0 order by createtime desc";
 		Session session = null;
 		List<ReviewBean> list = new ArrayList<>();
 
