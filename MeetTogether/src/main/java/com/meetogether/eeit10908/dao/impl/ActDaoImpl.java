@@ -32,7 +32,7 @@ public class ActDaoImpl implements ActDao {
 	@Override
 	public List<ActBean> getAllAct() {
 		Session session = factory.getCurrentSession();
-		String hql ="FROM ActBean";
+		String hql ="FROM ActBean order by createTime desc";
 		List<ActBean> list = new ArrayList<>();
 		list = session.createQuery(hql).getResultList();
 		
